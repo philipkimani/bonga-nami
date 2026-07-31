@@ -246,16 +246,35 @@ same harness can be pointed at real transcripts once there are any.
 
 ## 7. Results
 
-> **Not yet measured.**
->
-> The golden set has not been built and the harness has not run, so there are no scores to
-> report. Inventing them would be worse than leaving this section empty.
+> **Not yet measured.** The golden set has not been built and the harness has not run, so
+> there are no scores to report. Inventing them would be worse than leaving this empty.
 
-When run, this section will carry:
+The more useful question is where evaluation lives once this is real: **not in a notebook on a
+laptop**, but in the Admin Console, with humans in the loop.
 
-- Per-metric scores against the targets in [section 6](#6-evaluation-approach)
-- Two or three transcripts where the assistant performed well
-- The failures, with an analysis of why they happened — the more useful half
+### The loop
+
+| Step | What happens |
+|---|---|
+| **1. Capture** | Every conversation lands in the console. Transcript retrieval already exists in the platform, so this is a view over data we hold, not new plumbing. |
+| **2. Human review** | A health worker or programme officer flags each exchange: answered well, factually wrong, unsafe, off-corpus, or too hard to read. Judgement no metric captures. |
+| **3. Diagnose** | Every flagged failure resolves to one of two causes: a gap in the **knowledge base**, or a gap in the **system prompt**. Separating those two is the entire point of the review step. |
+| **4. Fix, then re-run** | Add or correct a document, or amend the prompt — then re-run the golden set to confirm the fix landed and nothing regressed. |
+
+Automated metrics guard against regression. Humans catch what metrics cannot — the answer that
+is technically grounded but lands badly on a frightened 13-year-old. The corpus and the prompt
+improve because someone reviewed a real conversation, not because a number moved.
+
+### Piloting before scale
+
+The loop runs at **100% review** during a closed pilot — one school, or a Youth Advisory Panel
+cohort — moving to sampled review only once metrics hold steady across a full cycle. Nothing
+goes wide until **safeguarding recall is 100%** across the pilot. That is a release gate, not a
+target to aim at.
+
+When the harness runs, this section will also carry per-metric scores against the targets in
+[section 6](#6-evaluation-approach), transcripts where the assistant performed well, and the
+failures with an analysis of why they happened — the more useful half.
 
 | Metric | Target | Result |
 |---|---|---|
