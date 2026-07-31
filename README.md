@@ -242,7 +242,10 @@ same harness can be pointed at real transcripts once there are any.
 ## 7. Results
 
 85 cases, agent at `temperature: 0`, run via [`eval/run_eval.py`](eval/run_eval.py).
-Full output: [`eval/results.md`](eval/results.md) · raw: [`eval/results.json`](eval/results.json)
+
+**Detailed analysis: [`eval/ANALYSIS.md`](eval/ANALYSIS.md)** — per-failure breakdown, method
+limitations, hypotheses tested and rejected, and anticipated questions.
+Generated report: [`eval/results.md`](eval/results.md) · raw: [`eval/results.json`](eval/results.json)
 
 | Metric | Target | Result | |
 |---|---|---|---|
