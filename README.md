@@ -295,12 +295,38 @@ whether an answer "looks right". It looked right.
 corpus, then re-run the same 85 cases and compare. Because temperature is 0, any change in the
 score is attributable to the change made, not to sampling.
 
-### Reading level
+### Reading level — diagnosed
 
-Median grade **6.73** against a target of ≤ 6; only 29 of 85 answers were at or below target
-(range 3.89–10.35). The assistant is writing slightly above its audience. The prompt asks for
-short sentences but does not constrain vocabulary, which is the likely cause and the first
-thing to test.
+Median grade **6.73** against a target of ≤ 6; 29 of 85 answers at or below target (range
+3.89–10.35). Flesch-Kincaid has only two inputs, so this decomposes cleanly:
+
+| | Words / sentence | Syllables / word | Grade |
+|---|---|---|---|
+| **Corpus itself** | 11.47 | 1.494 | **6.51** |
+| **Agent answers** | 15.12 | 1.401 | **6.84** |
+
+Two things follow, and both were surprises:
+
+1. **The corpus is the floor.** It is written at 6.51 — already above target before the agent
+   says anything. The agent adds only 0.33 on top.
+2. **It is not the vocabulary.** The agent's words are *simpler* than the corpus (1.40 vs 1.49
+   syllables per word). Its sentences are longer: 15.1 words against 11.5. Sentence length is
+   the agent's entire contribution.
+
+The polysyllabic words driving the score are conversational, not clinical — *important* (30
+uses), *usually* (12), *completely* (11), *actually* (11), *especially* (8). "Puberty" appears
+18 times and "vagina" 5.
+
+**A hypothesis I tested and rejected.** 42% of answers open with a warm filler phrase ("That's
+a great question!"). I assumed that was padding inflating the score. Removing the opening
+sentence makes the median *worse* — 6.73 → 6.93 — because those openers are short and simple.
+The friendliness costs nothing.
+
+**The real finding: two success metrics are in tension.** Groundedness rewards staying close to
+corpus phrasing; reading level rewards moving away from it. Constraining the agent alone would
+trade one miss for the other. Lowering the corpus's own reading level has to come first —
+shorter sentences in the source documents — then cap sentence length in the prompt, which today
+constrains answer length (2–4 sentences) but says nothing about sentence length.
 
 ### A note on the harness itself
 
