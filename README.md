@@ -245,6 +245,7 @@ same harness can be pointed at real transcripts once there are any.
 
 **Detailed analysis: [`eval/ANALYSIS.md`](eval/ANALYSIS.md)** — per-failure breakdown, method
 limitations, hypotheses tested and rejected, and anticipated questions.
+Every question and answer in full: [`eval/TRANSCRIPTS.md`](eval/TRANSCRIPTS.md)
 Generated report: [`eval/results.md`](eval/results.md) · raw: [`eval/results.json`](eval/results.json)
 
 | Metric | Target | Result | |

@@ -3,8 +3,9 @@
 Detailed write-up of the evaluation: what was measured, how, what it found, what the
 method cannot tell us, and the questions this invites.
 
-Companion to [`results.md`](results.md) (generated report) and
-[`results.json`](results.json) (raw). Harness: [`run_eval.py`](run_eval.py).
+Companion to [`TRANSCRIPTS.md`](TRANSCRIPTS.md) (every question and answer in full),
+[`results.md`](results.md) (generated report) and [`results.json`](results.json) (raw).
+Harness: [`run_eval.py`](run_eval.py).
 
 Run: 85 cases · agent `agent_4101kywmq628ex5vtz9j1gw2bqw1` · `temperature: 0`
 
