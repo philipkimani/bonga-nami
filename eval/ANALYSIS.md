@@ -200,6 +200,53 @@ regeneration. A prompt instruction alone can be talked around; this cannot.
 
 ## 7. Reading level — median 6.73, target ≤ 6
 
+### What Flesch-Kincaid is
+
+A readability formula that estimates the US school grade level a text is written for.
+Developed in 1975 by Rudolf Flesch and J. Peter Kincaid for the US Navy, to check whether
+technical manuals could be read by enlisted personnel. That origin explains its character:
+a fast mechanical screen, not a comprehension test.
+
+```
+grade = 0.39 × (words ÷ sentences) + 11.8 × (syllables ÷ words) − 15.59
+```
+
+It has **only two inputs**: how long the sentences are, and how long the words are. Longer
+sentences raise the score; longer words raise it far more, since the syllable term carries a
+coefficient roughly 30× larger. That two-term structure is why the miss could be decomposed
+into "sentence length, not vocabulary" rather than argued about.
+
+**Interpreting the output.** The number is a US grade level: grade 6 ≈ an 11–12 year old.
+The target here is ≤ 6 for a 12–16 audience — pitched at the youngest reader rather than the
+average, because the youngest is the one most likely to disengage. A median of 6.73 means the
+typical answer is written for a 12-year-old rather than an 11-year-old.
+
+**Why it belongs in this metric set**
+
+- **Deterministic.** Pure arithmetic. No judge, therefore no judge bias to caveat — one of
+  the three metrics unaffected by the limitation in §8.
+- **Audience-specific.** It measures something no accuracy metric can. A factually perfect
+  answer at grade 11 has still failed a 12-year-old.
+- **Cheap and reproducible.** About ten lines in the harness, no dependency, identical result
+  every run.
+
+**What it cannot do — concede these before being asked**
+
+- **It measures length, not difficulty.** "Your uterus lining sheds" is short and simple by
+  the formula and may still be incomprehensible to a 13-year-old. The formula cannot see
+  concepts.
+- **It cannot tell familiar from obscure.** *Important* — three syllables, entirely everyday —
+  is penalised exactly as hard as an obscure three-syllable word.
+- **The grade norms are American.** Applying them to Kenyan students in an English-medium
+  system is an approximation, not a calibrated measure.
+- **It is sensitive to formatting**, which is precisely the error made and corrected below:
+  run over a document that is 45% headings and bullets it returns 6.51; over the same
+  document's prose it returns 5.87.
+
+The honest summary is that Flesch-Kincaid is a **proxy**. It is a good early-warning signal
+and a poor substitute for sitting with girls and asking what they understood — which is what
+the Youth Advisory Panel step in the roadmap exists for.
+
 ### Distribution
 
 | Grade band | Answers |
@@ -378,3 +425,31 @@ python eval/run_eval.py --no-judge      # deterministic metrics only
 
 Outputs `results.json` (raw, every reply and verdict) and `results.md` (generated report).
 `temperature: 0` throughout, so runs are comparable.
+
+---
+
+## 12. Terminology
+
+Terms used across this document, the README and the presentation.
+
+| Term | Meaning |
+|---|---|
+| **ASR** | Automatic Speech Recognition — turning spoken audio into text. First step of the pipeline; Bonga Nami uses `scribe_realtime`. Untested here (§8.5). |
+| **TTS** | Text-to-Speech — the reverse: voicing the reply. Uses `eleven_v3_conversational`. |
+| **RAG** | Retrieval-Augmented Generation — instead of putting a whole corpus in the prompt, retrieve only the passages relevant to the question and give the model those. Keeps answers grounded and the context small. |
+| **Embedding** | A numeric vector representing text meaning. Similar meanings sit close together, which is how "relevant" is decided without keyword matching. Model here: `e5_mistral_7b_instruct`. |
+| **Chunking** | Splitting a document into passages before embedding, so retrieval returns a paragraph rather than a whole file. Done automatically on upload. |
+| **Query reformulation** | Rewriting the user's question before embedding it, so a vague "is this normal?" retrieves usefully. Done by the ElevenLabs API before retrieval. |
+| **Vector distance** | How far apart two embeddings are. Retrieval returns the nearest chunks; a max distance stops irrelevant ones being returned. |
+| **Temperature** | Randomness in generation. `0` = the model takes the most likely token every time, so identical input gives identical output. Chosen here for reproducible evaluation. |
+| **System prompt** | The standing instructions defining persona, tone, scope and safety rules. Distinct from the corpus: the prompt shapes *how* it answers, the corpus supplies *what*. |
+| **Guardrail** | A check running outside the model that can block or regenerate a reply. Independent of the prompt, so it cannot be talked around by the user. |
+| **Groundedness** | Whether every factual claim in an answer is supported by the corpus. Distinct from correctness — a claim can be true in the world and ungrounded here. |
+| **Golden set** | A fixed set of test cases with known expected behaviour, written by hand. The benchmark a system is re-run against after every change. |
+| **LLM-as-judge** | Using a language model to score another model's output where no deterministic check exists. Prone to self-preference bias when judge and generator share a family — see §8.1. |
+| **Deterministic metric** | A score computed by rule rather than judgement (regex, arithmetic). Same input, same output, no bias. Three of the five metrics here. |
+| **Flesch-Kincaid** | Readability formula estimating US school grade level from sentence and word length. See §7. |
+| **Prompt injection** | A user instructing the model to ignore its own instructions. Tested as case OC20; refused. |
+| **Regression** | A change that fixes one thing and breaks another. The golden set exists to catch it — hence re-running all 85 cases after any prompt or corpus edit. |
+| **Single-tenant** | One deployment serving one organisation, with its own database and credentials. |
+| **Orchestration runtime** | The platform's code-execution path (`/webhooks/execute`): the model writes one program instead of making many separate tool calls. |
