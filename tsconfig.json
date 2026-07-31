@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/clients/platform-client" },
+    { "path": "packages/extensions/payments" },
+    { "path": "packages/extensions/whatsapp" },
+    { "path": "packages/extensions/voice" },
+    { "path": "packages/extensions/knowledge-base" }
+  ]
+}

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMS - Admin Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    .sidebar-link { transition: all 0.2s; }
+    .sidebar-link:hover { background: rgba(255,255,255,0.1); }
+    .sidebar-link.active { background: rgba(255,255,255,0.2); border-left: 4px solid white; }
+    .message-customer { background: #e5e7eb; }
+    .message-ai { background: #dbeafe; }
+    .message-human { background: #d1fae5; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 gradient-bg text-white flex flex-col">
+      <div class="p-6 border-b border-white/20">
+        <h1 class="text-xl font-bold">🤖 Admin Assistant</h1>
+        <p class="text-sm text-white/70 mt-1">AI Customer Service</p>
+      </div>
+      
+      <nav class="flex-1 p-4">
+        <a href="/admin-assistant/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="/admin-assistant/calls/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>📞</span> Voice Calls
+        </a>
+        <a href="/admin-assistant/sms/" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>💬</span> SMS
+        </a>
+        <a href="/admin-assistant/whatsapp/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>📱</span> WhatsApp
+        </a>
+        
+        <div class="mt-8 pt-4 border-t border-white/20">
+          <a href="/admin-assistant/settings/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg">
+            <span>⚙️</span> Settings
+          </a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="flex-1 flex overflow-hidden">
+      <!-- Conversations List -->
+      <div class="w-80 bg-white border-r flex flex-col">
+        <div class="p-4 border-b">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">SMS Conversations</h3>
+            <button onclick="showBulkModal()" class="text-sm text-purple-600 hover:underline">
+              Bulk Send
+            </button>
+          </div>
+          <input type="search" id="searchConversations" placeholder="Search by phone..." 
+                 class="w-full px-3 py-2 border rounded-lg text-sm">
+        </div>
+        
+        <!-- Tabs -->
+        <div class="flex border-b">
+          <button onclick="filterTab('all')" class="flex-1 px-4 py-2 text-sm border-b-2 border-purple-600 text-purple-600 font-medium" id="tabAll">
+            All
+          </button>
+          <button onclick="filterTab('escalated')" class="flex-1 px-4 py-2 text-sm text-gray-500 hover:text-gray-700" id="tabEscalated">
+            Escalated <span class="ml-1 px-1.5 py-0.5 bg-orange-100 text-orange-700 rounded text-xs" id="escalatedBadge">0</span>
+          </button>
+        </div>
+        
+        <!-- Conversation List -->
+        <div id="conversationList" class="flex-1 overflow-auto">
+          <div class="p-8 text-center text-gray-500">
+            <p>No SMS conversations yet</p>
+            <p class="text-sm mt-2">Messages will appear when customers text your Twilio number</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chat Area -->
+      <div class="flex-1 flex flex-col">
+        <!-- Chat Header -->
+        <div class="p-4 bg-white border-b flex items-center justify-between" id="chatHeader">
+          <div>
+            <h2 class="font-semibold text-gray-800">Select a conversation</h2>
+            <p class="text-sm text-gray-500">Choose a conversation from the list</p>
+          </div>
+        </div>
+        
+        <!-- Messages -->
+        <div id="messageArea" class="flex-1 overflow-auto p-4 bg-gray-50">
+          <div class="flex items-center justify-center h-full text-gray-500">
+            <div class="text-center">
+              <span class="text-6xl">💬</span>
+              <p class="mt-4">Select a conversation to view messages</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reply Input (hidden until conversation selected) -->
+        <div id="replyArea" class="hidden p-4 bg-white border-t">
+          <div class="flex gap-3">
+            <input type="text" id="replyInput" placeholder="Type a reply..." 
+                   class="flex-1 px-4 py-2 border rounded-lg" onkeypress="handleReplyKeypress(event)">
+            <button onclick="sendReply()" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+              Send
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-2" id="replyNote">
+            Replying as human agent. AI will not respond while you're active.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Bulk SMS Modal -->
+  <div id="bulkModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="card p-6 w-[500px]">
+      <h3 class="text-lg font-semibold mb-4">📨 Bulk SMS</h3>
+      <form onsubmit="sendBulkSms(event)">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+          <input type="text" id="bulkCampaignName" placeholder="e.g., Flash Sale Alert" 
+                 class="w-full px-3 py-2 border rounded-lg">
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Message Template</label>
+          <textarea id="bulkMessage" rows="3" 
+                    placeholder="Hello {{name}}, we have a special offer for you!"
+                    class="w-full px-3 py-2 border rounded-lg" required></textarea>
+          <p class="text-xs text-gray-500 mt-1">Use {{name}} for personalization</p>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Recipients (one per line)</label>
+          <textarea id="bulkRecipients" rows="5" 
+                    placeholder="+254712345678,John&#10;+254723456789,Jane"
+                    class="w-full px-3 py-2 border rounded-lg font-mono text-sm" required></textarea>
+          <p class="text-xs text-gray-500 mt-1">Format: phone,name</p>
+        </div>
+        <div class="flex gap-3">
+          <button type="button" onclick="hideBulkModal()" 
+                  class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+            Cancel
+          </button>
+          <button type="submit" 
+                  class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+            Send to All
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    let selectedConversation = null;
+    let currentTab = 'all';
+    
+    // Load conversations
+    async function loadConversations() {
+      try {
+        const status = currentTab === 'escalated' ? 'escalated' : '';
+        const params = status ? `?status=${status}` : '';
+        
+        const response = await fetch(`/api/admin-assistant/sms/conversations${params}`);
+        const data = await response.json();
+        
+        renderConversations(data.conversations || []);
+        
+        // Get queue count
+        const queueResponse = await fetch('/api/admin-assistant/sms/queue');
+        const queueData = await queueResponse.json();
+        document.getElementById('escalatedBadge').textContent = queueData.count;
+        
+      } catch (error) {
+        console.error('Failed to load conversations:', error);
+      }
+    }
+    
+    function renderConversations(conversations) {
+      const container = document.getElementById('conversationList');
+      
+      if (conversations.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-gray-500">
+            <p>No conversations</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = conversations.map(conv => `
+        <div onclick="selectConversation('${conv.id}', '${conv.contactId}')" 
+             class="p-4 border-b hover:bg-gray-50 cursor-pointer ${selectedConversation === conv.id ? 'bg-purple-50' : ''}">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-sm">${conv.contactId}</span>
+            ${conv.status === 'escalated' ? '<span class="px-2 py-0.5 bg-orange-100 text-orange-700 rounded text-xs">Needs reply</span>' : ''}
+          </div>
+          <p class="text-sm text-gray-500 mt-1 truncate">
+            ${formatTime(conv.startedAt)} • ${conv.aiHandledCount} AI messages
+          </p>
+        </div>
+      `).join('');
+    }
+    
+    async function selectConversation(conversationId, phoneNumber) {
+      selectedConversation = conversationId;
+      
+      // Update header
+      document.getElementById('chatHeader').innerHTML = `
+        <div>
+          <h2 class="font-semibold text-gray-800">${phoneNumber}</h2>
+          <p class="text-sm text-gray-500">SMS Conversation</p>
+        </div>
+        <button onclick="sendQuickReply()" class="px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700">
+          Quick Replies
+        </button>
+      `;
+      
+      // Show reply area
+      document.getElementById('replyArea').classList.remove('hidden');
+      
+      // Load messages
+      try {
+        const response = await fetch(`/api/admin-assistant/sms/conversations/${conversationId}/messages`);
+        const data = await response.json();
+        renderMessages(data.messages || []);
+      } catch (error) {
+        console.error('Failed to load messages:', error);
+      }
+      
+      // Reload conversation list to update selection
+      loadConversations();
+    }
+    
+    function renderMessages(messages) {
+      const container = document.getElementById('messageArea');
+      
+      if (messages.length === 0) {
+        container.innerHTML = `
+          <div class="flex items-center justify-center h-full text-gray-500">
+            <p>No messages in this conversation</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = messages.map(msg => {
+        const isCustomer = msg.sender === 'customer';
+        const isAi = msg.sender === 'ai';
+        const alignClass = isCustomer ? 'justify-start' : 'justify-end';
+        const bgClass = isCustomer ? 'message-customer' : (isAi ? 'message-ai' : 'message-human');
+        const label = isCustomer ? 'Customer' : (isAi ? '🤖 AI' : '👤 Agent');
+        
+        return `
+          <div class="flex ${alignClass} mb-3">
+            <div class="max-w-md">
+              <div class="text-xs text-gray-500 mb-1">${label} • ${formatTime(msg.createdAt)}</div>
+              <div class="${bgClass} px-4 py-2 rounded-lg">
+                ${msg.content}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // Scroll to bottom
+      container.scrollTop = container.scrollHeight;
+    }
+    
+    async function sendReply() {
+      const input = document.getElementById('replyInput');
+      const message = input.value.trim();
+      
+      if (!message || !selectedConversation) return;
+      
+      try {
+        // Check if this is an escalated conversation
+        const queueResponse = await fetch('/api/admin-assistant/sms/queue');
+        const queueData = await queueResponse.json();
+        const escalation = queueData.queue.find(q => q.conversationId === selectedConversation);
+        
+        if (escalation) {
+          // Reply to escalated conversation
+          await fetch(`/api/admin-assistant/sms/queue/${selectedConversation}/reply`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, agentId: 'current-user' })
+          });
+        } else {
+          // Direct send
+          // Get phone number from header
+          const phoneNumber = document.querySelector('#chatHeader h2').textContent;
+          await fetch('/api/admin-assistant/sms/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ to: phoneNumber, message, conversationId: selectedConversation })
+          });
+        }
+        
+        input.value = '';
+        // Reload messages
+        const response = await fetch(`/api/admin-assistant/sms/conversations/${selectedConversation}/messages`);
+        const data = await response.json();
+        renderMessages(data.messages || []);
+        
+      } catch (error) {
+        console.error('Failed to send reply:', error);
+        alert('Failed to send message');
+      }
+    }
+    
+    function handleReplyKeypress(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendReply();
+      }
+    }
+    
+    function filterTab(tab) {
+      currentTab = tab;
+      
+      // Update tab styles
+      document.getElementById('tabAll').className = tab === 'all' 
+        ? 'flex-1 px-4 py-2 text-sm border-b-2 border-purple-600 text-purple-600 font-medium'
+        : 'flex-1 px-4 py-2 text-sm text-gray-500 hover:text-gray-700';
+      document.getElementById('tabEscalated').className = tab === 'escalated'
+        ? 'flex-1 px-4 py-2 text-sm border-b-2 border-purple-600 text-purple-600 font-medium'
+        : 'flex-1 px-4 py-2 text-sm text-gray-500 hover:text-gray-700';
+      
+      loadConversations();
+    }
+    
+    function showBulkModal() {
+      document.getElementById('bulkModal').classList.remove('hidden');
+    }
+    
+    function hideBulkModal() {
+      document.getElementById('bulkModal').classList.add('hidden');
+    }
+    
+    async function sendBulkSms(event) {
+      event.preventDefault();
+      
+      const campaignName = document.getElementById('bulkCampaignName').value;
+      const messageTemplate = document.getElementById('bulkMessage').value;
+      const recipientsText = document.getElementById('bulkRecipients').value;
+      
+      const recipients = recipientsText.split('\n')
+        .filter(line => line.trim())
+        .map(line => {
+          const [phone, name] = line.split(',');
+          return { 
+            phone: phone.trim(), 
+            variables: name ? { name: name.trim() } : {} 
+          };
+        });
+      
+      try {
+        const response = await fetch('/api/admin-assistant/sms/bulk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            campaignName, 
+            messageTemplate, 
+            recipients 
+          })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          alert(`Bulk SMS sent! ${data.successful} successful, ${data.failed} failed.`);
+          hideBulkModal();
+        } else {
+          const error = await response.json();
+          alert('Error: ' + error.error);
+        }
+      } catch (error) {
+        alert('Failed to send bulk SMS');
+      }
+    }
+    
+    function formatTime(dateStr) {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const isToday = date.toDateString() === now.toDateString();
+      
+      if (isToday) {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+      return date.toLocaleDateString();
+    }
+    
+    // Initial load
+    loadConversations();
+    setInterval(loadConversations, 15000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+{
+  "name": "@platform/voice-extension",
+  "version": "0.1.0",
+  "description": "Voice/conversational AI extension for chatbot platform - tenant-aware ElevenLabs proxy",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./handlers": {
+      "types": "./dist/handlers/index.d.ts",
+      "import": "./dist/handlers/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    },
+    "./widget": {
+      "import": "./dist/widget/voice-widget.es.js"
+    },
+    "./backend/*": {
+      "types": "./dist/backend/*.d.ts",
+      "import": "./dist/backend/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "build:widget": "vite build",
+    "build:all": "pnpm run build && pnpm run build:widget",
+    "clean": "rimraf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@platform/core": "workspace:*",
+    "ws": "^8.18.0",
+    "zod": "^3.24.1"
+  },
+  "peerDependencies": {
+    "@elevenlabs/react": ">=0.1.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@elevenlabs/react": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@elevenlabs/react": "^0.1.0",
+    "@types/react": "^18.3.0",
+    "@types/ws": "^8.5.10",
+    "@vitejs/plugin-react": "^4.3.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "rimraf": "^5.0.5",
+    "terser": "^5.30.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.0",
+    "vitest": "^2.1.8"
+  },
+  "keywords": [
+    "chatbot",
+    "voice",
+    "elevenlabs",
+    "extension",
+    "multi-tenant"
+  ]
+}

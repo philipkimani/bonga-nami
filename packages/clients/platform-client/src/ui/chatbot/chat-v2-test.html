@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant | Chat V2 Test | Ruskins AI</title>
+    <meta name="description" content="Chat V2 Integration Test - Powered by ElevenLabs">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #667eea;
+            --primary-light: #7c3aed;
+            --bg-gradient-start: #1e1b4b;
+            --bg-gradient-end: #312e81;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: white;
+        }
+        
+        .hero {
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.5);
+            color: #a5b4fc;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-header h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .chat-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: #f9fafb;
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message.assistant {
+            justify-content: flex-start;
+        }
+        
+        .message-bubble {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .message.user .message-bubble {
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.assistant .message-bubble {
+            background: #e5e7eb;
+            color: #1f2937;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: #e5e7eb;
+            border-radius: 12px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #9ca3af;
+            animation: bounce 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+        }
+        
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #9ca3af;
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .chat-input-area {
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .chat-input {
+            flex: 1;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .chat-input:disabled {
+            background: #f3f4f6;
+            color: #9ca3af;
+        }
+        
+        .send-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            min-width: 80px;
+        }
+        
+        .send-btn:hover:not(:disabled) {
+            background: var(--primary-light);
+        }
+        
+        .send-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+        
+        .status-bar {
+            background: #f3f4f6;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.85rem;
+            color: #6b7280;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-right: 0.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .test-banner {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.5);
+            color: #fbbf24;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="badge">🧪 Chat V2 Test - @elevenlabs/react SDK</div>
+        <h1>Chat V2 Integration</h1>
+        <p>Testing the new ElevenLabs React SDK integration</p>
+    </div>
+
+    <div class="test-banner">
+        ⚠️ TEST MODE - Chat V2 widget integration test
+    </div>
+
+    <div class="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <h2>AI Assistant</h2>
+            <p>Powered by ElevenLabs Chat V2</p>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="chat-messages" id="messagesContainer">
+            <div class="empty-state">
+                <div class="empty-state-icon">💬</div>
+                <div>Start a conversation to begin</div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <input 
+                type="text" 
+                id="messageInput" 
+                class="chat-input" 
+                placeholder="Type your message here..."
+                autocomplete="off"
+            />
+            <button class="send-btn" id="sendBtn">Send</button>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-indicator"></span>
+            <span id="statusText">Ready to chat</span>
+        </div>
+    </div>
+
+    <script>
+        // Chat V2 Test Implementation
+        const messagesContainer = document.getElementById('messagesContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusText = document.getElementById('statusText');
+
+        let isConnected = false;
+        let isLoading = false;
+
+        // Initialize
+        window.addEventListener('load', () => {
+            console.log('🎯 Chat V2 Test Page Loaded');
+            initializeChat();
+        });
+
+        async function initializeChat() {
+            try {
+                // Check if server is running
+                const response = await fetch('/api/config/public');
+                if (!response.ok) throw new Error('Server not responding');
+
+                const config = await response.json();
+                console.log('✅ Connected to server');
+                console.log('📦 Config:', config);
+
+                isConnected = true;
+                statusText.textContent = 'Connected to Chat V2';
+                messagesContainer.innerHTML = '';
+                
+                // Welcome message
+                addMessage('assistant', '👋 Welcome to Chat V2! How can I help you today?');
+            } catch (error) {
+                console.error('❌ Connection failed:', error);
+                statusText.textContent = `Connection failed: ${error.message}`;
+                addMessage('assistant', '❌ Unable to connect to server. Make sure it\'s running on port 3001.');
+            }
+        }
+
+        // Send button click
+        sendBtn.addEventListener('click', sendMessage);
+
+        // Enter key to send
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !isLoading) {
+                sendMessage();
+            }
+        });
+
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message || isLoading || !isConnected) return;
+
+            // Clear input
+            messageInput.value = '';
+            messageInput.focus();
+
+            // Add user message
+            addMessage('user', message);
+
+            // Show typing indicator
+            isLoading = true;
+            sendBtn.disabled = true;
+            messageInput.disabled = true;
+            statusText.textContent = 'Agent typing...';
+
+            try {
+                // Simulate agent response (in real implementation, would call /webhooks/execute)
+                // For now, just echo back after a delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Demo response
+                addMessage('assistant', `Echo: "${message}"\n\n✅ Chat V2 widget working correctly!`);
+                statusText.textContent = 'Connected to Chat V2';
+            } catch (error) {
+                addMessage('assistant', `❌ Error: ${error.message}`);
+                statusText.textContent = 'Error occurred';
+            } finally {
+                isLoading = false;
+                sendBtn.disabled = false;
+                messageInput.disabled = false;
+            }
+        }
+
+        function addMessage(role, content) {
+            if (messagesContainer.querySelector('.empty-state')) {
+                messagesContainer.innerHTML = '';
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+
+            if (role === 'assistant' && isLoading) {
+                messageDiv.innerHTML = `
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `<div class="message-bubble">${escapeHtml(content)}</div>`;
+            }
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        console.log('🚀 Chat V2 Test Ready');
+        console.log('Waiting for server connection...');
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false
+  },
+  "references": [
+    { "path": "../../core" },
+    { "path": "../../extensions/payments" },
+    { "path": "../../extensions/whatsapp" },
+    { "path": "../../extensions/voice" },
+    { "path": "../../extensions/knowledge-base" }
+  ],
+  "include": ["src/**/*"],
+  "exclude": ["src/ui/admin-console-react/**/*"]
+}
+

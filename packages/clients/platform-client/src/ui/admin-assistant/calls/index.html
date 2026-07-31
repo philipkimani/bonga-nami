@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Calls - Admin Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    .sidebar-link { transition: all 0.2s; }
+    .sidebar-link:hover { background: rgba(255,255,255,0.1); }
+    .sidebar-link.active { background: rgba(255,255,255,0.2); border-left: 4px solid white; }
+    .status-ringing { background: #fef3c7; color: #92400e; }
+    .status-in-progress { background: #d1fae5; color: #065f46; }
+    .status-completed { background: #e5e7eb; color: #374151; }
+    .status-escalated { background: #fee2e2; color: #991b1b; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 gradient-bg text-white flex flex-col">
+      <div class="p-6 border-b border-white/20">
+        <h1 class="text-xl font-bold">🤖 Admin Assistant</h1>
+        <p class="text-sm text-white/70 mt-1">AI Customer Service</p>
+      </div>
+      
+      <nav class="flex-1 p-4">
+        <a href="/admin-assistant/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="/admin-assistant/calls/" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>📞</span> Voice Calls
+        </a>
+        <a href="/admin-assistant/sms/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>💬</span> SMS
+        </a>
+        <a href="/admin-assistant/whatsapp/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>📱</span> WhatsApp
+        </a>
+        
+        <div class="mt-8 pt-4 border-t border-white/20">
+          <a href="/admin-assistant/settings/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg">
+            <span>⚙️</span> Settings
+          </a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto">
+      <!-- Header -->
+      <header class="bg-white shadow-sm px-8 py-4 flex justify-between items-center">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800">📞 Voice Calls</h2>
+          <p class="text-gray-500 text-sm">AI-powered voice conversations via Twilio + ElevenLabs</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <button onclick="showOutboundModal()" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+            + New Outbound Call
+          </button>
+          <button onclick="showBatchModal()" class="px-4 py-2 border border-purple-600 text-purple-600 rounded-lg hover:bg-purple-50 transition">
+            📤 Batch Calls
+          </button>
+        </div>
+      </header>
+      
+      <div class="p-8">
+        <!-- Stats Row -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <div class="card p-4">
+            <p class="text-gray-500 text-sm">Active Calls</p>
+            <p class="text-2xl font-bold text-green-600" id="activeCalls">0</p>
+          </div>
+          <div class="card p-4">
+            <p class="text-gray-500 text-sm">In Queue</p>
+            <p class="text-2xl font-bold text-orange-600" id="queuedCalls">0</p>
+          </div>
+          <div class="card p-4">
+            <p class="text-gray-500 text-sm">Today's Total</p>
+            <p class="text-2xl font-bold text-gray-800" id="totalCalls">0</p>
+          </div>
+          <div class="card p-4">
+            <p class="text-gray-500 text-sm">Avg Duration</p>
+            <p class="text-2xl font-bold text-gray-800" id="avgDuration">0:00</p>
+          </div>
+        </div>
+        
+        <!-- Escalation Queue -->
+        <div class="card p-6 mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold">🚨 Calls Waiting for Human</h3>
+            <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm" id="escalationCount">
+              0 waiting
+            </span>
+          </div>
+          <div id="escalationQueue" class="space-y-2">
+            <p class="text-gray-500 text-center py-4">No calls waiting for human agent</p>
+          </div>
+        </div>
+        
+        <!-- Call History -->
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold">Recent Calls</h3>
+            <div class="flex gap-2">
+              <select id="statusFilter" class="px-3 py-1 border rounded-lg text-sm" onchange="loadCalls()">
+                <option value="">All Status</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="on-hold">On Hold</option>
+                <option value="failed">Failed</option>
+              </select>
+              <select id="directionFilter" class="px-3 py-1 border rounded-lg text-sm" onchange="loadCalls()">
+                <option value="">All Direction</option>
+                <option value="inbound">Inbound</option>
+                <option value="outbound">Outbound</option>
+              </select>
+            </div>
+          </div>
+          
+          <table class="w-full">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Phone Number</th>
+                <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Direction</th>
+                <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Status</th>
+                <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Duration</th>
+                <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Time</th>
+                <th class="text-left px-4 py-3 text-sm font-medium text-gray-600">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="callsTable">
+              <tr>
+                <td colspan="6" class="text-center py-8 text-gray-500">
+                  No calls found. Calls will appear here when customers call your Twilio number.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Setup Instructions -->
+        <div class="card p-6 mt-6 bg-blue-50 border border-blue-200">
+          <h3 class="text-lg font-semibold text-blue-800 mb-4">📋 Setup Checklist</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3" id="checkTwilio">
+              <span class="text-xl">⏳</span>
+              <span>Configure Twilio Account (Account SID, Auth Token)</span>
+            </div>
+            <div class="flex items-center gap-3" id="checkPhone">
+              <span class="text-xl">⏳</span>
+              <span>Purchase Twilio phone number (+254 for Kenya)</span>
+            </div>
+            <div class="flex items-center gap-3" id="checkElevenlabs">
+              <span class="text-xl">⏳</span>
+              <span>Configure ElevenLabs agent for voice conversations</span>
+            </div>
+            <div class="flex items-center gap-3" id="checkWebhook">
+              <span class="text-xl">⏳</span>
+              <span>Set Twilio webhook URL to: <code class="bg-white px-2 py-1 rounded text-sm">/webhooks/admin-assistant/calls/inbound</code></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Outbound Call Modal -->
+  <div id="outboundModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="card p-6 w-96">
+      <h3 class="text-lg font-semibold mb-4">📞 New Outbound Call</h3>
+      <form onsubmit="initiateCall(event)">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+          <input type="tel" id="outboundPhone" placeholder="+254712345678" 
+                 class="w-full px-3 py-2 border rounded-lg" required>
+          <p class="text-xs text-gray-500 mt-1">Use E.164 format with country code</p>
+        </div>
+        <div class="flex gap-3">
+          <button type="button" onclick="hideOutboundModal()" 
+                  class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+            Cancel
+          </button>
+          <button type="submit" 
+                  class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+            Call Now
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Batch Calls Modal -->
+  <div id="batchModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="card p-6 w-[500px]">
+      <h3 class="text-lg font-semibold mb-4">📤 Batch Outbound Calls</h3>
+      <form onsubmit="initiateBatchCalls(event)">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+          <input type="text" id="campaignName" placeholder="e.g., Appointment Reminders" 
+                 class="w-full px-3 py-2 border rounded-lg" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Recipients (one per line)</label>
+          <textarea id="batchRecipients" rows="5" 
+                    placeholder="+254712345678,John&#10;+254723456789,Jane"
+                    class="w-full px-3 py-2 border rounded-lg font-mono text-sm" required></textarea>
+          <p class="text-xs text-gray-500 mt-1">Format: phone,name (name is optional)</p>
+        </div>
+        <div class="flex gap-3">
+          <button type="button" onclick="hideBatchModal()" 
+                  class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+            Cancel
+          </button>
+          <button type="submit" 
+                  class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+            Start Batch
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Load calls data
+    async function loadCalls() {
+      try {
+        const status = document.getElementById('statusFilter').value;
+        const direction = document.getElementById('directionFilter').value;
+        
+        const params = new URLSearchParams();
+        if (status) params.append('status', status);
+        if (direction) params.append('direction', direction);
+        
+        const response = await fetch(`/api/admin-assistant/calls?${params}`);
+        const data = await response.json();
+        
+        renderCalls(data.calls || []);
+        
+        // Load queue
+        const queueResponse = await fetch('/api/admin-assistant/calls/queue');
+        const queueData = await queueResponse.json();
+        document.getElementById('escalationCount').textContent = `${queueData.count} waiting`;
+        renderEscalationQueue(queueData.queue || []);
+        
+      } catch (error) {
+        console.error('Failed to load calls:', error);
+      }
+    }
+    
+    function renderCalls(calls) {
+      const tbody = document.getElementById('callsTable');
+      
+      if (calls.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center py-8 text-gray-500">
+              No calls found
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = calls.map(call => `
+        <tr class="border-t hover:bg-gray-50">
+          <td class="px-4 py-3">
+            <span class="font-mono">${call.from}</span>
+          </td>
+          <td class="px-4 py-3">
+            <span class="px-2 py-1 rounded text-xs ${call.direction === 'inbound' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}">
+              ${call.direction === 'inbound' ? '📥 Inbound' : '📤 Outbound'}
+            </span>
+          </td>
+          <td class="px-4 py-3">
+            <span class="px-2 py-1 rounded text-xs status-${call.status}">
+              ${call.status}
+            </span>
+          </td>
+          <td class="px-4 py-3">${formatDuration(call.durationSeconds || 0)}</td>
+          <td class="px-4 py-3 text-sm text-gray-500">${formatTime(call.startedAt)}</td>
+          <td class="px-4 py-3">
+            <button onclick="viewCall('${call.twilioCallSid}')" class="text-purple-600 hover:underline text-sm">
+              View
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    function renderEscalationQueue(queue) {
+      const container = document.getElementById('escalationQueue');
+      
+      if (queue.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-center py-4">No calls waiting for human agent</p>';
+        return;
+      }
+      
+      container.innerHTML = queue.map(item => `
+        <div class="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+          <div>
+            <span class="font-mono">${item.callSid}</span>
+            <p class="text-sm text-gray-500">${item.reason}</p>
+          </div>
+          <button onclick="handleEscalation('${item.callSid}')" 
+                  class="px-3 py-1 bg-orange-600 text-white rounded-lg text-sm hover:bg-orange-700">
+            Take Call
+          </button>
+        </div>
+      `).join('');
+    }
+    
+    function formatDuration(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+    
+    function formatTime(dateStr) {
+      return new Date(dateStr).toLocaleTimeString();
+    }
+    
+    function showOutboundModal() {
+      document.getElementById('outboundModal').classList.remove('hidden');
+    }
+    
+    function hideOutboundModal() {
+      document.getElementById('outboundModal').classList.add('hidden');
+    }
+    
+    function showBatchModal() {
+      document.getElementById('batchModal').classList.remove('hidden');
+    }
+    
+    function hideBatchModal() {
+      document.getElementById('batchModal').classList.add('hidden');
+    }
+    
+    async function initiateCall(event) {
+      event.preventDefault();
+      const phone = document.getElementById('outboundPhone').value;
+      
+      try {
+        const response = await fetch('/api/admin-assistant/calls/outbound', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ to: phone })
+        });
+        
+        if (response.ok) {
+          alert('Call initiated!');
+          hideOutboundModal();
+          loadCalls();
+        } else {
+          const error = await response.json();
+          alert('Error: ' + error.error);
+        }
+      } catch (error) {
+        alert('Failed to initiate call');
+      }
+    }
+    
+    async function initiateBatchCalls(event) {
+      event.preventDefault();
+      const campaignName = document.getElementById('campaignName').value;
+      const recipientsText = document.getElementById('batchRecipients').value;
+      
+      const recipients = recipientsText.split('\n')
+        .filter(line => line.trim())
+        .map(line => {
+          const [phone, name] = line.split(',');
+          return { phone: phone.trim(), variables: name ? { customer_name: name.trim() } : {} };
+        });
+      
+      try {
+        const response = await fetch('/api/admin-assistant/calls/batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ campaignName, recipients })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          alert(`Batch initiated! ${data.recipientCount} calls queued.`);
+          hideBatchModal();
+        } else {
+          const error = await response.json();
+          alert('Error: ' + error.error);
+        }
+      } catch (error) {
+        alert('Failed to initiate batch');
+      }
+    }
+    
+    function viewCall(callSid) {
+      alert('Call details view coming soon');
+    }
+    
+    function handleEscalation(callSid) {
+      alert('Transfer to your phone coming soon');
+    }
+    
+    // Check config status
+    async function checkConfig() {
+      try {
+        const response = await fetch('/api/admin-assistant/config');
+        const config = await response.json();
+        
+        document.getElementById('checkTwilio').querySelector('span:first-child').textContent = 
+          config.twilio.configured ? '✅' : '❌';
+        document.getElementById('checkPhone').querySelector('span:first-child').textContent = 
+          config.twilio.phoneNumber === 'Configured' ? '✅' : '❌';
+        document.getElementById('checkElevenlabs').querySelector('span:first-child').textContent = 
+          config.elevenlabs.configured ? '✅' : '❌';
+        document.getElementById('checkWebhook').querySelector('span:first-child').textContent = 
+          config.twilio.configured ? '✅' : '⏳';
+          
+      } catch (error) {
+        console.error('Failed to check config:', error);
+      }
+    }
+    
+    // Initial load
+    loadCalls();
+    checkConfig();
+    setInterval(loadCalls, 10000);
+  </script>
+</body>
+</html>

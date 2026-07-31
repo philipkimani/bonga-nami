@@ -1,0 +1,40 @@
+{
+  "name": "ruskins-ai-platform",
+  "version": "3.1.0",
+  "description": "Ruskins AI Platform (PaaS) - Conversational AI for East Africa",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "packages/extensions/*",
+    "packages/clients/*"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma"
+    ]
+  },
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "test": "pnpm -r test",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "rimraf": "^5.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "pg": "^8.17.2",
+    "zod": "^3.25.76"
+  }
+}

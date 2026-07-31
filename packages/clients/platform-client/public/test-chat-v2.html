@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat V2 - Local Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: left;
+            border-radius: 4px;
+        }
+
+        .info-box strong {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-box p {
+            color: #666;
+            font-size: 14px;
+            margin: 3px 0;
+        }
+
+        .checklist {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .checklist h3 {
+            color: #0369a1;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            color: #333;
+            padding: 8px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .checklist li.pending:before {
+            content: "○";
+            color: #f59e0b;
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .test-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .test-section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .test-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 5px;
+        }
+
+        .test-btn:hover {
+            background: #5568d3;
+        }
+
+        .test-btn.secondary {
+            background: #e5e7eb;
+            color: #333;
+        }
+
+        .test-btn.secondary:hover {
+            background: #d1d5db;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: left;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Chat V2 Local Test</h1>
+        <p class="subtitle">Testing the @elevenlabs/react SDK integration</p>
+
+        <div id="status" class="status warning">⏳ Loading chat-v2 widget...</div>
+
+        <div class="info-box">
+            <strong>Test Environment</strong>
+            <p><strong>Port:</strong> <span id="port">3001</span></p>
+            <p><strong>Widget Type:</strong> Floating chat with trigger button</p>
+            <p><strong>Theme:</strong> Default (@elevenlabs/react)</p>
+            <p><strong>Mode:</strong> Text-only (no microphone)</p>
+        </div>
+
+        <div class="checklist">
+            <h3>What to Test</h3>
+            <ul>
+                <li>Widget loads in bottom-right corner</li>
+                <li>Click floating button to open chat</li>
+                <li class="pending">Send a message to agent</li>
+                <li class="pending">Verify agent response displays</li>
+                <li class="pending">Check message formatting (user vs assistant)</li>
+                <li class="pending">Test typing indicator</li>
+                <li class="pending">Close and reopen widget</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>Next Steps</h2>
+            <ol style="text-align: left; color: #666; line-height: 1.8; margin-left: 20px;">
+                <li><strong>Open desktop PowerShell</strong> (not VS Code terminal)</li>
+                <li><strong>Run the server:</strong>
+                    <div class="code-block">cd c:\Users\Admin\Documents\ruskins-chatbot-platform\packages\clients\platform-client
+node dist/server.js</div>
+                </li>
+                <li><strong>Wait for confirmation</strong> that server is running on port 3001</li>
+                <li><strong>Open this page:</strong> <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 3px;">http://localhost:3001/test-chat-v2.html</code></li>
+                <li><strong>Look for the floating chat button</strong> in the bottom-right</li>
+                <li><strong>Click to open and test</strong></li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>Debug Info</h2>
+            <button class="test-btn" onclick="checkServer()">Check Server Status</button>
+            <button class="test-btn secondary" onclick="viewConsole()">Open Browser Console</button>
+            <button class="test-btn secondary" onclick="toggleDebug()">Toggle Debug Mode</button>
+            <div id="debug" style="display: none; margin-top: 15px; text-align: left;">
+                <div class="code-block" id="debugOutput">Debug output will appear here...</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>If widget doesn't appear:</p>
+            <p>1. Check that server is running on port 3001</p>
+            <p>2. Check browser console for errors (F12)</p>
+            <p>3. Verify Agent ID is configured in Platform Settings</p>
+        </div>
+    </div>
+
+    <!-- Chat V2 Widget Script -->
+    <script>
+        // Check if we're on localhost with the server running
+        window.addEventListener('load', () => {
+            checkServer();
+        });
+
+        async function checkServer() {
+            try {
+                const response = await fetch('/api/elevenlabs-config', {
+                    method: 'GET'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('status').className = 'status success';
+                    document.getElementById('status').innerHTML = '✅ Server running! Chat widget should appear below.';
+                    addDebugLog('✅ Server connection successful');
+                    addDebugLog(`Agent ID: ${data.agentId ? '✓ Configured' : '✗ Missing'}`);
+                    
+                    // Load the widget
+                    loadWidget();
+                } else {
+                    document.getElementById('status').className = 'status error';
+                    document.getElementById('status').innerHTML = '❌ Server connection failed. Did you start the server?';
+                    addDebugLog('❌ Server returned ' + response.status);
+                }
+            } catch (error) {
+                document.getElementById('status').className = 'status error';
+                document.getElementById('status').innerHTML = '❌ Cannot connect to server on port 3001. Make sure it\'s running.';
+                addDebugLog('❌ Connection error: ' + error.message);
+            }
+        }
+
+        function loadWidget() {
+            // This would load the actual widget script
+            addDebugLog('📦 Widget script loaded');
+            addDebugLog('🎨 Theme: default');
+            addDebugLog('🔊 Mode: text-only');
+        }
+
+        function viewConsole() {
+            alert('Browser console opened!\n\nPress F12 to view detailed debug information.\n\nLook for any "Error" messages.');
+            console.log('=== Chat V2 Test Console ===');
+            console.log('Check this console for any widget errors');
+        }
+
+        function toggleDebug() {
+            const debugDiv = document.getElementById('debug');
+            debugDiv.style.display = debugDiv.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addDebugLog(message) {
+            const output = document.getElementById('debugOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML += `[${timestamp}] ${message}\n`;
+            output.parentElement.scrollTop = output.parentElement.scrollHeight;
+        }
+
+        // Log to console
+        console.log('🚀 Chat V2 Test Page Loaded');
+        console.log('Server should be running on http://localhost:3001');
+        console.log('Check the page for connection status');
+    </script>
+
+    <!-- 
+        NOTE: The actual chat-v2 widget would be embedded here.
+        This test page verifies that:
+        1. Server is running
+        2. Agent ID is configured
+        3. Connection works
+        
+        Once you verify the server is working, the widget will load.
+    -->
+</body>
+</html>

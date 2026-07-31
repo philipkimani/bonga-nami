@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp - Admin Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    .sidebar-link { transition: all 0.2s; }
+    .sidebar-link:hover { background: rgba(255,255,255,0.1); }
+    .sidebar-link.active { background: rgba(255,255,255,0.2); border-left: 4px solid white; }
+    .message-customer { background: #dcfce7; }
+    .message-ai { background: #dbeafe; }
+    .message-human { background: #e5e7eb; }
+    .whatsapp-green { background: #25D366; }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 gradient-bg text-white flex flex-col">
+      <div class="p-6 border-b border-white/20">
+        <h1 class="text-xl font-bold">🤖 Admin Assistant</h1>
+        <p class="text-sm text-white/70 mt-1">AI Customer Service</p>
+      </div>
+      
+      <nav class="flex-1 p-4">
+        <a href="/admin-assistant/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="/admin-assistant/calls/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>📞</span> Voice Calls
+        </a>
+        <a href="/admin-assistant/sms/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>💬</span> SMS
+        </a>
+        <a href="/admin-assistant/whatsapp/" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg mt-2">
+          <span>📱</span> WhatsApp
+        </a>
+        
+        <div class="mt-8 pt-4 border-t border-white/20">
+          <a href="/admin-assistant/settings/" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg">
+            <span>⚙️</span> Settings
+          </a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="flex-1 flex overflow-hidden">
+      <!-- Conversations List -->
+      <div class="w-80 bg-white border-r flex flex-col">
+        <div class="p-4 border-b whatsapp-green text-white">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold">📱 WhatsApp</h3>
+            <button onclick="showBroadcastModal()" class="text-sm bg-white/20 px-3 py-1 rounded hover:bg-white/30">
+              Broadcast
+            </button>
+          </div>
+          <input type="search" id="searchConversations" placeholder="Search chats..." 
+                 class="w-full px-3 py-2 rounded-lg text-sm text-gray-800">
+        </div>
+        
+        <!-- Tabs -->
+        <div class="flex border-b">
+          <button onclick="filterTab('all')" class="flex-1 px-4 py-2 text-sm border-b-2 border-green-600 text-green-600 font-medium" id="tabAll">
+            All Chats
+          </button>
+          <button onclick="filterTab('escalated')" class="flex-1 px-4 py-2 text-sm text-gray-500 hover:text-gray-700" id="tabEscalated">
+            Waiting <span class="ml-1 px-1.5 py-0.5 bg-orange-100 text-orange-700 rounded text-xs" id="escalatedBadge">0</span>
+          </button>
+        </div>
+        
+        <!-- Conversation List -->
+        <div id="conversationList" class="flex-1 overflow-auto">
+          <div class="p-8 text-center text-gray-500">
+            <p>No WhatsApp chats yet</p>
+            <p class="text-sm mt-2">Chats will appear when customers message your WhatsApp Business number</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Chat Area -->
+      <div class="flex-1 flex flex-col">
+        <!-- Chat Header -->
+        <div class="p-4 whatsapp-green text-white flex items-center justify-between" id="chatHeader">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              👤
+            </div>
+            <div>
+              <h2 class="font-semibold">Select a chat</h2>
+              <p class="text-sm text-white/70">Choose a conversation from the list</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Messages -->
+        <div id="messageArea" class="flex-1 overflow-auto p-4" style="background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22><rect fill=%22%23e5ddd5%22 width=%2280%22 height=%2280%22/><path d=%22M0 0L40 40L80 0L80 80L40 40L0 80Z%22 fill=%22%23d9cec5%22 opacity=%220.1%22/></svg>');">
+          <div class="flex items-center justify-center h-full">
+            <div class="text-center bg-white/80 p-8 rounded-lg">
+              <span class="text-6xl">💬</span>
+              <p class="mt-4 text-gray-600">Select a chat to view messages</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reply Input -->
+        <div id="replyArea" class="hidden p-4 bg-gray-100 border-t">
+          <div class="flex gap-3 items-end">
+            <button class="p-2 text-2xl hover:bg-gray-200 rounded-full">😊</button>
+            <button class="p-2 text-2xl hover:bg-gray-200 rounded-full">📎</button>
+            <input type="text" id="replyInput" placeholder="Type a message" 
+                   class="flex-1 px-4 py-3 rounded-full border" onkeypress="handleReplyKeypress(event)">
+            <button onclick="sendReply()" class="p-3 whatsapp-green text-white rounded-full hover:opacity-90">
+              ➤
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Broadcast Modal -->
+  <div id="broadcastModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="card p-6 w-[500px]">
+      <h3 class="text-lg font-semibold mb-4">📣 WhatsApp Broadcast</h3>
+      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+        <p class="text-sm text-yellow-800">
+          ⚠️ WhatsApp requires pre-approved templates for broadcast messages.
+          Make sure your template is approved in Meta Business Suite.
+        </p>
+      </div>
+      <form onsubmit="sendBroadcast(event)">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Template Name</label>
+          <input type="text" id="templateName" placeholder="e.g., order_confirmation" 
+                 class="w-full px-3 py-2 border rounded-lg" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Recipients (one per line)</label>
+          <textarea id="broadcastRecipients" rows="5" 
+                    placeholder="+254712345678&#10;+254723456789"
+                    class="w-full px-3 py-2 border rounded-lg font-mono text-sm" required></textarea>
+          <p class="text-xs text-gray-500 mt-1">Phone numbers in E.164 format</p>
+        </div>
+        <div class="flex gap-3">
+          <button type="button" onclick="hideBroadcastModal()" 
+                  class="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50">
+            Cancel
+          </button>
+          <button type="submit" 
+                  class="flex-1 px-4 py-2 whatsapp-green text-white rounded-lg hover:opacity-90">
+            Send Broadcast
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    let selectedConversation = null;
+    let selectedPhone = null;
+    let currentTab = 'all';
+    
+    // Load conversations
+    async function loadConversations() {
+      try {
+        const status = currentTab === 'escalated' ? 'escalated' : '';
+        const params = status ? `?status=${status}` : '';
+        
+        const response = await fetch(`/api/admin-assistant/whatsapp/conversations${params}`);
+        const data = await response.json();
+        
+        renderConversations(data.conversations || []);
+        
+        // Get queue count
+        const queueResponse = await fetch('/api/admin-assistant/whatsapp/queue');
+        const queueData = await queueResponse.json();
+        document.getElementById('escalatedBadge').textContent = queueData.count;
+        
+      } catch (error) {
+        console.error('Failed to load conversations:', error);
+      }
+    }
+    
+    function renderConversations(conversations) {
+      const container = document.getElementById('conversationList');
+      
+      if (conversations.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-gray-500">
+            <p>No conversations</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = conversations.map(conv => `
+        <div onclick="selectConversation('${conv.id}', '${conv.contactId}')" 
+             class="p-4 border-b hover:bg-gray-50 cursor-pointer flex items-start gap-3 ${selectedConversation === conv.id ? 'bg-green-50' : ''}">
+          <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl">
+            ${conv.dynamicVariables?.profile_name?.[0]?.toUpperCase() || '👤'}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between">
+              <span class="font-medium">${conv.dynamicVariables?.profile_name || conv.contactId}</span>
+              <span class="text-xs text-gray-500">${formatTime(conv.startedAt)}</span>
+            </div>
+            <p class="text-sm text-gray-500 truncate">
+              ${conv.status === 'escalated' ? '🔴 Waiting for reply' : `${conv.aiHandledCount} messages`}
+            </p>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    async function selectConversation(conversationId, waId) {
+      selectedConversation = conversationId;
+      selectedPhone = waId;
+      
+      // Update header
+      document.getElementById('chatHeader').innerHTML = `
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+            👤
+          </div>
+          <div>
+            <h2 class="font-semibold">${waId}</h2>
+            <p class="text-sm text-white/70">Online</p>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="initiateVoiceCall()" class="p-2 hover:bg-white/20 rounded-full" title="Voice Call">
+            📞
+          </button>
+          <button class="p-2 hover:bg-white/20 rounded-full" title="More options">
+            ⋮
+          </button>
+        </div>
+      `;
+      
+      // Show reply area
+      document.getElementById('replyArea').classList.remove('hidden');
+      
+      // Load messages
+      try {
+        const response = await fetch(`/api/admin-assistant/whatsapp/conversations/${conversationId}/messages`);
+        const data = await response.json();
+        renderMessages(data.messages || []);
+      } catch (error) {
+        console.error('Failed to load messages:', error);
+      }
+      
+      loadConversations();
+    }
+    
+    function renderMessages(messages) {
+      const container = document.getElementById('messageArea');
+      container.style.background = "url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22><rect fill=%22%23e5ddd5%22 width=%2280%22 height=%2280%22/><path d=%22M0 0L40 40L80 0L80 80L40 40L0 80Z%22 fill=%22%23d9cec5%22 opacity=%220.1%22/></svg>')";
+      
+      if (messages.length === 0) {
+        container.innerHTML = `
+          <div class="flex items-center justify-center h-full">
+            <div class="bg-white/80 p-4 rounded-lg text-gray-600">
+              No messages yet
+            </div>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = `<div class="max-w-2xl mx-auto space-y-2">` + messages.map(msg => {
+        const isCustomer = msg.sender === 'customer';
+        const isAi = msg.sender === 'ai';
+        const alignClass = isCustomer ? 'justify-start' : 'justify-end';
+        const bgClass = isCustomer ? 'message-customer' : (isAi ? 'message-ai' : 'message-human');
+        
+        let mediaHtml = '';
+        if (msg.mediaUrls && msg.mediaUrls.length > 0) {
+          mediaHtml = msg.mediaUrls.map(url => 
+            `<img src="${url}" class="max-w-xs rounded-lg mb-2" />`
+          ).join('');
+        }
+        
+        return `
+          <div class="flex ${alignClass}">
+            <div class="max-w-xs lg:max-w-md">
+              <div class="${bgClass} px-3 py-2 rounded-lg shadow-sm">
+                ${mediaHtml}
+                <p>${msg.content}</p>
+                <div class="flex items-center justify-end gap-1 mt-1">
+                  <span class="text-xs text-gray-500">${formatTime(msg.createdAt)}</span>
+                  ${!isCustomer ? '<span class="text-xs text-blue-500">✓✓</span>' : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('') + '</div>';
+      
+      container.scrollTop = container.scrollHeight;
+    }
+    
+    async function sendReply() {
+      const input = document.getElementById('replyInput');
+      const message = input.value.trim();
+      
+      if (!message || !selectedConversation) return;
+      
+      try {
+        const queueResponse = await fetch('/api/admin-assistant/whatsapp/queue');
+        const queueData = await queueResponse.json();
+        const escalation = queueData.queue.find(q => q.conversationId === selectedConversation);
+        
+        if (escalation) {
+          await fetch(`/api/admin-assistant/whatsapp/queue/${selectedConversation}/reply`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, agentId: 'current-user' })
+          });
+        } else {
+          await fetch('/api/admin-assistant/whatsapp/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ to: selectedPhone, message })
+          });
+        }
+        
+        input.value = '';
+        
+        const response = await fetch(`/api/admin-assistant/whatsapp/conversations/${selectedConversation}/messages`);
+        const data = await response.json();
+        renderMessages(data.messages || []);
+        
+      } catch (error) {
+        console.error('Failed to send reply:', error);
+        alert('Failed to send message');
+      }
+    }
+    
+    function handleReplyKeypress(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        sendReply();
+      }
+    }
+    
+    function initiateVoiceCall() {
+      alert('WhatsApp voice call feature uses ElevenLabs native integration. The customer can initiate a call from their WhatsApp.');
+    }
+    
+    function filterTab(tab) {
+      currentTab = tab;
+      
+      document.getElementById('tabAll').className = tab === 'all' 
+        ? 'flex-1 px-4 py-2 text-sm border-b-2 border-green-600 text-green-600 font-medium'
+        : 'flex-1 px-4 py-2 text-sm text-gray-500 hover:text-gray-700';
+      document.getElementById('tabEscalated').className = tab === 'escalated'
+        ? 'flex-1 px-4 py-2 text-sm border-b-2 border-green-600 text-green-600 font-medium'
+        : 'flex-1 px-4 py-2 text-sm text-gray-500 hover:text-gray-700';
+      
+      loadConversations();
+    }
+    
+    function showBroadcastModal() {
+      document.getElementById('broadcastModal').classList.remove('hidden');
+    }
+    
+    function hideBroadcastModal() {
+      document.getElementById('broadcastModal').classList.add('hidden');
+    }
+    
+    async function sendBroadcast(event) {
+      event.preventDefault();
+      
+      const templateName = document.getElementById('templateName').value;
+      const recipientsText = document.getElementById('broadcastRecipients').value;
+      
+      const recipients = recipientsText.split('\n')
+        .filter(line => line.trim())
+        .map(phone => ({ phone: phone.trim() }));
+      
+      try {
+        const response = await fetch('/api/admin-assistant/whatsapp/bulk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ templateName, recipients })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          alert(`Broadcast sent! ${data.successful} successful, ${data.failed} failed.`);
+          hideBroadcastModal();
+        } else {
+          const error = await response.json();
+          alert('Error: ' + error.error);
+        }
+      } catch (error) {
+        alert('Failed to send broadcast');
+      }
+    }
+    
+    function formatTime(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    
+    // Initial load
+    loadConversations();
+    setInterval(loadConversations, 15000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+services:
+  # ============================================================================
+  # Ruskins AI Platform — Platform Client
+  # ============================================================================
+  # 
+  # ARCHITECTURE:
+  # - Environment variables = Infrastructure only (PORT, DATABASE_URL)
+  # - Business config = Admin Console (industry, channels, credentials)
+  #
+  # On first boot, go to /admin to configure:
+  # - Industry selection
+  # - ElevenLabs credentials
+  # - Twilio credentials (if using voice/SMS)
+  # - Backend API URL
+  #
+  # ============================================================================
+  platform-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      # Infrastructure only
+      - NODE_ENV=production
+      - PORT=3001
+      - TENANT_ID=${TENANT_ID:-unconfigured}
+      - DATABASE_URL=${DATABASE_URL:-}
+    restart: unless-stopped
+
+# All business configuration (ElevenLabs, Twilio, etc.) is done via Admin Console
+# No more ENABLE_* feature flags — they're replaced by Platform Settings

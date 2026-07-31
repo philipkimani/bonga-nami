@@ -1,0 +1,534 @@
+// ============================================================================
+// Ruskins AI Platform — Database Schema
+// ============================================================================
+//
+// This schema stores platform configuration that persists across restarts.
+// All business configuration is managed via the Admin Console UI.
+//
+// ARCHITECTURE:
+// - Environment variables = Infrastructure only (PORT, DATABASE_URL)
+// - This database = All business configuration
+//
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// PLATFORM CONFIGURATION
+// Single source of truth for all platform settings
+// ============================================================================
+
+model PlatformConfig {
+  id        String   @id @default(cuid())
+  tenantId  String   @unique
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // INDUSTRY SELECTION (pick one)
+  // Determines which tool extension loads
+  // ─────────────────────────────────────────────────────────────────────────
+  industry  String?  // 'ecommerce' | 'hospitality' | 'healthcare' | 'banking' | 'restaurant' | null
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // BACKEND API
+  // Where industry tools fetch data from (client's own backend)
+  // ─────────────────────────────────────────────────────────────────────────
+  backendApiUrl   String?
+  backendApiKey   String?  // Optional API key for backend auth
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // COMMUNICATION CHANNELS
+  // ─────────────────────────────────────────────────────────────────────────
+  channelVoice    Boolean @default(false)
+  channelSms      Boolean @default(false)
+  channelWhatsApp Boolean @default(false)
+  channelEmail    Boolean @default(false)
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // WHATSAPP BUSINESS CONFIGURATION
+  // Two modes: 
+  //   1. ElevenLabs native (recommended) - connect WABA to ElevenLabs
+  //   2. Direct Meta API (legacy) - platform handles webhook directly
+  // @see https://elevenlabs.io/docs/conversational-ai/guides/conversational-ai-whatsapp
+  // ─────────────────────────────────────────────────────────────────────────
+  whatsappPhoneNumberId     String?  // From Meta Business Account
+  whatsappAccessToken       String?  // Permanent or temporary access token
+  whatsappVerifyToken       String?  // Webhook verification token (you define this)
+  whatsappBusinessName      String?  // Display name for messages
+  whatsappWebhookSecret     String?  // Optional: for webhook payload verification
+  whatsappElevenLabsEnabled Boolean  @default(true)  // true = managed by ElevenLabs, false = direct Meta API
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // ELEVENLABS CONFIGURATION
+  // Client's own ElevenLabs account
+  // ─────────────────────────────────────────────────────────────────────────
+  elevenLabsApiKey          String?
+  elevenLabsAgentId         String?
+  elevenLabsPhoneNumberId   String?  // Phone number imported into ElevenLabs (Twilio native integration)
+  elevenLabsSignedUrlEnabled Boolean @default(true)  // Use signed URLs for WebSocket connections
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // TWILIO CONFIGURATION
+  // Client's own Twilio account
+  // ─────────────────────────────────────────────────────────────────────────
+  twilioAccountSid    String?
+  twilioAuthToken     String?
+  twilioPhoneNumber   String?  // +254... for Kenya
+  twilioWebhookUrl    String?  // Auto-generated based on deployment URL
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // CONVERSATION MODE
+  // How users interact with the AI agent
+  // @see https://elevenlabs.io/docs/agents-platform/guides/chat-mode
+  // ─────────────────────────────────────────────────────────────────────────
+  conversationMode    String   @default("text_only")      // 'voice_only' | 'voice_and_text' | 'text_only' (text_only = lowest cost)
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // CONVERSATION FLOW SETTINGS
+  // @see https://elevenlabs.io/docs/agents-platform/customization/conversation-flow
+  // ─────────────────────────────────────────────────────────────────────────
+  turnTimeout         Int      @default(10)               // 1-30 seconds
+  allowInterruptions  Boolean  @default(true)             // Can users interrupt agent?
+  turnEagerness       String   @default("normal")         // 'eager' | 'normal' | 'patient'
+  inactivityTimeout   Int      @default(120)              // Terminate conversation after N seconds of user inactivity (default: 2 min)
+  maxIdlePrompts      Int      @default(0)                // Max follow-up prompts when user is silent (0 = none, saves tokens)
+  maxDuration         Int      @default(600)              // Max conversation duration in seconds (default: 10 min, 0 = unlimited)
+  silenceThreshold    Int      @default(500)              // Silence threshold in ms for voice mode
+  firstMessageMode    String   @default("none")           // 'none' | 'text' | 'voice' - what happens on conversation open
+  waitForUserFirst    Boolean  @default(true)             // Wait for user to send first message before connecting
+  greeting            String?                             // Optional greeting message
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // WIDGET CONFIGURATION
+  // Appearance and security settings for embeddable widget
+  // ─────────────────────────────────────────────────────────────────────────
+  widgetPrimaryColor         String   @default("#6366f1")       // Brand color (hex)
+  widgetSecondaryColor       String   @default("#8b5cf6")       // Secondary/accent color (hex)
+  widgetTitle                String   @default("AI Assistant")  // Widget header title
+  widgetSubtitle             String   @default("How can I help you today?")
+  widgetPosition             String   @default("bottom-right")  // 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
+  widgetWidth                Int      @default(400)             // Widget width in pixels
+  widgetHeight               Int      @default(600)             // Widget height in pixels
+  widgetButtonSize           Int      @default(56)              // Trigger button size in pixels
+  widgetBorderRadius         Int      @default(16)              // Border radius in pixels
+  widgetShowLanguageSelector Boolean  @default(true)            // Show language picker in widget
+  widgetPoweredByText        String   @default("Powered by Ruskins AI")
+  widgetPoweredByLink        String   @default("https://ruskinsconsulting.com")
+  widgetShowPoweredBy        Boolean  @default(true)
+  widgetAllowedDomains       String[] @default([])              // Domains allowed to embed widget (empty = all)
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // BRANDING
+  // ─────────────────────────────────────────────────────────────────────────
+  brandingCompanyName  String?
+  brandingLogoUrl      String?
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // ESCALATION SETTINGS
+  // Configurable thresholds, notifications, and call transfer
+  // ─────────────────────────────────────────────────────────────────────────
+  escalationMessageThreshold     Int      @default(10)          // Auto-escalate after N AI messages (0 = disabled)
+  escalationKeywords             String[] @default(["speak to human", "talk to agent", "manager", "complaint"])
+  escalationAlertPhone           String?                         // Phone number for SMS alerts
+  escalationWebhookUrl           String?                         // Slack/Teams/PagerDuty webhook
+  escalationEnableCallTransfer   Boolean  @default(false)        // Live Twilio Conference transfer
+  escalationTransferPhone        String?                         // Phone to transfer calls to
+  escalationNotificationsEnabled Boolean  @default(true)         // Enable/disable notifications
+  
+  // ─────────────────────────────────────────────────────────────────────────
+  // METADATA
+  // ─────────────────────────────────────────────────────────────────────────
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("platform_configs")
+}
+
+// ============================================================================
+// KNOWLEDGE BASE DOCUMENTS
+// Stores uploaded documents for RAG
+// ============================================================================
+
+model Document {
+  id        String   @id @default(cuid())
+  tenantId  String
+  
+  // Document info
+  name        String
+  type        String    // "pdf", "txt", "url", "text"
+  size        String?
+  content     String?   @db.Text
+  sourceUrl   String?
+  
+  // Processing status
+  status      DocumentStatus @default(PENDING)
+  chunksCount Int            @default(0)
+  
+  // Metadata
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  chunks    DocumentChunk[]
+  
+  @@index([tenantId])
+  @@map("documents")
+}
+
+enum DocumentStatus {
+  PENDING
+  PROCESSING
+  INDEXED
+  ERROR
+}
+
+model DocumentChunk {
+  id         String   @id @default(cuid())
+  documentId String
+  
+  // Chunk content
+  content    String   @db.Text
+  chunkIndex Int
+  
+  // Vector embedding (stored as JSON array for now)
+  // In production, use pgvector extension
+  embedding  Json?
+  
+  // Metadata
+  createdAt DateTime @default(now())
+  
+  document  Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  
+  @@index([documentId])
+  @@map("document_chunks")
+}
+
+// ============================================================================
+// CONTEXT RULES
+// Custom prompts and behavior configuration
+// ============================================================================
+
+model ContextRule {
+  id        String   @id @default(cuid())
+  tenantId  String
+  
+  // Rule content
+  name        String
+  type        ContextRuleType
+  content     String   @db.Text
+  priority    Int      @default(0)
+  
+  // Activation
+  isActive    Boolean  @default(true)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([tenantId])
+  @@map("context_rules")
+}
+
+enum ContextRuleType {
+  SYSTEM_PROMPT
+  BUSINESS_CONTEXT
+  RESPONSE_GUIDELINE
+  CUSTOM
+}
+
+// ============================================================================
+// ADMIN USERS
+// Platform administrators with authentication
+// ============================================================================
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  tenantId     String
+  
+  // Credentials
+  username     String
+  passwordHash String
+  
+  // Profile
+  email        String?
+  displayName  String?
+  
+  // Role-based access
+  role         AdminRole @default(ADMIN)
+  
+  // Status
+  isActive     Boolean  @default(true)
+  
+  // Security - force password change on first login
+  mustChangePassword Boolean @default(true)
+  
+  // Tracking
+  lastLoginAt  DateTime?
+  loginCount   Int      @default(0)
+  
+  // Created by (for audit trail)
+  createdById  String?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@unique([tenantId, username])
+  @@index([tenantId])
+  @@map("admin_users")
+}
+
+enum AdminRole {
+  SUPER_ADMIN  // Full access, can manage other admins
+  ADMIN        // Full access to platform settings
+  VIEWER       // Read-only access to analytics
+}
+
+// ============================================================================
+// CONVERSATION LOGS (For analytics dashboard)
+// ============================================================================
+
+model ConversationLog {
+  id        String   @id
+  tenantId  String
+  sessionId String
+  
+  // Channel & Mode
+  channel           String    // 'voice' | 'sms' | 'whatsapp' | 'web'
+  conversationMode  String?   // 'text_only' | 'voice_and_text' | 'voice_only'
+  industry          String?   // 'ecommerce' | 'hospitality' | etc.
+  
+  // Status
+  status            String    @default("active")  // 'active' | 'completed' | 'abandoned' | 'error'
+  
+  // Timing
+  startedAt         DateTime
+  endedAt           DateTime?
+  durationSeconds   Int?
+  
+  // Metrics (no PII stored)
+  messageCount      Int       @default(0)
+  userMessageCount  Int       @default(0)
+  agentMessageCount Int       @default(0)
+  toolCallCount     Int       @default(0)
+  
+  // Cost tracking
+  tokensUsed        Int?
+  estimatedCost     Float?
+  
+  // Outcome
+  endReason         String?   // 'user_ended' | 'inactivity_timeout' | 'max_duration' | 'error' | 'agent_ended'
+  
+  // Flexible metadata (JSON string)
+  metadata          String?
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  
+  @@index([tenantId])
+  @@index([sessionId])
+  @@index([startedAt])
+  @@index([status])
+  @@map("conversation_logs")
+}
+
+// ============================================================================
+// CONTACTS
+// Unified omnichannel contact record
+// ============================================================================
+
+model Contact {
+  id        String   @id @default(cuid())
+  tenantId  String
+  
+  // Identity
+  name        String?
+  phone       String?   // E.164 format: +254712345678
+  email       String?
+  whatsappId  String?   // WhatsApp phone number (may differ from phone)
+  
+  // Context (for personalization webhook)
+  language    String    @default("en")
+  tags        String[]  @default([])
+  notes       String?   @db.Text
+  metadata    Json?     // Flexible key-value for dynamic_variables
+  
+  // Engagement tracking
+  firstContactAt    DateTime  @default(now())
+  lastContactAt     DateTime  @default(now())
+  totalConversations Int      @default(0)
+  preferredChannel   String?  // 'voice' | 'sms' | 'whatsapp' | 'web'
+  
+  // Relations
+  callLogs          CallLog[]
+  whatsappMessages  WhatsAppMessage[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([tenantId, phone])
+  @@index([tenantId])
+  @@index([phone])
+  @@index([whatsappId])
+  @@map("contacts")
+}
+
+// ============================================================================
+// CALL LOGS
+// Voice call history (Twilio + ElevenLabs)
+// ============================================================================
+
+model CallLog {
+  id        String   @id @default(cuid())
+  tenantId  String
+  
+  // Twilio identifiers
+  twilioCallSid     String   @unique
+  
+  // Call details
+  direction         String   // 'inbound' | 'outbound'
+  status            String   // 'ringing' | 'in-progress' | 'completed' | 'failed' | 'no-answer' | 'busy' | 'canceled'
+  from              String   // E.164 phone number
+  to                String   // E.164 phone number
+  
+  // Timing
+  startedAt         DateTime
+  answeredAt        DateTime?
+  endedAt           DateTime?
+  durationSeconds   Int?
+  
+  // AI handling
+  aiAgentId         String?   // ElevenLabs agent ID
+  aiHandled         Boolean   @default(true)
+  escalated         Boolean   @default(false)
+  escalationReason  String?
+  
+  // Recording
+  recordingUrl      String?
+  recordingSid      String?
+  
+  // ElevenLabs conversation
+  elevenLabsConversationId  String?
+  
+  // Campaign (for outbound batch calls)
+  campaignId        String?
+  campaign          OutboundCampaign?  @relation(fields: [campaignId], references: [id])
+  
+  // Contact
+  contactId         String?
+  contact           Contact?   @relation(fields: [contactId], references: [id])
+  
+  // Cost tracking
+  estimatedCost     Float?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([tenantId])
+  @@index([twilioCallSid])
+  @@index([from])
+  @@index([to])
+  @@index([startedAt])
+  @@index([campaignId])
+  @@map("call_logs")
+}
+
+// ============================================================================
+// WHATSAPP MESSAGES
+// WhatsApp conversation history (via ElevenLabs native integration)
+// ============================================================================
+
+model WhatsAppMessage {
+  id        String   @id @default(cuid())
+  tenantId  String
+  
+  // Conversation grouping
+  conversationId    String   // Group messages by conversation
+  
+  // Message details
+  direction         String   // 'inbound' | 'outbound'
+  sender            String   // 'customer' | 'ai' | 'human'
+  messageType       String   // 'text' | 'voice' | 'image' | 'template'
+  content           String   @db.Text
+  
+  // Phone numbers
+  from              String   // WhatsApp phone number
+  to                String   // WhatsApp phone number
+  
+  // Status
+  status            String   @default("sent")  // 'sent' | 'delivered' | 'read' | 'failed'
+  
+  // WhatsApp/ElevenLabs identifiers
+  whatsappMessageId String?
+  elevenLabsConversationId  String?
+  
+  // Template (for outbound broadcast)
+  templateName      String?
+  templateParams    Json?
+  
+  // AI handling
+  aiHandled         Boolean  @default(true)
+  escalated         Boolean  @default(false)
+  
+  // Contact
+  contactId         String?
+  contact           Contact? @relation(fields: [contactId], references: [id])
+  
+  createdAt DateTime @default(now())
+  
+  @@index([tenantId])
+  @@index([conversationId])
+  @@index([from])
+  @@index([to])
+  @@index([createdAt])
+  @@map("whatsapp_messages")
+}
+
+// ============================================================================
+// OUTBOUND CAMPAIGNS
+// Batch calling and messaging campaigns
+// ============================================================================
+
+model OutboundCampaign {
+  id        String   @id @default(cuid())
+  tenantId  String
+  
+  // Campaign info
+  name              String
+  type              String   // 'voice' | 'sms' | 'whatsapp'
+  status            String   @default("draft") // 'draft' | 'scheduled' | 'in-progress' | 'completed' | 'paused' | 'canceled'
+  
+  // Configuration
+  agentId           String?  // ElevenLabs agent ID (for voice campaigns)
+  messageTemplate   String?  @db.Text  // For SMS/WhatsApp campaigns
+  templateName      String?  // WhatsApp template name
+  
+  // Scheduling
+  scheduledFor      DateTime?
+  startedAt         DateTime?
+  completedAt       DateTime?
+  
+  // Recipients
+  totalRecipients   Int      @default(0)
+  successCount      Int      @default(0)
+  failedCount       Int      @default(0)
+  pendingCount      Int      @default(0)
+  
+  // Relations
+  callLogs          CallLog[]
+  
+  // Cost tracking
+  estimatedCost     Float?
+  actualCost        Float?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([tenantId])
+  @@index([status])
+  @@index([scheduledFor])
+  @@map("outbound_campaigns")
+}

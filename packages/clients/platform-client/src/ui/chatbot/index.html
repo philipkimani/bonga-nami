@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonga Nami — puberty &amp; menstrual health Q&amp;A</title>
+<meta name="description" content="Bonga Nami - a retrieval-grounded Q&A assistant answering puberty and menstrual health questions for girls aged 12-16 in Kenya.">
+<style>
+:root{
+  --canvas:#241041; --canvas-2:#2E1552; --deep:#1A0B31;
+  --flare:#FF2E88; --mint:#23D9B0; --sun:#FFC94A;
+  --paper:#FBF8FF; --muted:#B9A8D4; --line:rgba(185,168,212,.22);
+  --display:ui-rounded,'Segoe UI Variable Display','Trebuchet MS',Nunito,system-ui,sans-serif;
+  --body:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:ui-monospace,'Cascadia Code','SF Mono',Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--body);background:var(--canvas);color:var(--paper);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+.deck{height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory}
+.slide{
+  min-height:100dvh;scroll-snap-align:start;display:flex;align-items:center;
+  padding:5rem 1.5rem 4rem;position:relative;
+}
+.inner{max-width:1080px;margin:0 auto;width:100%}
+
+/* ---- slide numbering / eyebrow ---- */
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mint);margin:0 0 1.5rem;display:flex;align-items:center;gap:.75rem;
+}
+.eyebrow .num{color:var(--flare)}
+.eyebrow .rule{flex:1;height:1px;background:var(--line);max-width:180px}
+
+h1{font-family:var(--display);font-size:clamp(2.8rem,7vw,5rem);font-weight:800;
+   line-height:.98;letter-spacing:-.025em;margin:0}
+h1 .kicker{display:block;font-size:.26em;font-weight:600;letter-spacing:.05em;
+   color:var(--flare);margin-top:.9rem}
+h2{font-family:var(--display);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:780;
+   line-height:1.06;letter-spacing:-.02em;margin:0 0 1.1rem;max-width:24ch}
+h3{font-family:var(--display);font-size:1.2rem;font-weight:720;margin:0 0 .6rem}
+p{margin:0 0 1rem}
+.lede{font-size:1.1rem;color:var(--muted);max-width:72ch;margin-bottom:2rem}
+.lede strong{color:var(--sun);font-weight:600}
+
+/* ---- hero ---- */
+.hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:3.5rem;align-items:start}
+.thesis{font-size:1.15rem;max-width:34ch;margin:1.5rem 0 0}
+.thesis strong{color:var(--sun);font-weight:600}
+.cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:2rem;padding:.9rem 1.6rem;
+  background:var(--flare);color:#fff;border:none;border-radius:999px;font-family:var(--body);
+  font-size:1rem;font-weight:650;cursor:pointer;box-shadow:0 8px 28px rgba(255,46,136,.34);
+  transition:transform .18s ease,box-shadow .18s ease}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(255,46,136,.45)}
+.cta:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+
+.spec{background:rgba(0,0,0,.26);border:1px solid var(--line);border-radius:14px;
+  padding:1.5rem 1.6rem;font-family:var(--mono);font-size:.82rem}
+.spec h3{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mint);margin:0 0 1.1rem;font-weight:600}
+.spec dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.7rem 1.1rem}
+.spec dt{color:var(--muted)}
+.spec dd{margin:0}
+.spec dd b{color:var(--sun);font-weight:600}
+
+/* ---- generic cards ---- */
+.grid{display:grid;gap:1.15rem}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--canvas-2);border:1px solid var(--line);border-radius:16px;padding:1.5rem 1.5rem}
+.card p{color:var(--muted);font-size:.94rem;margin:0}
+.card p+p{margin-top:.7rem}
+.card .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--flare);display:block;margin-bottom:.5rem}
+ul.ticks{margin:0;padding:0;list-style:none}
+ul.ticks li{position:relative;padding-left:1.3rem;margin-bottom:.55rem;font-size:.94rem}
+ul.ticks li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:7px;
+  border-radius:50%;background:var(--mint)}
+ul.ticks.warn li::before{background:var(--flare)}
+.card a{color:var(--mint);text-decoration:none;border-bottom:1px solid rgba(35,217,176,.4)}
+.card a:hover{color:var(--sun);border-bottom-color:var(--sun)}
+.card a:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:2px}
+
+/* ---- metric tiles ---- */
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}
+.metric{background:rgba(0,0,0,.24);border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.25rem}
+.metric .name{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mint);margin:0 0 .5rem}
+.metric .target{font-family:var(--display);font-size:1.6rem;font-weight:750;color:var(--sun);
+  line-height:1;margin:0 0 .45rem}
+.metric .desc{font-size:.85rem;color:var(--muted);margin:0}
+
+/* ---- shell / pending state ---- */
+.shell{border:1.5px dashed rgba(255,201,74,.5);background:rgba(255,201,74,.05);
+  border-radius:16px;padding:2rem 1.75rem}
+.shell .badge{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--sun);border:1px solid rgba(255,201,74,.45);
+  border-radius:999px;padding:.25rem .7rem;margin-bottom:1rem}
+.shell p{color:var(--muted);font-size:.95rem}
+.shell .placeholder-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:.9rem;margin-top:1.4rem}
+.shell .ph{border:1px solid var(--line);border-radius:12px;padding:1rem;background:rgba(0,0,0,.2)}
+.shell .ph .name{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 .55rem}
+.shell .ph .bar{height:7px;border-radius:99px;background:repeating-linear-gradient(90deg,
+  rgba(185,168,212,.3) 0 6px,transparent 6px 12px)}
+
+/* ---- diagrams ---- */
+.diagram{width:100%;height:auto;display:block;margin:0 auto}
+.diagram text{font-family:var(--mono);font-size:11px;fill:var(--paper)}
+.diagram .lbl{fill:var(--muted);font-size:10px}
+.diagram .box{fill:var(--canvas-2);stroke:var(--line);stroke-width:1}
+.diagram .box-hot{fill:rgba(255,46,136,.14);stroke:rgba(255,46,136,.55)}
+.diagram .box-cool{fill:rgba(35,217,176,.10);stroke:rgba(35,217,176,.45)}
+.diagram .flow{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#arrow)}
+.diagram .flow-hot{stroke:var(--flare);stroke-width:2;fill:none;marker-end:url(#arrowhot)}
+.diagram .title{fill:var(--mint);font-size:10px;letter-spacing:.1em}
+
+/* ---- decision table ---- */
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(140px,.8fr) minmax(120px,.7fr) 1.6fr;
+  gap:1.25rem;padding:1.05rem 0;border-bottom:1px solid var(--line);align-items:baseline}
+.row .k{font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;color:var(--mint);text-transform:uppercase}
+.row .v{font-family:var(--mono);font-size:.86rem;color:var(--sun)}
+.row .why{font-size:.93rem;color:var(--muted)}
+
+/* ---- nav dots ---- */
+.dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:60;
+  display:flex;flex-direction:column;gap:.7rem}
+.dots a{width:9px;height:9px;border-radius:50%;background:rgba(185,168,212,.3);
+  display:block;transition:background .2s,transform .2s}
+.dots a:hover,.dots a.on{background:var(--flare);transform:scale(1.35)}
+.dots a:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+
+.hint{position:fixed;left:1.5rem;bottom:1.25rem;z-index:60;font-family:var(--mono);
+  font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:.65}
+
+footer.end{border-top:1px solid var(--line);padding-top:1.75rem;margin-top:2.5rem;
+  font-size:.85rem;color:var(--muted)}
+footer.end .note{font-family:var(--mono);font-size:.75rem;color:var(--sun);margin-top:.9rem}
+footer.end .byline{font-size:1rem;color:var(--paper);margin:1rem 0 0}
+footer.end .byline b{font-family:var(--display);font-weight:750;font-size:1.08rem}
+footer.end a{color:var(--mint);text-decoration:none;border-bottom:1px solid rgba(35,217,176,.4)}
+footer.end a:hover{color:var(--sun);border-bottom-color:var(--sun)}
+footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;border-radius:2px}
+
+/* ---- motion ---- */
+.slide.seen .rise{opacity:1;transform:none}
+.rise{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1)}
+.rise:nth-child(2){transition-delay:.08s}
+.rise:nth-child(3){transition-delay:.16s}
+.rise:nth-child(4){transition-delay:.24s}
+.slide.seen .draw{stroke-dashoffset:0}
+.draw{stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.4s ease .3s}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rise{opacity:1;transform:none;transition:none}
+  .draw{stroke-dashoffset:0;transition:none}
+  .cta{transition:none}
+}
+@media (max-width:900px){
+  .hero-grid,.g2,.g3{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr;gap:.35rem}
+  .dots{display:none}
+  .deck{scroll-snap-type:none}
+  .slide{min-height:auto;padding:3.5rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="dots" aria-label="Sections">
+  <a href="#s0" title="Bonga Nami"></a><a href="#s1" title="Use case"></a>
+  <a href="#s2" title="Q&A flow"></a><a href="#s3" title="Architecture"></a>
+  <a href="#s4" title="LLM & prompt"></a><a href="#s5" title="Guardrails"></a>
+  <a href="#s6" title="Evaluation"></a><a href="#s7" title="Results"></a>
+  <a href="#s8" title="Trade-offs"></a><a href="#s9" title="Next"></a>
+</nav>
+<div class="hint" aria-hidden="true">↑ ↓ to move</div>
+
+<div class="deck" id="deck">
+
+<!-- 00 ---------------------------------------------------------------- -->
+<section class="slide" id="s0"><div class="inner">
+  <p class="eyebrow rise"><span class="num">00</span> Bonga Nami <span class="rule"></span> Mwihoko Super Jamii &middot; Clinic deployment</p>
+  <div class="hero-grid">
+    <div class="rise">
+      <h1>Bonga&nbsp;Nami<span class="kicker">"talk with me"</span></h1>
+      <p class="thesis">Puberty and menstrual health questions, answered for girls aged 12&ndash;16 in Kenya
+        &mdash; <strong>only from a fixed corpus</strong>, and honest when the answer isn't in it.</p>
+      <button class="cta" id="ask-bonga" type="button">Ask Bonga <span aria-hidden="true">&rarr;</span></button>
+    </div>
+    <div class="spec rise">
+      <h3>Configuration</h3>
+      <dl>
+        <dt>corpus</dt><dd><b>2,664</b> words &middot; 3 documents</dd>
+        <dt>retrieval</dt><dd>e5_mistral_7b_instruct</dd>
+        <dt>generation</dt><dd>gemini-2.5-flash &middot; temp <b>0</b></dd>
+        <dt>guardrails</dt><dd><b>4</b> custom &middot; focus &middot; injection</dd>
+        <dt>language</dt><dd>English &middot; Africa/Nairobi</dd>
+        <dt>sources</dt><dd>WHO &middot; UNICEF &middot; Kenya MoH</dd>
+      </dl>
+    </div>
+  </div>
+</div></section>
+
+<!-- 01 ---------------------------------------------------------------- -->
+<section class="slide" id="s1"><div class="inner">
+  <p class="eyebrow rise"><span class="num">01</span> Use case <span class="rule"></span> corpus, audience, success metrics</p>
+  <h2 class="rise">A girl asks a question she can't ask anyone else.</h2>
+  <p class="lede rise">Adolescent girls in Kenya routinely miss school during their periods &mdash; through cost,
+    lack of a private place to change, pain, or shame. The information gap is filled by myths.
+    This assistant answers <strong>only from a curated corpus</strong>, in a register a 12-year-old trusts.</p>
+  <div class="grid g3 rise">
+    <div class="card"><span class="tag">Audience</span>
+      <ul class="ticks">
+        <li>Girls aged 12&ndash;16, Kenya</li>
+        <li>Often shy, or asking "for a friend"</li>
+        <li>Carrying myths from home or online</li>
+        <li>For many, the first place they've asked</li>
+      </ul></div>
+    <div class="card"><span class="tag">Corpus</span>
+      <ul class="ticks">
+        <li>Puberty: what changes, and when</li>
+        <li>Menstrual cycle, pain, management</li>
+        <li>Myths and the questions girls ask</li>
+        <li>2,664 words &middot; closed &middot; cited</li>
+      </ul></div>
+    <div class="card"><span class="tag">Success metrics</span>
+      <ul class="ticks">
+        <li>Grounded in corpus, not invented</li>
+        <li>Refuses cleanly when out of scope</li>
+        <li>Always routes disclosure of harm</li>
+        <li>Readable at age 11&ndash;12</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- 02 ---------------------------------------------------------------- -->
+<section class="slide" id="s2"><div class="inner">
+  <p class="eyebrow rise"><span class="num">02</span> Q&amp;A flow <span class="rule"></span> what happens when she asks</p>
+  <h2 class="rise">The server mints a key, then gets out of the way.</h2>
+  <p class="lede rise">One HTTPS request, then one long-lived socket. The platform signs a URL over HTTPS;
+    everything after that &mdash; speech in, transcription, retrieval, the reply, audio out &mdash; streams
+    over a single <strong>WebSocket</strong> held open for the conversation, because two-way audio cannot be
+    done with request and response. The connection upgrades to WebRTC where the browser supports it.</p>
+  <div class="rise">
+  <svg class="diagram" viewBox="0 0 940 300" role="img" aria-label="Sequence: browser requests a signed URL from the server, which authenticates with the LLM API; the browser then connects directly over websocket for ASR, retrieval, generation, guardrails and speech.">
+    <defs>
+      <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#B9A8D4"/></marker>
+      <marker id="arrowhot" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#FF2E88"/></marker>
+    </defs>
+    <text class="title" x="0" y="14">BROWSER</text>
+    <text class="title" x="330" y="14">PLATFORM (RAILWAY)</text>
+    <text class="title" x="680" y="14">LLM API</text>
+
+    <rect class="box" x="0" y="30" width="180" height="52" rx="10"/>
+    <text x="16" y="52">Widget</text><text class="lbl" x="16" y="68">chat-v2 bundle</text>
+
+    <rect class="box" x="330" y="30" width="210" height="52" rx="10"/>
+    <text x="346" y="52">GET /api/voice/signed-url</text><text class="lbl" x="346" y="68">voice.ts:139</text>
+
+    <rect class="box box-cool" x="680" y="30" width="200" height="52" rx="10"/>
+    <text x="696" y="52">get_signed_url</text><text class="lbl" x="696" y="68">server-side API key</text>
+
+    <path class="flow draw" d="M180,56 L322,56"/>
+    <path class="flow draw" d="M540,56 L672,56"/>
+
+    <rect class="box box-hot" x="0" y="140" width="180" height="52" rx="10"/>
+    <text x="16" y="162">Direct socket</text><text class="lbl" x="16" y="178">wss:// conversation</text>
+    <path class="flow-hot draw" d="M180,166 L672,166"/>
+    <text class="lbl" x="330" y="158">audio + text bypass the platform entirely</text>
+
+    <rect class="box box-cool" x="680" y="118" width="200" height="150" rx="10"/>
+    <text x="696" y="140">1 &nbsp;ASR</text><text class="lbl" x="742" y="140">scribe_realtime</text>
+    <text x="696" y="166">2 &nbsp;Retrieve</text><text class="lbl" x="766" y="166">e5_mistral</text>
+    <text x="696" y="192">3 &nbsp;Generate</text><text class="lbl" x="774" y="192">gemini 2.5</text>
+    <text x="696" y="218">4 &nbsp;Guardrails</text><text class="lbl" x="786" y="218">4 rules</text>
+    <text x="696" y="244">5 &nbsp;Speak</text><text class="lbl" x="754" y="244">eleven_v3</text>
+
+    <rect class="box" x="330" y="216" width="210" height="52" rx="10"/>
+    <text x="346" y="238">Transcripts pulled back</text><text class="lbl" x="346" y="254">analytics.ts:143</text>
+    <path class="flow draw" d="M672,242 L546,242"/>
+  </svg>
+  </div>
+</div></section>
+
+<!-- 03 ---------------------------------------------------------------- -->
+<section class="slide" id="s3"><div class="inner">
+  <p class="eyebrow rise"><span class="num">03</span> Architecture <span class="rule"></span> frameworks and where state lives</p>
+  <h2 class="rise">What runs where &mdash; and what deliberately doesn't.</h2>
+  <div class="grid g2 rise" style="align-items:start">
+    <svg class="diagram" viewBox="0 0 460 330" role="img" aria-label="Architecture: browser and admin console talk to an Express server on Railway backed by Postgres; the server integrates with the LLM API for retrieval, generation and speech.">
+      <rect class="box" x="10" y="10" width="180" height="46" rx="10"/>
+      <text x="26" y="31">Girl's browser</text><text class="lbl" x="26" y="47">widget + this page</text>
+      <rect class="box" x="255" y="10" width="180" height="46" rx="10"/>
+      <text x="271" y="31">Admin console</text><text class="lbl" x="271" y="47">React + Vite</text>
+      <path class="flow draw" d="M100,58 L100,96"/><path class="flow draw" d="M345,58 L345,96"/>
+      <rect class="box box-hot" x="10" y="100" width="425" height="60" rx="10"/>
+      <text x="26" y="124">Express v5 &middot; TypeScript &middot; Docker on Railway</text>
+      <text class="lbl" x="26" y="144">signed-url minting &middot; config &middot; analytics &middot; healthcheck /health</text>
+      <path class="flow draw" d="M120,162 L120,204"/>
+      <rect class="box" x="10" y="208" width="200" height="56" rx="10"/>
+      <text x="26" y="230">PostgreSQL</text><text class="lbl" x="26" y="248">Prisma &middot; config, logs, admins</text>
+      <path class="flow-hot draw" d="M330,162 L330,204"/>
+      <rect class="box box-cool" x="240" y="208" width="195" height="56" rx="10"/>
+      <text x="256" y="230">ElevenLabs API</text><text class="lbl" x="256" y="248">RAG &middot; LLM &middot; ASR &middot; TTS</text>
+      <text class="lbl" x="10" y="296">Corpus lives with the ElevenLabs API; retrieval is managed.</text>
+    </svg>
+    <div>
+      <div class="card" style="margin-top:1rem"><span class="tag">Orchestration runtime</span>
+      <p style="margin-bottom:.9rem">Bonga answers questions. The same platform can also <b>act</b> on them
+        &mdash; and that path already exists, at <span style="font-family:var(--mono);font-size:.86rem">/webhooks/execute</span>.</p>
+      <p style="margin-bottom:.9rem">When a request needs more than an answer, the model doesn't call tools
+        one at a time. It writes a short JavaScript program, and the runtime executes it against bound
+        functions that reach the organisation's own systems, returning a single result.</p>
+      <p><b>Why that matters for tokens:</b> every separate tool call is another round trip, and every round
+        trip re-sends the entire conversation context to the model. Five tool calls means five times paying
+        for the same context. One generated program collapses them into a single execution &mdash; fewer
+        tokens, lower latency, and fewer places for the conversation to stall while a girl waits.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 04 ---------------------------------------------------------------- -->
+<section class="slide" id="s4"><div class="inner">
+  <p class="eyebrow rise"><span class="num">04</span> LLM &amp; prompt engineering <span class="rule"></span> decisions and why</p>
+  <h2 class="rise">Every setting is an argument.</h2>
+  <div class="rows rise">
+    <div class="row"><div class="k">Generation</div><div class="v">gemini-2.5-flash</div>
+      <div class="why">Voice demands sub-second turns. A larger model buys reasoning this task doesn't need &mdash; the answer is in a 2,664-word corpus, not in the model's cleverness.</div></div>
+    <div class="row"><div class="k">Temperature</div><div class="v">0</div>
+      <div class="why">Health answers shouldn't vary run to run, and the evaluation must be reproducible. Warmth comes from the prompt, not from sampling noise.</div></div>
+    <div class="row"><div class="k">Prompt structure</div><div class="v">7 sections</div>
+      <div class="why">Personality, Environment, Tone, Goal, Boundaries, Safety, Certainty. Markdown headings are prioritised more reliably than prose paragraphs.</div></div>
+    <div class="row"><div class="k">Persona</div><div class="v">older sister</div>
+      <div class="why">Not a clinician and not a peer. The register that gets a 13-year-old to ask a second question.</div></div>
+    <div class="row"><div class="k">Corpus binding</div><div class="v">explicit</div>
+      <div class="why">Instructed to answer only from the knowledge base and to say so when it can't &mdash; then enforced independently at the platform layer, because a prompt alone can be talked around.</div></div>
+    <div class="row"><div class="k">Anatomy language</div><div class="v">correct terms</div>
+      <div class="why">Euphemism teaches shame and makes disclosure of abuse harder. Explicitly instructed against slang for body parts.</div></div>
+  </div>
+</div></section>
+
+<!-- 05 ---------------------------------------------------------------- -->
+<section class="slide" id="s5"><div class="inner">
+  <p class="eyebrow rise"><span class="num">05</span> Guardrails <span class="rule"></span> the audience-specific work</p>
+  <h2 class="rise">For a service used by children, the refusals are the product.</h2>
+  <p class="lede rise">The platform's content filters terminate the call when they fire. Enabling the obvious ones
+    &mdash; <strong>self-harm, sexual content</strong> &mdash; would hang up on a girl at the exact moment she needs help,
+    or block the anatomy vocabulary the service exists to provide. They are off by deliberate choice.</p>
+  <div class="grid g2 rise">
+    <div class="card"><span class="tag">Enforced &middot; regenerates the answer</span>
+      <ul class="ticks warn">
+        <li><b>No diagnosis</b> &mdash; describes what's common, never names her condition</li>
+        <li><b>No dosing</b> &mdash; no drug names, doses or regimens</li>
+        <li><b>Nothing off-corpus</b> &mdash; says so and refers on</li>
+        <li><b>Harm is routed</b> &mdash; blocks any reply that fails to surface Childline 116</li>
+      </ul></div>
+    <div class="card"><span class="tag">Also on</span>
+      <ul class="ticks">
+        <li>Focus &mdash; keeps the conversation in scope</li>
+        <li>Prompt-injection defence</li>
+      </ul>
+      <p style="margin-top:1rem">The safeguarding rule is the inverse of a filter: it doesn't suppress the
+        topic, it <em>requires the right answer</em> before the reply is allowed through.</p></div>
+  </div>
+</div></section>
+
+<!-- 06 ---------------------------------------------------------------- -->
+<section class="slide" id="s6"><div class="inner">
+  <p class="eyebrow rise"><span class="num">06</span> Evaluation approach <span class="rule"></span> metrics and why these</p>
+  <h2 class="rise">Accuracy alone would miss the point.</h2>
+  <p class="lede rise">A factually correct answer written at university reading level, or one that answers a
+    disclosure of abuse as though it were a question about cramps, has <strong>failed this audience</strong>.
+    So the metric set is deliberately split.</p>
+  <div class="metrics rise">
+    <div class="metric"><p class="name">Groundedness</p><p class="target">&ge; 95%</p>
+      <p class="desc">Claims traceable to the corpus. The core accuracy measure.</p></div>
+    <div class="metric"><p class="name">Refusal accuracy</p><p class="target">&ge; 90%</p>
+      <p class="desc">Off-corpus probes declined rather than answered from general knowledge.</p></div>
+    <div class="metric"><p class="name">Safeguarding recall</p><p class="target">100%</p>
+      <p class="desc">Disclosure scenarios that surface the helpline. Non-negotiable.</p></div>
+    <div class="metric"><p class="name">Reading level</p><p class="target">&le; grade 6</p>
+      <p class="desc">Flesch-Kincaid. Audience-specific, deterministic, no judge needed.</p></div>
+    <div class="metric"><p class="name">Myth correction</p><p class="target">&ge; 90%</p>
+      <p class="desc">Myth-shaped prompts corrected rather than affirmed.</p></div>
+  </div>
+  <p class="lede rise" style="margin-top:2rem">Method: a hand-built golden set from the corpus, plus off-corpus
+    probes and safeguarding scenarios. Deterministic checks where possible; an LLM judge from a
+    <strong>different model family</strong> than the generator, to avoid self-preference bias.</p>
+</div></section>
+
+<!-- 07 ---------------------------------------------------------------- -->
+<section class="slide" id="s7"><div class="inner">
+  <p class="eyebrow rise"><span class="num">07</span> Results <span class="rule"></span> where it holds and where it breaks</p>
+  <h2 class="rise">Not yet measured.</h2>
+  <div class="shell rise">
+    <span class="badge">Awaiting evaluation run</span>
+    <p>This section is deliberately empty. The golden set has not been built and the harness has not run,
+      so there are no scores to report &mdash; and inventing them would be worse than leaving this blank.</p>
+    <p>It will carry: per-metric scores against the targets in section 06, two or three transcripts where
+      the assistant performed well, and &mdash; more usefully &mdash; the failures, with a read on why they happened.</p>
+    <div class="placeholder-row">
+      <div class="ph"><p class="name">Groundedness</p><div class="bar"></div></div>
+      <div class="ph"><p class="name">Refusal accuracy</p><div class="bar"></div></div>
+      <div class="ph"><p class="name">Safeguarding</p><div class="bar"></div></div>
+      <div class="ph"><p class="name">Reading level</p><div class="bar"></div></div>
+      <div class="ph"><p class="name">Myth correction</p><div class="bar"></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 08 ---------------------------------------------------------------- -->
+<section class="slide" id="s8"><div class="inner">
+  <p class="eyebrow rise"><span class="num">08</span> Trade-offs <span class="rule"></span> limitations and alternatives considered</p>
+  <h2 class="rise">What this costs.</h2>
+  <div class="grid g2 rise">
+    <div class="card"><span class="tag">Managed vs self-hosted retrieval</span>
+      <p>Chose the LLM API's built-in RAG: a working voice and text service in hours, no vector infrastructure.</p>
+      <p><b>The cost:</b> retrieval is a black box. No precision/recall, no chunk-size ablation, no embedding
+        comparison. The alternative &mdash; a pgvector pipeline &mdash; was considered and is partly scaffolded in the
+        schema already.</p></div>
+    <div class="card"><span class="tag">Corpus scope</span>
+      <p>Narrowed from sexual and reproductive health to puberty and menstrual health alone.</p>
+      <p><b>The cost:</b> real questions about contraception and consent get refused. The gain is a corpus
+        that can actually be evaluated end-to-end, and a scope that is safe to operate live.</p></div>
+    <div class="card"><span class="tag">English-only corpus</span>
+      <p>Bonga speaks a wide range of languages, Swahili among them. The constraint here is mine, not the
+        service's: one language means one golden set and directly comparable metrics.</p>
+      <p><b>The cost:</b> girls in Kenya move between English, Swahili and Sheng. Extending is a corpus and
+        evaluation exercise &mdash; translate the corpus, rebuild the golden set, re-run &mdash; not a
+        technical barrier. Language detection is enabled today, so a Swahili question would be answered
+        without a Swahili corpus to ground it.</p></div>
+    <div class="card"><span class="tag">Authored corpus</span>
+      <p>Written for the audience and cited to WHO, UNICEF and Kenya MoH guidance.</p>
+      <p><b>The cost:</b> it isn't a real-world ingestion problem. Source PDFs would have been messier,
+        far above this reading level, and slower to get to a testable state.</p></div>
+  </div>
+</div></section>
+
+<!-- 09 ---------------------------------------------------------------- -->
+<section class="slide" id="s9"><div class="inner">
+  <p class="eyebrow rise"><span class="num">09</span> Beyond the PoC <span class="rule"></span> what comes next</p>
+  <h2 class="rise">What I'd do with more than a week.</h2>
+  <div class="grid g2 rise">
+    <div class="card"><span class="tag">Immediately</span>
+      <ul class="ticks warn">
+        <li>Verify every helpline number against a live source</li>
+        <li>Clinical review of the corpus by a health worker</li>
+        <li>Resolve the language-detection inconsistency</li>
+      </ul></div>
+    <div class="card"><span class="tag">To measure properly</span>
+      <ul class="ticks">
+        <li>Self-hosted retrieval, for precision and recall</li>
+        <li>Chunk-size and embedding ablations</li>
+        <li>Continuous evaluation over real transcripts</li>
+      </ul></div>
+    <div class="card"><span class="tag">To reach her where she is</span>
+      <ul class="ticks">
+        <li><b>WhatsApp</b>, <b>SMS</b> and <b>voice</b> &mdash; no smartphone or data assumed</li>
+        <li>Swahili corpus and golden set; Sheng register</li>
+        <li>Testing with Youth Advisory Panels</li>
+      </ul></div>
+    <div class="card"><span class="tag">To act, not just answer</span>
+      <ul class="ticks warn">
+        <li><b>Twilio</b> warm transfer to a counsellor; <b>SendGrid</b> case handoff</li>
+        <li>Write to a CRM; raise a follow-up task for the right team</li>
+        <li>Book a clinic visit through a calendar integration</li>
+      </ul></div>
+    <div class="card" style="grid-column:1/-1"><span class="tag">To listen at scale</span>
+      <p style="margin-bottom:.9rem">The same agent can run <b>outbound</b> as well as inbound &mdash; calling or
+        messaging beneficiaries to conduct surveys and follow-ups, and turning those conversations into
+        structured monitoring data rather than a pile of transcripts. That is a research instrument, not
+        just a helpline.</p>
+      <ul class="ticks">
+        <li><b>Structured procedures</b> &mdash; a fixed sequence of typed steps run identically every time;
+          the right home for both a survey script and the safeguarding path</li>
+        <li><b>Redis</b> &mdash; cache the few hundred questions asked thousands of times, invalidated on
+          corpus version so a corrected document never serves a stale answer</li>
+        <li><b>QStash</b> &mdash; queue outbound campaigns so survey volume never blocks a live conversation</li>
+        <li><b>Pronunciation dictionaries</b> &mdash; control how clinical terms and Swahili words are spoken</li>
+      </ul></div>
+  </div>
+  <footer class="end">
+    <p><b>Bonga Nami</b> &mdash; built for the Mwihoko Super Jamii clinic deployment.</p>
+    <p class="byline">Presented by <b>Philip K. Kimani</b> &middot;
+      <a href="mailto:philipkimanidev@gmail.com">philipkimanidev@gmail.com</a></p>
+  </footer>
+</div></section>
+
+</div><!-- /deck -->
+
+<div id="ruskins-chat-widget"></div>
+<script src="/widget/widget.bundle.iife.js" onerror="fallbackInit()"></script>
+<script>
+(function(){
+  var deck=document.getElementById('deck');
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var dots=[].slice.call(document.querySelectorAll('.dots a'));
+
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('seen');
+        var i=slides.indexOf(e.target);
+        dots.forEach(function(d,j){ d.classList.toggle('on', j===i); });
+      }
+    });
+  },{threshold:.35});
+  slides.forEach(function(s){ io.observe(s); });
+
+  function go(dir){
+    var i=slides.findIndex(function(s){
+      var r=s.getBoundingClientRect();
+      return r.top>-window.innerHeight/2 && r.top<window.innerHeight/2;
+    });
+    var next=Math.min(Math.max(i+dir,0),slides.length-1);
+    slides[next].scrollIntoView({behavior:'smooth'});
+  }
+  document.addEventListener('keydown',function(e){
+    if(['ArrowDown','PageDown'].indexOf(e.key)>-1||(e.key===' '&&!e.shiftKey)){e.preventDefault();go(1);}
+    if(['ArrowUp','PageUp'].indexOf(e.key)>-1||(e.key===' '&&e.shiftKey)){e.preventDefault();go(-1);}
+  });
+
+  document.getElementById('ask-bonga').addEventListener('click',function(){
+    var l=document.querySelector('#ruskins-chat-widget button, [class*="launcher"], [class*="bubble"], [aria-label*="chat" i]');
+    if(l){l.click();}
+  });
+})();
+
+function fallbackInit(){
+  console.log('[ChatUI] Widget bundle not found. Run: pnpm --filter platform-client build:widget');
+  var c=document.getElementById('ruskins-chat-widget');
+  if(c){c.innerHTML='<div style="position:fixed;bottom:1.5rem;right:1.5rem;background:#2E1552;'+
+    'border:1px solid rgba(185,168,212,.3);border-radius:1rem;padding:1.25rem;max-width:280px;'+
+    'color:#FBF8FF;font-family:ui-sans-serif,system-ui,sans-serif;box-shadow:0 10px 40px rgba(0,0,0,.45)">'+
+    '<h3 style="margin:0 0 .5rem;font-size:1rem">Widget not built</h3>'+
+    '<code style="display:block;padding:.5rem;background:rgba(0,0,0,.35);border-radius:.25rem;font-size:.72rem">'+
+    'pnpm --filter platform-client build:widget</code></div>';}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+build/
+*.tsbuildinfo
+
+# environment / secrets
+.env
+.env.local
+.env.*.local
+
+# scratch
+.firecrawl/
+*.log
+
+# os
+.DS_Store
+Thumbs.db
