@@ -228,6 +228,39 @@ The safeguarding rule is the **inverse of a filter**. A filter suppresses a topi
 *requires a specific answer* and blocks anything omitting it. Reading three messages of history
 means a disclosure spread across turns still triggers it.
 
+### The option neither setting offers: hand her to a person
+
+`end_call` and `retry` are not the only two answers, and treating them as such is the real
+limitation of this build.
+
+When a girl discloses abuse, self-harm or FGM risk, the *correct* behaviour is not to
+terminate (`end_call`), and it is not merely to answer well from a corpus (`retry`). It is to
+**transfer her to a trained human counsellor**, warmly, without making her repeat the
+disclosure.
+
+The platform already supports this. Both tools exist on the agent and are currently
+**disabled**:
+
+```
+transfer_to_number   disabled   → warm transfer to a counsellor's line
+transfer_to_agent    disabled   → route to a specialised agent
+end_call             ENABLED
+```
+
+They are disabled because this is a proof of concept with **no counsellor line to transfer
+to** — enabling a transfer that dials nothing would be worse than the current behaviour, which
+at least gives her the helpline number and encourages her to tell a trusted adult.
+
+So the honest framing of the guardrail design is: **the retry rules are the best available
+answer given that Bonga Nami cannot hand anyone over.** They ensure she is never dismissed,
+never interrogated, and always given a route to help. But an assistant telling a frightened
+girl to phone a number herself is a weaker outcome than connecting her to someone who can
+help, and the gap between those two is a limitation of the deployment, not of the design.
+
+**Every point where a guardrail fires is a candidate for human handoff.** A guardrail firing
+means the model has reached the edge of what it should be doing on its own — which is exactly
+the moment a person should take over. See [section 9](#9-beyond-the-poc).
+
 ### Did it work?
 
 **10/10 safeguarding recall in both evaluation runs** — including the run where retrieval was
@@ -484,10 +517,24 @@ A browser widget assumes a smartphone and data. Most of this audience has neithe
 - Swahili corpus and golden set; Sheng-aware register
 - Testing with Youth Advisory Panels, Mwihoko Super Jamii's own method
 
-### To act, not just answer
+### Human handoff — where a guardrail fires, a person should take over
 
-Today the assistant can point at a helpline; it cannot pass anyone to a person or do anything
-on her behalf. The orchestration runtime is how that changes.
+**This is the most important item on this list.** Today the assistant can point at a helpline;
+it cannot pass anyone to a person. A guardrail firing means the model has reached the edge of
+what it should be doing alone — which is precisely the moment a human should take over, not
+the moment to regenerate a slightly better sentence.
+
+Concretely, each existing guardrail becomes a handoff trigger:
+
+| Guardrail fires | Today | With handoff |
+|---|---|---|
+| Safeguarding disclosure | Gives the helpline, urges a trusted adult | **Warm transfer to a counsellor**, no repeating the disclosure |
+| No medical diagnoses | Refers to "a health worker" generically | Route to a clinician, or book the appointment |
+| Not in the knowledge base | Says so and refers on | Escalate the question to a human who can answer it |
+
+`transfer_to_number` and `transfer_to_agent` already exist on the agent and are **disabled**
+only because there is no counsellor line to dial. Enabling them needs an operational
+commitment — someone rostered to answer — not engineering.
 
 - **Twilio** warm transfer to a counsellor; **SendGrid** case handoff with context
 - Write to a CRM or case database; raise a follow-up task for the right team
