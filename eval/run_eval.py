@@ -250,7 +250,12 @@ def main():
 
     if args.rescore:
         results = json.loads(OUT_JSON.read_text(encoding="utf-8"))
-        for r in results.values():
+        # refresh case definitions from the golden set, so edits to categories or
+        # expected facts take effect without re-calling the API
+        current = {c["id"]: c for c in json.loads(GOLDEN.read_text(encoding="utf-8"))["cases"]}
+        for cid, r in results.items():
+            if cid in current:
+                r["case"] = current[cid]
             r["scores"] = score(r["case"], r["reply"])
         OUT_JSON.write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding="utf-8")
         report(results)
