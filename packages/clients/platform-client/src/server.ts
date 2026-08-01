@@ -14,6 +14,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import { CSP_DIRECTIVES } from "./security/csp.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -215,14 +216,7 @@ async function startServer() {
   // Security headers via Helmet
   app.use(helmet({
     contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "https://elevenlabs.io"],
-        styleSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "https:"],
-        connectSrc: ["'self'", "wss://api.elevenlabs.io", "https://api.elevenlabs.io"],
-        frameSrc: ["'self'"],
-      },
+      directives: CSP_DIRECTIVES,
     },
     crossOriginEmbedderPolicy: false, // Allow embedding for widgets
   }));
