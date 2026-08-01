@@ -615,6 +615,42 @@ the untested case.
 No, but less useful than intended — which is why the metric exists. The cause is sentence
 length, the fix is a prompt constraint, and it is testable in a single re-run.
 
+**"So why didn't you just fix it?"** — *the answer to rehearse*
+
+> Because I'd be optimising a proxy. Flesch-Kincaid measures sentence length, not
+> comprehension. I know the cause — my sentences run 14.5 words against the corpus's 10.4 —
+> and the fix is a per-sentence cap in the prompt. But I'd be trading against groundedness,
+> which is the metric that actually protects her, and the real test of readability is sitting
+> with girls, which is the Youth Advisory Panel step on the roadmap.
+
+Three things that answer is doing, worth knowing so it can be defended under follow-up:
+
+1. **It names the mechanism, not just the number.** 14.5 words against 10.4 shows the miss was
+   decomposed rather than noticed. Anyone can report a failing metric; the credibility comes
+   from knowing *which of its two inputs* caused it.
+2. **It identifies a real trade-off.** Forcing shorter sentences pressures the model to
+   compress figures — the exact numeric-drift failure documented in §2 and §5. Improving a
+   cosmetic metric at the cost of the one that keeps a health answer accurate is a bad trade,
+   and saying so demonstrates you know which metric matters.
+3. **It ends on the honest limit of the instrument.** Flesch-Kincaid cannot tell whether "your
+   uterus lining sheds" is understood by a 13-year-old. The only real test is putting it in
+   front of girls — which is a roadmap item, not a deflection.
+
+**If pressed — "isn't that a convenient excuse for a missed target?"**
+
+> It would be, if I couldn't tell you exactly why it missed. I can: sentence length, not
+> vocabulary — the agent's words are actually *simpler* than its own corpus, 1.40 syllables
+> against 1.48. I also tested two explanations and rejected both: removing the warm openers
+> makes the score *worse*, and spelling numbers aloud costs 0.06. I'm not declining to fix
+> something I don't understand. I'm declining to trade a metric that protects the user for one
+> that improves the scoreboard.
+
+**And if asked what would change your mind:**
+
+> Evidence that the reading level is costing comprehension in the field — from the Youth
+> Advisory Panel or from real transcripts where girls ask "what does that mean?". That's a
+> signal worth acting on. A number crossing 6.0 is not.
+
 **"What would you do differently?"**
 Self-hosted retrieval from the start. Not for its own sake, but because §2 could not have
 happened: with a local index I would have known immediately whether documents were embedded,
