@@ -46,7 +46,7 @@ Girls aged roughly **12 to 16**, in Kenya, usually asking about their own bodies
 
 ### Corpus
 
-A **closed corpus of three documents**, written for this audience and cited to public health
+A **closed corpus**, authored in three parts for this audience and cited to public health
 guidance (WHO, UNICEF, Kenya Ministry of Health):
 
 | Document | Covers |
@@ -55,7 +55,9 @@ guidance (WHO, UNICEF, Kenya Ministry of Health):
 | `02-menstrual-health.md` | Cycle mechanics, normal ranges, pain, management, red flags |
 | `03-myths-and-questions.md` | Ten myths corrected, plus the questions girls actually ask |
 
-Compiled into a single `.txt` (**2,664 words**) for upload. The corpus opens with a statement
+The three parts are compiled into a **single `.txt` of 2,663 words**, which is what is
+uploaded and indexed — the agent has **one** knowledge base document, not three, and the
+ElevenLabs API chunks it internally for retrieval. The corpus opens with a statement
 of principles — girl-centred, judgement-free, culturally responsive, norm-shifting, honest
 about limits — so retrieval reinforces the persona rather than fighting it.
 
@@ -149,7 +151,7 @@ context five times. One generated program collapses them into a single execution
 
 | Decision | Choice | Why |
 |---|---|---|
-| Generation model | `gemini-2.5-flash` | Voice demands sub-second turns. A larger model buys reasoning this task doesn't need — the answer is in a 2,664-word corpus, not in the model's cleverness. |
+| Generation model | `gemini-2.5-flash` | Voice demands sub-second turns. A larger model buys reasoning this task doesn't need — the answer is in a 2,663-word corpus, not in the model's cleverness. |
 | Temperature | `0` | Health answers shouldn't vary run to run, and evaluation must be reproducible. Warmth comes from the prompt, not sampling noise. |
 | Prompt structure | 7 markdown sections | Personality, Environment, Tone, Goal, Boundaries, Safety, Certainty. Headed sections are followed more reliably than prose. |
 | Persona | Older sister | Not a clinician, not a peer. The register that gets a 13-year-old to ask a second question. |
