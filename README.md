@@ -440,11 +440,22 @@ determinable rather than a matter of opinion:
 
 **Sentence length, not vocabulary.** The agent's words are *simpler* than its own corpus; its
 sentences are about four words longer. The prompt constrains answers to 2–4 sentences but
-says nothing about how long a sentence may be, which is the fix to test next.
+says nothing about how long a sentence may be — that is the available fix.
 
 Two hypotheses were tested and rejected: that the warm openers were padding (removing them
 makes the score *worse* — they are short and simple), and that speaking numbers aloud
 inflated it (real, but worth at most 0.06).
+
+**The fix has deliberately not been applied**, and that is a position rather than an omission.
+Flesch-Kincaid measures sentence length, not comprehension — moving 6.52 to 5.9 changes no
+girl's understanding of anything. Forcing shorter sentences also pressures the model to
+compress figures, the exact numeric drift seen when grounding was absent. That would trade
+**groundedness — the metric that actually protects her — for one that improves the
+scoreboard.**
+
+The real test of readability is putting answers in front of girls: the Youth Advisory Panel
+step in [section 9](#9-beyond-the-poc). What would change this position is field evidence that
+the reading level is costing comprehension — not a number crossing 6.0.
 
 ### Defects found in the harness itself
 
