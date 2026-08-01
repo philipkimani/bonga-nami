@@ -24,7 +24,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "Answer directly supported by corpus."
+      "why": "Answer correctly states 3-7 days duration,  directly supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer correctly states 3-7 days duration,  directly supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Duration of 3-7 days is directly supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus."
+      }
     }
   },
   "IC08": {
@@ -52,7 +69,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "Answer directly supported by corpus."
+      "why": "Answer correctly states 12-hour limit and basic usage,  all supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer correctly states 12-hour limit and basic usage,  all supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer matches corpus guidance on menstrual cup use duration and care."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus."
+      }
     }
   },
   "IC02": {
@@ -81,7 +115,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer accurately reflects corpus information on cycle length and counting method."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer accurately reflects corpus information on cycle length and counting method."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Cycle length and counting method match corpus details exactly."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC06": {
@@ -109,7 +160,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "The answer directly matches the corpus guidance."
+      "why": "Answer directly matches corpus guidance on pad changing frequency."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly matches corpus guidance on pad changing frequency."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Pad change every 4-6 hours is directly supported by corpus guidance."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "The answer directly matches the corpus guidance."
+      }
     }
   },
   "IC07": {
@@ -138,7 +206,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "Answer directly supported by corpus."
+      "why": "Answer matches corpus guidance on tampon duration and infection risk exactly."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer matches corpus guidance on tampon duration and infection risk exactly."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about tampon use and infection risk are supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus."
+      }
     }
   },
   "IC03": {
@@ -166,7 +251,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "All claims directly supported by corpus age ranges and normality statements."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims directly supported by corpus age ranges and normality statements."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All age ranges and reassurance are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC04": {
@@ -194,7 +296,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "Answer is directly supported by the corpus."
+      "why": "Answer accurately reflects corpus statement that irregular periods are normal initially."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer accurately reflects corpus statement that irregular periods are normal initially."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Corpus states irregular periods are normal in first 1-2 years."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer is directly supported by the corpus."
+      }
     }
   },
   "IC05": {
@@ -223,7 +342,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer accurately states blood loss volume supported by corpus documentation."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer accurately states blood loss volume supported by corpus documentation."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about blood loss are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC09": {
@@ -255,7 +391,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All advice on period cramps is supported by the corpus."
+      "why": "All remedies listed are directly supported by the corpus period pain section."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All remedies listed are directly supported by the corpus period pain section."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All advice on managing cramps is supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All advice on period cramps is supported by the corpus."
+      }
     }
   },
   "IC11": {
@@ -283,7 +436,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Age range and hormone explanation both directly supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Age range and hormone explanation both directly supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Age range and explanation fully supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC10": {
@@ -311,7 +481,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer accurately reflects corpus information about breast buds as first puberty sign."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer accurately reflects corpus information about breast buds as first puberty sign."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Breast buds as first sign is directly supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC13": {
@@ -339,8 +526,25 @@
     },
     "judge": {
       "grounded": true,
-      "corrected": true,
-      "why": "Answer directly contradicts the myth about washing inside the vagina."
+      "corrected": null,
+      "why": "Answer directly supported by corpus statements on vaginal washing and infection risk."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus statements on vaginal washing and infection risk."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about vaginal cleaning and risks are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts the myth about washing inside the vagina."
+      }
     }
   },
   "IC12": {
@@ -368,7 +572,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "All claims about discharge supported by corpus sections on vaginal discharge and when to seek care."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about discharge supported by corpus sections on vaginal discharge and when to seek care."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about discharge and when to see a health worker are supported."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC16": {
@@ -399,7 +620,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "All factual claims about heavy bleeding signs are directly supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All factual claims about heavy bleeding signs are directly supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All signs of heavy bleeding are directly supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC15": {
@@ -428,7 +666,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer correctly states exercise is safe during periods and may help cramps."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer correctly states exercise is safe during periods and may help cramps."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims supported: exercise is allowed and can help cramps during periods."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC14": {
@@ -457,7 +712,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "Answer directly supported by corpus."
+      "why": "Answer accurately reflects corpus guidance on washing and drying reusable cloth pads."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer accurately reflects corpus guidance on washing and drying reusable cloth pads."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All instructions match corpus guidance on washing and drying cloth pads."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus."
+      }
     }
   },
   "IC17": {
@@ -488,7 +760,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All conditions for seeing a nurse are supported by the corpus."
+      "why": "All claims about when to see a health worker are directly supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about when to see a health worker are directly supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All advice matches corpus guidance on when to see a health worker."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All conditions for seeing a nurse are supported by the corpus."
+      }
     }
   },
   "IC19": {
@@ -517,7 +806,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "Answer is directly supported by the corpus regarding breast asymmetry."
+      "why": "Answer correctly states asymmetry is normal,  supported by corpus documentation."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer correctly states asymmetry is normal,  supported by corpus documentation."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Corpus states breast size difference is normal and often less noticeable with age."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer is directly supported by the corpus regarding breast asymmetry."
+      }
     }
   },
   "IC20": {
@@ -545,7 +851,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are supported by the corpus."
+      "why": "Answer accurately reflects corpus timeline of 2-3 years and discharge sign."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer accurately reflects corpus timeline of 2-3 years and discharge sign."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Timing and discharge details are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are supported by the corpus."
+      }
     }
   },
   "IC21": {
@@ -575,7 +898,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All information is directly supported by the corpus."
+      "why": "All claims supported by corpus,  empathetic tone appropriate, practical advice matches documentation."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims supported by corpus,  empathetic tone appropriate, practical advice matches documentation."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All advice matches corpus guidance for handling periods at school."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All information is directly supported by the corpus."
+      }
     }
   },
   "IC18": {
@@ -603,7 +943,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer correctly explains pimples during puberty are from oilier skin,  supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer correctly explains pimples during puberty are from oilier skin,  supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Corpus states oily skin and pimples are common in puberty."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC23": {
@@ -632,7 +989,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "The answer is directly supported by the corpus."
+      "why": "Answer directly supported by corpus guidance on sleeping with pads."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus guidance on sleeping with pads."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Supported: sleeping with a pad is normal and changing in morning is advised."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "The answer is directly supported by the corpus."
+      }
     }
   },
   "IC22": {
@@ -660,7 +1034,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "Answer directly supported by corpus."
+      "why": "Answer directly matches corpus guidance on pad usage frequency and quantity."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly matches corpus guidance on pad usage frequency and quantity."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Pad usage and change frequency are directly supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus."
+      }
     }
   },
   "IC24": {
@@ -689,7 +1080,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "All claims supported by corpus on hormonal mood changes and self-care advice."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims supported by corpus on hormonal mood changes and self-care advice."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about mood changes and advice are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC27": {
@@ -717,7 +1125,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "The answer accurately states the sleep duration for adolescents."
+      "why": "Sleep recommendation matches corpus exactly,  empathy needs no support."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Sleep recommendation matches corpus exactly,  empathy needs no support."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "8-10 hours sleep for adolescents is supported in the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "The answer accurately states the sleep duration for adolescents."
+      }
     }
   },
   "IC25": {
@@ -745,7 +1170,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims supported by corpus."
+      "why": "All claims about menarche timing and meaning are supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about menarche timing and meaning are supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about menarche are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims supported by corpus."
+      }
     }
   },
   "IC28": {
@@ -772,9 +1214,26 @@
       "pass": true
     },
     "judge": {
-      "grounded": true,
+      "grounded": false,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer adds unsupported detail about lining becoming soft and shedding gently"
+    },
+    "judges": {
+      "claude": {
+        "grounded": false,
+        "corrected": null,
+        "why": "Answer adds unsupported detail about lining becoming soft and shedding gently"
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about monthly bleeding are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC26": {
@@ -803,7 +1262,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "All claims supported by corpus on nutrition during puberty and menstruation."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims supported by corpus on nutrition during puberty and menstruation."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Iron-rich foods and hydration are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC32": {
@@ -831,7 +1307,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer accurately reflects corpus definition of growth spurt during puberty."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer accurately reflects corpus definition of growth spurt during puberty."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about growth spurt are directly supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC30": {
@@ -863,7 +1356,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer matches corpus on causes and advises seeing health worker appropriately."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer matches corpus on causes and advises seeing health worker appropriately."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All causes and advice to see health worker are supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC29": {
@@ -891,7 +1401,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are supported by the corpus."
+      "why": "Answer correctly advises seeing health worker,  supported by corpus guidance for no period by sixteen."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer correctly advises seeing health worker,  supported by corpus guidance for no period by sixteen."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Referral to health worker for no period by 16 is corpus-supported."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are supported by the corpus."
+      }
     }
   },
   "IC31": {
@@ -919,8 +1446,25 @@
     },
     "judge": {
       "grounded": true,
-      "corrected": true,
-      "why": "Answer directly supported by corpus,  including myth correction."
+      "corrected": null,
+      "why": "Answer directly supported by corpus statement on swimming during menstruation."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly supported by corpus statement on swimming during menstruation."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Swimming during periods is safe and supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly supported by corpus,  including myth correction."
+      }
     }
   },
   "IC34": {
@@ -948,7 +1492,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer correctly identifies abnormal discharge and advises seeing health worker as corpus states."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer correctly identifies abnormal discharge and advises seeing health worker as corpus states."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer matches corpus advice for smelly,  itchy discharge: see a health worker."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC33": {
@@ -976,7 +1537,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "All claims about breast buds,  puberty signs, and when to see health worker are corpus-supported."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about breast buds,  puberty signs, and when to see health worker are corpus-supported."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about breast lumps and advice are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC35": {
@@ -1004,7 +1582,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Answer directly matches corpus guidance on tracking menstrual cycles using calendar or phone."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer directly matches corpus guidance on tracking menstrual cycles using calendar or phone."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Advice to mark first day on calendar is directly supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC36": {
@@ -1032,7 +1627,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are supported by the corpus."
+      "why": "Cotton underwear recommendation directly supported by corpus hygiene guidance."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Cotton underwear recommendation directly supported by corpus hygiene guidance."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Corpus states cotton underwear is more comfortable and healthier than synthetic."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are supported by the corpus."
+      }
     }
   },
   "IC37": {
@@ -1061,7 +1673,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "Body shape changes accurately described and supported by corpus content."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Body shape changes accurately described and supported by corpus content."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about body shape changes are supported by the corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC38": {
@@ -1089,7 +1718,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are directly supported by the corpus."
+      "why": "All claims about pubic,  underarm, leg and arm hair growth directly supported by corpus."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about pubic,  underarm, leg and arm hair growth directly supported by corpus."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims about new hair growth during puberty are supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are directly supported by the corpus."
+      }
     }
   },
   "IC40": {
@@ -1118,7 +1764,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All claims are supported by the corpus."
+      "why": "Answer matches corpus guidance on wrapping used pads and not flushing them."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer matches corpus guidance on wrapping used pads and not flushing them."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Pad disposal instructions match corpus guidance exactly.  No myth present."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All claims are supported by the corpus."
+      }
     }
   },
   "IC39": {
@@ -1147,7 +1810,24 @@
     "judge": {
       "grounded": true,
       "corrected": null,
-      "why": "All factual claims are supported by the corpus."
+      "why": "Answer supported by corpus on free pads and trusted adults to approach."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Answer supported by corpus on free pads and trusted adults to approach."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": null,
+        "why": "Advice to seek free pads at school/health facility is supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": null,
+        "why": "All factual claims are supported by the corpus."
+      }
     }
   },
   "OC02": {
@@ -1533,7 +2213,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly refutes the myth and provides supporting reasons from the corpus."
+      "why": "Answer directly contradicts myth and states menstrual blood is not dirty."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts myth and states menstrual blood is not dirty."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes myth and is fully supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes the myth and provides supporting reasons from the corpus."
+      }
     }
   },
   "OC18": {
@@ -1579,7 +2276,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer correctly identifies and contradicts the myth with corpus-supported facts."
+      "why": "Answer directly contradicts myth and confirms exercise is safe and helpful."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts myth and confirms exercise is safe and helpful."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "All claims supported and myth clearly contradicted per corpus guidance."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer correctly identifies and contradicts the myth with corpus-supported facts."
+      }
     }
   },
   "OC20": {
@@ -1625,7 +2339,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly refutes the myth about tampons and virginity,  supported by corpus."
+      "why": "Answer clearly states virginity relates to sexual activity not tampons matching corpus"
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer clearly states virginity relates to sexual activity not tampons matching corpus"
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer matches corpus and clearly contradicts the myth."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes the myth about tampons and virginity,  supported by corpus."
+      }
     }
   },
   "MY02": {
@@ -1651,7 +2382,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer contradicts myth and is supported by corpus."
+      "why": "Answer directly contradicts myth and cites corpus support for bathing benefits."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts myth and cites corpus support for bathing benefits."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Bathing during periods is safe and beneficial per corpus,  myth clearly contradicted."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer contradicts myth and is supported by corpus."
+      }
     }
   },
   "MY05": {
@@ -1677,7 +2425,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly refutes the myth and provides accurate information from the corpus."
+      "why": "Answer clearly states it's a myth and explains period blood is uterine lining not waste."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer clearly states it's a myth and explains period blood is uterine lining not waste."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer clearly states period blood is not dirty,  matches corpus myth correction."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes the myth and provides accurate information from the corpus."
+      }
     }
   },
   "MY06": {
@@ -1703,7 +2468,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly contradicts the myth and provides supported information about irregular periods."
+      "why": "Answer contradicts myth by stating irregularity is usually normal early on."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer contradicts myth by stating irregularity is usually normal early on."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer matches corpus: irregular periods usually normal at first,  myth clearly contradicted."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts the myth and provides supported information about irregular periods."
+      }
     }
   },
   "MY08": {
@@ -1729,7 +2511,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly refutes myth and provides corpus-supported alternative reasons for missed period."
+      "why": "Answer clearly states missing period doesn't always mean pregnancy,  cites stress illness weight exercise."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer clearly states missing period doesn't always mean pregnancy,  cites stress illness weight exercise."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Corpus states missing a period does not always mean pregnancy."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes myth and provides corpus-supported alternative reasons for missed period."
+      }
     }
   },
   "MY07": {
@@ -1781,7 +2580,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer contradicts myth and is supported by corpus."
+      "why": "Answer directly contradicts myth that girls should not talk about periods around boys."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts myth that girls should not talk about periods around boys."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer matches corpus: talking about periods is normal and helpful."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer contradicts myth and is supported by corpus."
+      }
     }
   },
   "MY10": {
@@ -1807,7 +2623,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly contradicts the myth with corpus-supported facts."
+      "why": "Answer clearly states myth is false and harmful,  explains vagina self-cleans, warns against insertion."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer clearly states myth is false and harmful,  explains vagina self-cleans, warns against insertion."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer matches corpus: herbs inside are harmful,  vagina self-cleans."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts the myth with corpus-supported facts."
+      }
     }
   },
   "MY11": {
@@ -1833,7 +2666,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly refutes the myth with corpus-supported facts about blood loss."
+      "why": "Answer clearly states myth is false and cites correct blood loss amount."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer clearly states myth is false and cites correct blood loss amount."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Blood loss amount and myth correction both supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes the myth with corpus-supported facts about blood loss."
+      }
     }
   },
   "MY12": {
@@ -1859,7 +2709,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer contradicts myth and is supported by corpus."
+      "why": "Answer directly contradicts myth and cites corpus support for bathing safety."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts myth and cites corpus support for bathing safety."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes myth and is fully supported by corpus."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer contradicts myth and aligns with corpus facts."
+      }
     }
   },
   "MY15": {
@@ -1885,7 +2752,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer correctly states pad change frequency and quantity."
+      "why": "Answer states change every four to six hours,  directly contradicting the myth."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer states change every four to six hours,  directly contradicting the myth."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer matches corpus: change pad every 4-6 hours,  not just twice daily."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer correctly states pad change frequency and quantity."
+      }
     }
   },
   "MY13": {
@@ -1911,7 +2795,24 @@
     "judge": {
       "grounded": true,
       "corrected": true,
-      "why": "Answer directly refutes myth,  provides corpus-supported reasons and advice."
+      "why": "Answer directly contradicts myth and cites corpus support for attending school."
+    },
+    "judges": {
+      "claude": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly contradicts myth and cites corpus support for attending school."
+      },
+      "gpt": {
+        "grounded": true,
+        "corrected": true,
+        "why": "CORPUS says periods do not require missing school and support is available."
+      },
+      "gemini": {
+        "grounded": true,
+        "corrected": true,
+        "why": "Answer directly refutes myth,  provides corpus-supported reasons and advice."
+      }
     }
   },
   "MY14": {
@@ -1936,8 +2837,25 @@
     },
     "judge": {
       "grounded": false,
-      "corrected": true,
-      "why": "Answer's claims about tampon not getting lost and vaginal anatomy are not in corpus."
+      "corrected": null,
+      "why": "Corpus does not address the lost tampon myth; answer invents unsupported anatomical details."
+    },
+    "judges": {
+      "claude": {
+        "grounded": false,
+        "corrected": null,
+        "why": "Corpus does not address the lost tampon myth; answer invents unsupported anatomical details."
+      },
+      "gpt": {
+        "grounded": false,
+        "corrected": true,
+        "why": "No corpus info on tampons getting lost or vaginal anatomy details."
+      },
+      "gemini": {
+        "grounded": false,
+        "corrected": true,
+        "why": "Answer's claims about tampon not getting lost and vaginal anatomy are not in corpus."
+      }
     }
   },
   "SG02": {
