@@ -327,7 +327,7 @@ same harness can be pointed at real transcripts once there are any.
 85 cases, agent at `temperature: 0`, run via [`eval/run_eval.py`](eval/run_eval.py).
 
 **Detailed analysis: [`eval/ANALYSIS.md`](eval/ANALYSIS.md)** — the investigation, per-metric
-evidence, method limitations and anticipated questions.
+evidence, method limitations and what the evaluation cannot tell you.
 Every question and answer in full: [`eval/TRANSCRIPTS.md`](eval/TRANSCRIPTS.md)
 Generated report: [`eval/results.md`](eval/results.md) · raw: [`eval/results.json`](eval/results.json)
 
@@ -567,6 +567,11 @@ rather than a pile of transcripts. **That is a research instrument, not just a h
 ---
 
 ## 10. Repository layout
+
+The core components are `knowledge-base/`, `agent_configs/` and `eval/`. The
+`packages/` tree is the conversational platform the assistant is deployed on — an existing
+codebase of mine ("Ruskins AI Platform", which is why that name appears throughout it). It is
+included so the deployment is inspectable, not because it was written for this deployment.
 
 ```
 README.md                     this document

@@ -575,91 +575,7 @@ flattering, it might not have been checked.
 
 ---
 
-## 11. Anticipated questions
-
-**"You reported 82% and then 100%. Which is it?"**
-100%, on a correctly indexed knowledge base. 82% measured a system with no corpus to retrieve
-from. Both runs are in the repository; run 1 is preserved as `results_run1_preindex.json`.
-
-**"Which exact model judged the answers?"**
-`claude-sonnet-4-5` (Anthropic) is the primary judge — a different family from the generator,
-`gemini-2.5-flash`. `gpt-4.1` and `gemini-2.5-flash` were run as additional raters over the
-same fixed replies. Agreement 98–100%, and the self-preference of the Gemini judge measures at
-+1.2 points. I initially believed an independent judge required an Anthropic key; it did not —
-ElevenLabs brokers all three providers on one key.
-
-**"Your groundedness moved from 100% to 96%. Why did it get worse?"**
-It did not get worse; the measurement got honest. The first scoping counted only `in_corpus`
-cases, which excluded MY14 — an invented claim about anatomy that all three judges had already
-flagged. Counting every judged case gives 96%. Scoping a metric to the cases you expect to
-pass is the comfortable mistake, and it is worth checking for deliberately.
-
-**"How do you know the second run is the trustworthy one?"
-Three independent checks. The index endpoint reports `succeeded / 100% / 17,168 bytes`. The
-agent can recite corpus-only facts ("six point seven million people in Kenya") that exist
-nowhere else. And answers now contain corpus-specific detail — millilitre figures, the
-direct-sunlight drying instruction — absent from every run-1 answer.
-
-**"Why didn't you check indexing before running?"**
-I did not know attachment and indexing were separate states until the results forced the
-question. It is now the first item in the pre-flight. The honest version is that the system
-produced plausible answers throughout, which is exactly what made it hard to see.
-
-**"Isn't 100% suspicious?"**
-It should be read carefully. The 40 in-corpus questions were written from the corpus, so they
-are questions the system should answer. It is evidence that retrieval and grounding work on
-material the corpus covers — not evidence the system cannot hallucinate. Limitation 3 names
-the untested case.
-
-**"Your reading level still misses. Does that make it unusable?"**
-No, but less useful than intended — which is why the metric exists. The cause is sentence
-length, the fix is a prompt constraint, and it is testable in a single re-run.
-
-**"So why didn't you just fix it?"** — *the answer to rehearse*
-
-> Because I'd be optimising a proxy. Flesch-Kincaid measures sentence length, not
-> comprehension. I know the cause — my sentences run 14.5 words against the corpus's 10.4 —
-> and the fix is a per-sentence cap in the prompt. But I'd be trading against groundedness,
-> which is the metric that actually protects her, and the real test of readability is sitting
-> with girls, which is the Youth Advisory Panel step on the roadmap.
-
-Three things that answer is doing, worth knowing so it can be defended under follow-up:
-
-1. **It names the mechanism, not just the number.** 14.5 words against 10.4 shows the miss was
-   decomposed rather than noticed. Anyone can report a failing metric; the credibility comes
-   from knowing *which of its two inputs* caused it.
-2. **It identifies a real trade-off.** Forcing shorter sentences pressures the model to
-   compress figures — the exact numeric-drift failure documented in §2 and §5. Improving a
-   cosmetic metric at the cost of the one that keeps a health answer accurate is a bad trade,
-   and saying so demonstrates you know which metric matters.
-3. **It ends on the honest limit of the instrument.** Flesch-Kincaid cannot tell whether "your
-   uterus lining sheds" is understood by a 13-year-old. The only real test is putting it in
-   front of girls — which is a roadmap item, not a deflection.
-
-**If pressed — "isn't that a convenient excuse for a missed target?"**
-
-> It would be, if I couldn't tell you exactly why it missed. I can: sentence length, not
-> vocabulary — the agent's words are actually *simpler* than its own corpus, 1.40 syllables
-> against 1.48. I also tested two explanations and rejected both: removing the warm openers
-> makes the score *worse*, and spelling numbers aloud costs 0.06. I'm not declining to fix
-> something I don't understand. I'm declining to trade a metric that protects the user for one
-> that improves the scoreboard.
-
-**And if asked what would change your mind:**
-
-> Evidence that the reading level is costing comprehension in the field — from the Youth
-> Advisory Panel or from real transcripts where girls ask "what does that mean?". That's a
-> signal worth acting on. A number crossing 6.0 is not.
-
-**"What would you do differently?"**
-Self-hosted retrieval from the start. Not for its own sake, but because §2 could not have
-happened: with a local index I would have known immediately whether documents were embedded,
-and a groundedness failure could be attributed to retrieval or generation rather than guessed
-at.
-
----
-
-## 12. Reproducing
+## 11. Reproducing
 
 ```bash
 export ELEVENLABS_API_KEY=...
@@ -690,7 +606,7 @@ throughout, so runs are comparable.
 
 ---
 
-## 13. Terminology
+## 12. Terminology
 
 | Term | Meaning |
 |---|---|
