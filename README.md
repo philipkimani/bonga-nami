@@ -102,8 +102,7 @@ Two-way audio cannot be done with request and response, so the conversation runs
 persistent socket. The platform's only job in the live path is to **mint a signed URL** using
 a server-side API key — the browser then talks to the inference endpoint directly.
 
-Retrieval detail, per the
-[ElevenLabs RAG documentation](https://elevenlabs.io/docs/eleven-agents/customization/knowledge-base/rag):
+Retrieval detail, per the provider's RAG documentation:
 documents are indexed on upload (chunked and embedded); at query time the question is
 **reformulated**, embedded, and matched against those chunks by semantic similarity. Only the
 matching passages reach the LLM. Documented cost: roughly **250 ms**.
@@ -297,9 +296,9 @@ report only the first two.
 
 ### Method
 
-**Golden set** — roughly 85 hand-written cases in four categories:
+**Golden set** — 85 cases in four categories:
 
-| Category | ~n | Expected behaviour |
+| Category | n | Expected behaviour |
 |---|---|---|
 | In-corpus questions | 40 | Correct, traceable answer |
 | Off-corpus probes | 21 | Refuses and refers on |
@@ -339,6 +338,13 @@ Generated report: [`eval/results.md`](eval/results.md) · raw: [`eval/results.js
 | Myth correction | ≥ 90% | **100%** (13/13) | met |
 | Reading level | ≤ grade 6 | median **6.52**, 31/85 at target | missed |
 
+Myth correction is scored over 13 of the 14 myth cases. MY14 is the exception: the primary
+judge ruled it ungrounded and returned no myth-correction verdict, since an answer inventing
+anatomy the corpus never states has no myth correction to assess. It is counted as a failure
+in groundedness (52/54) rather than dropped. `gpt-4.1` and `gemini-2.5-flash` did return a
+verdict on it and scored 14/14, which is why the denominators differ in
+[`eval/JUDGES.md`](eval/JUDGES.md).
+
 Judged metrics use **`claude-sonnet-4-5`** as primary rater — a different model family from
 the generator (`gemini-2.5-flash`). Two further judges were run for agreement:
 [`eval/JUDGES.md`](eval/JUDGES.md).
@@ -353,12 +359,13 @@ over the **same 85 saved replies**, so the judge was the only variable:
 | third | `gemini-2.5-flash` | Google | **no — same model as the generator** |
 
 Agreement is 98–100%; all three agree on 53 of 54 cases. Including the non-independent judge
-was deliberate: it lets self-preference be **measured** rather than assumed. Gemini rates its
-own model's output +1.2 points above the two independent judges — negligible here.
+was deliberate: it lets self-preference be **measured** rather than assumed. On in-corpus
+groundedness — the set all three scored on the same basis — Gemini rates its own model's output
+**100.0%** against the independent pair's **98.8%**, a difference of +1.2 points. Negligible
+here, and measured rather than asserted.
 
-An earlier version of this evaluation claimed an independent judge was impossible without an
-Anthropic or OpenAI key. That was wrong: the ElevenLabs API brokers all three providers on one
-key, so independence cost a single config value.
+All three providers are brokered on one API key, so judging across model families cost a config
+value rather than a second credential.
 
 ### The finding that matters most
 

@@ -10,8 +10,8 @@ self-preference numbers below meaning anything.
 | `gpt` | `gpt-4.1` | OpenAI | yes |
 | `gemini` | `gemini-2.5-flash` | Google | **no — same model as the generator** |
 
-ElevenLabs brokers all three on one API key, so an independent judge needed no
-additional credential. An earlier version of this evaluation wrongly assumed it did.
+All three providers are brokered on one API key, so judging across model families
+cost a config value rather than an additional credential.
 
 ## Scores by judge
 
@@ -20,6 +20,9 @@ additional credential. An earlier version of this evaluation wrongly assumed it 
 | `claude` | 98% (39/40) | 100% (13/13) |
 | `gpt` | 100% (40/40) | 100% (14/14) |
 | `gemini` | 100% (40/40) | 100% (14/14) |
+
+Myth denominators differ: `claude` returned 13 verdicts against 14 myth cases. A judge that rules an answer ungrounded may decline to rule on whether it corrected the myth — MY14 invents anatomy the corpus never states, so there is no myth correction to score. Those cases are counted in groundedness, not silently dropped.
+
 
 ## Inter-rater agreement
 
@@ -35,11 +38,13 @@ All three judges agree on **53/54** cases.
 
 The `gemini` judge is the same model that produced the answers. If self-preference bias were operating, it should rate that output more generously than the two independent judges.
 
-- Gemini (self) groundedness: **100%**
-- Claude + GPT (independent) groundedness: **99%**
+- Gemini (self) groundedness, in-corpus: **100.0%**
+- Claude + GPT (independent) groundedness, in-corpus: **98.8%**
 - Difference: **+1.2 points**
 
-On this set the difference is negligible, which is evidence the earlier caveat was conservative rather than wrong to state.
+Measured over in-corpus cases only, the set every judge scored on the same basis. The headline groundedness figure spans in-corpus *and* myth cases, so it is not directly comparable to these two.
+
+On this set the difference is negligible.
 
 ## Cases the judges disagreed on
 

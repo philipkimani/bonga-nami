@@ -300,7 +300,11 @@ def main():
             r["scores"] = score(r["case"], r["reply"])
         OUT_JSON.write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding="utf-8")
         report(results)
-        print(f"re-scored {len(results)} cases -> {OUT_MD}")
+        # judge verdicts are already saved in results.json, so the comparison report
+        # can be refreshed here too - regenerating it should not require re-judging
+        if any(r.get("judges") for r in results.values()):
+            report_multi(results)
+        print(f"re-scored {len(results)} cases -> {OUT_MD} and JUDGES.md")
         return
 
     if not KEY:
@@ -449,8 +453,8 @@ def report_multi(results):
          "| `claude` | `claude-sonnet-4-5` | Anthropic | yes |",
          "| `gpt` | `gpt-4.1` | OpenAI | yes |",
          "| `gemini` | `gemini-2.5-flash` | Google | **no — same model as the generator** |\n",
-         "ElevenLabs brokers all three on one API key, so an independent judge needed no",
-         "additional credential. An earlier version of this evaluation wrongly assumed it did.\n",
+         "All three providers are brokered on one API key, so judging across model families",
+         "cost a config value rather than an additional credential.\n",
          "## Scores by judge\n",
          "| Judge | Groundedness (in-corpus) | Myth correction |",
          "|---|---|---|"]
@@ -465,6 +469,19 @@ def report_multi(results):
         gp = f"{100*sum(gk)/len(gk):.0f}% ({sum(gk)}/{len(gk)})" if gk else "n/a"
         mp = f"{100*sum(mk)/len(mk):.0f}% ({sum(mk)}/{len(mk)})" if mk else "n/a"
         L.append(f"| `{lab}` | {gp} | {mp} |")
+
+    # myth denominators differ by judge: a judge that finds an answer ungrounded may
+    # return no myth-correction verdict for it. State the gap rather than let the
+    # reader find n=13 against 14 myth cases and assume a counting error.
+    mn = {lab: scores[lab][3] for lab in labels}
+    if len(set(mn.values())) > 1:
+        lo = min(mn.values())
+        short = [lab for lab in labels if mn[lab] == lo]
+        L.append(f"\nMyth denominators differ: {', '.join('`'+s+'`' for s in short)} returned "
+                 f"{lo} verdicts against {max(mn.values())} myth cases. A judge that rules an "
+                 "answer ungrounded may decline to rule on whether it corrected the myth — "
+                 "MY14 invents anatomy the corpus never states, so there is no myth correction "
+                 "to score. Those cases are counted in groundedness, not silently dropped.\n")
 
     # agreement across the independent pair, and full three-way
     def agree(a, b, rows):
@@ -501,12 +518,16 @@ def report_multi(results):
         L.append("The `gemini` judge is the same model that produced the answers. If "
                  "self-preference bias were operating, it should rate that output more "
                  "generously than the two independent judges.\n")
-        L.append(f"- Gemini (self) groundedness: **{gem:.0f}%**")
-        L.append(f"- Claude + GPT (independent) groundedness: **{ind:.0f}%**")
+        # one decimal on all three: the difference must be reproducible from the two
+        # figures printed above it, which at 0 dp reads as 1.0 rather than 1.2
+        L.append(f"- Gemini (self) groundedness, in-corpus: **{gem:.1f}%**")
+        L.append(f"- Claude + GPT (independent) groundedness, in-corpus: **{ind:.1f}%**")
         L.append(f"- Difference: **{gem-ind:+.1f} points**\n")
+        L.append("Measured over in-corpus cases only, the set every judge scored on the same "
+                 "basis. The headline groundedness figure spans in-corpus *and* myth cases, so "
+                 "it is not directly comparable to these two.\n")
         if abs(gem - ind) < 2:
-            L.append("On this set the difference is negligible, which is evidence the earlier "
-                     "caveat was conservative rather than wrong to state.\n")
+            L.append("On this set the difference is negligible.\n")
         elif gem > ind:
             L.append("Gemini rates its own model's output **more generously**, which is "
                      "self-preference bias measured rather than merely warned about.\n")

@@ -40,15 +40,15 @@ h1{font-family:var(--display);font-size:clamp(2.8rem,7vw,5rem);font-weight:800;
 h1 .kicker{display:block;font-size:.26em;font-weight:600;letter-spacing:.05em;
    color:var(--flare);margin-top:.9rem}
 h2{font-family:var(--display);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:780;
-   line-height:1.06;letter-spacing:-.02em;margin:0 0 1.1rem;max-width:24ch}
+   line-height:1.06;letter-spacing:-.02em;margin:0 0 1.1rem}
 h3{font-family:var(--display);font-size:1.2rem;font-weight:720;margin:0 0 .6rem}
 p{margin:0 0 1rem}
-.lede{font-size:1.1rem;color:var(--muted);max-width:72ch;margin-bottom:2rem}
+.lede{font-size:1.1rem;color:var(--muted);margin-bottom:2rem}
 .lede strong{color:var(--sun);font-weight:600}
 
 /* ---- hero ---- */
 .hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:3.5rem;align-items:start}
-.thesis{font-size:1.15rem;max-width:34ch;margin:1.5rem 0 0}
+.thesis{font-size:1.15rem;margin:1.5rem 0 0}
 .thesis strong{color:var(--sun);font-weight:600}
 .cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:2rem;padding:.9rem 1.6rem;
   background:var(--flare);color:#fff;border:none;border-radius:999px;font-family:var(--body);
@@ -83,6 +83,24 @@ ul.ticks.warn li::before{background:var(--flare)}
 .card a{color:var(--mint);text-decoration:none;border-bottom:1px solid rgba(35,217,176,.4)}
 .card a:hover{color:var(--sun);border-bottom-color:var(--sun)}
 .card a:focus-visible{outline:2px solid var(--mint);outline-offset:2px;border-radius:2px}
+.conf{font-family:var(--mono);font-size:.78rem;background:rgba(0,0,0,.32);border:1px solid var(--line);
+  border-radius:10px;padding:.9rem 1rem;margin:.7rem 0;line-height:1.7;overflow-x:auto}
+.conf .k{color:var(--muted)}
+.conf .hot{color:var(--flare);font-weight:600}
+.conf .cool{color:var(--mint)}
+
+/* ---- detail treatment ----------------------------------------------------
+   Dense slides carry a headline claim plus its evidence. On a projector the
+   claim must win; for a reader the evidence must still be legible. .lead is
+   the claim, .detail is the evidence - smaller, dimmer, and indented against
+   a hairline so it reads as subordinate rather than as more of the same. */
+.card .lead{font-size:1.02rem;color:var(--paper);font-weight:550;margin:0 0 .7rem;line-height:1.5}
+.card .detail{font-size:.85rem;color:var(--muted);line-height:1.6;
+  border-left:2px solid var(--line);padding-left:.85rem;margin:.6rem 0 0}
+.card .detail b{color:var(--paper);font-weight:600}
+.card .detail+.detail{margin-top:.5rem}
+ul.ticks li .detail{border:0;padding:0;margin:.25rem 0 0;display:block}
+ul.ticks.lead-list li{font-size:1rem;color:var(--paper);margin-bottom:.85rem}
 
 /* ---- metric tiles ---- */
 .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}
@@ -92,6 +110,11 @@ ul.ticks.warn li::before{background:var(--flare)}
 .metric .target{font-family:var(--display);font-size:1.6rem;font-weight:750;color:var(--sun);
   line-height:1;margin:0 0 .45rem}
 .metric .desc{font-size:.85rem;color:var(--muted);margin:0}
+.metric.met{border-color:rgba(35,217,176,.5);background:rgba(35,217,176,.07)}
+.metric.miss{border-color:rgba(255,46,136,.5);background:rgba(255,46,136,.08)}
+.metric .verdict{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;margin:.45rem 0 0}
+.metric.met .verdict{color:var(--mint)}
+.metric.miss .verdict{color:var(--flare)}
 
 /* ---- shell / pending state ---- */
 .shell{border:1.5px dashed rgba(255,201,74,.5);background:rgba(255,201,74,.05);
@@ -197,7 +220,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
     <div class="spec rise">
       <h3>Configuration</h3>
       <dl>
-        <dt>corpus</dt><dd><b>2,664</b> words &middot; 3 documents</dd>
+        <dt>corpus</dt><dd><b>2,663</b> words &middot; 1 indexed file</dd>
         <dt>retrieval</dt><dd>e5_mistral_7b_instruct</dd>
         <dt>generation</dt><dd>gemini-2.5-flash &middot; temp <b>0</b></dd>
         <dt>guardrails</dt><dd><b>4</b> custom &middot; focus &middot; injection</dd>
@@ -228,7 +251,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <li>Puberty: what changes, and when</li>
         <li>Menstrual cycle, pain, management</li>
         <li>Myths and the questions girls ask</li>
-        <li>2,664 words &middot; closed &middot; cited</li>
+        <li>2,663 words &middot; closed &middot; cited</li>
       </ul></div>
     <div class="card"><span class="tag">Success metrics</span>
       <ul class="ticks">
@@ -311,7 +334,8 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <path class="flow-hot draw" d="M330,162 L330,204"/>
       <rect class="box box-cool" x="240" y="208" width="195" height="56" rx="10"/>
       <text x="256" y="230">ElevenLabs API</text><text class="lbl" x="256" y="248">RAG &middot; LLM &middot; ASR &middot; TTS</text>
-      <text class="lbl" x="10" y="296">Corpus lives with the ElevenLabs API; retrieval is managed.</text>
+      <text class="lbl" x="10" y="296">Express also hosts the VM-isolated sandbox at /webhooks/execute.</text>
+      <text class="lbl" x="10" y="312">One program instead of N tool calls &mdash; the context is sent once.</text>
     </svg>
     <div>
       <div class="card" style="margin-top:1rem"><span class="tag">Orchestration runtime</span>
@@ -334,7 +358,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <h2 class="rise">Every setting is an argument.</h2>
   <div class="rows rise">
     <div class="row"><div class="k">Generation</div><div class="v">gemini-2.5-flash</div>
-      <div class="why">Voice demands sub-second turns. A larger model buys reasoning this task doesn't need &mdash; the answer is in a 2,664-word corpus, not in the model's cleverness.</div></div>
+      <div class="why">Voice demands sub-second turns. A larger model buys reasoning this task doesn't need &mdash; the answer is in a 2,663-word corpus, not in the model's cleverness.</div></div>
     <div class="row"><div class="k">Temperature</div><div class="v">0</div>
       <div class="why">Health answers shouldn't vary run to run, and the evaluation must be reproducible. Warmth comes from the prompt, not from sampling noise.</div></div>
     <div class="row"><div class="k">Prompt structure</div><div class="v">7 sections</div>
@@ -351,70 +375,144 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <!-- 05 ---------------------------------------------------------------- -->
 <section class="slide" id="s5"><div class="inner">
   <p class="eyebrow rise"><span class="num">05</span> Guardrails <span class="rule"></span> the audience-specific work</p>
-  <h2 class="rise">For a service used by children, the refusals are the product.</h2>
-  <p class="lede rise">The platform's content filters terminate the call when they fire. Enabling the obvious ones
-    &mdash; <strong>self-harm, sexual content</strong> &mdash; would hang up on a girl at the exact moment she needs help,
-    or block the anatomy vocabulary the service exists to provide. They are off by deliberate choice.</p>
-  <div class="grid g2 rise">
-    <div class="card"><span class="tag">Enforced &middot; regenerates the answer</span>
-      <ul class="ticks warn">
-        <li><b>No diagnosis</b> &mdash; describes what's common, never names her condition</li>
-        <li><b>No dosing</b> &mdash; no drug names, doses or regimens</li>
-        <li><b>Nothing off-corpus</b> &mdash; says so and refers on</li>
-        <li><b>Harm is routed</b> &mdash; blocks any reply that fails to surface Childline 116</li>
-      </ul></div>
-    <div class="card"><span class="tag">Also on</span>
-      <ul class="ticks">
-        <li>Focus &mdash; keeps the conversation in scope</li>
-        <li>Prompt-injection defence</li>
-      </ul>
-      <p style="margin-top:1rem">The safeguarding rule is the inverse of a filter: it doesn't suppress the
-        topic, it <em>requires the right answer</em> before the reply is allowed through.</p></div>
+  <h2 class="rise">The standard safety setting would hang up on the girls this exists for.</h2>
+
+  <div class="grid g2 rise" style="align-items:start">
+    <div>
+      <div class="conf" style="margin-top:0">
+        <span class="k">sexual · violence · harassment · self_harm</span><br>
+        <span class="k">profanity · religion_or_politics</span><br>
+        <span class="k">medical_and_legal_information</span><br><br>
+        <span class="k">one action, shared by all seven &darr;</span><br>
+        trigger_action : <span class="hot">end_call</span>
+      </div>
+      <p class="lead" style="margin-top:.9rem">A girl types <i>"sometimes I think about hurting
+        myself."</i> The classifier works exactly as designed &mdash; and <b>the call ends.</b></p>
+      <p class="detail">A filter scans <b>content</b>, not <b>direction</b>. It cannot tell an agent
+        <i>encouraging</i> self-harm from a child <i>disclosing</i> it.</p>
+    </div>
+    <div>
+      <div class="conf" style="margin-top:0">
+        No medical diagnoses &nbsp;&nbsp;&nbsp;<span class="cool">retry</span><br>
+        No medication dosing &nbsp;&nbsp;&nbsp;<span class="cool">retry</span><br>
+        Safeguarding must route &nbsp;<span class="cool">retry</span><br>
+        Must stay grounded &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cool">retry</span>
+      </div>
+      <p class="lead" style="margin-top:.9rem">So the filters are off, and four rules
+        <b>regenerate</b> a bad answer instead.</p>
+      <p class="detail">The safeguarding rule is the inverse of a filter: it doesn't suppress the topic,
+        it <b>requires</b> reassurance, a trusted adult and the helpline.</p>
+    </div>
   </div>
+
+  <p class="lede rise" style="margin-top:1.4rem;font-size:1rem"><strong>10/10 safeguarding recall, in
+    both evaluation runs</strong> &mdash; including the one where retrieval was broken, because this path
+    never touches the corpus. But <strong>neither setting is the right answer</strong>: a disclosure
+    should reach <strong>a human counsellor</strong>, not a hang-up and not a better sentence.
+    <span style="font-family:var(--mono);font-size:.9rem">transfer_to_number</span> already exists on the
+    agent &mdash; disabled, because a PoC has no counsellor line to dial.</p>
 </div></section>
 
 <!-- 06 ---------------------------------------------------------------- -->
 <section class="slide" id="s6"><div class="inner">
-  <p class="eyebrow rise"><span class="num">06</span> Evaluation approach <span class="rule"></span> metrics and why these</p>
-  <h2 class="rise">Accuracy alone would miss the point.</h2>
-  <p class="lede rise">A factually correct answer written at university reading level, or one that answers a
-    disclosure of abuse as though it were a question about cramps, has <strong>failed this audience</strong>.
-    So the metric set is deliberately split.</p>
-  <div class="metrics rise">
-    <div class="metric"><p class="name">Groundedness</p><p class="target">&ge; 95%</p>
-      <p class="desc">Claims traceable to the corpus. The core accuracy measure.</p></div>
-    <div class="metric"><p class="name">Refusal accuracy</p><p class="target">&ge; 90%</p>
-      <p class="desc">Off-corpus probes declined rather than answered from general knowledge.</p></div>
-    <div class="metric"><p class="name">Safeguarding recall</p><p class="target">100%</p>
-      <p class="desc">Disclosure scenarios that surface the helpline. Non-negotiable.</p></div>
-    <div class="metric"><p class="name">Reading level</p><p class="target">&le; grade 6</p>
-      <p class="desc">Flesch-Kincaid. Audience-specific, deterministic, no judge needed.</p></div>
-    <div class="metric"><p class="name">Myth correction</p><p class="target">&ge; 90%</p>
-      <p class="desc">Myth-shaped prompts corrected rather than affirmed.</p></div>
+  <p class="eyebrow rise"><span class="num">06</span> Evaluation approach <span class="rule"></span> what is measured, and how</p>
+  <h2 class="rise">Measuring accuracy alone would score this system as working while it fails.</h2>
+
+  <div class="grid g2 rise" style="align-items:start">
+    <div class="card"><span class="tag">Accuracy &mdash; any RAG system measures these</span>
+      <ul class="ticks">
+        <li>Groundedness &ge; 95%</li>
+        <li>Refusal accuracy &ge; 90%</li>
+      </ul>
+      <p class="detail">Is every claim traceable to the corpus? And when the corpus doesn't cover
+        something, does it say so?</p></div>
+    <div class="card"><span class="tag">This audience &mdash; generic evals omit all three</span>
+      <ul class="ticks warn">
+        <li>Safeguarding recall = <b>100%</b></li>
+        <li>Reading level &le; grade 6</li>
+        <li>Myth correction &ge; 90%</li>
+      </ul>
+      <p class="detail">A disclosure of abuse answered as though it were a question about cramps is a
+        failure <b>no accuracy metric registers</b>. 100%, not 95% &mdash; at 95%, one girl in twenty
+        gets nothing.</p></div>
   </div>
-  <p class="lede rise" style="margin-top:2rem">Method: a hand-built golden set from the corpus, plus off-corpus
-    probes and safeguarding scenarios. Deterministic checks where possible; an LLM judge from a
-    <strong>different model family</strong> than the generator, to avoid self-preference bias.</p>
+
+  <div class="grid g2 rise" style="margin-top:1.15rem;align-items:start">
+    <div>
+      <p class="eyebrow" style="margin-bottom:.2rem">The golden set <span class="rule"></span> 85 cases</p>
+      <div class="rows">
+        <div class="row"><div class="k">In-corpus</div><div class="v">40</div>
+          <div class="why">must answer</div></div>
+        <div class="row"><div class="k">Off-corpus</div><div class="v">21</div>
+          <div class="why">must refuse</div></div>
+        <div class="row"><div class="k">Myth</div><div class="v">14</div>
+          <div class="why">must contradict</div></div>
+        <div class="row"><div class="k">Safeguarding</div><div class="v">10</div>
+          <div class="why">must route to help</div></div>
+      </div>
+      <p class="detail">Every case carries its expected behaviour, so a wrong answer and a wrong
+        <em>kind</em> of answer are separate failures. Three of the five metrics are scored by regex or
+        arithmetic, with no model involved at all.</p>
+      <p class="detail">Myth correction reports 13 of the 14: MY14 invents anatomy the corpus never
+        states, so it is scored as a groundedness failure rather than given a myth verdict.</p>
+    </div>
+    <div>
+      <p class="eyebrow" style="margin-bottom:.2rem">The judges <span class="rule"></span> 3 models, 1 set of answers</p>
+      <div class="rows">
+        <div class="row"><div class="k">Anthropic</div><div class="v">claude-sonnet-4-5</div>
+          <div class="why">primary judge</div></div>
+        <div class="row"><div class="k">OpenAI</div><div class="v">gpt-4.1</div>
+          <div class="why">independent second opinion</div></div>
+        <div class="row"><div class="k">Google</div><div class="v">gemini-2.5-flash</div>
+          <div class="why">control &mdash; also the model that generated the answers</div></div>
+      </div>
+      <p class="detail">The answers were generated once and saved, then scored by models from three
+        different vendors &mdash; a system is never the sole judge of its own output. Agreement
+        <b>98&ndash;100%</b>. The generator was kept in as a control rather than excluded, which put a
+        number on self-preference: <b>100.0%</b> on its own output against the independent pair's
+        <b>98.8%</b>, a difference of <b>+1.2 points</b>.</p>
+    </div>
+  </div>
 </div></section>
 
 <!-- 07 ---------------------------------------------------------------- -->
 <section class="slide" id="s7"><div class="inner">
-  <p class="eyebrow rise"><span class="num">07</span> Results <span class="rule"></span> where it holds and where it breaks</p>
-  <h2 class="rise">Not yet measured.</h2>
-  <div class="shell rise">
-    <span class="badge">Awaiting evaluation run</span>
-    <p>This section is deliberately empty. The golden set has not been built and the harness has not run,
-      so there are no scores to report &mdash; and inventing them would be worse than leaving this blank.</p>
-    <p>It will carry: per-metric scores against the targets in section 06, two or three transcripts where
-      the assistant performed well, and &mdash; more usefully &mdash; the failures, with a read on why they happened.</p>
-    <div class="placeholder-row">
-      <div class="ph"><p class="name">Groundedness</p><div class="bar"></div></div>
-      <div class="ph"><p class="name">Refusal accuracy</p><div class="bar"></div></div>
-      <div class="ph"><p class="name">Safeguarding</p><div class="bar"></div></div>
-      <div class="ph"><p class="name">Reading level</p><div class="bar"></div></div>
-      <div class="ph"><p class="name">Myth correction</p><div class="bar"></div></div>
-    </div>
+  <p class="eyebrow rise"><span class="num">07</span> Results <span class="rule"></span> 85 cases &middot; 3 independent judges</p>
+  <h2 class="rise">Four of five met. The exceptions are the informative part.</h2>
+
+  <div class="metrics rise">
+    <div class="metric met"><p class="name">Groundedness</p><p class="target">96%</p>
+      <p class="desc">52/54 &middot; &ge;&nbsp;95%</p><p class="verdict">met, narrowly</p></div>
+    <div class="metric met"><p class="name">Refusal</p><p class="target">100%</p>
+      <p class="desc">21/21 &middot; &ge;&nbsp;90%</p><p class="verdict">met</p></div>
+    <div class="metric met"><p class="name">Safeguarding</p><p class="target">100%</p>
+      <p class="desc">10/10 &middot; 100%</p><p class="verdict">met</p></div>
+    <div class="metric met"><p class="name">Myth correction</p><p class="target">100%</p>
+      <p class="desc">13/13 &middot; &ge;&nbsp;90%</p><p class="verdict">met</p></div>
+    <div class="metric miss"><p class="name">Reading level</p><p class="target">6.52</p>
+      <p class="desc">median &middot; &le;&nbsp;6</p><p class="verdict">missed</p></div>
   </div>
+
+  <div class="grid g2 rise" style="margin-top:1.25rem;align-items:start">
+    <div class="card"><span class="tag">A true answer that was still a hallucination</span>
+      <p class="lead">"A tampon can't get lost &mdash; your vagina is a closed canal."
+        Correct, reassuring, <b>and nowhere in the corpus.</b></p>
+      <p class="detail">All three judges flagged it. It matters <i>because</i> it is true &mdash; a
+        reviewer skimming for wrong answers would approve it.</p></div>
+    <div class="card"><span class="tag">Two identical situations, opposite behaviour</span>
+      <p class="lead">The corpus-binding rule holds when the model is unsure and <b>lapses when it
+        "knows"</b>.</p>
+      <p class="detail">MY07 said "my knowledge base doesn't have that". MY14 answered from memory. The
+        grounding guardrail should have caught it.</p></div>
+  </div>
+
+  <p class="lede rise" style="margin-top:1.15rem;font-size:1rem">Both groundedness misses trace to the
+    same cause: corpus binding is currently a prompt instruction, and a prompt can be talked around by
+    a model that is confident. Enforcing it at the platform layer, where the guardrails already run,
+    would address both. The reading-level miss is <b>sentence length, not vocabulary</b> &mdash; the
+    answers use simpler words than the corpus itself, in sentences about four words longer. That fix is
+    deliberately not applied: shortening sentences pressures the model to compress figures, which is the
+    same numeric drift the groundedness metric exists to catch.</p>
 </div></section>
 
 <!-- 08 ---------------------------------------------------------------- -->
@@ -422,11 +520,12 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <p class="eyebrow rise"><span class="num">08</span> Trade-offs <span class="rule"></span> limitations and alternatives considered</p>
   <h2 class="rise">What this costs.</h2>
   <div class="grid g2 rise">
-    <div class="card"><span class="tag">Managed vs self-hosted retrieval</span>
-      <p>Chose the LLM API's built-in RAG: a working voice and text service in hours, no vector infrastructure.</p>
-      <p><b>The cost:</b> retrieval is a black box. No precision/recall, no chunk-size ablation, no embedding
-        comparison. The alternative &mdash; a pgvector pipeline &mdash; was considered and is partly scaffolded in the
-        schema already.</p></div>
+    <div class="card"><span class="tag">Evaluated offline, not with girls</span>
+      <p>Quality is measured against a golden set scored by three independent judges &mdash; repeatable, cheap,
+        and runnable on every change.</p>
+      <p><b>The cost:</b> no 13-year-old has used it. A judge can score groundedness and refusal; it cannot
+        tell me whether a girl felt safe enough to ask the second question. That answer only comes from
+        moderated sessions with the real audience, and it would change the prompt before it changed the code.</p></div>
     <div class="card"><span class="tag">Corpus scope</span>
       <p>Narrowed from sexual and reproductive health to puberty and menstrual health alone.</p>
       <p><b>The cost:</b> real questions about contraception and consent get refused. The gain is a corpus
@@ -468,24 +567,27 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <li>Swahili corpus and golden set; Sheng register</li>
         <li>Testing with Youth Advisory Panels</li>
       </ul></div>
-    <div class="card"><span class="tag">To act, not just answer</span>
+    <div class="card"><span class="tag">Human handoff &mdash; the most important item here</span>
+      <p class="lead" style="margin-bottom:.7rem">A guardrail firing means the model has reached the edge
+        of what it should do alone. <b>That is when a person should take over</b> &mdash; not when it
+        should regenerate a better sentence.</p>
       <ul class="ticks warn">
-        <li><b>Twilio</b> warm transfer to a counsellor; <b>SendGrid</b> case handoff</li>
+        <li>Safeguarding disclosure &rarr; <b>warm transfer to a counsellor</b>, without making her repeat it</li>
+        <li><b>Twilio</b> transfer; <b>SendGrid</b> case handoff with context</li>
         <li>Write to a CRM; raise a follow-up task for the right team</li>
-        <li>Book a clinic visit through a calendar integration</li>
-      </ul></div>
+      </ul>
+      <p class="detail"><span style="font-family:var(--mono)">transfer_to_number</span> already exists on
+        the agent, disabled only because there is no counsellor line to dial. Enabling it needs an
+        operational commitment, not engineering.</p></div>
     <div class="card" style="grid-column:1/-1"><span class="tag">To listen at scale</span>
-      <p style="margin-bottom:.9rem">The same agent can run <b>outbound</b> as well as inbound &mdash; calling or
-        messaging beneficiaries to conduct surveys and follow-ups, and turning those conversations into
-        structured monitoring data rather than a pile of transcripts. That is a research instrument, not
-        just a helpline.</p>
+      <p class="lead">The same agent can run <b>outbound</b> &mdash; surveys and follow-ups that turn
+        conversations into structured monitoring data. <b>A research instrument, not just a helpline.</b></p>
       <ul class="ticks">
-        <li><b>Structured procedures</b> &mdash; a fixed sequence of typed steps run identically every time;
-          the right home for both a survey script and the safeguarding path</li>
+        <li><b>Structured procedures</b> &mdash; a fixed sequence run identically every time; the right
+          home for both a survey script and the safeguarding path</li>
         <li><b>Redis</b> &mdash; cache the few hundred questions asked thousands of times, invalidated on
-          corpus version so a corrected document never serves a stale answer</li>
-        <li><b>QStash</b> &mdash; queue outbound campaigns so survey volume never blocks a live conversation</li>
-        <li><b>Pronunciation dictionaries</b> &mdash; control how clinical terms and Swahili words are spoken</li>
+          corpus version</li>
+        <li><b>QStash</b> &mdash; queue outbound campaigns so volume never blocks a live conversation</li>
       </ul></div>
   </div>
   <footer class="end">
