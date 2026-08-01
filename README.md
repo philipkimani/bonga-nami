@@ -170,33 +170,78 @@ the platform layer, not left to prompt instructions.
 
 ### Content filters are deliberately OFF
 
-The platform's content filters have one `trigger_action`: **`end_call`**. Enabling the
-categories that generic advice recommends for youth products would mean:
+The platform offers seven content categories — `sexual`, `violence`, `harassment`,
+`self_harm`, `profanity`, `religion_or_politics`, `medical_and_legal_information`. Each has
+only two settings, `is_enabled` and `threshold`. Then, **shared by all seven**:
 
-- `self_harm` → **hangs up on a girl mid-disclosure**, at the exact moment she must not be cut off
-- `sexual` → blocks discussion of vaginas, discharge, breast development — the subject matter itself
-- `medical_and_legal_information` → blocks the entire purpose of the service
+```
+execution_mode : streaming
+trigger_action : { type: end_call }
+```
 
-This is the single most important design decision in the build: **the standard safety setting
-is the wrong one for this audience.**
+**That is the decisive detail.** `trigger_action` is not per-category. One action governs all
+seven filters, and it is *terminate the conversation*. You cannot block one category and merely
+warn on another. And because it evaluates the streaming response, termination can land
+mid-sentence.
+
+What enabling the recommended categories would do here:
+
+| Filter | Consequence |
+|---|---|
+| `self_harm` | A girl types "sometimes I think about hurting myself". The classifier works exactly as designed — and **the call ends**. She took the biggest risk of the conversation and was disconnected. |
+| `sexual` | The subject matter *is* vaginas, discharge, breast development. A sexual-content classifier fires on clinical anatomy. |
+| `violence` | Three of the ten safeguarding cases describe an uncle, a stepfather, a planned cutting. All three terminate. |
+| `medical_and_legal_information` | Blocks the entire purpose of the service. |
+
+**Why the generic advice fails here.** A content filter scans **content**, not **direction**.
+It cannot distinguish *"the agent is encouraging self-harm"* (must be stopped) from *"a child
+is disclosing self-harm"* (must be answered) — to a classifier they are identical.
+
+The standard recommendation assumes the risk is **the agent generating harm for a child to
+see**. This product's risk model is inverted: **the child brings the harm to the agent**, and
+responding well is the entire job. The two cases require opposite handling:
+
+| | Block it? |
+|---|---|
+| Harmful content the **agent generates** | Yes — this is what filters exist for |
+| Harmful experience the **user discloses** | **Never** — this is the moment the service exists for |
+
+Applied without examination, the standard advice produces an agent that hangs up on precisely
+the girls it was built to serve.
 
 ### Custom guardrails, all on `retry`
 
-`retry` regenerates a bad answer instead of terminating the conversation.
+`retry` intercepts the reply **before the user sees it**, judges it, and regenerates if it
+fails. The conversation continues; only the bad answer is discarded. `end_call` does the
+opposite — it punishes the user for the model's problem.
 
-| Rule | Enforces |
-|---|---|
-| No medical diagnoses | May describe what is common and refer on; may not name her condition |
-| No medication dosing | Simple pain relief as the corpus states it; no drug names, doses or regimens |
-| Safeguarding disclosures must be routed | Blocks any reply to a disclosure of abuse, FGM/marriage risk or self-harm that fails to give reassurance, encourage a trusted adult, and surface the helpline. Sees 3 messages of history. |
-| Answers must stay grounded | Blocks health claims the corpus doesn't support, forcing an honest "I don't know, ask a nurse" |
+| Rule | History | Enforces |
+|---|---|---|
+| No medical diagnoses | 1 msg | May describe what is common and refer on; may not name her condition |
+| No medication dosing | 1 msg | Simple pain relief as the corpus states it; no drug names, doses or regimens |
+| Safeguarding disclosures must be routed | **3 msgs** | Blocks any reply to a disclosure of abuse, FGM/marriage risk or self-harm that fails to give reassurance, encourage a trusted adult, and surface the helpline |
+| Answers must stay grounded | 1 msg | Blocks health claims the corpus doesn't support, forcing an honest "I don't know, ask a nurse" |
 
 Also enabled: **focus** (keeps the conversation in scope) and **prompt-injection defence**.
 
-The safeguarding rule is the inverse of a filter — it does not suppress the topic, it
-**requires the right answer** before the reply is allowed through.
+The safeguarding rule is the **inverse of a filter**. A filter suppresses a topic; this one
+*requires a specific answer* and blocks anything omitting it. Reading three messages of history
+means a disclosure spread across turns still triggers it.
 
----
+### Did it work?
+
+**10/10 safeguarding recall in both evaluation runs** — including the run where retrieval was
+broken, because this path never touches the corpus. Safety that does not depend on retrieval
+keeps working when retrieval breaks.
+
+The self-harm disclosure returned *"I hear you, and I want you to know that you matter very
+much… call Childline Kenya."* **With `self_harm` enabled, that answer would not exist.** The
+call would have ended instead.
+
+**One honesty point:** this was reasoned from the documented configuration, not experimentally
+triggered. The only possible outcomes are "confirms the documented behaviour" or "the platform
+does not do what its config says" — the second matters, so it belongs on a pre-production
+checklist rather than in a PoC.
 
 ## 6. Evaluation approach
 
