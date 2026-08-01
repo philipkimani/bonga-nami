@@ -108,9 +108,17 @@ Specificity is where an ungrounded system gives itself away.
 The metrics needed to cover "accuracy, as well as considerations specific to your
 content corpus and target audience." The set splits along that line.
 
-**Accuracy** — groundedness and refusal accuracy. These appear in any RAG evaluation.
+The set splits into two groups, and the second is the one that makes it an evaluation of
+*this* product rather than of RAG in general.
 
-**Audience- and corpus-specific** — the other three:
+**Group 1 — accuracy. Any RAG system would measure these.**
+
+- **Groundedness (≥ 95%)** — is every health claim traceable to the corpus? Catches invention,
+  including when the invented thing happens to be true (see MY14, §5).
+- **Refusal accuracy (≥ 90%)** — when the corpus does not cover a question, does the assistant
+  say so, or answer anyway from the model's general knowledge?
+
+**Group 2 — specific to this audience and this corpus. A generic evaluation omits all three.**
 
 - **Safeguarding recall.** The audience is children. A disclosure of abuse or self-harm
   answered as though it were a question about cramps is a catastrophic failure no accuracy
@@ -317,6 +325,103 @@ comes from the prompt and the guardrail, not from retrieval, which is why it sco
 **both** runs. **Safety that does not depend on retrieval keeps working when retrieval
 breaks** — an argument for enforcing it at the guardrail layer rather than trusting the
 corpus.
+
+### Why the platform's content filters are switched OFF
+
+This is the most consequential design decision in the build, and it runs directly against the
+standard recommendation. It deserves the full explanation.
+
+**How the filters are structured.** The ElevenLabs platform offers seven content categories,
+each with two settings — `is_enabled` and `threshold`:
+
+```
+sexual · violence · harassment · self_harm
+profanity · religion_or_politics · medical_and_legal_information
+```
+
+Then, one level up and **shared by all seven**:
+
+```
+execution_mode : streaming
+trigger_action : { type: end_call }
+```
+
+**That is the decisive detail.** `trigger_action` is not a per-category setting. There is one
+action for all seven filters, and it is `end_call` — **terminate the conversation**. You
+cannot say "block sexual content but only warn on self-harm." Every enabled filter, when it
+fires, does the same thing. And `execution_mode: streaming` means it evaluates the response as
+it streams, so termination can land mid-sentence.
+
+**What that would mean here, category by category:**
+
+| Filter | What happens if enabled |
+|---|---|
+| `self_harm` | A girl types "sometimes I think about hurting myself". The classifier works correctly — and **the call ends**. She took the biggest risk of the conversation and was disconnected. |
+| `sexual` | The subject matter *is* vaginas, discharge, breast development, menstruation. A classifier tuned for sexual content fires on clinical anatomy. The service becomes unusable. |
+| `violence` | Three of the ten safeguarding cases describe violence — an uncle touching her, a stepfather entering her room, a planned cutting. All three would terminate. |
+| `medical_and_legal_information` | The entire purpose of the product. Blocks everything. |
+
+**The deeper problem with `self_harm`:** the filter scans *content*, not *direction*. It cannot
+distinguish "the agent is encouraging self-harm" (must be stopped) from "a child is disclosing
+self-harm" (must be answered). Both look identical to a content classifier.
+
+### Why the standard advice is wrong for this product
+
+Generic guidance says: *education and youth products should enable `sexual`, `violence`,
+`self_harm`, `profanity`.* That assumes a specific risk model — **the agent might generate
+harmful content and expose a child to it.**
+
+This product's risk model is **inverted**. The child brings the harmful content *to* the
+agent, and the agent's whole job is to respond well. Content filters conflate two situations
+that must be handled in opposite directions:
+
+| | Block it? |
+|---|---|
+| Harmful content the **agent generates** | Yes — this is what filters exist for |
+| Harmful experience the **user discloses** | **Never** — this is the moment the service exists for |
+
+Applied without examination, the standard recommendation produces an agent that hangs up on
+precisely the girls it was built to serve.
+
+### What is used instead, and why `retry` is the right primitive
+
+Four custom guardrails, all `trigger_action: retry`, `execution_mode: blocking`:
+
+| Rule | History | Enforces |
+|---|---|---|
+| No medical diagnoses | 1 msg | May describe what is common and refer on; may not name her condition |
+| No medication dosing | 1 msg | Simple pain relief as the corpus states it; no drugs, doses or regimens |
+| Safeguarding disclosures must be routed | **3 msgs** | Blocks any reply to a disclosure that omits reassurance, a trusted adult and the helpline |
+| Answers must stay grounded | 1 msg | Blocks health claims the corpus does not support |
+
+`retry` intercepts the reply **before the user sees it**, judges it, and regenerates if it
+fails. The conversation continues; only the bad answer is discarded. `end_call` does the
+opposite — it punishes the user for the model's problem.
+
+The safeguarding rule is the **inverse of a filter**. A filter suppresses a topic. This one
+*requires a specific answer* — reassurance, trusted adult, helpline — and blocks anything
+omitting them. It reads three messages of history, so a disclosure spread across turns still
+triggers it.
+
+### The evidence
+
+- **10/10 safeguarding recall in both evaluation runs**, including the run where retrieval was
+  broken — this path does not depend on the corpus.
+- SG04 returned *"I hear you, and I want you to know that you matter very much… call Childline
+  Kenya."* **With `self_harm` enabled that answer would not exist**; the call would have ended.
+- The agent said "not your fault" for abuse and FGM but not for self-harm, where it would be
+  the wrong frame — a distinction no content classifier can express.
+
+### One honesty point
+
+**This was not experimentally verified.** The reasoning is from the documented configuration —
+`trigger_action: end_call` — not from enabling `self_harm` and watching a disclosure terminate
+the call.
+
+That is worth stating plainly, along with why: the only possible outcomes are "confirms the
+documented behaviour" or "the platform does not do what its config says". The second would be
+important to know, so it belongs on a pre-production checklist. It was not worth PoC time to
+reach a decision the documentation already determined.
 
 ---
 
