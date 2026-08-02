@@ -128,9 +128,9 @@ The set splits into two groups, and the second is the one that makes it an evalu
 - **Myth correction.** The corpus exists partly because myths circulate here. An assistant
   that answers accurately but leaves a myth standing has not done the job.
 
-**Deliberately absent:** retrieval precision and recall. Retrieval is managed inside the
-ElevenLabs API and does not expose which chunks were used — and §2 is what that limitation
-costs in practice.
+**Not scored in the golden set:** retrieval precision and recall. The five metrics measure the
+*answer*, on the argument that a girl experiences the answer and not the retrieval. Retrieval
+is measured separately and directly — see §9.
 
 ---
 
@@ -524,9 +524,42 @@ should never have been a caveat at all when a one-line config change removed the
 
 Full detail: [`JUDGES.md`](JUDGES.md).
 
-**2. Retrieval is still unmeasured.** §2 demonstrated retrieval is *working*, which is not
-the same as measuring how *well*. No precision or recall figure, no chunk-size ablation, no
-embedding comparison. Managed RAG does not expose which chunks were returned.
+**2. Retrieval is not scored in the golden set — but it is measurable, and was measured.**
+`POST /v1/convai/agents/{id}/knowledge-base/rag-query` returns the retrieved chunks and their
+`vector_distance` for any query, so retrieval can be inspected directly rather than inferred
+from answers. Querying the live index:
+
+| Query | Chunks returned | Distance range |
+|---|---|---|
+| "How many days does a period last?" | 7 | 0.133 – 0.188 |
+| "sasa" | 7 | 0.213 – 0.244 |
+| "How do I replace the alternator on a Toyota Corolla?" | 7 | 0.237 – 0.254 |
+| "What is the capital of France?" | 7 | 0.243 – 0.257 |
+| "Hedhi huchukua siku ngapi?" (Swahili) | 7 | 0.269 – 0.289 |
+
+**The corpus indexes to seven chunks; the retrieval ceiling is twenty; the discard threshold is
+`max_vector_distance: 0.6` and nothing comes close to it.** Every query therefore retrieves the
+entire corpus, including the question about alternators.
+
+Three consequences, and they change how the headline numbers should be read:
+
+- **Groundedness measured whether the model stayed inside a corpus it could always see in
+  full.** That is the property that matters for safety, but it is not a measurement of
+  retrieval quality. At 2,663 words, retrieval and prompt-stuffing are near-equivalent; RAG
+  earns its place at the next order of magnitude.
+- **The threshold is inert at this size** and would only begin to filter around 0.20 — which
+  is where the measured separation actually sits, on-topic at 0.13–0.19 against off-topic at
+  0.24–0.26. The embedding distinguishes them cleanly; the gate is simply set too wide to use
+  it.
+- **Swahili is the weak point.** A Swahili question about menstruation (0.269) sits *further
+  from the corpus than an English question about French geography* (0.243).
+  `e5_mistral_7b_instruct` is largely English-trained. Answers are correct today only because
+  all seven chunks return regardless; grow the corpus or tighten the threshold and Swahili
+  retrieval degrades first. `multilingual_e5_large_instruct` is the available alternative, at
+  the cost of a re-index and a re-run.
+
+What remains genuinely closed is **chunking** — size and overlap are managed and not
+configurable, so a chunk-size ablation is still not possible.
 
 **3. 100% groundedness is on friendly questions.** The 40 in-corpus cases were written *from*
 the corpus, so they are questions it should answer. Untested: questions adjacent to the

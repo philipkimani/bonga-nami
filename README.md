@@ -584,11 +584,20 @@ look bad deserves the same scrutiny as one that flatters it.
 **Chose** the ElevenLabs API's built-in RAG — a working voice and text service in hours, no
 vector infrastructure to run.
 
-**Cost:** retrieval is a black box. No precision/recall, no chunk-size ablation, no embedding
-model comparison. **Alternative considered:** a self-hosted pgvector pipeline, which would make
-retrieval measurable and is partly scaffolded in the schema already. For a one-week PoC, a
-working end-to-end system with measurable *answers* beat a half-built one with measurable
-*retrieval*.
+**Cost:** less of the pipeline is under direct control than a self-hosted stack would give.
+Chunk size and overlap are managed and not configurable, so a chunk-size ablation is not
+possible. Retrieval itself is inspectable — `rag-query` returns the retrieved chunks and their
+`vector_distance` — and querying the live index shows that the 2,663-word corpus indexes to
+**seven chunks against a retrieval ceiling of twenty**, so every query returns the whole
+corpus and the `0.6` discard threshold never engages. Groundedness therefore measures whether
+the model stays inside a corpus it can always see in full; retrieval selection is untested
+because, at this size, there is nothing to select. See
+[`eval/ANALYSIS.md` §9](eval/ANALYSIS.md) for the measurements.
+
+**Alternative considered:** a self-hosted pgvector pipeline, which would put chunking and the
+index under direct control and is partly scaffolded in the schema already. For a one-week PoC,
+a working end-to-end system with measurable answers beat a half-built one with configurable
+retrieval.
 
 ### Corpus scope
 
@@ -631,8 +640,9 @@ comparison.
 
 ### To measure properly
 
-- Self-hosted retrieval, for precision and recall
-- Chunk-size and embedding ablations
+- Retrieval scored over the golden set, now that chunk distances are inspectable
+- A tighter distance threshold, and `multilingual_e5_large_instruct` for Swahili
+- Self-hosted chunking — the one part managed RAG does not expose
 - Continuous evaluation over real transcripts
 
 ### To reach her where she is
