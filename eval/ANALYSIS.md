@@ -26,8 +26,8 @@ from the generator. Two further judges were run for agreement; see
 [`JUDGES.md`](JUDGES.md) and §9.
 
 Four of five met. Two things in this document matter more than the scoreboard: **why the
-first run said something completely different** (§2), and **the two ungrounded answers the
-metric was originally scoped to hide** (§5).
+first run said something completely different** (§2), and **the two ungrounded answers that a
+narrower scope would have left out** (§5).
 
 ---
 
@@ -36,14 +36,14 @@ metric was originally scoped to hide** (§5).
 **This is the finding to lead with.** It is the difference between a report and an
 investigation.
 
-The first full run returned **82% groundedness (33/40)** with seven failures. I analysed
-them and concluded they shared a cause: the model was retrieving correctly and then
-*paraphrasing numbers*, with the paraphrase drifting. The corpus said a period lasts 3–7
-days; the agent said "two to seven". The corpus said change a pad every 4–6 hours; the agent
-said "four to eight". I wrote it up as a coherent failure mode and even identified a safety
-consequence.
+The first full run returned **82% groundedness (33/40)** with seven failures that shared an
+apparent cause: the model appeared to retrieve correctly and then *paraphrase numbers*, with
+the paraphrase drifting. The corpus said a period lasts 3–7 days; the agent said "two to
+seven". The corpus said change a pad every 4–6 hours; the agent said "four to eight". That is
+a coherent failure mode, it carries a real safety consequence, and it survived a first pass of
+analysis.
 
-**It was wrong.** There was no paraphrasing, because there was nothing to paraphrase.
+**It was also wrong.** There was no paraphrasing, because there was nothing to paraphrase.
 
 ### How it came to light
 
@@ -95,8 +95,8 @@ Specificity is where an ungrounded system gives itself away.
 - **A groundedness score is meaningless without confirming the index is live.** The harness
   needs a pre-flight check; see §12.
 - **The failure analysis was internally consistent and completely wrong.** Seven data points
-  fitted a story about paraphrase drift. The story was wrong because a variable I had not
-  checked was doing all the work. A confident, coherent explanation of bad data is more
+  fitted a story about paraphrase drift. The story failed because an unchecked variable — the
+  index state — was doing all the work. A confident, coherent explanation of bad data is more
   dangerous than no explanation.
 - **The metric did not catch it** — it happily reported 82%. What caught it was the
   *specificity* of the failures, which did not fit a system reading its own corpus.
@@ -190,7 +190,7 @@ Two require judgement:
 
 Two ungrounded answers. Both are more interesting than the number.
 
-### The metric was originally scoped to hide one of them
+### The metric's original scope excluded one of them
 
 The first version computed groundedness over `in_corpus` cases only, returning **100%
 (40/40)**. That scoping was wrong: `myth` answers also make factual claims and also carry a
@@ -412,16 +412,16 @@ triggers it.
 - The agent said "not your fault" for abuse and FGM but not for self-harm, where it would be
   the wrong frame — a distinction no content classifier can express.
 
-### One honesty point
+### The limit of this evidence
 
 **This was not experimentally verified.** The reasoning is from the documented configuration —
 `trigger_action: end_call` — not from enabling `self_harm` and watching a disclosure terminate
 the call.
 
-That is worth stating plainly, along with why: the only possible outcomes are "confirms the
-documented behaviour" or "the platform does not do what its config says". The second would be
-important to know, so it belongs on a pre-production checklist. It was not worth PoC time to
-reach a decision the documentation already determined.
+The two possible outcomes are "confirms the documented behaviour" or "the platform does not do
+what its config says". The second would be important to know, so the check belongs on a
+pre-production checklist. Neither outcome changes the decision the documentation already
+determines, which is why it did not take PoC time.
 
 ---
 
@@ -561,9 +561,9 @@ true figure 100%.
 
 **2. A wait-loop that exited immediately.** When re-running post-index, the completion check
 was "does `results.json` contain 85 cases and does `results.md` mention reading level" — both
-already true of the *previous* run's files. The loop exited instantly and I compared run 1
-against itself, saw identical numbers, and briefly concluded indexing had changed nothing.
-Caught by file timestamps: the backup was newer than the file it had copied.
+already true of the *previous* run's files. The loop exited instantly, so the comparison ran
+run 1 against itself — identical numbers, and an apparent conclusion that indexing had changed
+nothing. Caught by file timestamps: the backup was newer than the file it had copied.
 
 **3. `--rescore` read stale case definitions.** After reclassifying MY07, re-scoring did not
 pick up the change, because it scored against the case snapshot stored in `results.json`
