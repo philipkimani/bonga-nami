@@ -317,7 +317,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <!-- 03 ---------------------------------------------------------------- -->
 <section class="slide" id="s3"><div class="inner">
   <p class="eyebrow rise"><span class="num">03</span> Architecture <span class="rule"></span> frameworks and where state lives</p>
-  <h2 class="rise">What runs where &mdash; and what deliberately doesn't.</h2>
+  <h2 class="rise">What runs where, and what the platform never stores.</h2>
   <div class="grid g2 rise" style="align-items:start">
     <svg class="diagram" viewBox="0 0 460 330" role="img" aria-label="Architecture: browser and admin console talk to an Express server on Railway backed by Postgres; the server integrates with the LLM API for retrieval, generation and speech.">
       <rect class="box" x="10" y="10" width="180" height="46" rx="10"/>
@@ -364,14 +364,14 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <!-- 04 ---------------------------------------------------------------- -->
 <section class="slide" id="s4"><div class="inner">
   <p class="eyebrow rise"><span class="num">04</span> LLM &amp; prompt engineering <span class="rule"></span> decisions and why</p>
-  <h2 class="rise">Every setting is an argument.</h2>
+  <h2 class="rise">Each setting, and the reasoning behind it.</h2>
   <div class="rows rise">
     <div class="row"><div class="k">Generation</div><div class="v">gemini-2.5-flash</div>
       <div class="why">Voice demands sub-second turns. A larger model buys reasoning this task doesn't need &mdash; the answer is in a 2,663-word corpus, not in the model's cleverness.</div></div>
     <div class="row"><div class="k">Temperature</div><div class="v">0</div>
       <div class="why">Health answers shouldn't vary run to run, and the evaluation must be reproducible. Warmth comes from the prompt, not from sampling noise.</div></div>
-    <div class="row"><div class="k">Prompt structure</div><div class="v">7 sections</div>
-      <div class="why">Personality, Environment, Tone, Goal, Boundaries, Safety, Certainty. Markdown headings are prioritised more reliably than prose paragraphs.</div></div>
+    <div class="row"><div class="k">Prompt structure</div><div class="v">8 sections</div>
+      <div class="why">Personality, Environment, Tone, Language, Goal, Boundaries, Safety, Certainty. Markdown headings are prioritised more reliably than prose paragraphs.</div></div>
     <div class="row"><div class="k">Persona</div><div class="v">older sister</div>
       <div class="why">Not a clinician and not a peer. The register that gets a 13-year-old to ask a second question.</div></div>
     <div class="row"><div class="k">Corpus binding</div><div class="v">explicit</div>
@@ -384,7 +384,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <!-- 05 ---------------------------------------------------------------- -->
 <section class="slide" id="s5"><div class="inner">
   <p class="eyebrow rise"><span class="num">05</span> Guardrails <span class="rule"></span> the audience-specific work</p>
-  <h2 class="rise">The standard safety setting would hang up on the girls this exists for.</h2>
+  <h2 class="rise">Using the standard content filters would end the conversation at the moment it matters most.</h2>
 
   <div class="grid g2 rise" style="align-items:start">
     <div>
@@ -539,13 +539,13 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <p>Narrowed from sexual and reproductive health to puberty and menstrual health alone.</p>
       <p><b>The cost:</b> real questions about contraception and consent get refused. The gain is a corpus
         that can actually be evaluated end-to-end, and a scope that is safe to operate live.</p></div>
-    <div class="card"><span class="tag">English-only corpus</span>
-      <p>Bonga speaks a wide range of languages, Swahili among them. The constraint here is mine, not the
-        service's: one language means one golden set and directly comparable metrics.</p>
-      <p><b>The cost:</b> girls in Kenya move between English, Swahili and Sheng. Extending is a corpus and
-        evaluation exercise &mdash; translate the corpus, rebuild the golden set, re-run &mdash; not a
-        technical barrier. Language detection is enabled today, so a Swahili question would be answered
-        without a Swahili corpus to ground it.</p></div>
+    <div class="card"><span class="tag">English corpus, Swahili replies</span>
+      <p>A question asked in Swahili is answered in Swahili, from the same English corpus. The corpus and
+        the golden set are English; the conversation is not.</p>
+      <p><b>The cost:</b> the 85 cases run in English, so the metrics above describe English answers.
+        Swahili is covered by regression tests rather than measured at that resolution &mdash; translating
+        the corpus and rebuilding the golden set is what would close the gap, and that is an evaluation
+        exercise rather than a technical one.</p></div>
     <div class="card"><span class="tag">Authored corpus</span>
       <p>Written for the audience and cited to WHO, UNICEF and Kenya MoH guidance.</p>
       <p><b>The cost:</b> it isn't a real-world ingestion problem. Source PDFs would have been messier,
@@ -556,13 +556,13 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <!-- 09 ---------------------------------------------------------------- -->
 <section class="slide" id="s9"><div class="inner">
   <p class="eyebrow rise"><span class="num">09</span> Beyond the PoC <span class="rule"></span> what comes next</p>
-  <h2 class="rise">What I'd do with more than a week.</h2>
+  <h2 class="rise">What this PoC leaves open.</h2>
   <div class="grid g2 rise">
     <div class="card"><span class="tag">Immediately</span>
       <ul class="ticks warn">
         <li>Verify every helpline number against a live source</li>
         <li>Clinical review of the corpus by a health worker</li>
-        <li>Resolve the language-detection inconsistency</li>
+        <li>Swahili golden set, so Swahili answers are measured rather than spot-checked</li>
       </ul></div>
     <div class="card"><span class="tag">To measure properly</span>
       <ul class="ticks">
@@ -573,7 +573,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
     <div class="card"><span class="tag">To reach her where she is</span>
       <ul class="ticks">
         <li><b>WhatsApp</b>, <b>SMS</b> and <b>voice</b> &mdash; no smartphone or data assumed</li>
-        <li>Swahili corpus and golden set; Sheng register</li>
+        <li>Swahili corpus, to ground Swahili answers in Swahili source text; Sheng register</li>
         <li>Testing with Youth Advisory Panels</li>
       </ul></div>
     <div class="card"><span class="tag">Human handoff &mdash; the most important item here</span>
