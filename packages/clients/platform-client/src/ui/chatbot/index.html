@@ -244,7 +244,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <li>Girls aged 12&ndash;16, Kenya</li>
         <li>Often shy, or asking "for a friend"</li>
         <li>Carrying myths from home or online</li>
-        <li>For many, the first place they've asked</li>
+        <li>Often with no adult they can ask</li>
       </ul></div>
     <div class="card"><span class="tag">Corpus</span>
       <ul class="ticks">
@@ -342,9 +342,10 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <p style="margin-bottom:.9rem">The box top-right isn't decoration. <b>Corpus upload</b> and the
         <b>conversation dashboard</b> both live there &mdash; changing what Bonga knows, or reading what
         she said today, is a programme task rather than an engineering one.</p>
-      <p style="margin-bottom:.9rem">A health educator corrects a myth in the corpus, re-uploads the
-        document, then reads the next day's conversations to see whether girls stopped asking. No
-        redeploy, no developer. Transcripts are read live from the conversations API, not from a copy.</p>
+      <p style="margin-bottom:.9rem">It is what would let a health educator correct a myth in the corpus,
+        re-upload the document, then read the conversations that follow to see whether the question keeps
+        coming back &mdash; without a redeploy or a developer. Transcripts are read live from the
+        conversations API, not from a copy.</p>
       <p class="lbl" style="font-family:var(--mono);font-size:.8rem;opacity:.75">bonga-nami.onrender.com</p></div>
 
       <div class="card" style="margin-top:1rem"><span class="tag">Orchestration runtime</span>
@@ -566,8 +567,9 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       </ul></div>
     <div class="card"><span class="tag">To measure properly</span>
       <ul class="ticks">
-        <li>Self-hosted retrieval, for precision and recall</li>
-        <li>Chunk-size and embedding ablations</li>
+        <li>Retrieval scored over the golden set, now that chunk distances are inspectable</li>
+        <li>A tighter distance threshold, and a multilingual embedding model for Swahili</li>
+        <li>Self-hosted chunking &mdash; the one part managed RAG does not expose</li>
         <li>Continuous evaluation over real transcripts</li>
       </ul></div>
     <div class="card"><span class="tag">To reach her where she is</span>
