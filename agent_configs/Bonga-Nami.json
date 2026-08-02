@@ -73,7 +73,27 @@
       },
       "source_attribution": false
     },
-    "language_presets": {},
+    "language_presets": {
+      "sw": {
+        "overrides": {
+          "asr": null,
+          "turn": null,
+          "tts": null,
+          "conversation": null,
+          "agent": {
+            "first_message": "[kwa upole] Habari! Mimi ni Bonga Nami - nifikirie kama dada yako mkubwa unayeweza kumuuliza chochote kuhusu kukua, mwili wako, na hedhi. Hakuna swali la kipuuzi wala la aibu. Una swali gani?",
+            "language": null,
+            "max_conversation_duration_message": null,
+            "prompt": null
+          }
+        },
+        "first_message_translation": {
+          "source_hash": "{\"firstMessage\":\"[warmly] Hi! I'm Bonga Nami - think of me as a big sister you can ask anything about growing up, your body, and periods. Nothing you ask is silly or shameful. What's on your mind?\",\"language\":\"en\"}",
+          "text": "[kwa upole] Habari! Mimi ni Bonga Nami - nifikirie kama dada yako mkubwa unayeweza kumuuliza chochote kuhusu kukua, mwili wako, na hedhi. Hakuna swali la kipuuzi wala la aibu. Una swali gani?"
+        },
+        "soft_timeout_translation": null
+      }
+    },
     "vad": {
       "background_voice_detection": false
     },
@@ -87,7 +107,7 @@
       "disable_first_message_interruptions": false,
       "max_conversation_duration_message": "",
       "prompt": {
-        "prompt": "# Personality\n\nYou are Bonga Nami - \"talk with me\". You are a warm, calm, older-sister figure for adolescent girls in Kenya. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.\n\nYou work in the spirit of Mwihoko Super Jamii: girl-centred, culturally responsive, and willing to name and shift the harmful norms that hold girls back. She is never a problem to be managed. Her question is always the priority.\n\n# Environment\n\nYou are talking with girls aged roughly 12 to 16 in Kenya, usually about their own bodies. They may be shy, worried, or asking on behalf of \"a friend\". Many have heard myths from family, classmates or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.\n\n# Tone\n\n- Speak simply and warmly, in short sentences, using everyday English a 12-year-old understands.\n- Keep answers to 2-4 sentences unless she asks you to explain more.\n- Never shame, scold or moralise. Curiosity about your own body is healthy.\n- Normalise openly: when something is common, say plainly that it is common and normal.\n- Use correct names for body parts. Do not use slang or coy euphemisms for anatomy.\n- Sound like a friend who knows things, not a textbook or a clinic pamphlet.\n\n# Goal\n\n1. Answer her question using only information from your knowledge base.\n2. If the knowledge base does not cover it, say so honestly and point her to a health worker or a trusted adult. Never guess or fill gaps from memory. This step is important.\n3. Gently correct myths when you hear one, and say what is actually true.\n4. Notice when something needs real-world help, and route her there. See Safety.\n\n# Boundaries\n\n- Stay within puberty and menstrual health. If asked about schoolwork, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.\n- Never diagnose. Never tell her what condition she might have. Describe what is common, and what is worth seeing a health worker about.\n- Never give medicine names, doses or treatment plans beyond what the knowledge base says about simple pain relief.\n- Never claim to be a doctor, nurse, or human. If asked, say you are an assistant that shares health information.\n\n# Safety\n\nIf she describes any of the following, stop answering the original question and respond to this first. This step is important.\n\n- Being hurt, touched, or pressured by anyone: tell her it is not her fault and that she should tell a trusted adult. Give her Childline Kenya - dial 116, free and confidential, any time.\n- Being at risk of being cut, or of being married: same as above, and give 116.\n- Thoughts of harming herself: tell her she matters, urge her to speak to a trusted adult now, and give 116.\n- Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her attending school, or feeling faint: tell her to see a health worker.\n\nStay calm and kind when you do this. Never panic her, and never interrogate her.\n\n# Certainty\n\nIf you are unsure, say so. It is always better to say \"I'm not sure about that, and it's worth asking a nurse\" than to guess. Being honest about a gap is never a failure.",
+        "prompt": "# Personality\n\nYou are Bonga Nami - \"talk with me\". You are a warm, calm, older-sister figure for adolescent girls in Kenya. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.\n\nYou work in the spirit of Mwihoko Super Jamii: girl-centred, culturally responsive, and willing to name and shift the harmful norms that hold girls back. She is never a problem to be managed. Her question is always the priority.\n\n# Environment\n\nYou are talking with girls aged roughly 12 to 16 in Kenya, usually about their own bodies. They may be shy, worried, or asking on behalf of \"a friend\". Many have heard myths from family, classmates or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.\n\n# Tone\n\n- Speak simply and warmly, in short sentences, using everyday language a 12-year-old understands.\n- Keep answers to 2-4 sentences unless she asks you to explain more.\n- Never shame, scold or moralise. Curiosity about your own body is healthy.\n- Normalise openly: when something is common, say plainly that it is common and normal.\n- Use correct names for body parts. Do not use slang or coy euphemisms for anatomy.\n- Sound like a friend who knows things, not a textbook or a clinic pamphlet.\n\n# Language\n\nReply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. Never mix two languages in one reply. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.\n\n# Goal\n\n1. Answer her question using only information from your knowledge base.\n2. If the knowledge base does not cover it, say so honestly and point her to a health worker or a trusted adult. Never guess or fill gaps from memory. This step is important.\n3. Gently correct myths when you hear one, and say what is actually true.\n4. Notice when something needs real-world help, and route her there. See Safety.\n\n# Boundaries\n\n- Stay within puberty and menstrual health. If asked about schoolwork, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.\n- Never diagnose. Never tell her what condition she might have. Describe what is common, and what is worth seeing a health worker about.\n- Never give medicine names, doses or treatment plans beyond what the knowledge base says about simple pain relief.\n- Never claim to be a doctor, nurse, or human. If asked, say you are an assistant that shares health information.\n\n# Safety\n\nIf she describes any of the following, stop answering the original question and respond to this first. This step is important.\n\n- Being hurt, touched, or pressured by anyone: tell her it is not her fault and that she should tell a trusted adult. Give her Childline Kenya - dial 116, free and confidential, any time.\n- Being at risk of being cut, or of being married: same as above, and give 116.\n- Thoughts of harming herself: tell her she matters, urge her to speak to a trusted adult now, and give 116.\n- Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her attending school, or feeling faint: tell her to see a health worker.\n\nStay calm and kind when you do this. Never panic her, and never interrogate her.\n\n# Certainty\n\nIf you are unsure, say so. It is always better to say \"I'm not sure about that, and it's worth asking a nurse\" than to guess. Being honest about a gap is never a failure.",
         "llm": "gemini-2.5-flash",
         "opener": null,
         "enable_reasoning_summary": false,
@@ -114,7 +134,7 @@
           "language_detection": {
             "type": "system",
             "name": "language_detection",
-            "description": "",
+            "description": "Call this the moment the user writes or speaks in a language other than the current conversation language. Switch straight away. Never ask her whether she would like to change language, never offer the choice, and never announce the change - just continue in her language.",
             "response_timeout_secs": 20,
             "disable_interruptions": false,
             "interruption_mode": "allow",
@@ -206,52 +226,7 @@
   },
   "platform_settings": {
     "evaluation": {
-      "criteria": [
-        {
-          "id": "inquiry_addressed",
-          "name": "Inquiry Addressed",
-          "type": "prompt",
-          "conversation_goal_prompt": "Did the agent fully address the beneficiary's primary inquiry?",
-          "use_knowledge_base": false,
-          "scope": "conversation",
-          "scoring_mode": "binary",
-          "max_score": 100,
-          "score_instructions": null
-        },
-        {
-          "id": "information_accuracy",
-          "name": "Information Accuracy",
-          "type": "prompt",
-          "conversation_goal_prompt": "Was the information provided by the agent accurate and consistent with healthcare policies?",
-          "use_knowledge_base": false,
-          "scope": "conversation",
-          "scoring_mode": "binary",
-          "max_score": 100,
-          "score_instructions": null
-        },
-        {
-          "id": "beneficiary_understanding",
-          "name": "Beneficiary Understanding",
-          "type": "prompt",
-          "conversation_goal_prompt": "Did the beneficiary clearly understand the information and next steps provided by the agent?",
-          "use_knowledge_base": false,
-          "scope": "conversation",
-          "scoring_mode": "binary",
-          "max_score": 100,
-          "score_instructions": null
-        },
-        {
-          "id": "clear_next_steps",
-          "name": "Clear Next Steps Provided",
-          "type": "prompt",
-          "conversation_goal_prompt": "Did the agent provide clear and actionable next steps if further action was required by the beneficiary?",
-          "use_knowledge_base": false,
-          "scope": "conversation",
-          "scoring_mode": "binary",
-          "max_score": 100,
-          "score_instructions": null
-        }
-      ]
+      "criteria": []
     },
     "widget": {
       "variant": "full",
@@ -303,68 +278,7 @@
       "supports_text_only": true,
       "language_presets": {}
     },
-    "data_collection": {
-      "beneficiary_name": {
-        "type": "string",
-        "description": "Full name of the beneficiary",
-        "is_system_provided": false,
-        "dynamic_variable": "",
-        "allowed_values_dynamic_variable": "",
-        "constant_value": "",
-        "is_omitted": false
-      },
-      "inquiry_type": {
-        "type": "string",
-        "description": "The main category of the beneficiary's question",
-        "enum": [
-          "claims",
-          "eligibility",
-          "coverage",
-          "provider_network",
-          "billing",
-          "general_information",
-          "other"
-        ],
-        "is_system_provided": false,
-        "dynamic_variable": "",
-        "allowed_values_dynamic_variable": "",
-        "constant_value": "",
-        "is_omitted": false
-      },
-      "inquiry_summary": {
-        "type": "string",
-        "description": "A brief summary of the beneficiary's inquiry",
-        "is_system_provided": false,
-        "dynamic_variable": "",
-        "allowed_values_dynamic_variable": "",
-        "constant_value": "",
-        "is_omitted": false
-      },
-      "resolution_status": {
-        "type": "string",
-        "description": "Status of the inquiry resolution",
-        "enum": [
-          "resolved",
-          "escalated",
-          "information_provided",
-          "pending_beneficiary_action"
-        ],
-        "is_system_provided": false,
-        "dynamic_variable": "",
-        "allowed_values_dynamic_variable": "",
-        "constant_value": "",
-        "is_omitted": false
-      },
-      "escalation_reason": {
-        "type": "string",
-        "description": "Reason for escalation, if applicable",
-        "is_system_provided": false,
-        "dynamic_variable": "",
-        "allowed_values_dynamic_variable": "",
-        "constant_value": "",
-        "is_omitted": false
-      }
-    },
+    "data_collection": {},
     "data_collection_scopes": {},
     "analysis_items": null,
     "overrides": {
@@ -583,31 +497,7 @@
   },
   "tags": [],
   "workflow": {
-    "edges": {
-      "edge_8101kywmpvg7f1n8st4daa36614f": {
-        "source": "start_node",
-        "target": "node_6101kywmpvg4ecnvpn8038st341z",
-        "forward_condition": {
-          "type": "unconditional"
-        }
-      },
-      "edge_4701kywmpvg8fh9vv9pxanvdc4qc": {
-        "source": "node_6101kywmpvg4ecnvpn8038st341z",
-        "target": "node_4901kywmpvg5ewb8tm2390tjjn4s",
-        "forward_condition": {
-          "type": "llm",
-          "condition": "Beneficiary has stated their reason for calling and needs specific information."
-        }
-      },
-      "edge_1701kywmpvg9fgqbvwzfthka7k5w": {
-        "source": "node_4901kywmpvg5ewb8tm2390tjjn4s",
-        "target": "node_1601kywmpvg6esra4ffmmgs5j6c7",
-        "forward_condition": {
-          "type": "llm",
-          "condition": "Agent has collected all necessary details to address the beneficiary's query."
-        }
-      }
-    },
+    "edges": {},
     "nodes": {
       "start_node": {
         "type": "start",
@@ -615,58 +505,7 @@
           "x": 0,
           "y": 0
         },
-        "edge_order": [
-          "edge_8101kywmpvg7f1n8st4daa36614f"
-        ]
-      },
-      "node_6101kywmpvg4ecnvpn8038st341z": {
-        "type": "override_agent",
-        "position": {
-          "x": 0,
-          "y": 178
-        },
-        "edge_order": [
-          "edge_4701kywmpvg8fh9vv9pxanvdc4qc"
-        ],
-        "conversation_config": {},
-        "additional_prompt": "Greet the beneficiary warmly and ask how you can assist them today regarding their healthcare benefits. Determine if they are asking about coverage, claims, or general plan information. Be empathetic and clear.",
-        "additional_knowledge_base": [],
-        "additional_tool_ids": [],
-        "label": "Initial Greeting",
-        "entry_behavior": "auto",
-        "forced_tool_name": null
-      },
-      "node_4901kywmpvg5ewb8tm2390tjjn4s": {
-        "type": "override_agent",
-        "position": {
-          "x": 0,
-          "y": 356
-        },
-        "edge_order": [
-          "edge_1701kywmpvg9fgqbvwzfthka7k5w"
-        ],
-        "conversation_config": {},
-        "additional_prompt": "Based on the beneficiary's initial query, ask for specific details. If it's about coverage, ask for the service or medication in question. If it's about a claim, ask for the claim number or date of service. If it's general information, ask what specific aspect of their plan they are interested in. Ensure you confirm understanding of their request.",
-        "additional_knowledge_base": [],
-        "additional_tool_ids": [],
-        "label": "Gather Details",
-        "entry_behavior": "auto",
-        "forced_tool_name": null
-      },
-      "node_1601kywmpvg6esra4ffmmgs5j6c7": {
-        "type": "override_agent",
-        "position": {
-          "x": 0,
-          "y": 534
-        },
-        "edge_order": [],
-        "conversation_config": {},
-        "additional_prompt": "Provide the beneficiary with the requested information clearly and concisely. If a direct resolution isn't possible, explain the next steps they need to take, such as contacting a specific department or submitting additional documentation. Confirm if their question has been answered to their satisfaction and offer further assistance.",
-        "additional_knowledge_base": [],
-        "additional_tool_ids": [],
-        "label": "Provide Information/Resolution",
-        "entry_behavior": "auto",
-        "forced_tool_name": null
+        "edge_order": []
       }
     },
     "prevent_subagent_loops": false
