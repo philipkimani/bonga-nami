@@ -626,7 +626,22 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
     var next=Math.min(Math.max(i+dir,0),slides.length-1);
     slides[next].scrollIntoView({behavior:'smooth'});
   }
+  // Deck keys must never steal typing. composedPath() is what makes this work through
+  // the widget's shadow root — e.target is retargeted to the host, so checking it alone
+  // would miss the real <input> inside and space would still page the deck.
+  function isTyping(e){
+    var path=typeof e.composedPath==='function'?e.composedPath():[e.target];
+    for(var i=0;i<path.length;i++){
+      var n=path[i];
+      if(!n||!n.tagName) continue;
+      var tag=n.tagName.toLowerCase();
+      if(tag==='input'||tag==='textarea'||tag==='select'||n.isContentEditable) return true;
+      if(n.id==='ruskins-chat-widget') return true;
+    }
+    return false;
+  }
   document.addEventListener('keydown',function(e){
+    if(isTyping(e)) return;
     if(['ArrowDown','PageDown'].indexOf(e.key)>-1||(e.key===' '&&!e.shiftKey)){e.preventDefault();go(1);}
     if(['ArrowUp','PageUp'].indexOf(e.key)>-1||(e.key===' '&&e.shiftKey)){e.preventDefault();go(-1);}
   });
