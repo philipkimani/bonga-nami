@@ -7,6 +7,10 @@ the answer isn't in it.
 **Live:** https://bonga-nami.onrender.com/ai_agent/
 The page is both the working assistant (widget, bottom right) and the presentation.
 
+**Admin console:** https://bonga-nami.onrender.com/
+Where the corpus is uploaded and conversations are reviewed. Credentials are provided with the
+release rather than committed here.
+
 Built for the Mwihoko Super Jamii clinic deployment.
 Philip K. Kimani · philipkimanidev@gmail.com
 
@@ -132,6 +136,23 @@ flowchart TB
 
 Transcripts are retrieved from the ElevenLabs API on demand, which is what the evaluation
 harness reads from.
+
+### Admin console — the operator's surface
+
+**https://bonga-nami.onrender.com/** (authenticated)
+
+Everything a programme team needs to run the assistant lives here, so that changing what it
+knows or reviewing what it said does not require a developer or a redeploy.
+
+| Section | What it does |
+|---|---|
+| **Knowledge base** | Corpus upload — file, URL or pasted text — with per-document chunk counts. Documents are pushed to the agent's knowledge base, which is where retrieval reads from. |
+| **Analytics** | Conversation dashboard. Lists conversations, opens any single one for the full transcript, and carries per-conversation feedback and audio. It reads the ElevenLabs conversations API directly, so it shows live traffic rather than a copy. |
+| **Platform settings** | Agent binding, channel toggles, widget appearance and branding — configuration held in the database, not in environment variables. |
+
+This is the loop that matters beyond the PoC: a health educator corrects a myth in the corpus
+and re-uploads it, then reads the next day's conversations to see whether girls stopped asking
+about it. Neither step is an engineering task.
 
 ### Orchestration runtime
 
