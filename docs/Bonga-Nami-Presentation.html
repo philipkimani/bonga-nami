@@ -297,7 +297,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <p class="lede rise">One HTTPS request, then one long-lived socket. The platform signs a URL over HTTPS;
     everything after that &mdash; speech in, transcription, retrieval, the reply, audio out &mdash; streams
     over a single <strong>WebSocket</strong> held open for the conversation, because two-way audio cannot be
-    done with request and response. The connection upgrades to WebRTC where the browser supports it. Staying off the media path is a design choice, not an absence of one &mdash; it keeps a hop out of every turn and leaves no second copy of the conversation. The platform&rsquo;s work sits around that path: authentication and origin control, the corpus and configuration, analytics, and the sandboxed execution runtime. On voice, SMS and WhatsApp it terminates the conversation itself.</p>
+    done with request and response. The connection upgrades to WebRTC where the browser supports it. Staying off the media path is a design choice, not an absence of one &mdash; it keeps a hop out of every turn and leaves no second copy of the conversation. The platform&rsquo;s work sits around that path: authentication and origin control, the corpus and configuration, analytics, and the sandboxed execution runtime. On voice, SMS and WhatsApp the platform is the endpoint &mdash; every turn passes through it.</p>
   <div class="rise">
   <svg class="diagram" viewBox="0 0 940 300" role="img" aria-label="Sequence: browser requests a signed URL from the server, which authenticates with the LLM API; the browser then connects directly over websocket for ASR, retrieval, generation, guardrails and speech.">
     <defs>
@@ -366,9 +366,9 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
     </svg>
     <div>
       <div class="card"><span class="tag">Admin console</span>
-      <p style="margin-bottom:.9rem">The box top-right isn't decoration. <b>Corpus upload</b> and the
-        <b>conversation dashboard</b> both live there &mdash; changing what Bonga knows, or reading what
-        she said today, is a programme task rather than an engineering one.</p>
+      <p style="margin-bottom:.9rem"><b>Corpus upload</b> and the <b>conversation dashboard</b> both live
+        there &mdash; changing what Bonga knows, or reading what she said today, is a programme task
+        rather than an engineering one.</p>
       <p style="margin-bottom:.9rem">It is what would let a health educator correct a myth in the corpus,
         re-upload the document, then read the conversations that follow to see whether the question keeps
         coming back &mdash; without a redeploy or a developer. Transcripts are read live from the

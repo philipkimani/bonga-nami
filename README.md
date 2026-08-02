@@ -109,8 +109,7 @@ Its work sits around that path rather than inside it: authentication, rate limit
 control at the minting endpoint; the corpus, configuration and admin console; analytics; and
 the sandboxed execution runtime at `/webhooks/execute` that collapses multiple tool calls into
 a single program ([section 3](#3-architecture)). On the channels this widget does not use —
-voice, SMS and WhatsApp, which the platform terminates itself — it carries the whole
-conversation rather than handing it off.
+voice, SMS and WhatsApp — the platform is the endpoint, and every turn passes through it.
 
 Retrieval detail: documents are indexed on upload (chunked and embedded); at query time the question is
 **reformulated**, embedded, and matched against those chunks by semantic similarity. Only the
