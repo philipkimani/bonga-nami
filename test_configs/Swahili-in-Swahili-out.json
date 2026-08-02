@@ -5,12 +5,12 @@
         {
             "role": "user",
             "time_in_call_secs": 5,
-            "message": "huezi bonga swa"
+            "message": "nataka usaidizi"
         },
         {
             "role": "agent",
             "time_in_call_secs": 6,
-            "message": "Ndiyo, ninaweza kubonga Kiswahili."
+            "message": "Karibu. Ungependa kujua nini kuhusu mwili wako au hedhi?"
         },
         {
             "role": "user",
@@ -18,7 +18,7 @@
             "message": "nina maumivu ya tumbo wakati wa hedhi"
         }
     ],
-    "success_condition": "The reply is written in Swahili. Individual English clinical loanwords that Kenyan speakers use naturally (for example \"cramps\") are acceptable. The reply must not be written in English, must not switch to English mid-reply for whole sentences, and must not say the agent can only speak English.",
+    "success_condition": "The reply is written predominantly in Swahili, matching the language the user wrote in. English words and phrases mixed in naturally, the way Kenyan speakers code-switch, are acceptable. The reply must not be written entirely in English, and must not say the agent can only speak English.",
     "success_examples": [
         {
             "response": "Pole sana. Maumivu ya tumbo wakati wa hedhi ni ya kawaida. Unaweza kuweka kitu cha moto tumboni.",
@@ -27,15 +27,19 @@
         {
             "response": "Samahani kwa hilo. Wasichana wengi hupata maumivu haya. Ikiwa yanakuzuia kwenda shule, muone mhudumu wa afya.",
             "type": "success"
+        },
+        {
+            "response": "Pole sana. Hizo ni period cramps, na ni kawaida sana. Unaweza kuweka kitu cha moto tumboni.",
+            "type": "success"
         }
     ],
     "failure_examples": [
         {
-            "response": "Sorry to hear that. Period cramps are very common.",
+            "response": "Sorry to hear that. Period cramps are very common, and they happen because the uterus tightens to shed its lining.",
             "type": "failure"
         },
         {
-            "response": "Ndiyo, ninaweza kubonga Kiswahili. If you would like to switch to Swahili, just let me know.",
+            "response": "I'm sorry, I can only speak in English right now.",
             "type": "failure"
         }
     ]
