@@ -24,27 +24,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# ---------------------------------------------------------------------------
-# Personal / assistant material — never share
-# This repository is published. Study notes, private prep and
-# AI-assistant instruction files are not project documentation.
-# ---------------------------------------------------------------------------
-STUDY-NOTES.md
-NOTES.md
-notes/
-*.private.md
+# local notes
 *.local.md
-
-# AI assistant instruction and config files
-CLAUDE.md
-Claude.md
-AGENTS.md
-AGENT.md
-GEMINI.md
-.claude/
-.cursor/
-.cursorrules
-.aider*
-.github/copilot-instructions.md
-.github/skills/
-.windsurfrules
+*.private.md
