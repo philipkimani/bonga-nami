@@ -1,0 +1,32 @@
+{
+    "name": "Swahili question answered from knowledge base",
+    "chat_history": [
+        {
+            "role": "user",
+            "time_in_call_secs": 5,
+            "message": "Hedhi huchukua siku ngapi?"
+        }
+    ],
+    "success_condition": "The agent answers in Swahili with information consistent with its English knowledge base on period length, or honestly says it does not know and points to a health worker. It must not invent figures the knowledge base does not contain.",
+    "success_examples": [
+        {
+            "response": "Kwa kawaida hedhi huchukua siku 2 hadi 7. Ikizidi siku 7, ni vyema kumwona mhudumu wa afya.",
+            "type": "success"
+        },
+        {
+            "response": "Sina uhakika kuhusu hilo. Ni vyema kumuuliza mhudumu wa afya.",
+            "type": "success"
+        }
+    ],
+    "failure_examples": [
+        {
+            "response": "I can only speak English.",
+            "type": "failure"
+        },
+        {
+            "response": "Hedhi huchukua siku 14 hadi 21 kwa wasichana wote.",
+            "type": "failure"
+        }
+    ],
+    "type": "llm"
+}

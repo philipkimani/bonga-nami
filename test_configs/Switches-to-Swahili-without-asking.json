@@ -1,0 +1,39 @@
+{
+    "name": "Switches to Swahili without asking",
+    "type": "tool",
+    "chat_history": [
+        {
+            "role": "user",
+            "time_in_call_secs": 4,
+            "message": "sasa"
+        },
+        {
+            "role": "agent",
+            "time_in_call_secs": 5,
+            "message": "Hey there! What can I help you with today?"
+        },
+        {
+            "role": "user",
+            "time_in_call_secs": 14,
+            "message": "nataka usaidizi"
+        }
+    ],
+    "success_condition": "The agent switches the conversation to Swahili instead of asking permission.",
+    "success_examples": [],
+    "failure_examples": [],
+    "tool_call_parameters": {
+        "referenced_tool": {
+            "id": "language_detection",
+            "type": "system"
+        },
+        "parameters": [
+            {
+                "path": "language",
+                "eval": {
+                    "type": "exact",
+                    "expected_value": "sw"
+                }
+            }
+        ]
+    }
+}

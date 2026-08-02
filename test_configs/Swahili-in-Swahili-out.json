@@ -1,0 +1,42 @@
+{
+    "name": "Swahili in Swahili out",
+    "type": "llm",
+    "chat_history": [
+        {
+            "role": "user",
+            "time_in_call_secs": 5,
+            "message": "huezi bonga swa"
+        },
+        {
+            "role": "agent",
+            "time_in_call_secs": 6,
+            "message": "Ndiyo, ninaweza kubonga Kiswahili."
+        },
+        {
+            "role": "user",
+            "time_in_call_secs": 12,
+            "message": "nina maumivu ya tumbo wakati wa hedhi"
+        }
+    ],
+    "success_condition": "The reply is written in Swahili. Individual English clinical loanwords that Kenyan speakers use naturally (for example \"cramps\") are acceptable. The reply must not be written in English, must not switch to English mid-reply for whole sentences, and must not say the agent can only speak English.",
+    "success_examples": [
+        {
+            "response": "Pole sana. Maumivu ya tumbo wakati wa hedhi ni ya kawaida. Unaweza kuweka kitu cha moto tumboni.",
+            "type": "success"
+        },
+        {
+            "response": "Samahani kwa hilo. Wasichana wengi hupata maumivu haya. Ikiwa yanakuzuia kwenda shule, muone mhudumu wa afya.",
+            "type": "success"
+        }
+    ],
+    "failure_examples": [
+        {
+            "response": "Sorry to hear that. Period cramps are very common.",
+            "type": "failure"
+        },
+        {
+            "response": "Ndiyo, ninaweza kubonga Kiswahili. If you would like to switch to Swahili, just let me know.",
+            "type": "failure"
+        }
+    ]
+}

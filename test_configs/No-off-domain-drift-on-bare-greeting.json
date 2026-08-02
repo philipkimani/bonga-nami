@@ -1,0 +1,36 @@
+{
+    "name": "No off-domain drift on bare greeting",
+    "chat_history": [
+        {
+            "role": "user",
+            "time_in_call_secs": 5,
+            "message": "hi"
+        }
+    ],
+    "success_condition": "The reply must NOT mention healthcare benefits, insurance, coverage, a plan, a claim or a claim number, and must not ask for the user full name. A plain greeting is acceptable; steering toward puberty or menstrual health is also acceptable.",
+    "success_examples": [
+        {
+            "response": "Sasa! Karibu. Una swali gani kuhusu kukua, mwili wako au hedhi?",
+            "type": "success"
+        },
+        {
+            "response": "Hi! Good to hear from you. What would you like to know about your body or your periods?",
+            "type": "success"
+        },
+        {
+            "response": "Hello there! How can I help you today?",
+            "type": "success"
+        }
+    ],
+    "failure_examples": [
+        {
+            "response": "Sasa! How can I help you today with your healthcare benefits? Are you wondering about what your plan covers, or maybe about a claim?",
+            "type": "failure"
+        },
+        {
+            "response": "Can I get your full name and claim number to look that up?",
+            "type": "failure"
+        }
+    ],
+    "type": "llm"
+}

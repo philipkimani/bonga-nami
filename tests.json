@@ -1,3 +1,24 @@
 {
-    "tests": []
+    "tests": [
+        {
+            "config": "test_configs\\Swahili-in-Swahili-out.json",
+            "type": "basic-llm",
+            "id": "test_0701kz0c86pce1ashqbtswz96s6t"
+        },
+        {
+            "config": "test_configs\\No-off-domain-drift-on-bare-greeting.json",
+            "type": "basic-llm",
+            "id": "test_3601kz0c936ve66v17b586f8g0yg"
+        },
+        {
+            "config": "test_configs\\Swahili-question-answered-from-knowledge-base.json",
+            "type": "basic-llm",
+            "id": "test_5401kz0c97jve0kved0swez1be6g"
+        },
+        {
+            "config": "test_configs\\Switches-to-Swahili-without-asking.json",
+            "type": "basic-llm",
+            "id": "test_7301kz0d442gf0pvhcr1w39bfv6v"
+        }
+    ]
 }
