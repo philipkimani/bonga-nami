@@ -1,7 +1,7 @@
 # Evaluation analysis — Bonga Nami
 
 Detailed write-up of the evaluation: what was measured, how, what it found, what the method
-cannot tell us, and the questions this invites.
+does not establish, and the questions this invites.
 
 Companion to [`TRANSCRIPTS.md`](TRANSCRIPTS.md) (every question and answer in full),
 [`results.md`](results.md) (generated report) and [`results.json`](results.json) (raw).
@@ -32,9 +32,6 @@ narrower scope would have left out** (§5).
 ---
 
 ## 2. The run that measured nothing
-
-**This is the finding to lead with.** It is the difference between a report and an
-investigation.
 
 The first full run returned **82% groundedness (33/40)** with seven failures that shared an
 apparent cause: the model appeared to retrieve correctly and then *paraphrase numbers*, with
@@ -88,7 +85,8 @@ and 33 of 40 even scored as grounded, because general knowledge and the corpus m
 
 The seven that failed were the seven where the corpus is *specific* — a Kenyan 50-shilling
 coin as a clot reference, drying cloth pads in direct sunlight, an exact hour range.
-Specificity is where an ungrounded system gives itself away.
+Corpus-specific detail is therefore the most sensitive test of whether retrieval is
+working: general knowledge can reproduce the general claims, but not these.
 
 ### What this changes about the method
 
@@ -123,8 +121,8 @@ The set splits into two groups, and the second is the one that makes it an evalu
 - **Safeguarding recall.** The audience is children. A disclosure of abuse or self-harm
   answered as though it were a question about cramps is a catastrophic failure no accuracy
   metric registers. Target 100%, not 95% — at 95%, one girl in twenty gets nothing.
-- **Reading level.** A factually perfect answer above a 12-year-old's reading level has
-  failed her. Correctness and usefulness are not the same measure.
+- **Reading level.** Accuracy is no use if she cannot follow the answer. Correctness and
+  usefulness are not the same measure.
 - **Myth correction.** The corpus exists partly because myths circulate here. An assistant
   that answers accurately but leaves a myth standing has not done the job.
 
@@ -480,13 +478,14 @@ error.
    writes "21", and the word-count regex ignores numerals. Real, but immaterial: normalising
    both sides moves the corpus 6.50 → 6.56 and the answers 6.60 → 6.61.
 
-### A correction to an earlier version of this section
+### Measuring the corpus correctly
 
-An earlier version measured the corpus at **6.51**, concluded it was a floor the agent could
-not beat, and inferred that grounding and readability were in tension. That applied
-Flesch-Kincaid to a document 45% composed of headings, bullets and rules (85 of 188 non-blank
-lines lack terminal punctuation), where the metric is not valid. Measured on prose alone the
-corpus is **5.87 — inside the target**. There is no tension.
+Flesch-Kincaid divides by sentence count, so it is not valid on a document 45% composed of
+headings, bullets and rules — 85 of 188 non-blank lines lack terminal punctuation, and the
+sentence splitter reads whole sections as single sentences. Scored that way the corpus returns
+**6.51**, which would imply a floor the agent cannot beat and a tension between grounding and
+readability. Measured on prose alone it is **5.87 — inside the target**, and there is no
+tension: the gap belongs to the agent.
 
 ### Fix to test next
 
@@ -497,13 +496,11 @@ figures.
 
 ---
 
-## 9. What this evaluation cannot tell you
+## 9. What this evaluation does not establish
 
-**1. Judge independence — resolved, and measured.** An earlier version of this evaluation
-stated that no second-provider key was available, so the judge had to run on the same model as
-the generator. **That was wrong.** The ElevenLabs API brokers Anthropic, OpenAI, Google and
-others on a single key — an independent judge needed no additional credential, only a
-different value in one config field.
+**1. Judge independence — measured rather than assumed.** Judging across model families
+requires no second credential: the API brokers Anthropic, OpenAI and Google models, so
+independence is a config value.
 
 Three judges were therefore run over the **same 85 saved replies**, holding the answers fixed
 so the judge was the only variable:

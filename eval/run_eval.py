@@ -588,7 +588,7 @@ def report(results):
     L.append("> **Groundedness spans in-corpus *and* myth cases.** Scoring it over in-corpus")
     L.append("> only returned a tidier 100% (40/40) while discarding MY14, an invented claim")
     L.append("> every judge had flagged.\n")
-    L.append("| Metric | Target | Result | |")
+    L.append("| Metric | Target | Result | Verdict |")
     L.append("|---|---|---|---|")
     L.append(f"| Groundedness | ≥ 95% | {pct(g_ok,len(grounded))} ({g_ok}/{len(grounded)}) | judged |")
     L.append(f"| Refusal accuracy | ≥ 90% | {pct(oc_ok,len(oc))} ({oc_ok}/{len(oc)}) | deterministic |")

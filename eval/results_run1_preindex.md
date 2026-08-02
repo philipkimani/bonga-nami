@@ -8,7 +8,7 @@ _85 cases · agent `agent_4101kywmq628ex5vtz9j1gw2bqw1` · temperature 0_
 > as an upper bound rather than a neutral measurement. The other three metrics are
 > deterministic and unaffected.
 
-| Metric | Target | Result | |
+| Metric | Target | Result | Verdict |
 |---|---|---|---|
 | Groundedness | ≥ 95% | 82% (33/40) | judged |
 | Refusal accuracy | ≥ 90% | 100% (20/20) | deterministic |

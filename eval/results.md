@@ -14,7 +14,7 @@ _85 cases · agent `agent_4101kywmq628ex5vtz9j1gw2bqw1` · temperature 0_
 > only returned a tidier 100% (40/40) while discarding MY14, an invented claim
 > every judge had flagged.
 
-| Metric | Target | Result | |
+| Metric | Target | Result | Verdict |
 |---|---|---|---|
 | Groundedness | ≥ 95% | 96% (52/54) | judged |
 | Refusal accuracy | ≥ 90% | 100% (21/21) | deterministic |

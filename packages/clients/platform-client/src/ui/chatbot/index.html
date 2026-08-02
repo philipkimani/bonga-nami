@@ -266,11 +266,11 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <!-- 02 ---------------------------------------------------------------- -->
 <section class="slide" id="s2"><div class="inner">
   <p class="eyebrow rise"><span class="num">02</span> Q&amp;A flow <span class="rule"></span> what happens when she asks</p>
-  <h2 class="rise">The server mints a key, then gets out of the way.</h2>
+  <h2 class="rise">The server mints a key, then stays off the media path.</h2>
   <p class="lede rise">One HTTPS request, then one long-lived socket. The platform signs a URL over HTTPS;
     everything after that &mdash; speech in, transcription, retrieval, the reply, audio out &mdash; streams
     over a single <strong>WebSocket</strong> held open for the conversation, because two-way audio cannot be
-    done with request and response. The connection upgrades to WebRTC where the browser supports it.</p>
+    done with request and response. The connection upgrades to WebRTC where the browser supports it. Staying off the media path is a design choice, not an absence of one &mdash; it keeps a hop out of every turn and leaves no second copy of the conversation. The platform&rsquo;s work sits around that path: authentication and origin control, the corpus and configuration, analytics, and the sandboxed execution runtime. On voice, SMS and WhatsApp it terminates the conversation itself.</p>
   <div class="rise">
   <svg class="diagram" viewBox="0 0 940 300" role="img" aria-label="Sequence: browser requests a signed URL from the server, which authenticates with the LLM API; the browser then connects directly over websocket for ASR, retrieval, generation, guardrails and speech.">
     <defs>
@@ -298,7 +298,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
     <rect class="box box-hot" x="0" y="140" width="180" height="52" rx="10"/>
     <text x="16" y="162">Direct socket</text><text class="lbl" x="16" y="178">wss:// conversation</text>
     <path class="flow-hot draw" d="M180,166 L672,166"/>
-    <text class="lbl" x="330" y="158">audio + text bypass the platform entirely</text>
+    <text class="lbl" x="330" y="158">audio + text stream direct, not via the platform</text>
 
     <rect class="box box-cool" x="680" y="118" width="200" height="150" rx="10"/>
     <text x="696" y="140">1 &nbsp;ASR</text><text class="lbl" x="742" y="140">scribe_realtime</text>
@@ -418,7 +418,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <p class="lede rise" style="margin-top:1.4rem;font-size:1rem"><strong>10/10 safeguarding recall, in
     both evaluation runs</strong> &mdash; including the one where retrieval was broken, because this path
     never touches the corpus. But <strong>neither setting is the right answer</strong>: a disclosure
-    should reach <strong>a human counsellor</strong>, not a hang-up and not a better sentence.
+    should reach <strong>a human counsellor</strong>, not a hang-up.
     <span style="font-family:var(--mono);font-size:.9rem">transfer_to_number</span> already exists on the
     agent &mdash; disabled, because a PoC has no counsellor line to dial.</p>
 </div></section>
@@ -521,7 +521,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
     a model that is confident. Enforcing it at the platform layer, where the guardrails already run,
     would address both. The reading-level miss is <b>sentence length, not vocabulary</b> &mdash; the
     answers use simpler words than the corpus itself, in sentences about four words longer. That fix is
-    deliberately not applied: shortening sentences pressures the model to compress figures, which is the
+    not applied: shortening sentences pressures the model to compress figures, which is the
     same numeric drift the groundedness metric exists to catch.</p>
 </div></section>
 
@@ -546,7 +546,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <p><b>The cost:</b> the 85 cases run in English, so the metrics above describe English answers.
         Swahili is covered by regression tests rather than measured at that resolution &mdash; translating
         the corpus and rebuilding the golden set is what would close the gap, and that is an evaluation
-        exercise rather than a technical one.</p></div>
+        exercise rather than a technical one. Girls here also move between English, Swahili and Sheng inside a single sentence, and the agent is instructed to follow them into that register.</p></div>
     <div class="card"><span class="tag">Authored corpus</span>
       <p>Written for the audience and cited to WHO, UNICEF and Kenya MoH guidance.</p>
       <p><b>The cost:</b> it isn't a real-world ingestion problem. Source PDFs would have been messier,
@@ -567,9 +567,8 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       </ul></div>
     <div class="card"><span class="tag">To measure properly</span>
       <ul class="ticks">
-        <li>Retrieval scored over the golden set, now that chunk distances are inspectable</li>
+        <li>Retrieval scored over the golden set, using the chunk distances the API returns</li>
         <li>A tighter distance threshold, and a multilingual embedding model for Swahili</li>
-        <li>Self-hosted chunking &mdash; the one part managed RAG does not expose</li>
         <li>Continuous evaluation over real transcripts</li>
       </ul></div>
     <div class="card"><span class="tag">To reach her where she is</span>
@@ -578,10 +577,9 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <li>Swahili corpus, to ground Swahili answers in Swahili source text; Sheng register</li>
         <li>Testing with Youth Advisory Panels</li>
       </ul></div>
-    <div class="card"><span class="tag">Human handoff &mdash; the most important item here</span>
+    <div class="card"><span class="tag">Human handoff</span>
       <p class="lead" style="margin-bottom:.7rem">A guardrail firing means the model has reached the edge
-        of what it should do alone. <b>That is when a person should take over</b> &mdash; not when it
-        should regenerate a better sentence.</p>
+        of what it should do alone. <b>That is when a person should take over.</b></p>
       <ul class="ticks warn">
         <li>Safeguarding disclosure &rarr; <b>warm transfer to a counsellor</b>, without making her repeat it</li>
         <li><b>Twilio</b> transfer; <b>SendGrid</b> case handoff with context</li>

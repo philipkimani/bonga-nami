@@ -8,8 +8,7 @@ the answer isn't in it.
 The page is both the working assistant (widget, bottom right) and the presentation.
 
 **Admin console:** https://bonga-nami.onrender.com/
-Where the corpus is uploaded and conversations are reviewed. Credentials are provided with the
-release rather than committed here.
+Where the corpus is uploaded and conversations are reviewed.
 
 Built for the Mwihoko Super Jamii clinic deployment.
 Philip K. Kimani · philipkimanidev@gmail.com
@@ -27,7 +26,7 @@ Philip K. Kimani · philipkimanidev@gmail.com
 7. [Results](#7-results)
 8. [Trade-offs, limitations and alternatives](#8-trade-offs-limitations-and-alternatives)
 9. [Beyond the PoC](#9-beyond-the-poc)
-10. [Repository layout](#10-repository-layout)
+10. [Running the platform](#10-running-the-platform)
 
 ---
 
@@ -46,7 +45,7 @@ Girls aged roughly **12 to 16**, in Kenya, usually asking about their own bodies
 
 - Often shy, or asking "for a friend"
 - Carrying myths from home, classmates or online
-- For many, this is the first place they have asked anyone
+- Often with no adult they can ask
 
 ### Corpus
 
@@ -60,12 +59,10 @@ guidance (WHO, UNICEF, Kenya Ministry of Health):
 | `03-myths-and-questions.md` | Ten myths corrected, plus the questions girls actually ask |
 
 The three parts are compiled into a **single `.txt` of 2,663 words**, which is what is
-uploaded and indexed — the agent has **one** knowledge base document, not three, and the
-ElevenLabs API chunks it internally for retrieval. The corpus opens with a statement
-of principles — girl-centred, judgement-free, culturally responsive, norm-shifting, honest
-about limits — so retrieval reinforces the persona rather than fighting it.
+uploaded and indexed. The corpus opens with a statement of principles — girl-centred,
+judgement-free, culturally responsive, norm-shifting, honest about limits.
 
-**Scope was deliberately narrowed** from general sexual and reproductive health to puberty
+**Scope was narrowed** from general sexual and reproductive health to puberty
 and menstrual health alone. Reasoning in [section 8](#8-trade-offs-limitations-and-alternatives).
 
 ### Success metrics
@@ -75,7 +72,7 @@ Defined before building, and the basis of the evaluation in [section 6](#6-evalu
 1. **Grounded** — answers come from the corpus, not the model's general knowledge
 2. **Refuses cleanly** — says so when the corpus doesn't cover the question
 3. **Always routes harm** — any disclosure of abuse or self-harm surfaces help
-4. **Readable at age 11–12** — a correct answer she cannot read has failed
+4. **Readable at age 11–12** — accuracy is no use if she can't follow the answer
 
 ---
 
@@ -103,11 +100,19 @@ sequenceDiagram
 ```
 
 Two-way audio cannot be done with request and response, so the conversation runs over a
-persistent socket. The platform's only job in the live path is to **mint a signed URL** using
-a server-side API key — the browser then talks to the inference endpoint directly.
+persistent socket. The platform **mints a signed URL** using a server-side API key and then
+stays off the media path by design. That choice is about what happens as this scales: a
+network hop saved on every turn of every conversation, and no second store of teenagers'
+health data to secure and defend as the numbers grow.
 
-Retrieval detail, per the provider's RAG documentation:
-documents are indexed on upload (chunked and embedded); at query time the question is
+Its work sits around that path rather than inside it: authentication, rate limiting and origin
+control at the minting endpoint; the corpus, configuration and admin console; analytics; and
+the sandboxed execution runtime at `/webhooks/execute` that collapses multiple tool calls into
+a single program ([section 3](#3-architecture)). On the channels this widget does not use —
+voice, SMS and WhatsApp, which the platform terminates itself — it carries the whole
+conversation rather than handing it off.
+
+Retrieval detail: documents are indexed on upload (chunked and embedded); at query time the question is
 **reformulated**, embedded, and matched against those chunks by semantic similarity. Only the
 matching passages reach the LLM. Documented cost: roughly **250 ms**.
 
@@ -134,7 +139,7 @@ flowchart TB
 | Server | Express v5, TypeScript (strict), ESM, Docker on Railway |
 | Data | PostgreSQL via Prisma |
 
-Transcripts are retrieved from the ElevenLabs API on demand, which is what the evaluation
+Transcripts are retrieved from the conversations API on demand, which is what the evaluation
 harness reads from.
 
 ### Admin console — the operator's surface
@@ -147,12 +152,12 @@ knows or reviewing what it said does not require a developer or a redeploy.
 | Section | What it does |
 |---|---|
 | **Knowledge base** | Corpus upload — file, URL or pasted text — with per-document chunk counts. Documents are pushed to the agent's knowledge base, which is where retrieval reads from. |
-| **Analytics** | Conversation dashboard. Lists conversations, opens any single one for the full transcript, and carries per-conversation feedback and audio. It reads the ElevenLabs conversations API directly, so it shows live traffic rather than a copy. |
+| **Analytics** | Conversation dashboard. Lists conversations, opens any single one for the full transcript, and carries per-conversation feedback and audio. It reads the conversations API directly, so it shows live traffic rather than a copy. |
 | **Platform settings** | Agent binding, channel toggles, widget appearance and branding — configuration held in the database, not in environment variables. |
 
-This is the loop that matters beyond the PoC: a health educator corrects a myth in the corpus
-and re-uploads it, then reads the next day's conversations to see whether girls stopped asking
-about it. Neither step is an engineering task.
+This is the loop that matters beyond the PoC: it would let a health educator correct a myth in
+the corpus, re-upload it, then read the conversations that follow to see whether the question
+keeps coming back. Neither step is an engineering task.
 
 ### Orchestration runtime
 
@@ -180,8 +185,7 @@ context five times. One generated program collapses them into a single execution
 | Answer length | 2–4 sentences | Long answers lose this audience. |
 
 The prompt is reproduced in full below, and is the exact text deployed —
-[`agent_configs/Bonga-Nami.json`](agent_configs/Bonga-Nami.json) is the source of truth and
-is pushed with `elevenlabs agents push`.
+[`agent_configs/Bonga-Nami.json`](agent_configs/Bonga-Nami.json) is the source of truth.
 
 ### The system prompt
 
@@ -207,7 +211,7 @@ You are talking with girls aged roughly 12 to 16 in Kenya, usually about their o
 
 # Language
 
-Reply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. Never mix two languages in one reply. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.
+Reply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. Kenyan girls often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.
 
 # Goal
 
@@ -257,13 +261,11 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
 ### Language
 
 The opening message is English. The agent detects the language of the first user message and
-switches; a girl who writes *"huezi bonga swa"* is answered in Swahili from that point on. The
+switches; a girl who writes *"nataka usaidizi"* is answered in Swahili from that point on. The
 `# Language` section of the prompt requires the switch to be immediate and silent — no asking
-permission, no announcing it, no mixing two languages in one reply — and requires the corpus to
+permission and no announcing it — and requires her own mixture of English, Swahili and Sheng to
+be answered in kind. It requires the corpus to
 be translated rather than embellished, so the grounding constraint survives the translation.
-
-Swahili needs the `eleven_v3` voice family; the lower-latency `flash` and `turbo` models cover
-32 languages and Swahili is not among them.
 
 ---
 
@@ -355,36 +357,34 @@ They are disabled because this is a proof of concept with **no counsellor line t
 to** — enabling a transfer that dials nothing would be worse than the current behaviour, which
 at least gives her the helpline number and encourages her to tell a trusted adult.
 
-So the honest framing of the guardrail design is: **the retry rules are the best available
+So the framing of the guardrail design is: **the retry rules are the best available
 answer given that Bonga Nami cannot hand anyone over.** They ensure she is never dismissed,
 never interrogated, and always given a route to help. But an assistant telling a frightened
 girl to phone a number herself is a weaker outcome than connecting her to someone who can
-help, and the gap between those two is a limitation of the deployment, not of the design.
+help.
 
 **Every point where a guardrail fires is a candidate for human handoff.** A guardrail firing
 means the model has reached the edge of what it should be doing on its own — which is exactly
 the moment a person should take over. See [section 9](#9-beyond-the-poc).
 
-### Did it work?
+### Evidence
 
-**10/10 safeguarding recall in both evaluation runs** — including the run where retrieval was
-broken, because this path never touches the corpus. Safety that does not depend on retrieval
-keeps working when retrieval breaks.
+Safeguarding recall was **10/10 across both evaluation runs**, including the run where
+retrieval was broken. That path never reads the corpus, so the behaviour that matters most
+holds up even when the part most likely to fail has failed.
 
-The self-harm disclosure returned *"I hear you, and I want you to know that you matter very
-much… call Childline Kenya."* **With `self_harm` enabled, that answer would not exist.** The
-call would have ended instead.
-
-**One honesty point:** this was reasoned from the documented configuration, not experimentally
-triggered. The only possible outcomes are "confirms the documented behaviour" or "the platform
-does not do what its config says" — the second matters, so it belongs on a pre-production
-checklist rather than in a PoC.
+One of those ten disclosed self-harm. The reply was *"I hear you, and I want you to know that
+you matter very much… call Childline Kenya."* Under the platform's own filter settings — one
+action, `end_call`, shared by all seven categories — that reply would never have been sent.
+The conversation would have ended instead.
 
 ## 6. Evaluation approach
 
-Accuracy alone would miss the point. A factually correct answer written at university reading
-level, or one that answers a disclosure of abuse as though it were a question about cramps,
-has **failed this audience**. The metric set is split accordingly.
+Accuracy is necessary here but not sufficient. Two answers can both be factually correct and
+still fail: one pitched at university reading level, which she cannot use, and one that treats
+a disclosure of abuse as a question about cramps, which misses what she was actually asking
+for. Neither failure registers on an accuracy score. The metric set therefore reaches beyond
+accuracy.
 
 ### Metrics
 
@@ -421,8 +421,8 @@ agreement figure and lets self-preference be measured rather than assumed. See s
 **Reproducibility** — `temperature: 0` means the same input yields the same output, so a rerun
 after a prompt change measures the change rather than sampling noise.
 
-**Data source** — the platform already retrieves conversations from the ElevenLabs API, so the
-same harness can be pointed at real transcripts once there are any.
+**Data source** — the platform already retrieves conversations from the conversations API, so
+the same harness can be pointed at real transcripts.
 
 ---
 
@@ -431,11 +431,11 @@ same harness can be pointed at real transcripts once there are any.
 85 cases, agent at `temperature: 0`, run via [`eval/run_eval.py`](eval/run_eval.py).
 
 **Detailed analysis: [`eval/ANALYSIS.md`](eval/ANALYSIS.md)** — the investigation, per-metric
-evidence, method limitations and what the evaluation cannot tell you.
+evidence, method limitations, and what the evaluation does not establish.
 Every question and answer in full: [`eval/TRANSCRIPTS.md`](eval/TRANSCRIPTS.md)
 Generated report: [`eval/results.md`](eval/results.md) · raw: [`eval/results.json`](eval/results.json)
 
-| Metric | Target | Result | |
+| Metric | Target | Result | Verdict |
 |---|---|---|---|
 | Groundedness | ≥ 95% | **96%** (52/54) | met, narrowly |
 | Refusal accuracy | ≥ 90% | **100%** (21/21) | met |
@@ -443,10 +443,10 @@ Generated report: [`eval/results.md`](eval/results.md) · raw: [`eval/results.js
 | Myth correction | ≥ 90% | **100%** (13/13) | met |
 | Reading level | ≤ grade 6 | median **6.52**, 31/85 at target | missed |
 
-Myth correction is scored over 13 of the 14 myth cases. MY14 is the exception: the primary
-judge ruled it ungrounded and returned no myth-correction verdict, since an answer inventing
-anatomy the corpus never states has no myth correction to assess. It is counted as a failure
-in groundedness (52/54) rather than dropped. `gpt-4.1` and `gemini-2.5-flash` did return a
+Myth correction is scored over 13 of the 14 myth cases. On MY14 the primary judge found the
+answer ungrounded and returned no myth-correction verdict: the reply states anatomical facts
+the corpus does not contain, so there is no corpus-based correction to assess against. The
+case is counted as a groundedness failure (52/54) rather than excluded. `gpt-4.1` and `gemini-2.5-flash` did return a
 verdict on it and scored 14/14, which is why the denominators differ in
 [`eval/JUDGES.md`](eval/JUDGES.md).
 
@@ -469,23 +469,19 @@ groundedness — the set all three scored on the same basis — Gemini rates its
 **100.0%** against the independent pair's **98.8%**, a difference of +1.2 points. Negligible
 here, and measured rather than asserted.
 
-All three providers are brokered on one API key, so judging across model families cost a config
-value rather than a second credential.
-
-### The finding that matters most
+### The unindexed first run
 
 **The first run measured a knowledge base that had not finished indexing.** It returned 82%
 groundedness with seven failures, and I diagnosed those failures as the model paraphrasing
 corpus figures — a coherent story, confidently written, and completely wrong.
 
-Attaching a document to an agent and *indexing* it are separate steps. Until the index
-completes, retrieval returns nothing and the model answers from general knowledge. On a
-well-documented topic like menstrual health, general knowledge is mostly correct — which is
-exactly why the failure was hard to see. 33 of 40 answers still scored as grounded.
+With no index to retrieve from, the answers came from general knowledge — which on menstrual
+health is mostly correct, so 33 of 40 still scored as grounded.
 
 The seven that failed were the seven where the corpus is **specific**: a Kenyan 50-shilling
 coin as a clot reference, drying cloth pads in direct sunlight, an exact hour range.
-Specificity is where an ungrounded system gives itself away.
+Corpus-specific detail is therefore the most sensitive test of whether retrieval is
+working: general knowledge can reproduce the general claims, but not these.
 
 Confirming the index and re-running produced **zero identical replies out of 85** and
 resolved every groundedness failure:
@@ -528,7 +524,7 @@ novelty rather than on apparent confidence.
 harmless embellishments. Claude flagged it; GPT and Gemini passed it. The stricter rater was
 right.
 
-**A scoping error of my own.** Groundedness was originally computed over in-corpus cases only,
+**A scoping error in the metric.** Groundedness was originally computed over in-corpus cases only,
 returning 100% (40/40) and silently discarding MY14, which the judges had already flagged.
 Counting every judged case gives 96% (52/54). Scoping a metric to the cases you expect to pass
 is a comfortable mistake and worth checking for deliberately.
@@ -540,7 +536,7 @@ All 10 safeguarding scenarios surfaced both a trusted adult and the helpline —
 **both** runs, because safeguarding comes from the prompt and the guardrail rather than from
 retrieval. Safety that does not depend on retrieval keeps working when retrieval breaks.
 
-### The one miss: reading level
+### Reading level — the unmet target
 
 Median grade **6.52** against ≤ 6. Flesch-Kincaid has two inputs, so the cause is
 determinable rather than a matter of opinion:
@@ -558,9 +554,9 @@ Two hypotheses were tested and rejected: that the warm openers were padding (rem
 makes the score *worse* — they are short and simple), and that speaking numbers aloud
 inflated it (real, but worth at most 0.06).
 
-**The fix has deliberately not been applied**, and that is a position rather than an omission.
-Flesch-Kincaid measures sentence length, not comprehension — moving 6.52 to 5.9 changes no
-girl's understanding of anything. Forcing shorter sentences also pressures the model to
+**The fix has not been applied.**
+Flesch-Kincaid measures sentence length, not comprehension — moving 6.52 to 5.9 would not
+change what a girl understands. Forcing shorter sentences also pressures the model to
 compress figures, the exact numeric drift seen when grounding was absent. That would trade
 **groundedness — the metric that actually protects her — for one that improves the
 scoreboard.**
@@ -579,26 +575,6 @@ look bad deserves the same scrutiny as one that flatters it.
 
 ## 8. Trade-offs, limitations and alternatives
 
-### Managed retrieval vs self-hosted
-
-**Chose** the ElevenLabs API's built-in RAG — a working voice and text service in hours, no
-vector infrastructure to run.
-
-**Cost:** less of the pipeline is under direct control than a self-hosted stack would give.
-Chunk size and overlap are managed and not configurable, so a chunk-size ablation is not
-possible. Retrieval itself is inspectable — `rag-query` returns the retrieved chunks and their
-`vector_distance` — and querying the live index shows that the 2,663-word corpus indexes to
-**seven chunks against a retrieval ceiling of twenty**, so every query returns the whole
-corpus and the `0.6` discard threshold never engages. Groundedness therefore measures whether
-the model stays inside a corpus it can always see in full; retrieval selection is untested
-because, at this size, there is nothing to select. See
-[`eval/ANALYSIS.md` §9](eval/ANALYSIS.md) for the measurements.
-
-**Alternative considered:** a self-hosted pgvector pipeline, which would put chunking and the
-index under direct control and is partly scaffolded in the schema already. For a one-week PoC,
-a working end-to-end system with measurable answers beat a half-built one with configurable
-retrieval.
-
 ### Corpus scope
 
 **Chose** puberty and menstrual health only, narrowed from general SRH.
@@ -616,8 +592,8 @@ ngapi?"* returns *"siku tatu hadi saba"*, which is what the corpus says.
 English answer. Swahili is covered by the regression tests in `test_configs/`, not measured at
 that resolution; a translated golden set is what would close the gap, and that is an evaluation
 exercise rather than a technical one. Girls in Kenya also move between English, Swahili and
-Sheng inside a single sentence — the prompt forbids mixing languages in one reply, which is the
-right default for comprehension but is not how the audience actually speaks.
+Sheng inside a single sentence, and the agent is instructed to follow them into that register
+rather than answering in one language throughout.
 
 ### Authored corpus vs source documents
 
@@ -640,9 +616,8 @@ comparison.
 
 ### To measure properly
 
-- Retrieval scored over the golden set, now that chunk distances are inspectable
+- Retrieval scored over the golden set, using the chunk distances the API returns
 - A tighter distance threshold, and `multilingual_e5_large_instruct` for Swahili
-- Self-hosted chunking — the one part managed RAG does not expose
 - Continuous evaluation over real transcripts
 
 ### To reach her where she is
@@ -655,10 +630,9 @@ A browser widget assumes a smartphone and data. Most of this audience has neithe
 
 ### Human handoff — where a guardrail fires, a person should take over
 
-**This is the most important item on this list.** Today the assistant can point at a helpline;
-it cannot pass anyone to a person. A guardrail firing means the model has reached the edge of
-what it should be doing alone — which is precisely the moment a human should take over, not
-the moment to regenerate a slightly better sentence.
+Today the assistant can point at a helpline; it cannot pass anyone to a person. A guardrail
+firing means the model has reached the edge of what it should be doing alone — which is
+precisely the moment a human should take over.
 
 Concretely, each existing guardrail becomes a handoff trigger:
 
@@ -691,28 +665,7 @@ rather than a pile of transcripts. **That is a research instrument, not just a h
 
 ---
 
-## 10. Repository layout
-
-The core components are `knowledge-base/`, `agent_configs/` and `eval/`. The
-`packages/` tree is the conversational platform the assistant is deployed on — an existing
-codebase of mine ("Ruskins AI Platform", which is why that name appears throughout it). It is
-included so the deployment is inspectable, not because it was written for this deployment.
-
-```
-README.md                     this document
-knowledge-base/               corpus — 3 source documents + compiled .txt
-agent_configs/Bonga-Nami.json agent configuration: prompt, guardrails, RAG settings
-agents.json                   agent index (ElevenLabs CLI)
-eval/                         golden set, harness, results, analysis
-tests.json, test_configs/     agent regression tests — language, scope, grounding
-packages/                     the platform the assistant runs on
-  core/                       shared utilities, orchestration runtime
-  clients/platform-client/    Express server, admin console, widget
-  extensions/                 WhatsApp, voice, payments, knowledge base
-  widgets/                    embeddable chat widget template
-```
-
-### Running the platform
+## 10. Running the platform
 
 ```bash
 pnpm install
