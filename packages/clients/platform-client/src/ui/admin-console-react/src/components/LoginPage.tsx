@@ -44,30 +44,29 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-canvas-deep flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 mb-4">
-            <span className="text-3xl">🚀</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-canvas-deep mb-4">
           </div>
-          <h1 className="text-2xl font-bold text-white">Admin Console</h1>
-          <p className="text-gray-400 mt-1">Bonga Nami</p>
+          <h1 className="text-2xl font-bold text-paper">Admin Console</h1>
+          <p className="text-muted mt-1">Bonga Nami</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Sign In</h2>
+        <div className="bg-canvas-2 rounded-2xl p-8">
+          <h2 className="text-xl font-semibold text-paper mb-6">Sign In</h2>
           
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-4 p-3 bg-flare/15 border border-flare rounded-lg text-flare text-sm">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="username" className="block text-sm font-medium text-muted mb-1">
                 Username
               </label>
               <input
@@ -75,7 +74,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line transition-colors"
                 placeholder="Enter username"
                 required
                 autoFocus
@@ -83,7 +82,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-muted mb-1">
                 Password
               </label>
               <input
@@ -91,7 +90,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line transition-colors"
                 placeholder="Enter password"
                 required
               />
@@ -100,7 +99,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 focus:ring-4 focus:ring-blue-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 bg-canvas-deep text-paper font-medium rounded-lg hover: hover: focus:ring-4 focus:ring-flare transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -118,7 +117,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-gray-500 text-sm mt-6">
+        <p className="text-center text-muted text-sm mt-6">
           © 2026 Philip K. Kimani
         </p>
       </div>

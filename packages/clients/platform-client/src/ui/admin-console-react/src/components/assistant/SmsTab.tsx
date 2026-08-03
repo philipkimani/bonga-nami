@@ -212,17 +212,17 @@ export default function SmsTab() {
       <div className="w-80 border-r flex flex-col">
         <div className="p-4 border-b">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-gray-900">SMS Conversations</h3>
+            <h3 className="font-semibold text-paper">SMS Conversations</h3>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowNewModal(true)}
-                className="text-sm text-purple-600 hover:underline"
+                className="text-sm text-flare hover:underline"
               >
                 + New
               </button>
               <button
                 onClick={() => setShowBulkModal(true)}
-                className="text-sm text-purple-600 hover:underline"
+                className="text-sm text-flare hover:underline"
               >
                 Bulk
               </button>
@@ -242,7 +242,7 @@ export default function SmsTab() {
           <button
             onClick={() => setFilter('all')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition ${
-              filter === 'all' ? 'border-purple-600 text-purple-600' : 'border-transparent text-gray-500'
+              filter === 'all' ? 'border-flare text-flare' : 'border-transparent text-muted'
             }`}
           >
             All ({conversations.length})
@@ -250,12 +250,12 @@ export default function SmsTab() {
           <button
             onClick={() => setFilter('escalated')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition flex items-center justify-center gap-2 ${
-              filter === 'escalated' ? 'border-purple-600 text-purple-600' : 'border-transparent text-gray-500'
+              filter === 'escalated' ? 'border-flare text-flare' : 'border-transparent text-muted'
             }`}
           >
             Escalated
             {escalatedCount > 0 && (
-              <span className="px-1.5 py-0.5 bg-orange-100 text-orange-600 rounded text-xs">
+              <span className="px-1.5 py-0.5 bg-sun/15 text-sun rounded text-xs">
                 {escalatedCount}
               </span>
             )}
@@ -265,13 +265,12 @@ export default function SmsTab() {
         {/* Conversation List */}
         <div className="flex-1 overflow-auto">
           {loading ? (
-            <div className="p-8 text-center text-gray-500">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto" />
+            <div className="p-8 text-center text-muted">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-flare mx-auto" />
               <p className="mt-2 text-sm">Loading conversations...</p>
             </div>
           ) : filteredConversations.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
-              <span className="text-4xl">💬</span>
+            <div className="p-8 text-center text-muted">
               <p className="mt-2">No SMS conversations yet</p>
               <p className="text-sm mt-1">Messages will appear when customers text your Twilio number</p>
             </div>
@@ -281,25 +280,25 @@ export default function SmsTab() {
                 <button
                   key={conv.id}
                   onClick={() => setSelectedConversation(conv)}
-                  className={`w-full p-4 border-b text-left hover:bg-gray-50 transition ${
-                    selectedConversation?.id === conv.id ? 'bg-purple-50' : ''
+                  className={`w-full p-4 border-b text-left hover:bg-canvas-deep transition ${
+                    selectedConversation?.id === conv.id ? 'bg-flare/15' : ''
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-gray-900 text-sm">{conv.contactId}</span>
-                    <span className="text-xs text-gray-500">
+                    <span className="font-medium text-paper text-sm">{conv.contactId}</span>
+                    <span className="text-xs text-muted">
                       {new Date(conv.startedAt).toLocaleTimeString()}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 mt-1.5">
                     <span className={`px-2 py-0.5 rounded text-xs ${
-                      conv.status === 'escalated' ? 'bg-orange-100 text-orange-600' :
-                      conv.status === 'active' ? 'bg-green-100 text-green-600' :
-                      'bg-gray-100 text-gray-600'
+                      conv.status === 'escalated' ? 'bg-sun/15 text-sun' :
+                      conv.status === 'active' ? 'bg-mint/15 text-mint' :
+                      'bg-canvas-deep text-muted'
                     }`}>
                       {conv.status}
                     </span>
-                    <span className="text-xs text-gray-400">{conv.aiHandledCount} AI msgs</span>
+                    <span className="text-xs text-muted">{conv.aiHandledCount} AI msgs</span>
                   </div>
                 </button>
               ))}
@@ -309,9 +308,8 @@ export default function SmsTab() {
 
         {/* Escalation Queue Summary */}
         {escalationQueue.length > 0 && (
-          <div className="p-3 border-t bg-orange-50">
-            <div className="flex items-center gap-2 text-sm text-orange-700">
-              <span>🚨</span>
+          <div className="p-3 border-t bg-sun/15">
+            <div className="flex items-center gap-2 text-sm text-sun">
               <span className="font-medium">{escalationQueue.length} waiting for human</span>
             </div>
           </div>
@@ -321,18 +319,18 @@ export default function SmsTab() {
       {/* Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Chat Header */}
-        <div className="p-4 border-b flex items-center justify-between bg-gray-50">
+        <div className="p-4 border-b flex items-center justify-between bg-canvas-deep">
           {selectedConversation ? (
             <div>
-              <h2 className="font-semibold text-gray-900">{selectedConversation.contactId}</h2>
+              <h2 className="font-semibold text-paper">{selectedConversation.contactId}</h2>
               <div className="flex items-center gap-2 mt-0.5">
                 <span className={`text-xs px-2 py-0.5 rounded ${
-                  selectedConversation.status === 'escalated' ? 'bg-orange-100 text-orange-600' : 'bg-green-100 text-green-600'
+                  selectedConversation.status === 'escalated' ? 'bg-sun/15 text-sun' : 'bg-mint/15 text-mint'
                 }`}>
                   {selectedConversation.status}
                 </span>
                 {selectedConversation.escalationReason && (
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-muted">
                     Reason: {selectedConversation.escalationReason}
                   </span>
                 )}
@@ -340,23 +338,22 @@ export default function SmsTab() {
             </div>
           ) : (
             <div>
-              <h2 className="font-semibold text-gray-800">Select a conversation</h2>
-              <p className="text-sm text-gray-500">Choose a conversation from the list</p>
+              <h2 className="font-semibold text-paper">Select a conversation</h2>
+              <p className="text-sm text-muted">Choose a conversation from the list</p>
             </div>
           )}
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-auto p-4 bg-gray-100">
+        <div className="flex-1 overflow-auto p-4 bg-canvas-deep">
           {!selectedConversation ? (
-            <div className="flex items-center justify-center h-full text-gray-500">
+            <div className="flex items-center justify-center h-full text-muted">
               <div className="text-center">
-                <span className="text-6xl">💬</span>
                 <p className="mt-4">Select a conversation to view messages</p>
               </div>
             </div>
           ) : messages.length === 0 ? (
-            <div className="flex items-center justify-center h-full text-gray-500">
+            <div className="flex items-center justify-center h-full text-muted">
               <p>No messages in this conversation</p>
             </div>
           ) : (
@@ -367,16 +364,16 @@ export default function SmsTab() {
                   className={`flex ${msg.sender === 'customer' ? 'justify-start' : 'justify-end'}`}
                 >
                   <div className={`max-w-[70%] rounded-2xl px-4 py-2 ${
-                    msg.sender === 'customer' ? 'bg-gray-200 text-gray-900' :
-                    msg.sender === 'ai' ? 'bg-blue-500 text-white' :
-                    'bg-green-500 text-white'
+                    msg.sender === 'customer' ? 'bg-canvas-deep text-paper' :
+                    msg.sender === 'ai' ? 'bg-canvas-deep text-paper' :
+                    'bg-mint text-paper'
                   }`}>
                     <p className="whitespace-pre-wrap">{msg.content}</p>
                     <p className={`text-xs mt-1 ${
-                      msg.sender === 'customer' ? 'text-gray-500' : 'text-white/70'
+                      msg.sender === 'customer' ? 'text-muted' : 'text-paper/70'
                     }`}>
                       {new Date(msg.createdAt).toLocaleTimeString()} • {
-                        msg.sender === 'customer' ? 'Customer' : msg.sender === 'ai' ? '🤖 AI' : '👤 Agent'
+                        msg.sender === 'customer' ? 'Customer' : msg.sender === 'ai' ? 'AI' : 'Agent'
                       }
                       {msg.smsStatus && msg.sender !== 'customer' && (
                         <> • {msg.smsStatus}</>
@@ -392,7 +389,7 @@ export default function SmsTab() {
 
         {/* Reply Input */}
         {selectedConversation && (
-          <div className="p-4 border-t bg-white">
+          <div className="p-4 border-t bg-canvas-2">
             <div className="flex gap-3">
               <input
                 type="text"
@@ -402,20 +399,20 @@ export default function SmsTab() {
                 placeholder={selectedConversation.status === 'escalated'
                   ? 'Reply to escalated conversation...'
                   : 'Type a reply...'}
-                className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
                 disabled={sending}
               />
               <button
                 onClick={sendReply}
                 disabled={sending || !replyText.trim()}
-                className="px-6 py-2 gradient-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50"
+                className="px-6 py-2 bg-canvas-deep text-paper rounded-lg hover:opacity-90 disabled:opacity-50"
               >
                 {sending ? 'Sending...' : 'Send'}
               </button>
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-muted mt-2">
               {selectedConversation.status === 'escalated'
-                ? '🚨 Escalated — your reply will be sent directly via SMS and remove from queue.'
+                ? 'Escalated — your reply will be sent directly via SMS and remove from queue.'
                 : 'Replying as human agent. AI will not respond while you\'re active.'}
             </p>
           </div>
@@ -425,11 +422,11 @@ export default function SmsTab() {
       {/* Bulk SMS Modal */}
       {showBulkModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-[500px] shadow-2xl">
-            <h3 className="text-lg font-semibold mb-4">📨 Bulk SMS Campaign</h3>
+          <div className="bg-canvas-2 rounded-xl p-6 w-[500px]">
+            <h3 className="text-lg font-semibold mb-4"> Bulk SMS Campaign</h3>
             <form onSubmit={sendBulk}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+                <label className="block text-sm font-medium text-muted mb-1">Campaign Name</label>
                 <input
                   type="text"
                   value={bulkCampaignName}
@@ -439,7 +436,7 @@ export default function SmsTab() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message Template</label>
+                <label className="block text-sm font-medium text-muted mb-1">Message Template</label>
                 <textarea
                   rows={3}
                   value={bulkTemplate}
@@ -448,10 +445,10 @@ export default function SmsTab() {
                   className="w-full px-4 py-2 border rounded-lg"
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">Use {'{{name}}'} for personalization</p>
+                <p className="text-xs text-muted mt-1">Use {'{{name}}'} for personalization</p>
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Recipients (one per line)</label>
+                <label className="block text-sm font-medium text-muted mb-1">Recipients (one per line)</label>
                 <textarea
                   rows={5}
                   value={bulkRecipients}
@@ -460,20 +457,20 @@ export default function SmsTab() {
                   className="w-full px-4 py-2 border rounded-lg font-mono text-sm"
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">Format: phone,name</p>
+                <p className="text-xs text-muted mt-1">Format: phone,name</p>
               </div>
               <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => setShowBulkModal(false)}
-                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50"
+                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-canvas-deep"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={sending}
-                  className="flex-1 px-4 py-2 gradient-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-canvas-deep text-paper rounded-lg hover:opacity-90 disabled:opacity-50"
                 >
                   {sending ? 'Sending...' : 'Send Campaign'}
                 </button>
@@ -486,10 +483,10 @@ export default function SmsTab() {
       {/* New SMS Modal */}
       {showNewModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-[450px] shadow-2xl">
-            <h3 className="text-lg font-semibold mb-4">📱 New SMS</h3>
+          <div className="bg-canvas-2 rounded-xl p-6 w-[450px]">
+            <h3 className="text-lg font-semibold mb-4"> New SMS</h3>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+              <label className="block text-sm font-medium text-muted mb-1">Phone Number</label>
               <input
                 type="tel"
                 value={newPhone}
@@ -499,7 +496,7 @@ export default function SmsTab() {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <label className="block text-sm font-medium text-muted mb-1">Message</label>
               <textarea
                 rows={3}
                 value={newMessage}
@@ -512,14 +509,14 @@ export default function SmsTab() {
               <button
                 type="button"
                 onClick={() => setShowNewModal(false)}
-                className="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border rounded-lg hover:bg-canvas-deep"
               >
                 Cancel
               </button>
               <button
                 onClick={sendNewMessage}
                 disabled={sending || !newPhone.trim() || !newMessage.trim()}
-                className="flex-1 px-4 py-2 gradient-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-canvas-deep text-paper rounded-lg hover:opacity-90 disabled:opacity-50"
               >
                 {sending ? 'Sending...' : 'Send'}
               </button>

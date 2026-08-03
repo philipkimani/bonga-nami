@@ -148,11 +148,11 @@ export default function CallsTab() {
     .filter(c => !directionFilter || c.direction === directionFilter)
 
   const statusColors: Record<string, string> = {
-    'ringing': 'bg-yellow-100 text-yellow-700',
-    'in-progress': 'bg-green-100 text-green-700',
-    'completed': 'bg-gray-100 text-gray-700',
-    'failed': 'bg-red-100 text-red-700',
-    'on-hold': 'bg-orange-100 text-orange-700',
+    'ringing': 'bg-sun/15 text-sun',
+    'in-progress': 'bg-mint/15 text-mint',
+    'completed': 'bg-canvas-deep text-muted',
+    'failed': 'bg-flare/15 text-flare',
+    'on-hold': 'bg-sun/15 text-sun',
   }
 
   return (
@@ -160,44 +160,44 @@ export default function CallsTab() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">📞 Voice Calls</h2>
-          <p className="text-gray-500">AI-powered voice conversations via Twilio + ElevenLabs</p>
+          <h2 className="text-2xl font-bold text-paper"> Voice Calls</h2>
+          <p className="text-muted">AI-powered voice conversations via Twilio + ElevenLabs</p>
         </div>
         <div className="flex gap-3">
           <button
             onClick={() => setShowOutboundModal(true)}
-            className="px-4 py-2 gradient-primary text-white rounded-lg hover:opacity-90 transition shadow-lg shadow-purple-500/25"
+            className="px-4 py-2 bg-canvas-deep text-paper rounded-lg hover:opacity-90 transition shadow-purple-500/25"
           >
             + New Outbound Call
           </button>
           <button
             onClick={() => setShowBatchModal(true)}
-            className="px-4 py-2 border border-purple-600 text-purple-600 rounded-lg hover:bg-purple-50 transition"
+            className="px-4 py-2 border border-flare text-flare rounded-lg hover:bg-flare/15 transition"
           >
-            📤 Batch Calls
+            Batch Calls
           </button>
         </div>
       </div>
 
       {/* Stats Row */}
       <div className="grid grid-cols-4 gap-4 mb-6">
-        <div className="bg-gray-50 rounded-xl p-4">
-          <p className="text-sm text-gray-500">Active Calls</p>
-          <p className="text-2xl font-bold text-green-600">
+        <div className="bg-canvas-deep rounded-xl p-4">
+          <p className="text-sm text-muted">Active Calls</p>
+          <p className="text-2xl font-bold text-mint">
             {calls.filter(c => c.status === 'in-progress' || c.status === 'ringing').length}
           </p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4">
-          <p className="text-sm text-gray-500">Escalated</p>
-          <p className="text-2xl font-bold text-orange-600">{escalationCount}</p>
+        <div className="bg-canvas-deep rounded-xl p-4">
+          <p className="text-sm text-muted">Escalated</p>
+          <p className="text-2xl font-bold text-sun">{escalationCount}</p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4">
-          <p className="text-sm text-gray-500">Total Calls</p>
-          <p className="text-2xl font-bold text-gray-800">{calls.length}</p>
+        <div className="bg-canvas-deep rounded-xl p-4">
+          <p className="text-sm text-muted">Total Calls</p>
+          <p className="text-2xl font-bold text-paper">{calls.length}</p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4">
-          <p className="text-sm text-gray-500">Avg Duration</p>
-          <p className="text-2xl font-bold text-gray-800">
+        <div className="bg-canvas-deep rounded-xl p-4">
+          <p className="text-sm text-muted">Avg Duration</p>
+          <p className="text-2xl font-bold text-paper">
             {calls.length > 0 
               ? formatDuration(Math.round(
                   calls.reduce((sum, c) => sum + (c.durationSeconds || 0), 0) / 
@@ -209,22 +209,22 @@ export default function CallsTab() {
       </div>
 
       {/* Escalation Queue */}
-      <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6">
+      <div className="bg-sun/15 border border-sun rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <h3 className="text-lg font-semibold text-orange-800">🚨 Calls Waiting for Human</h3>
-            <span className="px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+            <h3 className="text-lg font-semibold text-sun"> Calls Waiting for Human</h3>
+            <span className="px-2 py-1 bg-sun/15 text-sun rounded-full text-xs font-medium">
               0 waiting
             </span>
           </div>
         </div>
-        <p className="text-orange-700 text-center py-4">No calls waiting for human agent</p>
+        <p className="text-sun text-center py-4">No calls waiting for human agent</p>
       </div>
 
       {/* Call History */}
-      <div className="bg-white rounded-xl border">
+      <div className="bg-canvas-2 rounded-xl border">
         <div className="p-4 border-b flex items-center justify-between">
-          <h3 className="font-semibold text-gray-900">Recent Calls</h3>
+          <h3 className="font-semibold text-paper">Recent Calls</h3>
           <div className="flex gap-2">
             <select
               value={statusFilter}
@@ -250,55 +250,54 @@ export default function CallsTab() {
         </div>
         
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-canvas-deep">
             <tr>
-              <th className="text-left px-4 py-3 text-sm font-medium text-gray-600">Phone Number</th>
-              <th className="text-left px-4 py-3 text-sm font-medium text-gray-600">Direction</th>
-              <th className="text-left px-4 py-3 text-sm font-medium text-gray-600">Status</th>
-              <th className="text-left px-4 py-3 text-sm font-medium text-gray-600">Duration</th>
-              <th className="text-left px-4 py-3 text-sm font-medium text-gray-600">Time</th>
-              <th className="text-left px-4 py-3 text-sm font-medium text-gray-600">Actions</th>
+              <th className="text-left px-4 py-3 text-sm font-medium text-muted">Phone Number</th>
+              <th className="text-left px-4 py-3 text-sm font-medium text-muted">Direction</th>
+              <th className="text-left px-4 py-3 text-sm font-medium text-muted">Status</th>
+              <th className="text-left px-4 py-3 text-sm font-medium text-muted">Duration</th>
+              <th className="text-left px-4 py-3 text-sm font-medium text-muted">Time</th>
+              <th className="text-left px-4 py-3 text-sm font-medium text-muted">Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={6} className="text-center py-12 text-gray-500">
+                <td colSpan={6} className="text-center py-12 text-muted">
                   <div className="animate-spin text-3xl mb-2">⏳</div>
                   Loading call history...
                 </td>
               </tr>
             ) : filteredCalls.length === 0 ? (
               <tr>
-                <td colSpan={6} className="text-center py-12 text-gray-500">
-                  <span className="text-4xl block mb-2">📞</span>
+                <td colSpan={6} className="text-center py-12 text-muted">
                   No calls found. Calls will appear here when customers call your Twilio number 
                   or you make outbound calls via ElevenLabs.
                 </td>
               </tr>
             ) : (
               filteredCalls.map((call) => (
-                <tr key={call.id} className="border-t hover:bg-gray-50">
+                <tr key={call.id} className="border-t hover:bg-canvas-deep">
                   <td className="px-4 py-3 font-medium">{call.from}</td>
                   <td className="px-4 py-3">
                     <span className={`px-2 py-1 rounded text-xs ${
-                      call.direction === 'inbound' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'
+                      call.direction === 'inbound' ? 'bg-canvas-deep text-muted' : 'bg-flare/15 text-flare'
                     }`}>
                       {call.direction === 'inbound' ? '↙ Inbound' : '↗ Outbound'}
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`px-2 py-1 rounded text-xs ${statusColors[call.status] || 'bg-gray-100 text-gray-700'}`}>
+                    <span className={`px-2 py-1 rounded text-xs ${statusColors[call.status] || 'bg-canvas-deep text-muted'}`}>
                       {call.status}
                     </span>
                     {call.aiHandled && (
-                      <span className="ml-1 px-1.5 py-0.5 bg-blue-100 text-blue-600 rounded text-xs">AI</span>
+                      <span className="ml-1 px-1.5 py-0.5 bg-canvas-deep text-muted rounded text-xs">AI</span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{formatDuration(call.durationSeconds)}</td>
-                  <td className="px-4 py-3 text-gray-500 text-sm">{call.time || ''}</td>
+                  <td className="px-4 py-3 text-muted">{formatDuration(call.durationSeconds)}</td>
+                  <td className="px-4 py-3 text-muted text-sm">{call.time || ''}</td>
                   <td className="px-4 py-3">
-                    <button className="text-purple-600 hover:underline text-sm">View</button>
+                    <button className="text-flare hover:underline text-sm">View</button>
                   </td>
                 </tr>
               ))
@@ -308,22 +307,22 @@ export default function CallsTab() {
       </div>
 
       {/* Setup Checklist */}
-      <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-6">
-        <h3 className="text-lg font-semibold text-blue-800 mb-4">📋 Setup Checklist</h3>
+      <div className="mt-6 bg-canvas-deep border border-line rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-muted mb-4"> Setup Checklist</h3>
         <div className="space-y-3">
-          <div className="flex items-center gap-3 text-blue-700">
+          <div className="flex items-center gap-3 text-muted">
             <span className="text-xl">⏳</span>
             <span>Configure Twilio Account (Account SID, Auth Token)</span>
           </div>
-          <div className="flex items-center gap-3 text-blue-700">
+          <div className="flex items-center gap-3 text-muted">
             <span className="text-xl">⏳</span>
             <span>Purchase Kenya phone number (+254)</span>
           </div>
-          <div className="flex items-center gap-3 text-blue-700">
+          <div className="flex items-center gap-3 text-muted">
             <span className="text-xl">⏳</span>
             <span>Configure ElevenLabs Agent ID</span>
           </div>
-          <div className="flex items-center gap-3 text-blue-700">
+          <div className="flex items-center gap-3 text-muted">
             <span className="text-xl">⏳</span>
             <span>Set up webhook URL in Twilio Console</span>
           </div>
@@ -333,8 +332,8 @@ export default function CallsTab() {
       {/* Outbound Call Modal */}
       {showOutboundModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-[400px] shadow-2xl">
-            <h3 className="text-lg font-semibold mb-4">📞 New Outbound Call</h3>
+          <div className="bg-canvas-2 rounded-xl p-6 w-[400px]">
+            <h3 className="text-lg font-semibold mb-4"> New Outbound Call</h3>
             <form onSubmit={(e) => {
               e.preventDefault()
               const form = e.target as HTMLFormElement
@@ -342,30 +341,30 @@ export default function CallsTab() {
               initiateOutboundCall(phone)
             }}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                <label className="block text-sm font-medium text-muted mb-1">Phone Number</label>
                 <input
                   type="tel"
                   name="phone"
                   placeholder="+254712345678"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">E.164 format. The AI agent will call this number.</p>
+                <p className="text-xs text-muted mt-1">E.164 format. The AI agent will call this number.</p>
               </div>
               <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => setShowOutboundModal(false)}
-                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50"
+                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-canvas-deep"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={calling}
-                  className="flex-1 px-4 py-2 gradient-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-canvas-deep text-paper rounded-lg hover:opacity-90 disabled:opacity-50"
                 >
-                  {calling ? 'Calling...' : '📞 Call Now'}
+                  {calling ? 'Calling...' : 'Call Now'}
                 </button>
               </div>
             </form>
@@ -376,11 +375,11 @@ export default function CallsTab() {
       {/* Batch Calls Modal */}
       {showBatchModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-[500px] shadow-2xl">
-            <h3 className="text-lg font-semibold mb-4">📤 Batch Outbound Calls</h3>
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
-              <p className="text-sm text-yellow-800">
-                ⚠️ Batch calls use ElevenLabs Batch Calling API for efficient parallel processing.
+          <div className="bg-canvas-2 rounded-xl p-6 w-[500px]">
+            <h3 className="text-lg font-semibold mb-4"> Batch Outbound Calls</h3>
+            <div className="bg-sun/15 border border-sun rounded-lg p-3 mb-4">
+              <p className="text-sm text-sun">
+                Batch calls use ElevenLabs Batch Calling API for efficient parallel processing.
               </p>
             </div>
             <form onSubmit={(e) => {
@@ -393,7 +392,7 @@ export default function CallsTab() {
               initiateBatchCalls(phones, campaignName)
             }}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+                <label className="block text-sm font-medium text-muted mb-1">Campaign Name</label>
                 <input
                   type="text"
                   name="campaignName"
@@ -402,12 +401,12 @@ export default function CallsTab() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Numbers (one per line)</label>
+                <label className="block text-sm font-medium text-muted mb-1">Phone Numbers (one per line)</label>
                 <textarea
                   name="phones"
                   rows={5}
                   placeholder={"+254712345678\n+254723456789"}
-                  className="w-full px-4 py-2 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-purple-500"
+                  className="w-full px-4 py-2 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-flare"
                   required
                 />
               </div>
@@ -415,14 +414,14 @@ export default function CallsTab() {
                 <button
                   type="button"
                   onClick={() => setShowBatchModal(false)}
-                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50"
+                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-canvas-deep"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={calling}
-                  className="flex-1 px-4 py-2 gradient-primary text-white rounded-lg hover:opacity-90 disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-canvas-deep text-paper rounded-lg hover:opacity-90 disabled:opacity-50"
                 >
                   {calling ? 'Starting...' : 'Start Batch Calls'}
                 </button>

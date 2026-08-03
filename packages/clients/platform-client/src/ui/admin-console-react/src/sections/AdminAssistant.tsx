@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
+import { BarChart3, LineChart, MessageSquare, Phone, Settings, Smartphone } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import DashboardTab from '../components/assistant/DashboardTab'
 import CallsTab from '../components/assistant/CallsTab'
 import SmsTab from '../components/assistant/SmsTab'
@@ -23,14 +25,14 @@ export default function AdminAssistantSection() {
     return () => window.removeEventListener('admin-navigate', handleNavigate)
   }, [handleNavigate])
 
-  const tabs: { id: Tab; label: string; icon: string; badge?: string }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'webchat', label: 'Web Chat', icon: '💬' },
-    { id: 'calls', label: 'Voice Calls', icon: '📞' },
-    { id: 'sms', label: 'SMS', icon: '💬' },
-    { id: 'whatsapp', label: 'WhatsApp', icon: '📱' },
-    { id: 'analytics', label: 'Analytics', icon: '📈' },
-    { id: 'settings', label: 'Settings', icon: '⚙️' },
+  const tabs: { id: Tab; label: string; Icon: LucideIcon; badge?: string }[] = [
+    { id: 'dashboard', label: 'Dashboard', Icon: BarChart3 },
+    { id: 'webchat', label: 'Web Chat', Icon: MessageSquare },
+    { id: 'calls', label: 'Voice Calls', Icon: Phone },
+    { id: 'sms', label: 'SMS', Icon: MessageSquare },
+    { id: 'whatsapp', label: 'WhatsApp', Icon: Smartphone },
+    { id: 'analytics', label: 'Analytics', Icon: LineChart },
+    { id: 'settings', label: 'Settings', Icon: Settings },
   ]
 
   return (
@@ -39,43 +41,42 @@ export default function AdminAssistantSection() {
       <div className="flex gap-6">
         {/* Left Sidebar Navigation */}
         <div className="w-64 flex-shrink-0">
-          <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
-            <div className="p-4 gradient-primary text-white">
-              <h3 className="font-semibold">🤖 Admin Assistant</h3>
-              <p className="text-sm text-white/70 mt-1">AI Customer Service</p>
+          <div className="bg-canvas-2 rounded-xl border overflow-hidden">
+            <div className="p-4 bg-canvas-deep text-paper">
+              <h3 className="font-semibold">Admin Assistant</h3>
+              <p className="text-sm text-paper/70 mt-1">AI Customer Service</p>
             </div>
             <nav className="p-2">
-              {tabs.map((tab) => (
+              {tabs.map(({ id, label, Icon, badge }) => (
                 <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  key={id}
+                  onClick={() => setActiveTab(id)}
+                  aria-current={activeTab === id ? 'page' : undefined}
                   className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all
-                    ${activeTab === tab.id
-                      ? 'bg-purple-50 text-purple-700 font-medium'
-                      : 'text-gray-600 hover:bg-gray-50'
+                    w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors
+                    focus:outline-none focus-visible:ring-2 focus-visible:ring-flare
+                    ${activeTab === id
+                      ? 'bg-flare/15 text-flare font-medium'
+                      : 'text-muted hover:bg-canvas-deep'
                     }
                   `}
                 >
-                  <span className="text-lg">{tab.icon}</span>
-                  <span>{tab.label}</span>
-                  {tab.badge && (
-                    <span className="ml-auto px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full text-xs">
-                      {tab.badge}
+                  <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>{label}</span>
+                  {badge && (
+                    <span className="ml-auto px-2 py-0.5 bg-sun/15 text-sun rounded-full text-xs">
+                      {badge}
                     </span>
                   )}
                 </button>
               ))}
             </nav>
-            <div className="p-4 border-t text-xs text-gray-400 text-center">
-              <p>© 2026 Philip K. Kimani</p>
-            </div>
           </div>
         </div>
 
         {/* Main Content Area */}
         <div className="flex-1">
-          <div className="bg-white rounded-xl shadow-sm border">
+          <div className="bg-canvas-2 rounded-xl border">
             {activeTab === 'dashboard' && <DashboardTab />}
             {activeTab === 'webchat' && <WebChatTab />}
             {activeTab === 'calls' && <CallsTab />}

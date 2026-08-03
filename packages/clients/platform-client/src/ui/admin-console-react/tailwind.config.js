@@ -20,6 +20,11 @@ export default {
         mint: '#23D9B0',
         whatsapp: '#25D366',
       },
+      // A bare `border` class defaults to gray-200, which glows on the dark
+      // canvas. One override catches every one of them.
+      borderColor: {
+        DEFAULT: 'rgba(185,168,212,0.22)',
+      },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
       },

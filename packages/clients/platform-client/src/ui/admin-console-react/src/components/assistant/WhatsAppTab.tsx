@@ -232,20 +232,20 @@ export default function WhatsAppTab() {
     <div className="flex h-[700px]">
       {/* Chats List */}
       <div className="w-80 border-r flex flex-col">
-        <div className="p-4 bg-whatsapp text-white">
+        <div className="p-4 bg-whatsapp text-paper">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold">📱 WhatsApp</h3>
+            <h3 className="font-semibold"> WhatsApp</h3>
             <div className="flex gap-2">
               <button
                 onClick={() => setShowNewMessageModal(true)}
-                className="text-sm bg-white/20 px-3 py-1 rounded hover:bg-white/30 transition"
+                className="text-sm bg-canvas-2 px-3 py-1 rounded hover:bg-canvas-2 transition"
                 title="New message"
               >
-                ✉️ New
+                New
               </button>
               <button
                 onClick={() => setShowBroadcastModal(true)}
-                className="text-sm bg-white/20 px-3 py-1 rounded hover:bg-white/30 transition"
+                className="text-sm bg-canvas-2 px-3 py-1 rounded hover:bg-canvas-2 transition"
               >
                 📣
               </button>
@@ -255,8 +255,8 @@ export default function WhatsAppTab() {
           {/* Connection Status */}
           <div className={`text-xs px-2 py-1 rounded mb-2 ${
             connectionStatus?.status === 'connected' 
-              ? 'bg-green-600/30 text-green-100' 
-              : 'bg-red-600/30 text-red-100'
+              ? 'bg-mint/30 text-mint' 
+              : 'bg-flare/30 text-flare'
           }`}>
             {connectionStatus?.status === 'connected' 
               ? '● Connected via ElevenLabs' 
@@ -266,7 +266,7 @@ export default function WhatsAppTab() {
           <input
             type="search"
             placeholder="Search chats..."
-            className="w-full px-3 py-2 rounded-lg text-sm text-gray-800"
+            className="w-full px-3 py-2 rounded-lg text-sm text-paper"
           />
         </div>
 
@@ -275,7 +275,7 @@ export default function WhatsAppTab() {
           <button
             onClick={() => setFilter('all')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition ${
-              filter === 'all' ? 'border-green-600 text-green-600' : 'border-transparent text-gray-500'
+              filter === 'all' ? 'border-mint text-mint' : 'border-transparent text-muted'
             }`}
           >
             All Chats ({chats.length})
@@ -283,12 +283,12 @@ export default function WhatsAppTab() {
           <button
             onClick={() => setFilter('waiting')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition flex items-center justify-center gap-2 ${
-              filter === 'waiting' ? 'border-green-600 text-green-600' : 'border-transparent text-gray-500'
+              filter === 'waiting' ? 'border-mint text-mint' : 'border-transparent text-muted'
             }`}
           >
             Escalated
             {waitingCount > 0 && (
-              <span className="px-1.5 py-0.5 bg-orange-100 text-orange-600 rounded text-xs">
+              <span className="px-1.5 py-0.5 bg-sun/15 text-sun rounded text-xs">
                 {waitingCount}
               </span>
             )}
@@ -298,18 +298,17 @@ export default function WhatsAppTab() {
         {/* Chat List */}
         <div className="flex-1 overflow-auto">
           {loading ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-muted">
               <div className="animate-spin text-3xl mb-2">⏳</div>
               <p>Loading conversations...</p>
             </div>
           ) : chats.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
-              <span className="text-4xl">📱</span>
+            <div className="p-8 text-center text-muted">
               <p className="mt-2">No WhatsApp chats yet</p>
               <p className="text-sm mt-1">Conversations appear when customers message your WhatsApp Business number</p>
               <button
                 onClick={() => setShowNewMessageModal(true)}
-                className="mt-3 px-4 py-2 bg-whatsapp text-white rounded-lg text-sm hover:opacity-90"
+                className="mt-3 px-4 py-2 bg-whatsapp text-paper rounded-lg text-sm hover:opacity-90"
               >
                 Send First Message
               </button>
@@ -322,36 +321,36 @@ export default function WhatsAppTab() {
                   <button
                     key={chat.id}
                     onClick={() => selectChat(chat)}
-                    className={`w-full p-3 border-b text-left hover:bg-gray-50 transition flex items-center gap-3 ${
-                      selectedChat?.id === chat.id ? 'bg-green-50' : ''
+                    className={`w-full p-3 border-b text-left hover:bg-canvas-deep transition flex items-center gap-3 ${
+                      selectedChat?.id === chat.id ? 'bg-mint/15' : ''
                     }`}
                   >
-                    <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xl flex-shrink-0">
+                    <div className="w-12 h-12 bg-canvas-deep rounded-full flex items-center justify-center text-xl flex-shrink-0">
                       👤
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="font-medium text-gray-900 truncate">
+                        <span className="font-medium text-paper truncate">
                           {chat.contactName || chat.contactPhone}
                         </span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-muted">
                           {chat.lastMessageAt ? new Date(chat.lastMessageAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <p className="text-sm text-gray-500 truncate flex-1">{chat.lastMessage}</p>
+                        <p className="text-sm text-muted truncate flex-1">{chat.lastMessage}</p>
                         {chat.aiHandled && (
-                          <span className="text-xs bg-blue-100 text-blue-600 px-1 rounded">AI</span>
+                          <span className="text-xs bg-canvas-deep text-muted px-1 rounded">AI</span>
                         )}
                       </div>
                     </div>
                     {chat.unreadCount > 0 && (
-                      <span className="w-5 h-5 bg-whatsapp text-white rounded-full text-xs flex items-center justify-center flex-shrink-0">
+                      <span className="w-5 h-5 bg-whatsapp text-paper rounded-full text-xs flex items-center justify-center flex-shrink-0">
                         {chat.unreadCount}
                       </span>
                     )}
                     {chat.status === 'escalated' && (
-                      <span className="w-5 h-5 bg-orange-500 text-white rounded-full text-xs flex items-center justify-center flex-shrink-0">
+                      <span className="w-5 h-5 bg-sun text-paper rounded-full text-xs flex items-center justify-center flex-shrink-0">
                         !
                       </span>
                     )}
@@ -365,15 +364,15 @@ export default function WhatsAppTab() {
       {/* Chat Area */}
       <div className="flex-1 flex flex-col">
         {/* Chat Header */}
-        <div className="p-4 bg-whatsapp text-white flex items-center justify-between">
+        <div className="p-4 bg-whatsapp text-paper flex items-center justify-between">
           {selectedChat ? (
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-canvas-2 rounded-full flex items-center justify-center">
                 👤
               </div>
               <div>
                 <h2 className="font-semibold">{selectedChat.contactName || selectedChat.contactPhone}</h2>
-                <p className="text-sm text-white/70">
+                <p className="text-sm text-paper/70">
                   {selectedChat.contactPhone}
                   {selectedChat.aiHandled && ' • AI Handling'}
                 </p>
@@ -381,12 +380,12 @@ export default function WhatsAppTab() {
             </div>
           ) : (
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-canvas-2 rounded-full flex items-center justify-center">
                 💬
               </div>
               <div>
                 <h2 className="font-semibold">Select a chat</h2>
-                <p className="text-sm text-white/70">Choose a conversation from the list</p>
+                <p className="text-sm text-paper/70">Choose a conversation from the list</p>
               </div>
             </div>
           )}
@@ -394,12 +393,12 @@ export default function WhatsAppTab() {
             <div className="flex gap-2">
               <button
                 onClick={() => initiateVoiceCall(selectedChat.contactPhone)}
-                className="p-2 bg-white/10 rounded-full hover:bg-white/20"
+                className="p-2 bg-canvas-2 rounded-full hover:bg-canvas-2"
                 title="WhatsApp Voice Call"
               >
                 📞
               </button>
-              <button className="p-2 bg-white/10 rounded-full hover:bg-white/20" title="More options">
+              <button className="p-2 bg-canvas-2 rounded-full hover:bg-canvas-2" title="More options">
                 ⋮
               </button>
             </div>
@@ -416,15 +415,14 @@ export default function WhatsAppTab() {
         >
           {!selectedChat ? (
             <div className="flex items-center justify-center h-full">
-              <div className="text-center bg-white/80 p-8 rounded-lg shadow">
-                <span className="text-6xl">💬</span>
-                <p className="mt-4 text-gray-600">Select a chat to view messages</p>
+              <div className="text-center bg-canvas-2 p-8 rounded-lg shadow">
+                <p className="mt-4 text-muted">Select a chat to view messages</p>
               </div>
             </div>
           ) : messages.length === 0 ? (
             <div className="flex items-center justify-center h-full">
-              <div className="text-center bg-white/80 p-8 rounded-lg shadow">
-                <p className="text-gray-500">No messages in this chat yet</p>
+              <div className="text-center bg-canvas-2 p-8 rounded-lg shadow">
+                <p className="text-muted">No messages in this chat yet</p>
               </div>
             </div>
           ) : (
@@ -435,24 +433,24 @@ export default function WhatsAppTab() {
                   className={`flex ${msg.direction === 'inbound' ? 'justify-start' : 'justify-end'}`}
                 >
                   <div className={`max-w-[65%] rounded-lg px-3 py-2 shadow ${
-                    msg.sender === 'customer' ? 'bg-white' :
-                    msg.sender === 'ai' ? 'bg-blue-100' :
-                    'bg-green-100'
+                    msg.sender === 'customer' ? 'bg-canvas-2' :
+                    msg.sender === 'ai' ? 'bg-canvas-deep' :
+                    'bg-mint/15'
                   }`}>
                     {msg.sender !== 'customer' && (
                       <span className={`text-xs font-medium ${
-                        msg.sender === 'ai' ? 'text-blue-600' : 'text-green-600'
+                        msg.sender === 'ai' ? 'text-muted' : 'text-mint'
                       }`}>
-                        {msg.sender === 'ai' ? '🤖 AI' : '👤 Agent'}
+                        {msg.sender === 'ai' ? 'AI' : 'Agent'}
                       </span>
                     )}
-                    <p className="text-gray-900">{msg.content}</p>
+                    <p className="text-paper">{msg.content}</p>
                     <div className="flex items-center justify-end gap-1 mt-1">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-muted">
                         {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                       {msg.direction === 'outbound' && (
-                        <span className="text-xs text-blue-500">
+                        <span className="text-xs text-muted">
                           {msg.status === 'read' ? '✓✓' : msg.status === 'delivered' ? '✓✓' : '✓'}
                         </span>
                       )}
@@ -467,21 +465,21 @@ export default function WhatsAppTab() {
 
         {/* Reply Input */}
         {selectedChat && (
-          <div className="p-3 bg-gray-100 border-t flex items-end gap-2">
-            <button className="p-2 text-gray-600 hover:bg-gray-200 rounded-full">😊</button>
+          <div className="p-3 bg-canvas-deep border-t flex items-end gap-2">
+            <button className="p-2 text-muted hover:bg-canvas-deep rounded-full">😊</button>
             <input
               type="text"
               value={replyText}
               onChange={(e) => setReplyText(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && sendReply()}
               placeholder="Type a message"
-              className="flex-1 px-4 py-3 rounded-full border focus:ring-2 focus:ring-green-500"
+              className="flex-1 px-4 py-3 rounded-full border focus:ring-2 focus:ring-mint"
               disabled={sending}
             />
             <button
               onClick={sendReply}
               disabled={sending || !replyText.trim()}
-              className="p-3 bg-whatsapp text-white rounded-full hover:opacity-90 disabled:opacity-50"
+              className="p-3 bg-whatsapp text-paper rounded-full hover:opacity-90 disabled:opacity-50"
             >
               {sending ? '⏳' : '➤'}
             </button>
@@ -492,10 +490,10 @@ export default function WhatsAppTab() {
       {/* New Message Modal */}
       {showNewMessageModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-[450px] shadow-2xl">
-            <h3 className="text-lg font-semibold mb-4">✉️ New WhatsApp Message</h3>
+          <div className="bg-canvas-2 rounded-xl p-6 w-[450px]">
+            <h3 className="text-lg font-semibold mb-4"> New WhatsApp Message</h3>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+              <label className="block text-sm font-medium text-muted mb-1">Phone Number</label>
               <input
                 type="text"
                 value={newMessagePhone}
@@ -503,10 +501,10 @@ export default function WhatsAppTab() {
                 placeholder="+254712345678"
                 className="w-full px-4 py-2 border rounded-lg font-mono"
               />
-              <p className="text-xs text-gray-500 mt-1">E.164 format with country code</p>
+              <p className="text-xs text-muted mt-1">E.164 format with country code</p>
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <label className="block text-sm font-medium text-muted mb-1">Message</label>
               <textarea
                 value={newMessageText}
                 onChange={(e) => setNewMessageText(e.target.value)}
@@ -519,14 +517,14 @@ export default function WhatsAppTab() {
               <button
                 type="button"
                 onClick={() => { setShowNewMessageModal(false); setNewMessagePhone(''); setNewMessageText('') }}
-                className="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border rounded-lg hover:bg-canvas-deep"
               >
                 Cancel
               </button>
               <button
                 onClick={sendNewMessage}
                 disabled={sending || !newMessagePhone || !newMessageText}
-                className="flex-1 px-4 py-2 bg-whatsapp text-white rounded-lg hover:opacity-90 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-whatsapp text-paper rounded-lg hover:opacity-90 disabled:opacity-50"
               >
                 {sending ? 'Sending...' : 'Send'}
               </button>
@@ -538,17 +536,17 @@ export default function WhatsAppTab() {
       {/* Broadcast Modal */}
       {showBroadcastModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-[500px] shadow-2xl">
-            <h3 className="text-lg font-semibold mb-4">📣 WhatsApp Broadcast</h3>
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
-              <p className="text-sm text-yellow-800">
-                ⚠️ WhatsApp requires pre-approved templates for broadcast messages outside the 24-hour window. 
+          <div className="bg-canvas-2 rounded-xl p-6 w-[500px]">
+            <h3 className="text-lg font-semibold mb-4"> WhatsApp Broadcast</h3>
+            <div className="bg-sun/15 border border-sun rounded-lg p-3 mb-4">
+              <p className="text-sm text-sun">
+                WhatsApp requires pre-approved templates for broadcast messages outside the 24-hour window. 
                 Messages within active conversations can be free-form.
               </p>
             </div>
             <form onSubmit={sendBroadcast}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label className="block text-sm font-medium text-muted mb-1">Message</label>
                 <textarea
                   value={broadcastMessage}
                   onChange={(e) => setBroadcastMessage(e.target.value)}
@@ -559,7 +557,7 @@ export default function WhatsAppTab() {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Recipients (one per line)</label>
+                <label className="block text-sm font-medium text-muted mb-1">Recipients (one per line)</label>
                 <textarea
                   value={broadcastRecipients}
                   onChange={(e) => setBroadcastRecipients(e.target.value)}
@@ -568,7 +566,7 @@ export default function WhatsAppTab() {
                   className="w-full px-4 py-2 border rounded-lg font-mono text-sm"
                   required
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted mt-1">
                   {broadcastRecipients.split('\n').filter(l => l.trim()).length} recipients
                 </p>
               </div>
@@ -576,14 +574,14 @@ export default function WhatsAppTab() {
                 <button
                   type="button"
                   onClick={() => { setShowBroadcastModal(false); setBroadcastRecipients(''); setBroadcastMessage('') }}
-                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-gray-50"
+                  className="flex-1 px-4 py-2 border rounded-lg hover:bg-canvas-deep"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={sending}
-                  className="flex-1 px-4 py-2 bg-whatsapp text-white rounded-lg hover:opacity-90 disabled:opacity-50"
+                  className="flex-1 px-4 py-2 bg-whatsapp text-paper rounded-lg hover:opacity-90 disabled:opacity-50"
                 >
                   {sending ? 'Sending...' : 'Send Broadcast'}
                 </button>
