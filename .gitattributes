@@ -1,0 +1,7 @@
+# Files the Linux container executes must keep LF in the working tree as well as
+# in the repository. `railway up` uploads the working tree, and on Windows
+# core.autocrlf=true would otherwise hand the container a CRLF shebang, which it
+# cannot exec.
+*.sh        text eol=lf
+Dockerfile  text eol=lf
+*.Dockerfile text eol=lf
