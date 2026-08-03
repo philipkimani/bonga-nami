@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
+import { RefreshCw, X } from 'lucide-react'
+import { ChannelIcon } from '../ui/ChannelIcon'
 
 interface Metrics {
   totalConversations: number
@@ -172,11 +174,11 @@ export default function AnalyticsTab() {
 
   const { metrics, breakdown, conversations } = data
 
-  const sourceIcon = (src: string) => {
-    if (src.includes('Phone')) return '📞'
-    if (src.includes('WhatsApp') || src.includes('whatsapp')) return '📱'
-    if (src.includes('SMS') || src.includes('sms')) return '💬'
-    return '🌐'
+  const sourceChannel = (src: string) => {
+    if (src.includes('Phone')) return 'voice'
+    if (src.includes('WhatsApp') || src.includes('whatsapp')) return 'whatsapp'
+    if (src.includes('SMS') || src.includes('sms')) return 'sms'
+    return 'web_text'
   }
 
   return (
@@ -206,7 +208,7 @@ export default function AnalyticsTab() {
             disabled={loading}
             className="px-4 py-2 border rounded-lg text-muted hover:bg-canvas-deep transition disabled:opacity-50 text-sm"
           >
-            {loading ? '⏳' : '🔄'}
+            <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -263,7 +265,7 @@ export default function AnalyticsTab() {
               {Object.entries(breakdown.bySource).sort(([,a],[,b]) => b - a).map(([src, count]) => (
                 <div key={src}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-muted">{sourceIcon(src)} {src.replace(/_/g, ' ')}</span>
+                    <span className="text-muted inline-flex items-center gap-1.5"><ChannelIcon channel={sourceChannel(src)} size={14} /> {src.replace(/_/g, ' ')}</span>
                     <span className="font-medium">{count}</span>
                   </div>
                   <div className="h-2.5 bg-canvas-deep rounded-full overflow-hidden">
@@ -365,7 +367,7 @@ export default function AnalyticsTab() {
                     {selectedConvo.metadata?.startTime ? fmtTime(selectedConvo.metadata.startTime) : '—'} &bull; {fmtDuration(selectedConvo.metadata?.duration || 0)}
                   </p>
                 </div>
-                <button onClick={() => setSelectedConvo(null)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-canvas-deep text-muted hover:text-muted text-lg">✕</button>
+                <button onClick={() => setSelectedConvo(null)} aria-label="Close" className="w-8 h-8 flex items-center justify-center rounded-full text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"><X className="h-4 w-4" aria-hidden="true" /></button>
               </div>
 
               {/* IDs */}
@@ -508,7 +510,7 @@ export default function AnalyticsTab() {
                   <tr key={c.id} className="hover:bg-canvas-deep cursor-pointer" onClick={() => loadConversationDetail(c.id)}>
                     <td className="py-3">
                       <span className="flex items-center gap-1.5">
-                        {sourceIcon(c.source)}
+                        <ChannelIcon channel={sourceChannel(c.source)} size={14} />
                         <span className="text-muted text-xs">{c.source}</span>
                       </span>
                     </td>

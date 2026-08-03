@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { X } from 'lucide-react'
 
 interface AdminUser {
   id: string
@@ -406,7 +407,7 @@ function CreateUserModal({ onClose, onCreated }: CreateUserModalProps) {
             onClick={onClose}
             className="p-1 hover:bg-canvas-deep rounded-lg transition"
           >
-            ✕
+            <X className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
 
@@ -587,7 +588,7 @@ function ResetPasswordModal({ user, onClose, onReset }: ResetPasswordModalProps)
             onClick={onClose}
             className="p-1 hover:bg-canvas-deep rounded-lg transition"
           >
-            ✕
+            <X className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Check, Circle } from 'lucide-react'
 
 interface ChangePasswordProps {
   onPasswordChanged: () => void
@@ -215,16 +216,16 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
             </p>
             <ul className="text-xs text-muted mt-2 space-y-1">
               <li className={newPassword.length >= 8 ? 'text-mint' : ''}>
-                {newPassword.length >= 8 ? '✓' : '○'} At least 8 characters
+                {newPassword.length >= 8 ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least 8 characters
               </li>
               <li className={/[a-z]/.test(newPassword) && /[A-Z]/.test(newPassword) ? 'text-mint' : ''}>
-                {/[a-z]/.test(newPassword) && /[A-Z]/.test(newPassword) ? '✓' : '○'} Uppercase and lowercase letters
+                {/[a-z]/.test(newPassword) && /[A-Z]/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} Uppercase and lowercase letters
               </li>
               <li className={/\d/.test(newPassword) ? 'text-mint' : ''}>
-                {/\d/.test(newPassword) ? '✓' : '○'} At least one number
+                {/\d/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least one number
               </li>
               <li className={/[^a-zA-Z0-9]/.test(newPassword) ? 'text-mint' : ''}>
-                {/[^a-zA-Z0-9]/.test(newPassword) ? '✓' : '○'} At least one special character
+                {/[^a-zA-Z0-9]/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least one special character
               </li>
             </ul>
           </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Check, CheckCheck, Megaphone, MessageSquare, Phone, Send, Smile, User } from 'lucide-react'
 
 interface Chat {
   id: string
@@ -238,16 +239,16 @@ export default function WhatsAppTab() {
             <div className="flex gap-2">
               <button
                 onClick={() => setShowNewMessageModal(true)}
-                className="text-sm bg-canvas-2 px-3 py-1 rounded hover:bg-canvas-2 transition"
+                className="text-sm bg-canvas-2 px-3 py-1 rounded hover:bg-canvas-deep transition"
                 title="New message"
               >
                 New
               </button>
               <button
                 onClick={() => setShowBroadcastModal(true)}
-                className="text-sm bg-canvas-2 px-3 py-1 rounded hover:bg-canvas-2 transition"
+                className="text-sm bg-canvas-2 px-3 py-1 rounded hover:bg-canvas-deep transition"
               >
-                📣
+                <Megaphone className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -325,8 +326,8 @@ export default function WhatsAppTab() {
                       selectedChat?.id === chat.id ? 'bg-mint/15' : ''
                     }`}
                   >
-                    <div className="w-12 h-12 bg-canvas-deep rounded-full flex items-center justify-center text-xl flex-shrink-0">
-                      👤
+                    <div className="w-12 h-12 bg-canvas-deep rounded-full flex items-center justify-center flex-shrink-0">
+                      <User className="h-5 w-5 text-muted" aria-hidden="true" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
@@ -368,7 +369,7 @@ export default function WhatsAppTab() {
           {selectedChat ? (
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-canvas-2 rounded-full flex items-center justify-center">
-                👤
+                <User className="h-5 w-5 text-muted" aria-hidden="true" />
               </div>
               <div>
                 <h2 className="font-semibold">{selectedChat.contactName || selectedChat.contactPhone}</h2>
@@ -381,7 +382,7 @@ export default function WhatsAppTab() {
           ) : (
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-canvas-2 rounded-full flex items-center justify-center">
-                💬
+                <MessageSquare className="h-5 w-5 text-muted" aria-hidden="true" />
               </div>
               <div>
                 <h2 className="font-semibold">Select a chat</h2>
@@ -393,12 +394,12 @@ export default function WhatsAppTab() {
             <div className="flex gap-2">
               <button
                 onClick={() => initiateVoiceCall(selectedChat.contactPhone)}
-                className="p-2 bg-canvas-2 rounded-full hover:bg-canvas-2"
+                className="p-2 bg-canvas-2 rounded-full hover:bg-canvas-deep"
                 title="WhatsApp Voice Call"
               >
-                📞
+                <Phone className="h-4 w-4" aria-hidden="true" />
               </button>
-              <button className="p-2 bg-canvas-2 rounded-full hover:bg-canvas-2" title="More options">
+              <button className="p-2 bg-canvas-2 rounded-full hover:bg-canvas-deep" title="More options">
                 ⋮
               </button>
             </div>
@@ -451,7 +452,7 @@ export default function WhatsAppTab() {
                       </span>
                       {msg.direction === 'outbound' && (
                         <span className="text-xs text-muted">
-                          {msg.status === 'read' ? '✓✓' : msg.status === 'delivered' ? '✓✓' : '✓'}
+                          {msg.status === 'read' || msg.status === 'delivered' ? <CheckCheck className="h-3.5 w-3.5" aria-hidden="true" /> : <Check className="h-3.5 w-3.5" aria-hidden="true" />}
                         </span>
                       )}
                     </div>
@@ -466,7 +467,7 @@ export default function WhatsAppTab() {
         {/* Reply Input */}
         {selectedChat && (
           <div className="p-3 bg-canvas-deep border-t flex items-end gap-2">
-            <button className="p-2 text-muted hover:bg-canvas-deep rounded-full">😊</button>
+            <button className="p-2 text-muted hover:bg-canvas-deep rounded-full" aria-label="Add emoji"><Smile className="h-5 w-5" aria-hidden="true" /></button>
             <input
               type="text"
               value={replyText}
@@ -481,7 +482,7 @@ export default function WhatsAppTab() {
               disabled={sending || !replyText.trim()}
               className="p-3 bg-whatsapp text-paper rounded-full hover:opacity-90 disabled:opacity-50"
             >
-              {sending ? '⏳' : '➤'}
+              <Send className={`h-5 w-5 ${sending ? 'animate-pulse' : ''}`} aria-hidden="true" />
             </button>
           </div>
         )}

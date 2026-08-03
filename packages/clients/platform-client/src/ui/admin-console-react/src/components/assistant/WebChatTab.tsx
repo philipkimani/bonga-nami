@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { BarChart3, Check, MessageSquare, Mic } from 'lucide-react'
 
 interface WebChatConversation {
   conversation_id: string
@@ -162,8 +163,8 @@ export default function WebChatTab() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-canvas-deep flex items-center justify-center text-paper text-lg">
-            💬
+          <div className="w-10 h-10 rounded-xl bg-canvas-deep flex items-center justify-center">
+            <MessageSquare className="h-5 w-5 text-muted" aria-hidden="true" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-paper">Web Chat</h2>
@@ -207,7 +208,7 @@ export default function WebChatTab() {
         </div>
         <div className="bg-canvas-deep rounded-xl p-4 text-paper">
           <p className="text-xs text-flare">Widget Status</p>
-          <p className="text-2xl font-bold mt-1">{isConfigured ? '✓' : '—'}</p>
+          <p className="text-2xl font-bold mt-1">{isConfigured ? <Check className="h-6 w-6 text-mint" aria-hidden="true" /> : '—'}</p>
           <p className="text-xs text-flare mt-1">{isConfigured ? 'Active' : 'Setup needed'}</p>
         </div>
       </div>
@@ -220,7 +221,7 @@ export default function WebChatTab() {
             {/* Text / Voice filter pills */}
             {(['all', 'text', 'voice'] as ModeFilter[]).map(mode => {
               const count = mode === 'all' ? conversations.length : mode === 'text' ? textCount : voiceCount
-              const icons = { all: '📊', text: '💬', voice: '🎙️' }
+              const Icons = { all: BarChart3, text: MessageSquare, voice: Mic }
               const labels = { all: 'All', text: 'Text', voice: 'Voice' }
               return (
                 <button
@@ -232,10 +233,10 @@ export default function WebChatTab() {
                       : 'bg-canvas-deep text-muted hover:bg-canvas-deep'
                   }`}
                 >
-                  <span>{icons[mode]}</span>
+                  {(() => { const I = Icons[mode]; return <I className="h-3.5 w-3.5" aria-hidden="true" /> })()}
                   {labels[mode]}
                   <span className={`ml-0.5 px-1.5 py-0.5 rounded-full text-[10px] ${
-                    modeFilter === mode ? 'bg-flare text-flare' : 'bg-canvas-deep text-muted'
+                    modeFilter === mode ? 'bg-flare/25 text-flare' : 'bg-canvas-deep text-muted'
                   }`}>{count}</span>
                 </button>
               )
@@ -330,7 +331,7 @@ export default function WebChatTab() {
                 <h3 className="font-semibold text-lg">Conversation Detail</h3>
                 <p className="text-xs text-paper/70 font-mono mt-0.5">{selectedConvId}</p>
               </div>
-              <button onClick={closeConversation} className="p-2 hover:bg-canvas-2 rounded-lg transition">
+              <button onClick={closeConversation} className="p-2 hover:bg-canvas-deep rounded-lg transition">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                 </svg>

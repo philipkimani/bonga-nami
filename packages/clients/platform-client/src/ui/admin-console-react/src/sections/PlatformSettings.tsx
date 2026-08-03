@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Check, Circle, Copy, Drama, MessageSquare, Mic } from 'lucide-react'
 import UserManagement from '../components/UserManagement'
 
 type ConversationMode = 'voice_only' | 'voice_and_text' | 'text_only'
@@ -68,7 +69,7 @@ const CONVERSATION_MODES = [
   {
     id: 'text_only' as ConversationMode,
     name: 'Text Only',
-    icon: '💬',
+    Icon: MessageSquare,
     description: 'Chat mode, no audio required',
     costNote: 'Recommended: Lowest cost, 25x concurrency',
     color: 'bg-canvas-deep'
@@ -76,7 +77,7 @@ const CONVERSATION_MODES = [
   {
     id: 'voice_and_text' as ConversationMode,
     name: 'Voice + Text',
-    icon: '🎭',
+    Icon: Drama,
     description: 'Users can switch between voice and text',
     costNote: 'Balanced (multimodal)',
     color: 'bg-canvas-deep'
@@ -84,7 +85,7 @@ const CONVERSATION_MODES = [
   {
     id: 'voice_only' as ConversationMode,
     name: 'Voice Only',
-    icon: '🎙️',
+    Icon: Mic,
     description: 'Speech input and output only',
     costNote: 'Higher cost (voice processing)',
     color: 'bg-canvas-deep'
@@ -240,7 +241,7 @@ export default function PlatformSettingsSection() {
                 </div>
               )}
               <div className="text-2xl mb-2">
-                {mode.id === 'voice_only' ? '🔊' : mode.id === 'text_only' ? '⌨' : '🎙️'}
+                <mode.Icon className="h-5 w-5" aria-hidden="true" />
               </div>
               <h3 className="font-semibold text-paper">{mode.name}</h3>
               <p className="text-xs text-muted mt-1">{mode.costNote}</p>
@@ -293,7 +294,7 @@ export default function PlatformSettingsSection() {
                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                   config.conversationFlow.allowInterruptions ? 'bg-mint border-mint' : 'border-line'
                 }`}>
-                  {config.conversationFlow.allowInterruptions && <span className="text-paper text-xs">✓</span>}
+                  {config.conversationFlow.allowInterruptions && <Check className="h-3 w-3 text-paper" aria-hidden="true" />}
                 </div>
               </button>
               <p className="text-xs text-muted mt-1">Let users interrupt AI mid-sentence</p>
@@ -499,7 +500,7 @@ export default function PlatformSettingsSection() {
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                 config.channels.voiceCalls ? 'bg-mint border-mint' : 'border-line'
               }`}>
-                {config.channels.voiceCalls && <span className="text-paper text-xs">✓</span>}
+                {config.channels.voiceCalls && <Check className="h-3 w-3 text-paper" aria-hidden="true" />}
               </div>
             </div>
           </div>
@@ -528,7 +529,7 @@ export default function PlatformSettingsSection() {
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                 config.channels.sms ? 'bg-mint border-mint' : 'border-line'
               }`}>
-                {config.channels.sms && <span className="text-paper text-xs">✓</span>}
+                {config.channels.sms && <Check className="h-3 w-3 text-paper" aria-hidden="true" />}
               </div>
             </div>
           </div>
@@ -743,7 +744,7 @@ export default function PlatformSettingsSection() {
                   className="px-3 py-3 bg-canvas-2 border border-flare rounded-lg hover:bg-flare/15 transition text-sm"
                   title="Copy to clipboard"
                 >
-                  📋
+                  <Copy className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
               <p className="text-xs text-flare mt-1">
@@ -1375,7 +1376,7 @@ function ChecklistItem({ done, label }: { done: boolean; label: string }) {
   return (
     <div className="flex items-center gap-2 py-1">
       <span className={`text-lg ${done ? 'text-mint' : 'text-muted'}`}>
-        {done ? '✓' : '○'}
+        {done ? <Check className="h-4 w-4" aria-hidden="true" /> : <Circle className="h-4 w-4" aria-hidden="true" />}
       </span>
       <span className={`text-sm ${done ? 'text-paper' : 'text-muted'}`}>{label}</span>
     </div>

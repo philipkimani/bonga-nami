@@ -1,13 +1,14 @@
 import { useState } from 'react'
+import { ArrowUpRight, Mic, Phone } from 'lucide-react'
 
 export default function SettingsTab() {
   const [activeSubTab, setActiveSubTab] = useState<'twilio' | 'elevenlabs' | 'escalation'>('twilio')
   const [saving, setSaving] = useState(false)
 
   const subTabs = [
-    { id: 'twilio' as const, label: 'Twilio', icon: '📞' },
-    { id: 'elevenlabs' as const, label: 'ElevenLabs', icon: '🎙️' },
-    { id: 'escalation' as const, label: 'Escalation', icon: '🚨' },
+    { id: 'twilio' as const, label: 'Twilio', Icon: Phone },
+    { id: 'elevenlabs' as const, label: 'ElevenLabs', Icon: Mic },
+    { id: 'escalation' as const, label: 'Escalation', Icon: ArrowUpRight },
   ]
 
   async function saveSettings(section: string) {
@@ -41,7 +42,7 @@ export default function SettingsTab() {
                 : 'bg-canvas-deep text-muted hover:bg-canvas-deep'
             }`}
           >
-            <span className="mr-2">{tab.icon}</span>
+            <tab.Icon className="mr-2 h-4 w-4 shrink-0" aria-hidden="true" />
             {tab.label}
           </button>
         ))}
@@ -87,7 +88,7 @@ export default function SettingsTab() {
                 />
                 <button
                   onClick={() => navigator.clipboard.writeText(`${window.location.origin}/webhooks/admin-assistant/twilio`)}
-                  className="px-4 py-2 border rounded-lg hover:bg-canvas-2"
+                  className="px-4 py-2 border rounded-lg hover:bg-canvas-deep"
                 >
                   Copy
                 </button>
@@ -104,7 +105,7 @@ export default function SettingsTab() {
               </button>
               <button
                 onClick={testTwilioConnection}
-                className="px-6 py-2 border rounded-lg hover:bg-canvas-2"
+                className="px-6 py-2 border rounded-lg hover:bg-canvas-deep"
               >
                 Test Connection
               </button>

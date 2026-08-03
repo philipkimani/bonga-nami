@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { ChannelIcon } from '../ui/ChannelIcon'
 
 interface Metrics {
   totalConversations: number
@@ -151,11 +152,11 @@ export default function DashboardTab() {
 
   const { metrics, escalation, breakdown, conversations } = data
 
-  const sourceIcon = (src: string) => {
-    if (src.includes('phone') || src.includes('twilio')) return '📞'
-    if (src.includes('whatsapp')) return '📱'
-    if (src.includes('sms')) return '💬'
-    return '🌐' // web/widget
+  const sourceChannel = (src: string) => {
+    if (src.includes('phone') || src.includes('twilio')) return 'voice'
+    if (src.includes('whatsapp')) return 'whatsapp'
+    if (src.includes('sms')) return 'sms'
+    return 'web_text'
   }
 
   const successColor = (s: string) => {
@@ -293,7 +294,7 @@ export default function DashboardTab() {
                 .map(([source, count]) => (
                 <div key={source} className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-flare/15 rounded-lg flex items-center justify-center text-lg">
-                    {sourceIcon(source)}
+                    <ChannelIcon channel={sourceChannel(source)} size={14} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
@@ -387,7 +388,7 @@ export default function DashboardTab() {
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                     esc.urgency === 'high' ? 'bg-flare/15' : 'bg-sun/15'
                   }`}>
-                    {esc.channel === 'voice' ? '📞' : esc.channel === 'whatsapp' ? '📱' : '💬'}
+                    <ChannelIcon channel={esc.channel} size={14} />
                   </div>
                   <div>
                     <p className="font-medium text-paper">
@@ -449,7 +450,7 @@ export default function DashboardTab() {
                   <tr key={c.id} className="hover:bg-canvas-deep">
                     <td className="py-3">
                       <span className="flex items-center gap-2">
-                        {sourceIcon(c.source)}
+                        <ChannelIcon channel={sourceChannel(c.source)} size={14} />
                         <span className="capitalize text-muted">{c.source}</span>
                       </span>
                     </td>
