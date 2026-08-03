@@ -8,13 +8,13 @@ export default {
     extend: {
       colors: {
         canvas: {
-          DEFAULT: '#241041',
-          2: '#2E1552',
-          deep: '#1A0B31',
+          DEFAULT: '#2B1552',
+          2: '#3A1E6E',
+          deep: '#1F0F3E',
         },
         paper: '#FBF8FF',
-        muted: '#B9A8D4',
-        line: 'rgba(185,168,212,0.22)',
+        muted: '#C4B5DE',
+        line: 'rgba(196,181,222,0.26)',
         flare: '#FF2E88',
         sun: '#FFC94A',
         mint: '#23D9B0',
@@ -23,7 +23,7 @@ export default {
       // A bare `border` class defaults to gray-200, which glows on the dark
       // canvas. One override catches every one of them.
       borderColor: {
-        DEFAULT: 'rgba(185,168,212,0.22)',
+        DEFAULT: 'rgba(196,181,222,0.26)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],

@@ -285,7 +285,7 @@ export default function AnalyticsTab() {
               <svg className="w-full h-full" viewBox="0 0 36 36">
                 <path
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none" stroke="rgba(185,168,212,0.22)" strokeWidth="3"
+                  fill="none" stroke="rgba(196,181,222,0.26)" strokeWidth="3"
                 />
                 <path
                   d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"

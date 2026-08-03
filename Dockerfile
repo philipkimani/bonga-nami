@@ -47,7 +47,7 @@ COPY packages/clients/platform-client/prisma ./packages/clients/platform-client/
 RUN pnpm install --frozen-lockfile
 
 # Force cache bust for prisma generate and build steps
-ARG CACHEBUST=3
+ARG CACHEBUST=4
 
 # Generate Prisma client (must run after install, before build)
 RUN cd packages/clients/platform-client && npx prisma generate
