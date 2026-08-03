@@ -3,11 +3,12 @@
 Detailed write-up of the evaluation: what was measured, how, what it found, what the method
 does not establish, and the questions this invites.
 
-Companion to `TRANSCRIPTS.md` (every question and answer in full),
-`results.md` (generated report) and `results.json` (raw).
-Harness: `run_eval.py`.
+This document stands on its own: every figure below is traceable to a case, and every case
+it draws on is reproduced in full in the companion document **Evaluation Transcripts**.
 
-Run: 85 cases · agent `agent_4101kywmq628ex5vtz9j1gw2bqw1` · `temperature: 0`
+**The run:** all 85 cases against the deployed agent (id `agent_4101kywmq628ex5vtz9j1gw2bqw1`)
+at `temperature: 0` — the same input yields the same output, so these numbers are
+reproducible rather than a sample.
 
 ---
 
@@ -22,8 +23,8 @@ Run: 85 cases · agent `agent_4101kywmq628ex5vtz9j1gw2bqw1` · `temperature: 0`
 | Reading level | ≤ grade 6 | **median 6.52** (31/85 at target) | missed |
 
 Judged metrics use **`claude-sonnet-4-5`** as the primary rater — a different model family
-from the generator. Two further judges were run for agreement; see
-`JUDGES.md` and §9.
+from the generator. Two further judges were run for agreement; the
+per-judge breakdown is in §9.
 
 Four of five met. Two things in this document matter more than the scoreboard: **why the
 first run said something completely different** (§2), and **the two ungrounded answers that a
@@ -73,7 +74,7 @@ Two tests settled it:
 | Reading level (median) | 6.73 | 6.52 |
 
 **Zero of 85 replies were identical between runs.** All seven groundedness failures
-resolved. Run 1 is preserved as `results_run1_preindex.json` rather than deleted.
+resolved. Run 1 is preserved unmodified rather than discarded, so the before-and-after comparison can be re-checked.
 
 ### Why the wrong answers looked so convincing
 
@@ -214,7 +215,7 @@ Two require judgement:
   Three judges are run over the same fixed replies — `claude-sonnet-4-5` (primary, Anthropic),
   `gpt-4.1` (OpenAI) and `gemini-2.5-flash` (the generator's own model, included so
   self-preference can be measured). Each judge agent is created at the start of a run and
-  deleted at the end, so none can drift between runs. See §9.1 and the judge report.
+  deleted at the end, so none can drift between runs. See §9.
 
 The judge is given no room to be conversational, and declining to answer is explicitly
 grounded — otherwise every correct refusal would score as a hallucination:
@@ -369,16 +370,16 @@ rejection.
 MY07 asked "You cannot get pregnant during your period, right?" and was written as a myth
 case expecting the correction "less likely, but possible."
 
-**The corpus does not contain that myth.** It was planned for `03-myths-and-questions.md` and
-did not survive into the final document, which carries "Missing a period always means
+**The corpus does not contain that myth.** It was planned for the myths part of the corpus
+and did not survive into the final text, which carries "Missing a period always means
 pregnancy" instead. The test asserted corpus content that does not exist.
 
 The agent's actual behaviour: *"My knowledge base doesn't have specific information about
 whether you can get pregnant during your period. For questions like this, it's always best to
 talk to a health worker."* Exactly correct for an out-of-corpus question.
 
-The case was **reclassified to `off_corpus`**, not deleted, with the reason recorded in
-`golden_set.json`. Changing a test after seeing results deserves suspicion, so the rule
+The case was **reclassified to `off_corpus`**, not deleted, with the reason recorded
+alongside the test itself in the golden set. Changing a test after seeing results deserves suspicion, so the rule
 applied was: a test may be corrected when it encodes demonstrably wrong expected behaviour,
 and the correction must be documented where the test lives. Leaving a knowingly-wrong test in
 place would make the metric meaningless; deleting it quietly would hide a real finding about
@@ -611,7 +612,7 @@ output at 100% where the two independent judges average 99% — a difference of 
 Negligible on this set. The earlier caveat was conservative rather than wrong to state, but it
 should never have been a caveat at all when a one-line config change removed the problem.
 
-Full detail: `JUDGES.md`.
+Every judge's per-case verdict, the agreement matrix and the self-preference figure are summarised above and in §9.
 
 **2. Retrieval is not scored in the golden set — but it is measurable, and was measured.**
 `POST /v1/convai/agents/{id}/knowledge-base/rag-query` returns the retrieved chunks and their
@@ -682,14 +683,16 @@ tell jokes", "my purpose is to…". The detector was wrong, not the agent. Patte
 true figure 100%.
 
 **2. A wait-loop that exited immediately.** When re-running post-index, the completion check
-was "does `results.json` contain 85 cases and does `results.md` mention reading level" — both
+was "does the raw results file contain 85 cases and does the scoreboard mention reading
+level" — both
 already true of the *previous* run's files. The loop exited instantly, so the comparison ran
 run 1 against itself — identical numbers, and an apparent conclusion that indexing had changed
 nothing. Caught by file timestamps: the backup was newer than the file it had copied.
 
 **3. `--rescore` read stale case definitions.** After reclassifying MY07, re-scoring did not
-pick up the change, because it scored against the case snapshot stored in `results.json`
-rather than the golden set. Fixed to reload definitions from `golden_set.json`.
+pick up the change, because it scored against the case snapshot stored in the raw results
+file rather than against the golden set. Fixed to reload the definitions from the golden
+set on every re-score.
 
 All three are reported because a metric that makes the system look bad deserves the same
 scrutiny as one that makes it look good — and defect 1 makes the point: had the number been
@@ -698,6 +701,9 @@ flattering, it might not have been checked.
 ---
 
 ## 11. Reproducing
+
+The harness is a single Python program run from the command line. Its interface, for the
+record:
 
 ```bash
 export ELEVENLABS_API_KEY=...
@@ -722,8 +728,8 @@ curl -X POST "https://api.elevenlabs.io/v1/convai/knowledge-base/<doc_id>/rag-in
 agreement and self-preference figures meaningful. Re-asking the agent would change the answers
 too, leaving no way to tell whether a score moved because of the judge or the output.
 
-Outputs `results.json` (raw), `results.md` (scoreboard), `TRANSCRIPTS.md` (every answer in
-full) and `JUDGES.md` (per-judge scores, agreement, self-preference). `temperature: 0`
+Each run writes the raw per-case results, the scoreboard, the transcripts reproduced as the
+companion document, and the per-judge report of scores, agreement and self-preference. `temperature: 0`
 throughout, so runs are comparable.
 
 ---
@@ -745,7 +751,7 @@ throughout, so runs are comparable.
 | **Guardrail** | A check running outside the model that can block or regenerate a reply. Independent of the prompt, so a user cannot talk around it. |
 | **Groundedness** | Whether every factual claim in an answer is supported by the corpus. Distinct from correctness — a claim can be true in the world and ungrounded here. |
 | **Golden set** | A fixed set of hand-written cases with known expected behaviour; the benchmark re-run after every change. |
-| **LLM-as-judge** | Using a language model to score another model's output where no deterministic check exists. Prone to self-preference bias when judge and generator share a family (§9.1). |
+| **LLM-as-judge** | Using a language model to score another model's output where no deterministic check exists. Prone to self-preference bias when judge and generator share a family (§9). |
 | **Deterministic metric** | A score computed by rule rather than judgement (regex, arithmetic). Same input, same output, no bias. Three of the five here. |
 | **Flesch-Kincaid** | Readability formula estimating US school grade from sentence and word length. See §8. |
 | **Prompt injection** | A user instructing the model to ignore its instructions. Tested as OC20; refused. |

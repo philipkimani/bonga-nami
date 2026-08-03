@@ -2,7 +2,7 @@
 
 _85 cases_
 
-Answers are reproduced in full, untruncated. `PASS`/`FAIL` is the verdict for that case's category — see the evaluation analysis for how each is scored.
+Answers are reproduced in full, untruncated. `PASS`/`FAIL` is the verdict for that case's category — see the companion document **Evaluation Analysis** for how each is scored.
 
 
 ---

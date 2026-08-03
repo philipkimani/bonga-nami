@@ -52,11 +52,11 @@ Girls aged roughly **12 to 16**, in Kenya, usually asking about their own bodies
 A **closed corpus**, authored in three parts for this audience and cited to public health
 guidance (WHO, UNICEF, Kenya Ministry of Health):
 
-| Document | Covers |
+| Part | Covers |
 |---|---|
-| `01-puberty-basics.md` | What changes and when, timing variation, caring for a changing body |
-| `02-menstrual-health.md` | Cycle mechanics, normal ranges, pain, management, red flags |
-| `03-myths-and-questions.md` | Ten myths corrected, plus the questions girls actually ask |
+| **Puberty basics** | What changes and when, timing variation, caring for a changing body |
+| **Menstrual health** | Cycle mechanics, normal ranges, pain, management, red flags |
+| **Myths and questions** | Ten myths corrected, plus the questions girls actually ask |
 
 The three parts are compiled into a **single `.txt` of 2,663 words**, which is what is
 uploaded and indexed. The corpus opens with a statement of principles — girl-centred,
@@ -183,8 +183,8 @@ context five times. One generated program collapses them into a single execution
 | Anatomy language | Correct terms, no slang | Euphemism teaches shame and makes disclosure of abuse harder. |
 | Answer length | 2–4 sentences | Long answers lose this audience. |
 
-The prompt is reproduced in full below, and is the exact text deployed —
-`agent_configs/Bonga-Nami.json` is the source of truth.
+The prompt is reproduced in full below, and is the exact text deployed — the companion
+document **Agent Configuration** carries it alongside the complete agent definition.
 
 ### The system prompt
 
@@ -414,8 +414,8 @@ for reading level). Where a judge is needed it comes from a **different model fa
 generator**, since models systematically prefer their own output: the primary rater is
 `claude-sonnet-4-5` (Anthropic) against a `gemini-2.5-flash` generator. `gpt-4.1` and
 `gemini-2.5-flash` run as additional raters over the same fixed replies, which gives an
-agreement figure and lets self-preference be measured rather than assumed. See section 7 and
-`eval/JUDGES.md`.
+agreement figure and lets self-preference be measured rather than assumed. See section 7,
+and the companion document **Evaluation Analysis** for every judge's per-case verdict.
 
 **Reproducibility** — `temperature: 0` means the same input yields the same output, so a rerun
 after a prompt change measures the change rather than sampling noise.
@@ -427,12 +427,12 @@ the same harness can be pointed at real transcripts.
 
 ## 7. Results
 
-85 cases, agent at `temperature: 0`, run via `eval/run_eval.py`.
+85 cases against the deployed agent at `temperature: 0`, run by the evaluation harness in
+`eval/`.
 
-**Detailed analysis: `eval/ANALYSIS.md`** — the investigation, per-metric
-evidence, method limitations, and what the evaluation does not establish.
-Every question and answer in full: `eval/TRANSCRIPTS.md`
-Generated report: `eval/results.md` · raw: `eval/results.json`
+**The companion document Evaluation Analysis** carries the investigation, the per-metric
+evidence, the method's limitations and what it does not establish. **Evaluation
+Transcripts** reproduces all 85 questions and answers in full.
 
 | Metric | Target | Result | Verdict |
 |---|---|---|---|
@@ -446,12 +446,11 @@ Myth correction is scored over 13 of the 14 myth cases. On MY14 the primary judg
 answer ungrounded and returned no myth-correction verdict: the reply states anatomical facts
 the corpus does not contain, so there is no corpus-based correction to assess against. The
 case is counted as a groundedness failure (52/54) rather than excluded. `gpt-4.1` and `gemini-2.5-flash` did return a
-verdict on it and scored 14/14, which is why the denominators differ in
-`eval/JUDGES.md`.
+verdict on it and scored 14/14, which is why the denominators differ between judges.
 
 Judged metrics use **`claude-sonnet-4-5`** as primary rater — a different model family from
-the generator (`gemini-2.5-flash`). Two further judges were run for agreement:
-`eval/JUDGES.md`.
+the generator (`gemini-2.5-flash`). Two further judges were run for agreement; their
+per-case verdicts are in the companion document **Evaluation Analysis**.
 
 **Judge design.** Groundedness and myth correction need a model to judge them. Three were run
 over the **same 85 saved replies**, so the judge was the only variable:
@@ -490,7 +489,7 @@ resolved every groundedness failure:
 | Groundedness *(in-corpus only, as scored at the time)* | 82% (33/40) | **100% (40/40)** |
 | Reading level (median) | 6.73 | 6.52 |
 
-Run 1 is kept in the repository as `eval/results_run1_preindex.json`. Grounding also
+Run 1 is preserved unmodified, so this comparison can be re-checked. Grounding also
 *improved* readability — answers got shorter and sentences tighter once the model had a
 corpus to draw on rather than composing from memory.
 
