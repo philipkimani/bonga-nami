@@ -3,10 +3,32 @@
 @tailwind utilities;
 
 :root {
+  --canvas:   #241041;
+  --canvas-2: #2E1552;
+  --deep:     #1A0B31;
+  --paper:    #FBF8FF;
+  --muted:    #B9A8D4;
+  --line:     rgba(185, 168, 212, 0.22);
+  --flare:    #FF2E88;
+  --sun:      #FFC94A;
+  --mint:     #23D9B0;
+
+  /* Retained until Task 12 removes the legacy decoration classes below. */
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
   --gradient-whatsapp: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   --gradient-danger: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Animated mesh gradient background */

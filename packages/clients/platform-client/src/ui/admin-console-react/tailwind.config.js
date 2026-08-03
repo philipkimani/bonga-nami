@@ -7,19 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
+        canvas: {
+          DEFAULT: '#241041',
+          2: '#2E1552',
+          deep: '#1A0B31',
         },
+        paper: '#FBF8FF',
+        muted: '#B9A8D4',
+        line: 'rgba(185,168,212,0.22)',
+        flare: '#FF2E88',
+        sun: '#FFC94A',
+        mint: '#23D9B0',
         whatsapp: '#25D366',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
     },
   },
