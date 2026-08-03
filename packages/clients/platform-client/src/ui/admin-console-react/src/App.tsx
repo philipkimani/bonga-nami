@@ -1,13 +1,26 @@
 import { useState, useEffect } from 'react'
+import { LogOut } from 'lucide-react'
 import SectionSwitcher from './components/SectionSwitcher'
 import LoginPage from './components/LoginPage'
 import ChangePassword from './components/ChangePassword'
+import EscalationsSection from './sections/Escalations'
 import KnowledgeBaseSection from './sections/KnowledgeBase'
 import AdminAssistantSection from './sections/AdminAssistant'
 import PlatformSettingsSection from './sections/PlatformSettings'
 import AnalyticsSection from './sections/AnalyticsSection'
 
-type Section = 'knowledge-base' | 'admin-assistant' | 'platform-settings' | 'analytics'
+type Section = 'escalations' | 'knowledge-base' | 'admin-assistant' | 'platform-settings' | 'analytics'
+
+const SECTIONS: Section[] = ['escalations', 'analytics', 'knowledge-base', 'admin-assistant', 'platform-settings']
+
+/**
+ * Escalations is the default: a person waiting for help outranks a metric for
+ * every role in the system. After that, people return to wherever they work.
+ */
+function initialSection(): Section {
+  const stored = localStorage.getItem('admin_section')
+  return SECTIONS.includes(stored as Section) ? (stored as Section) : 'escalations'
+}
 
 interface User {
   username: string
@@ -20,11 +33,17 @@ interface User {
 const REQUIRE_AUTH = import.meta.env?.PROD || import.meta.env?.VITE_REQUIRE_AUTH === 'true'
 
 function App() {
-  const [activeSection, setActiveSection] = useState<Section>('analytics')
+  const [activeSection, setActiveSection] = useState<Section>(initialSection)
   const [isAuthenticated, setIsAuthenticated] = useState(!REQUIRE_AUTH)
   const [mustChangePassword, setMustChangePassword] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const [checkingAuth, setCheckingAuth] = useState(REQUIRE_AUTH)
+  const [queueCount, setQueueCount] = useState(0)
+  const [queueUrgent, setQueueUrgent] = useState(false)
+
+  useEffect(() => {
+    localStorage.setItem('admin_section', activeSection)
+  }, [activeSection])
 
   // Check existing session on mount
   useEffect(() => {
@@ -60,7 +79,7 @@ function App() {
           credentials: 'include',
         })
         const data = await res.json()
-        
+
         if (data.authenticated) {
           setIsAuthenticated(true)
           setUser(data.user)
@@ -76,6 +95,29 @@ function App() {
 
     checkSession()
   }, [])
+
+  // Queue count is lifted here so the nav badge is visible from every section.
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    const poll = async () => {
+      try {
+        const res = await fetch('/api/admin-assistant/escalations', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('admin_token') || ''}` },
+        })
+        if (!res.ok) return
+        const json = await res.json()
+        setQueueCount(json.stats?.total ?? 0)
+        setQueueUrgent((json.stats?.byUrgency?.high ?? 0) > 0)
+      } catch {
+        // Badge is advisory; a failed poll leaves the last known count.
+      }
+    }
+
+    poll()
+    const id = setInterval(poll, 15000)
+    return () => clearInterval(id)
+  }, [isAuthenticated])
 
   const handleLogin = (_token: string, userData: User) => {
     setIsAuthenticated(true)
@@ -107,108 +149,68 @@ function App() {
     setUser(null)
   }
 
-  // Show loading spinner while checking auth
   if (checkingAuth) {
     return (
-      <>
-        <div className="bg-animated">
-          <div className="orb-1"></div>
-          <div className="orb-2"></div>
-        </div>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="relative">
-            <div className="w-16 h-16 border-4 border-purple-500/30 rounded-full"></div>
-            <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-purple-500 rounded-full animate-spin"></div>
-          </div>
-        </div>
-      </>
+      <div className="flex min-h-dvh items-center justify-center bg-canvas">
+        <div className="h-12 w-12 animate-spin rounded-full border-2 border-line border-t-flare" />
+      </div>
     )
   }
 
-  // Show login page if not authenticated
   if (!isAuthenticated) {
     return <LoginPage onLogin={handleLogin} />
   }
 
-  // Show password change screen if required
   if (mustChangePassword && user) {
     return <ChangePassword onPasswordChanged={handlePasswordChanged} username={user.username} />
   }
 
   return (
-    <>
-      {/* Animated Background */}
-      <div className="bg-animated">
-        <div className="orb-1"></div>
-        <div className="orb-2"></div>
-      </div>
-
-      <div className="min-h-screen relative">
-        {/* Header */}
-        <header className="glass-card sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg glow-purple">
-                  <span className="text-white text-2xl">🚀</span>
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold text-gray-900">Admin Console</h1>
-                  <p className="text-sm font-medium text-gray-700">Bonga Nami</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="px-4 py-2 bg-emerald-500 text-white rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
-                  <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-                  Live
-                </span>
-                {user && (
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-xl shadow-md border border-gray-200">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-sm font-bold">
-                        {user.username.charAt(0).toUpperCase()}
-                      </div>
-                      <span className="text-sm font-bold text-gray-900">
-                        {user.username}
-                      </span>
-                    </div>
-                    <button
-                      onClick={handleLogout}
-                      className="px-4 py-2 text-sm font-bold text-gray-700 hover:text-white hover:bg-red-500 bg-white rounded-xl shadow-md border border-gray-200 transition-all duration-300"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
+    <div className="min-h-dvh bg-canvas font-sans text-paper">
+      <header className="sticky top-0 z-30 border-b border-line bg-canvas/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+          <div>
+            <p className="text-lg font-bold tracking-tight text-paper">Bonga Nami</p>
+            <p className="text-xs text-muted">Admin Console</p>
           </div>
-        </header>
 
-        {/* Section Switcher - Prominent at top */}
-        <SectionSwitcher 
-          activeSection={activeSection} 
-          onSectionChange={setActiveSection} 
-        />
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-2 rounded-full border border-mint/40 bg-mint/15 px-3 py-1.5 text-xs font-medium text-mint">
+              <span className="h-1.5 w-1.5 rounded-full bg-mint motion-safe:animate-pulse" aria-hidden="true" />
+              Live
+            </span>
 
-        {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-6 py-8">
-          <div className="glass-card-light rounded-3xl p-8 hover-lift">
-            {activeSection === 'platform-settings' && <PlatformSettingsSection />}
-            {activeSection === 'analytics' && <AnalyticsSection />}
-            {activeSection === 'knowledge-base' && <KnowledgeBaseSection />}
-            {activeSection === 'admin-assistant' && <AdminAssistantSection />}
+            {user && (
+              <>
+                <span className="hidden text-sm text-muted sm:inline">{user.username}</span>
+                <button
+                  onClick={handleLogout}
+                  className="inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm font-medium text-muted transition-colors hover:border-flare/50 hover:text-flare focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+                >
+                  <LogOut className="h-4 w-4" aria-hidden="true" />
+                  Log out
+                </button>
+              </>
+            )}
           </div>
-        </main>
+        </div>
+      </header>
 
-        {/* Footer */}
-        <footer className="py-6 text-center">
-          <p className="text-gray-500 text-sm">
-            © 2026 Philip K. Kimani • Built for Kenya 🇰🇪
-          </p>
-        </footer>
-      </div>
-    </>
+      <SectionSwitcher
+        activeSection={activeSection}
+        onSectionChange={setActiveSection}
+        escalationCount={queueCount}
+        escalationUrgent={queueUrgent}
+      />
+
+      <main className="mx-auto max-w-7xl px-6 pb-16">
+        {activeSection === 'escalations' && <EscalationsSection />}
+        {activeSection === 'analytics' && <AnalyticsSection />}
+        {activeSection === 'knowledge-base' && <KnowledgeBaseSection />}
+        {activeSection === 'admin-assistant' && <AdminAssistantSection />}
+        {activeSection === 'platform-settings' && <PlatformSettingsSection />}
+      </main>
+    </div>
   )
 }
 
