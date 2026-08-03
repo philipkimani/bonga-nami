@@ -34,6 +34,9 @@ export default function EscalationsSection() {
   const [stats, setStats] = useState<QueueStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  // "No one is waiting" is a claim about the world. Only make it once a fetch
+  // has actually succeeded — otherwise a network failure reads as good news.
+  const [loadedOnce, setLoadedOnce] = useState(false)
   const [, setTick] = useState(0)
   const [viewing, setViewing] = useState<string | null>(null)
   const [confirming, setConfirming] = useState<EscalationEntry | null>(null)
@@ -49,6 +52,7 @@ export default function EscalationsSection() {
       setQueue(json.queue ?? [])
       setStats(json.stats ?? null)
       setError(null)
+      setLoadedOnce(true)
     } catch {
       setError('Could not load the queue. Check your connection.')
     } finally {
@@ -147,14 +151,16 @@ export default function EscalationsSection() {
       )}
 
       {queue.length === 0 ? (
-        <Card>
-          <EmptyState
-            icon={CheckCircle2}
-            tone="positive"
-            title="No one is waiting"
-            description="Everyone who asked for help has been helped."
-          />
-        </Card>
+        loadedOnce && (
+          <Card>
+            <EmptyState
+              icon={CheckCircle2}
+              tone="positive"
+              title="No one is waiting"
+              description="Everyone who asked for help has been helped."
+            />
+          </Card>
+        )
       ) : (
         <div className="space-y-4">
           {queue.map(entry => (

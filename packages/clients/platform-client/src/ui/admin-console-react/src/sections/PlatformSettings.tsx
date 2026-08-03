@@ -1044,16 +1044,16 @@ export default function PlatformSettingsSection() {
             <div className="flex items-center gap-3">
               <input
                 type="color"
-                value={config.widget?.primaryColor || '#6366f1'}
+                value={config.widget?.primaryColor || '#FF2E88'}
                 onChange={e => setConfig(prev => ({ ...prev, widget: { ...prev.widget, primaryColor: e.target.value } }))}
                 className="w-10 h-10 rounded-lg border border-line cursor-pointer"
               />
               <input
                 type="text"
-                value={config.widget?.primaryColor || '#6366f1'}
+                value={config.widget?.primaryColor || '#FF2E88'}
                 onChange={e => setConfig(prev => ({ ...prev, widget: { ...prev.widget, primaryColor: e.target.value } }))}
                 className="flex-1 px-3 py-2 border border-line rounded-lg text-sm font-mono"
-                placeholder="#6366f1"
+                placeholder="#FF2E88"
               />
             </div>
             <p className="text-xs text-muted mt-1">Used for buttons, links, and user messages</p>
@@ -1063,16 +1063,16 @@ export default function PlatformSettingsSection() {
             <div className="flex items-center gap-3">
               <input
                 type="color"
-                value={config.widget?.secondaryColor || '#8b5cf6'}
+                value={config.widget?.secondaryColor || '#241041'}
                 onChange={e => setConfig(prev => ({ ...prev, widget: { ...prev.widget, secondaryColor: e.target.value } }))}
                 className="w-10 h-10 rounded-lg border border-line cursor-pointer"
               />
               <input
                 type="text"
-                value={config.widget?.secondaryColor || '#8b5cf6'}
+                value={config.widget?.secondaryColor || '#241041'}
                 onChange={e => setConfig(prev => ({ ...prev, widget: { ...prev.widget, secondaryColor: e.target.value } }))}
                 className="flex-1 px-3 py-2 border border-line rounded-lg text-sm font-mono"
-                placeholder="#8b5cf6"
+                placeholder="#241041"
               />
             </div>
             <p className="text-xs text-muted mt-1">Used for hover states and accents</p>
@@ -1251,8 +1251,8 @@ export default function PlatformSettingsSection() {
   window.BONGA_NAMI_CONFIG = {
     agentId: "${config.elevenLabs.agentId}",
     mode: "${config.conversationMode}",
-    primaryColor: "${config.widget?.primaryColor || '#6366f1'}",
-    secondaryColor: "${config.widget?.secondaryColor || '#8b5cf6'}",
+    primaryColor: "${config.widget?.primaryColor || '#FF2E88'}",
+    secondaryColor: "${config.widget?.secondaryColor || '#241041'}",
     position: "${config.widget?.position || 'bottom-right'}",
     widgetWidth: ${config.widget?.widgetWidth ?? 400},
     widgetHeight: ${config.widget?.widgetHeight ?? 600},
@@ -1272,8 +1272,8 @@ export default function PlatformSettingsSection() {
   window.BONGA_NAMI_CONFIG = {
     agentId: "${config.elevenLabs.agentId}",
     mode: "${config.conversationMode}",
-    primaryColor: "${config.widget?.primaryColor || '#6366f1'}",
-    secondaryColor: "${config.widget?.secondaryColor || '#8b5cf6'}",
+    primaryColor: "${config.widget?.primaryColor || '#FF2E88'}",
+    secondaryColor: "${config.widget?.secondaryColor || '#241041'}",
     position: "${config.widget?.position || 'bottom-right'}",
     widgetWidth: ${config.widget?.widgetWidth ?? 400},
     widgetHeight: ${config.widget?.widgetHeight ?? 600},
