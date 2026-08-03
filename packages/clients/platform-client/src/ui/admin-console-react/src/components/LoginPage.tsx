@@ -115,14 +115,6 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
               )}
             </button>
           </form>
-
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-xs text-gray-500 text-center">
-              Default credentials: <code className="bg-gray-100 px-1 rounded">admin</code> / <code className="bg-gray-100 px-1 rounded">admin123</code>
-              <br />
-              <span className="text-red-500 font-medium">Change immediately after first login!</span>
-            </p>
-          </div>
         </div>
 
         {/* Footer */}

@@ -20,6 +20,11 @@
   --gradient-danger: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 }
 
+@keyframes panel-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
