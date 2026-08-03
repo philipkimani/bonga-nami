@@ -3,6 +3,8 @@ import { CheckCircle2, RefreshCw } from 'lucide-react'
 import { Card, CardContent } from '../components/ui/Card'
 import { EmptyState } from '../components/ui/EmptyState'
 import { EscalationCard } from '../components/escalations/EscalationCard'
+import { ConfirmDialog } from '../components/ui/ConfirmDialog'
+import { ConversationPanel } from '../components/ConversationPanel'
 
 export interface EscalationEntry {
   id: string
@@ -33,6 +35,9 @@ export default function EscalationsSection() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [, setTick] = useState(0)
+  const [viewing, setViewing] = useState<string | null>(null)
+  const [confirming, setConfirming] = useState<EscalationEntry | null>(null)
+  const [resolving, setResolving] = useState(false)
 
   const load = useCallback(async () => {
     try {
@@ -50,6 +55,37 @@ export default function EscalationsSection() {
       setLoading(false)
     }
   }, [])
+
+  /**
+   * The resolve route lives under /calls but operates on the unified
+   * cross-channel queue (resolveEscalation); the call-specific branch inside
+   * it is a no-op for non-voice entries. Misleading URL, correct behaviour.
+   */
+  const markHandled = useCallback(async () => {
+    if (!confirming) return
+    setResolving(true)
+    try {
+      const res = await fetch(`/api/admin-assistant/calls/queue/${confirming.id}/resolve`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('admin_token') || ''}`,
+        },
+        body: JSON.stringify({
+          agentId: JSON.parse(localStorage.getItem('admin_user') || '{}').username || 'unknown',
+        }),
+      })
+      if (!res.ok) throw new Error('resolve failed')
+      setQueue(q => q.filter(e => e.id !== confirming.id))
+      setConfirming(null)
+      load()
+    } catch {
+      setError('Could not mark that as handled. Please try again.')
+      setConfirming(null)
+    } finally {
+      setResolving(false)
+    }
+  }, [confirming, load])
 
   useEffect(() => { load() }, [load])
 
@@ -125,12 +161,23 @@ export default function EscalationsSection() {
             <EscalationCard
               key={entry.id}
               entry={entry}
-              onMarkHandled={() => {}}
-              onViewConversation={() => {}}
+              onMarkHandled={setConfirming}
+              onViewConversation={e => setViewing(e.conversationId)}
             />
           ))}
         </div>
       )}
+
+      <ConversationPanel conversationId={viewing} onClose={() => setViewing(null)} />
+
+      <ConfirmDialog
+        open={!!confirming}
+        title="Mark as handled?"
+        message={`This removes ${confirming?.contactName || 'this person'} from everyone's queue. Only do this once you have actually helped them.`}
+        confirmLabel={resolving ? 'Saving…' : 'Yes, handled'}
+        onConfirm={markHandled}
+        onCancel={() => setConfirming(null)}
+      />
     </div>
   )
 }
