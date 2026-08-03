@@ -4,11 +4,11 @@ A retrieval-grounded conversational assistant answering **puberty and menstrual 
 questions for **girls aged 12–16 in Kenya**, limited to a curated corpus and honest when
 the answer isn't in it.
 
-**Live:** https://bonga-nami.onrender.com/ai_agent/
-The page is both the working assistant (widget, bottom right) and the presentation.
+**Live:** [open the assistant](https://bonga-nami.onrender.com/ai_agent/) —
+the page is both the working assistant (widget, bottom right) and the presentation.
 
-**Admin console:** https://bonga-nami.onrender.com/
-Where the corpus is uploaded and conversations are reviewed.
+**Admin console:** [open the console](https://bonga-nami.onrender.com/) —
+where the corpus is uploaded and conversations are reviewed.
 
 Built for the Mwihoko Super Jamii clinic deployment.
 Philip K. Kimani · philipkimanidev@gmail.com
@@ -143,7 +143,7 @@ harness reads from.
 
 ### Admin console — the operator's surface
 
-**https://bonga-nami.onrender.com/** (authenticated)
+**[Open the admin console](https://bonga-nami.onrender.com/)** (authenticated)
 
 Everything a programme team needs to run the assistant lives here, so that changing what it
 knows or reviewing what it said does not require a developer or a redeploy.
@@ -184,7 +184,7 @@ context five times. One generated program collapses them into a single execution
 | Answer length | 2–4 sentences | Long answers lose this audience. |
 
 The prompt is reproduced in full below, and is the exact text deployed —
-[`agent_configs/Bonga-Nami.json`](agent_configs/Bonga-Nami.json) is the source of truth.
+`agent_configs/Bonga-Nami.json` is the source of truth.
 
 ### The system prompt
 
@@ -415,7 +415,7 @@ generator**, since models systematically prefer their own output: the primary ra
 `claude-sonnet-4-5` (Anthropic) against a `gemini-2.5-flash` generator. `gpt-4.1` and
 `gemini-2.5-flash` run as additional raters over the same fixed replies, which gives an
 agreement figure and lets self-preference be measured rather than assumed. See section 7 and
-[`eval/JUDGES.md`](eval/JUDGES.md).
+`eval/JUDGES.md`.
 
 **Reproducibility** — `temperature: 0` means the same input yields the same output, so a rerun
 after a prompt change measures the change rather than sampling noise.
@@ -427,12 +427,12 @@ the same harness can be pointed at real transcripts.
 
 ## 7. Results
 
-85 cases, agent at `temperature: 0`, run via [`eval/run_eval.py`](eval/run_eval.py).
+85 cases, agent at `temperature: 0`, run via `eval/run_eval.py`.
 
-**Detailed analysis: [`eval/ANALYSIS.md`](eval/ANALYSIS.md)** — the investigation, per-metric
+**Detailed analysis: `eval/ANALYSIS.md`** — the investigation, per-metric
 evidence, method limitations, and what the evaluation does not establish.
-Every question and answer in full: [`eval/TRANSCRIPTS.md`](eval/TRANSCRIPTS.md)
-Generated report: [`eval/results.md`](eval/results.md) · raw: [`eval/results.json`](eval/results.json)
+Every question and answer in full: `eval/TRANSCRIPTS.md`
+Generated report: `eval/results.md` · raw: `eval/results.json`
 
 | Metric | Target | Result | Verdict |
 |---|---|---|---|
@@ -447,11 +447,11 @@ answer ungrounded and returned no myth-correction verdict: the reply states anat
 the corpus does not contain, so there is no corpus-based correction to assess against. The
 case is counted as a groundedness failure (52/54) rather than excluded. `gpt-4.1` and `gemini-2.5-flash` did return a
 verdict on it and scored 14/14, which is why the denominators differ in
-[`eval/JUDGES.md`](eval/JUDGES.md).
+`eval/JUDGES.md`.
 
 Judged metrics use **`claude-sonnet-4-5`** as primary rater — a different model family from
 the generator (`gemini-2.5-flash`). Two further judges were run for agreement:
-[`eval/JUDGES.md`](eval/JUDGES.md).
+`eval/JUDGES.md`.
 
 **Judge design.** Groundedness and myth correction need a model to judge them. Three were run
 over the **same 85 saved replies**, so the judge was the only variable:

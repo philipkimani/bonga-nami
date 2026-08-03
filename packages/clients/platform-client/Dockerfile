@@ -1,5 +1,5 @@
 # ============================================================================
-# Ruskins AI Platform — Platform Client Dockerfile
+# Bonga Nami — Platform Client Dockerfile
 # ============================================================================
 # 
 # ARCHITECTURE: True PaaS

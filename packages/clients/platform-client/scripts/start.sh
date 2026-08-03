@@ -1,6 +1,6 @@
 #!/bin/sh
 # ============================================================================
-# Ruskins AI Platform — Production Startup Script
+# Bonga Nami — Production Startup Script
 # ============================================================================
 #
 # RUNTIME ONLY - No database operations
@@ -16,7 +16,7 @@
 # ============================================================================
 
 echo "============================================================"
-echo "  🚀 Ruskins AI Platform - Starting..."
+echo "  🚀 Bonga Nami - Starting..."
 echo "============================================================"
 
 # Start the server immediately - no database operations

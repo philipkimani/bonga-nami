@@ -154,7 +154,7 @@ function App() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-gray-900">Admin Console</h1>
-                  <p className="text-sm font-medium text-gray-700">Ruskins AI Platform</p>
+                  <p className="text-sm font-medium text-gray-700">Bonga Nami</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
@@ -204,7 +204,7 @@ function App() {
         {/* Footer */}
         <footer className="py-6 text-center">
           <p className="text-gray-500 text-sm">
-            © 2026 Ruskins AI Platform • Built for Kenya 🇰🇪
+            © 2026 Philip K. Kimani • Built for Kenya 🇰🇪
           </p>
         </footer>
       </div>

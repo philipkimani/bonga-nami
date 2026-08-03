@@ -654,7 +654,7 @@ def transcripts(results):
          f"_{len(results)} cases_\n",
          "Answers are reproduced in full, untruncated. "
          "`PASS`/`FAIL` is the verdict for that case's category — see "
-         "[ANALYSIS.md](ANALYSIS.md) for how each is scored.\n"]
+         "the evaluation analysis for how each is scored.\n"]
 
     for cat in sorted({r["case"]["category"] for r in results.values()}, key=lambda c: order.get(c, 9)):
         name, rule = titles.get(cat, (cat, ""))

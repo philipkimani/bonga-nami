@@ -14,14 +14,12 @@ interface ChatWidgetProps {
   className?: string;
   renderTrigger?: (props: { isOpen: boolean; onClick: () => void }) => React.ReactNode;
   renderHeader?: (props: { onClose: () => void }) => React.ReactNode;
-  renderFooter?: () => React.ReactNode;
 }
 
 export function ChatWidgetV2({
   className,
   renderTrigger,
   renderHeader,
-  renderFooter,
 }: ChatWidgetProps) {
   const { isOpen, toggleWidget } = useChatStateV2();
   const theme = useChatThemeV2();
@@ -65,10 +63,7 @@ export function ChatWidgetV2({
             ...windowHorizontal,
           }}
         >
-          <ChatWindow 
-            renderHeader={renderHeader}
-            renderFooter={renderFooter}
-          />
+          <ChatWindow renderHeader={renderHeader} />
         </div>
       )}
 

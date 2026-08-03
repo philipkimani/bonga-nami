@@ -16,7 +16,7 @@ export function TypingIndicator() {
         display: 'flex',
         alignItems: 'flex-end',
         gap: '8px',
-        animation: 'ruskins-msg-in 250ms ease-out',
+        animation: 'bn-msg-in 250ms ease-out',
       }}
     >
       {/* Bot avatar - matches Message component */}
@@ -61,7 +61,7 @@ export function TypingIndicator() {
               height: '7px',
               borderRadius: '50%',
               backgroundColor: theme.textColorMuted,
-              animation: 'ruskins-typing-wave 1.2s ease-in-out infinite',
+              animation: 'bn-typing-wave 1.2s ease-in-out infinite',
               animationDelay: `${i * 0.15}s`,
             }}
           />
@@ -69,7 +69,7 @@ export function TypingIndicator() {
       </div>
 
       <style>{`
-        @keyframes ruskins-typing-wave {
+        @keyframes bn-typing-wave {
           0%, 60%, 100% {
             opacity: 0.35;
             transform: translateY(0);
@@ -79,7 +79,7 @@ export function TypingIndicator() {
             transform: translateY(-6px);
           }
         }
-        @keyframes ruskins-msg-in {
+        @keyframes bn-msg-in {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }

@@ -179,7 +179,6 @@ router.get("/", (req: any, res: any) => {
   res.json({
     title: "ElevenLabs Code Execution Configuration",
     version: "3.2.0",
-    documentation: "https://github.com/buddha-maitreya/ruskins-ai-platform",
     
     endpoints: {
       execute: `${baseUrl}/webhooks/execute`,

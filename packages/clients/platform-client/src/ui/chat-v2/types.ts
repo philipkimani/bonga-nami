@@ -229,7 +229,7 @@ export interface ChatProviderV2Props {
   children: ReactNode;
   agentId: string;
   config?: Partial<Omit<ChatConfigV2, 'agentId'>>;
-  theme?: 'default' | 'dark' | 'ruskins' | 'kenya' | 'minimal' | Partial<ChatThemeV2>;
+  theme?: 'default' | 'dark' | 'brand' | 'kenya' | 'minimal' | Partial<ChatThemeV2>;
 }
 
 // =============================================================================

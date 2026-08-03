@@ -38,8 +38,8 @@ export default function ChatWidget({
   primaryColor = '#6366f1',
   title = 'Voice Assistant',
   subtitle = 'Click the mic to start talking',
-  poweredByText = 'Powered by Ruskins AI Consulting',
-  poweredByLink = 'https://ruskinsconsulting.com',
+  poweredByText = 'Bonga Nami',
+  poweredByLink = '',
 }: ChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(false);

@@ -174,8 +174,8 @@ router.get("/public", (req, res) => {
         buttonSize: config.widget?.buttonSize ?? 56,
         borderRadius: config.widget?.borderRadius ?? 16,
         showLanguageSelector: config.widget?.showLanguageSelector !== false,
-        poweredByText: config.widget?.poweredByText || 'Powered by Ruskins AI',
-        poweredByLink: config.widget?.poweredByLink ?? 'https://ruskinsconsulting.com',
+        poweredByText: config.widget?.poweredByText || 'Bonga Nami',
+        poweredByLink: config.widget?.poweredByLink ?? '',
         showPoweredBy: config.widget?.showPoweredBy !== false,
       },
       branding: {

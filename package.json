@@ -1,7 +1,7 @@
 {
-  "name": "ruskins-ai-platform",
+  "name": "bonga-nami-platform",
   "version": "3.1.0",
-  "description": "Ruskins AI Platform (PaaS) - Conversational AI for East Africa",
+  "description": "Bonga Nami (PaaS) - Conversational AI for East Africa",
   "private": true,
   "type": "module",
   "workspaces": [

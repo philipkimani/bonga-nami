@@ -32,8 +32,8 @@ export const defaultConfigV2: ChatConfigV2 = {
   
   // Branding
   showPoweredBy: true,
-  poweredByText: 'Powered by Ruskins AI',
-  poweredByLink: 'https://ruskinsconsulting.com',
+  poweredByText: 'Bonga Nami',
+  poweredByLink: '',
 
   // Client tools — empty by default, built-in tools are always available
   clientTools: {},
@@ -104,7 +104,7 @@ const darkTheme: ChatThemeV2 = {
   assistantMessageText: '#f3f4f6',
 };
 
-const ruskinsTheme: ChatThemeV2 = {
+const brandTheme: ChatThemeV2 = {
   ...baseTheme,
   primaryColor: '#BB0000',
   primaryColorHover: '#990000',
@@ -131,8 +131,8 @@ export function getPresetThemeV2(preset: string): ChatThemeV2 {
   switch (preset) {
     case 'dark':
       return darkTheme;
-    case 'ruskins':
-      return ruskinsTheme;
+    case 'brand':
+      return brandTheme;
     case 'kenya':
       return kenyaTheme;
     case 'minimal':

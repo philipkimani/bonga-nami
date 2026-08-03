@@ -1,7 +1,7 @@
 {
   "name": "@platform/client",
   "version": "1.0.0",
-  "description": "Ruskins Platform Client - Universal deployment with env-based feature flags",
+  "description": "Bonga Nami platform client — universal deployment with env-based feature flags",
   "type": "module",
   "scripts": {
     "dev": "tsx src/server.ts",

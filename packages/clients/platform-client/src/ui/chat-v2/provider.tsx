@@ -224,8 +224,8 @@ export function ChatProviderV2({
     });
     // Read custom tools from client site config (may be set after widget mount)
     const windowClientTools =
-      typeof window !== 'undefined' && (window as any).RUSKINS_CONFIG?.clientTools
-        ? (window as any).RUSKINS_CONFIG.clientTools
+      typeof window !== 'undefined' && (window as any).BONGA_NAMI_CONFIG?.clientTools
+        ? (window as any).BONGA_NAMI_CONFIG.clientTools
         : {};
     return mergeClientTools(builtins, { ...windowClientTools, ...config.clientTools });
   }, [addCardMessage, showToast, config.allowExternalNavigation, config.clientTools]);
@@ -384,10 +384,10 @@ export function ChatProviderV2({
 
       // Read dynamic variables from client site config at session-start time
       // (not at mount time — client's auth may still be resolving at mount).
-      // Client sites set window.RUSKINS_CONFIG.dynamicVariables = { user_name, ... }
+      // Client sites set window.BONGA_NAMI_CONFIG.dynamicVariables = { user_name, ... }
       const clientDynamicVars =
-        typeof window !== 'undefined' && (window as any).RUSKINS_CONFIG?.dynamicVariables
-          ? (window as any).RUSKINS_CONFIG.dynamicVariables
+        typeof window !== 'undefined' && (window as any).BONGA_NAMI_CONFIG?.dynamicVariables
+          ? (window as any).BONGA_NAMI_CONFIG.dynamicVariables
           : {};
 
       // Tell the agent which mode this session is in via dynamic variables.

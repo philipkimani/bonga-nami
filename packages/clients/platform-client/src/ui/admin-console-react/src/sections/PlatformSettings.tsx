@@ -1202,44 +1202,7 @@ export default function PlatformSettingsSection() {
               className="w-5 h-5 accent-indigo-600 rounded"
             />
           </label>
-          <label className="flex items-center justify-between">
-            <div>
-              <span className="text-sm font-medium text-gray-700">Show "Powered By" Footer</span>
-              <p className="text-xs text-gray-400">Display branding footer at the bottom of the widget</p>
-            </div>
-            <input
-              type="checkbox"
-              checked={config.widget?.showPoweredBy !== false}
-              onChange={e => setConfig(prev => ({ ...prev, widget: { ...prev.widget, showPoweredBy: e.target.checked } }))}
-              className="w-5 h-5 accent-indigo-600 rounded"
-            />
-          </label>
         </div>
-
-        {/* Powered By Text */}
-        {config.widget?.showPoweredBy !== false && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Powered By Text</label>
-              <input
-                type="text"
-                value={config.widget?.poweredByText || 'Powered by Ruskins AI'}
-                onChange={e => setConfig(prev => ({ ...prev, widget: { ...prev.widget, poweredByText: e.target.value } }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Powered By Link</label>
-              <input
-                type="text"
-                value={config.widget?.poweredByLink || 'https://ruskinsconsulting.com'}
-                onChange={e => setConfig(prev => ({ ...prev, widget: { ...prev.widget, poweredByLink: e.target.value } }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
-                placeholder="https://..."
-              />
-            </div>
-          </div>
-        )}
 
 
       </div>
@@ -1288,9 +1251,9 @@ export default function PlatformSettingsSection() {
           
           <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
             <pre className="text-sm text-green-400 font-mono whitespace-pre-wrap">
-{`<!-- Ruskins AI Chat Widget -->
+{`<!-- Bonga Nami Chat Widget -->
 <script>
-  window.RUSKINS_CONFIG = {
+  window.BONGA_NAMI_CONFIG = {
     agentId: "${config.elevenLabs.agentId}",
     mode: "${config.conversationMode}",
     primaryColor: "${config.widget?.primaryColor || '#6366f1'}",
@@ -1309,9 +1272,9 @@ export default function PlatformSettingsSection() {
           <div className="mt-4 flex gap-3">
             <button
               onClick={() => {
-                const code = `<!-- Ruskins AI Chat Widget -->
+                const code = `<!-- Bonga Nami Chat Widget -->
 <script>
-  window.RUSKINS_CONFIG = {
+  window.BONGA_NAMI_CONFIG = {
     agentId: "${config.elevenLabs.agentId}",
     mode: "${config.conversationMode}",
     primaryColor: "${config.widget?.primaryColor || '#6366f1'}",
@@ -1379,7 +1342,7 @@ export default function PlatformSettingsSection() {
 
       {/* Footer */}
       <div className="text-center text-sm text-gray-400 py-4">
-        © 2026 Ruskins AI Consulting LTD
+        © 2026 Philip K. Kimani
       </div>
     </div>
   )

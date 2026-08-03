@@ -46,12 +46,12 @@ export function ChatMessages() {
       {voiceCallActive && (
         <>
           <style>{`
-            @keyframes ruskins-pulse-ring {
+            @keyframes bn-pulse-ring {
               0% { transform: scale(0.85); opacity: 0.6; }
               50% { transform: scale(1.15); opacity: 0.15; }
               100% { transform: scale(0.85); opacity: 0.6; }
             }
-            @keyframes ruskins-pulse-dot {
+            @keyframes bn-pulse-dot {
               0%, 100% { transform: scale(1); }
               50% { transform: scale(1.08); }
             }
@@ -77,7 +77,7 @@ export function ChatMessages() {
                   inset: 0,
                   borderRadius: '50%',
                   border: `2px solid ${theme.primaryColor}`,
-                  animation: 'ruskins-pulse-ring 2s ease-in-out infinite',
+                  animation: 'bn-pulse-ring 2s ease-in-out infinite',
                 }}
               />
               <div
@@ -89,7 +89,7 @@ export function ChatMessages() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  animation: isConnected && isSpeaking ? 'ruskins-pulse-dot 1s ease-in-out infinite' : 'none',
+                  animation: isConnected && isSpeaking ? 'bn-pulse-dot 1s ease-in-out infinite' : 'none',
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -150,10 +150,10 @@ const ChatIllustration = ({ color }: { color: string }) => (
 const SpinnerIcon = ({ color }: { color: string }) => (
   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2">
     <style>{`
-      @keyframes ruskins-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes bn-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     `}</style>
     <circle cx="12" cy="12" r="10" strokeOpacity="0.2" />
-    <path d="M12 2a10 10 0 0 1 10 10" style={{ animation: 'ruskins-spin 1s linear infinite', transformOrigin: 'center' }} />
+    <path d="M12 2a10 10 0 0 1 10 10" style={{ animation: 'bn-spin 1s linear infinite', transformOrigin: 'center' }} />
   </svg>
 );
 
@@ -200,7 +200,7 @@ function EmptyState({ isConnected, isConnecting, error }: EmptyStateProps) {
         color: theme.textColorMuted,
         textAlign: 'center',
         padding: theme.spacingLg,
-        animation: 'ruskins-msg-in 400ms ease-out',
+        animation: 'bn-msg-in 400ms ease-out',
       }}
     >
       {illustration}
@@ -221,7 +221,7 @@ function EmptyState({ isConnected, isConnecting, error }: EmptyStateProps) {
       </div>
 
       <style>{`
-        @keyframes ruskins-msg-in {
+        @keyframes bn-msg-in {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }

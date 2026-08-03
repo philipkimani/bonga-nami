@@ -326,19 +326,16 @@ export default function ToolsSection() {
             { icon: '🎧', name: 'Customer Service', file: 'customer-service-patterns.json' },
             { icon: '📖', name: 'Knowledge Base', file: 'knowledge-patterns.json' },
           ].map((template) => (
-            <a
+            <div
               key={template.file}
-              href={`https://github.com/ArtisanLabs/ruskins-ai-platform/blob/main/docs/tool-templates/${template.file}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-orange-300 hover:bg-orange-50 transition-colors"
+              className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl"
             >
               <span className="text-2xl">{template.icon}</span>
               <div>
                 <h4 className="font-medium text-gray-900">{template.name}</h4>
                 <p className="text-xs text-gray-500">{template.file}</p>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>

@@ -188,7 +188,7 @@ export default function KnowledgeBaseSection() {
               ))}
             </nav>
             <div className="p-4 border-t text-xs text-gray-400 text-center">
-              <p>© 2026 Ruskins AI Consulting LTD</p>
+              <p>© 2026 Philip K. Kimani</p>
             </div>
           </div>
         </div>

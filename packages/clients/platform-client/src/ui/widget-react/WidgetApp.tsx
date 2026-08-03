@@ -1,5 +1,5 @@
 /**
- * Ruskins AI Chat Widget - React App Entry
+ * Bonga Nami Chat Widget - React App Entry
  *
  * This is the React application that powers the embeddable chat widget.
  * It uses Chat V2 components backed by the @elevenlabs/react SDK.
@@ -52,8 +52,8 @@ interface PlatformConfig {
 
 // Get platform URL from embed loader (or use current origin for standalone)
 function getPlatformUrl(): string {
-  if (typeof window !== 'undefined' && (window as any).__RUSKINS_PLATFORM_URL__) {
-    return (window as any).__RUSKINS_PLATFORM_URL__;
+  if (typeof window !== 'undefined' && (window as any).__BONGA_NAMI_PLATFORM_URL__) {
+    return (window as any).__BONGA_NAMI_PLATFORM_URL__;
   }
   if (typeof window !== 'undefined') {
     return window.location.origin;
@@ -63,11 +63,11 @@ function getPlatformUrl(): string {
 
 // Get user-provided config overrides from embed code
 function getUserConfig(): Record<string, any> {
-  if (typeof window !== 'undefined' && (window as any).__RUSKINS_USER_CONFIG__) {
-    return (window as any).__RUSKINS_USER_CONFIG__;
+  if (typeof window !== 'undefined' && (window as any).__BONGA_NAMI_USER_CONFIG__) {
+    return (window as any).__BONGA_NAMI_USER_CONFIG__;
   }
-  if (typeof window !== 'undefined' && (window as any).RUSKINS_CONFIG) {
-    return (window as any).RUSKINS_CONFIG;
+  if (typeof window !== 'undefined' && (window as any).BONGA_NAMI_CONFIG) {
+    return (window as any).BONGA_NAMI_CONFIG;
   }
   return {};
 }
@@ -104,7 +104,7 @@ async function loadPlatformConfig(): Promise<PlatformConfig | null> {
 
     // Warn if embed code tries to override conversation mode (now Admin Console only)
     if (userConfig.mode) {
-      console.warn('[Widget] RUSKINS_CONFIG.mode is deprecated — conversation mode is now controlled via Admin Console. Ignoring embed override.');
+      console.warn('[Widget] BONGA_NAMI_CONFIG.mode is deprecated — conversation mode is now controlled via Admin Console. Ignoring embed override.');
     }
 
     // Merge user config overrides (from embed code) with server config
@@ -178,8 +178,8 @@ function WidgetApp() {
     title: config.widget.title || config.branding.companyName || 'AI Assistant',
     subtitle: config.widget.subtitle || 'How can I help you today?',
     position: config.widget.position || 'bottom-right',
-    poweredByText: config.widget.poweredByText || 'Powered by Ruskins AI',
-    poweredByLink: config.widget.poweredByLink ?? 'https://ruskinsconsulting.com',
+    poweredByText: config.widget.poweredByText || 'Bonga Nami',
+    poweredByLink: config.widget.poweredByLink ?? '',
     showPoweredBy: config.widget.showPoweredBy !== false,
     signedUrlEndpoint: `${platformUrl}/api/elevenlabs/signed-url`,
     clientTools: getUserConfig().clientTools || undefined,
@@ -274,7 +274,7 @@ function adjustColor(hex: string, amount: number): string {
 
 // Auto-mount if running as standalone
 if (typeof window !== 'undefined') {
-  const mountPoint = document.getElementById('ruskins-chat-widget');
+  const mountPoint = document.getElementById('bonga-nami-chat-widget');
   if (mountPoint) {
     const root = createRoot(mountPoint);
     root.render(<WidgetApp />);

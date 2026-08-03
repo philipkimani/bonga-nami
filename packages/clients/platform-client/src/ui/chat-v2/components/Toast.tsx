@@ -58,7 +58,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
         fontSize: theme.fontSizeSmall,
         fontFamily: theme.fontFamily,
         lineHeight: 1.4,
-        animation: 'ruskins-toast-in 250ms ease-out',
+        animation: 'bn-toast-in 250ms ease-out',
         position: 'relative',
       }}
     >
@@ -98,7 +98,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
       </button>
 
       <style>{`
-        @keyframes ruskins-toast-in {
+        @keyframes bn-toast-in {
           from { opacity: 0; transform: translateY(-8px); }
           to { opacity: 1; transform: translateY(0); }
         }

@@ -703,7 +703,7 @@ async function startServer() {
       });
       
       console.log(`\n${"=".repeat(60)}`);
-      console.log(`  🚀 Ruskins AI Platform Running`);
+      console.log(`  🚀 Bonga Nami Running`);
       console.log(`${"=".repeat(60)}`);
       console.log(`  Admin Console: http://${HOST}:${PORT}/`);
       console.log(`  AI Agent:      http://${HOST}:${PORT}/ai_agent`);

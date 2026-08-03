@@ -57,7 +57,7 @@ export function Message({ message }: MessageProps) {
           alignItems: 'flex-end',
           gap: '8px',
           marginBottom: '4px',
-          animation: 'ruskins-msg-in 250ms ease-out',
+          animation: 'bn-msg-in 250ms ease-out',
           maxWidth: '88%',
         }}
       >
@@ -80,7 +80,7 @@ export function Message({ message }: MessageProps) {
         </div>
 
         <style>{`
-          @keyframes ruskins-msg-in {
+          @keyframes bn-msg-in {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
           }
@@ -101,7 +101,7 @@ export function Message({ message }: MessageProps) {
         alignItems: 'flex-end',
         gap: '8px',
         marginBottom: '4px',
-        animation: 'ruskins-msg-in 250ms ease-out',
+        animation: 'bn-msg-in 250ms ease-out',
       }}
     >
       {/* Bot avatar */}
@@ -140,7 +140,7 @@ export function Message({ message }: MessageProps) {
       </div>
 
       <style>{`
-        @keyframes ruskins-msg-in {
+        @keyframes bn-msg-in {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }

@@ -52,7 +52,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
             <span className="text-3xl">🚀</span>
           </div>
           <h1 className="text-2xl font-bold text-white">Admin Console</h1>
-          <p className="text-gray-400 mt-1">Ruskins AI Platform</p>
+          <p className="text-gray-400 mt-1">Bonga Nami</p>
         </div>
 
         {/* Login Card */}
@@ -127,7 +127,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
 
         {/* Footer */}
         <p className="text-center text-gray-500 text-sm mt-6">
-          © 2026 Ruskins Consulting
+          © 2026 Philip K. Kimani
         </p>
       </div>
     </div>

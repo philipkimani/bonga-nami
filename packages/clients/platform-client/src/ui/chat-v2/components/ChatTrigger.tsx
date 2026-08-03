@@ -27,12 +27,12 @@ export function ChatTrigger() {
   return (
     <>
       <style>{`
-        @keyframes ruskins-trigger-pulse {
+        @keyframes bn-trigger-pulse {
           0% { box-shadow: 0 0 0 0 ${theme.primaryColor}66; }
           70% { box-shadow: 0 0 0 14px ${theme.primaryColor}00; }
           100% { box-shadow: 0 0 0 0 ${theme.primaryColor}00; }
         }
-        @keyframes ruskins-trigger-rotate-in {
+        @keyframes bn-trigger-rotate-in {
           from { transform: rotate(0deg) scale(0.8); opacity: 0; }
           to { transform: rotate(0deg) scale(1); opacity: 1; }
         }
@@ -55,7 +55,7 @@ export function ChatTrigger() {
           boxShadow: `0 4px 14px ${theme.primaryColor}40`,
           transition: `all 300ms ${theme.transitionEasing}`,
           transform: 'scale(1)',
-          animation: isOpen ? 'none' : 'ruskins-trigger-pulse 2s ease-out infinite',
+          animation: isOpen ? 'none' : 'bn-trigger-pulse 2s ease-out infinite',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -87,7 +87,7 @@ export function ChatTrigger() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            animation: 'ruskins-trigger-rotate-in 200ms ease-out',
+            animation: 'bn-trigger-rotate-in 200ms ease-out',
           }}
         >
           {isOpen ? <CloseIcon /> : <MessageIcon />}

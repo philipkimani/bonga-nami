@@ -1,5 +1,5 @@
 // ============================================================================
-// Ruskins AI Platform — Database Schema
+// Bonga Nami — Database Schema
 // ============================================================================
 //
 // This schema stores platform configuration that persists across restarts.
@@ -118,8 +118,8 @@ model PlatformConfig {
   widgetButtonSize           Int      @default(56)              // Trigger button size in pixels
   widgetBorderRadius         Int      @default(16)              // Border radius in pixels
   widgetShowLanguageSelector Boolean  @default(true)            // Show language picker in widget
-  widgetPoweredByText        String   @default("Powered by Ruskins AI")
-  widgetPoweredByLink        String   @default("https://ruskinsconsulting.com")
+  widgetPoweredByText        String   @default("Bonga Nami")
+  widgetPoweredByLink        String   @default("")
   widgetShowPoweredBy        Boolean  @default(true)
   widgetAllowedDomains       String[] @default([])              // Domains allowed to embed widget (empty = all)
   

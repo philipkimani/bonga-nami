@@ -13,7 +13,7 @@
  * 
  * export function App() {
  *   return (
- *     <ChatProviderV2 agentId="your-agent-id" theme="ruskins">
+ *     <ChatProviderV2 agentId="your-agent-id" theme="brand">
  *       <ChatWidgetV2 />
  *     </ChatProviderV2>
  *   );
