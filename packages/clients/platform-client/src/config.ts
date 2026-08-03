@@ -13,7 +13,7 @@
  * DEPLOYMENT MODEL: Single-Tenant Instances
  * - Each client gets their own server, DB, Twilio account
  * - Full data isolation for Kenya DPA 2019 compliance
- * - Client is data controller, the platform is the software vendor
+ * - Client is data controller, Ruskins is software vendor
  */
 
 // ============================================================================

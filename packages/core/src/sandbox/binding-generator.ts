@@ -71,7 +71,7 @@ function generateTypeScriptBindings(
   lines.push(' * Auto-generated MCP Tool Bindings')
   lines.push(` * Generated at: ${new Date().toISOString()}`)
   lines.push(' * ')
-  lines.push(' * DO NOT EDIT - Regenerate using: npx generate-bindings')
+  lines.push(' * DO NOT EDIT - Regenerate using: npx ruskins-generate-bindings')
   lines.push(' */')
   lines.push('')
   

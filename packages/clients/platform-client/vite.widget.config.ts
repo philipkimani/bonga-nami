@@ -39,7 +39,7 @@ export default defineConfig({
     // Build the widget as a library
     lib: {
       entry: resolve(__dirname, 'src/ui/widget-react/WidgetApp.tsx'),
-      name: 'BongaNamiWidget',
+      name: 'RuskinsWidget',
       fileName: 'widget.bundle',
       formats: ['iife'], // Immediately Invoked Function Expression for script tag
     },

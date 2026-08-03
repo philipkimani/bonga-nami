@@ -1,7 +1,7 @@
 {
   "name": "@platform/core",
   "version": "3.0.0",
-  "description": "Bonga Nami - Core Engine (Backend utilities)",
+  "description": "Ruskins Chatbot Platform - Core Engine (Backend utilities)",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

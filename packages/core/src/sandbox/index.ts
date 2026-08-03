@@ -1,5 +1,5 @@
 /**
- * @platform/code-execution-sandbox
+ * @ruskins/code-execution-sandbox
  * 
  * A secure, scalable code execution sandbox for MCP tool orchestration.
  * This module allows LLMs to generate and execute code that calls multiple

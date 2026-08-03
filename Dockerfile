@@ -1,5 +1,5 @@
 # ============================================================================
-# Bonga Nami — Production Dockerfile
+# Ruskins AI Platform — Production Dockerfile
 # ============================================================================
 # 
 # ARCHITECTURE:

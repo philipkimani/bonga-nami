@@ -1,6 +1,6 @@
 #!/bin/sh
 # ============================================================================
-# Bonga Nami — Database Setup Script (One-Time Onboarding)
+# Ruskins AI Platform — Database Setup Script (One-Time Onboarding)
 # ============================================================================
 #
 # RUN THIS ONCE per client during onboarding, NOT on every container restart.
@@ -21,7 +21,7 @@
 set -e
 
 echo "============================================================"
-echo "  📦 Bonga Nami - Database Setup"
+echo "  📦 Ruskins AI Platform - Database Setup"
 echo "============================================================"
 echo ""
 
