@@ -3,30 +3,45 @@
 @tailwind utilities;
 
 /**
- * Lifted a step off the deck's #241041. That value is designed for small doses
- * behind large type; a dashboard is mostly background, where it reads as a flat
- * near-black slab. Same hue, more light, and clearer separation between the
- * three surfaces so cards actually sit above the page.
+ * Light theme on the deck's bone white. Chosen over dark because the people
+ * using this are health workers on phones in daylight and staff in bright
+ * rooms — not developers at night.
+ *
+ * Token names describe ROLE, not colour, so the same class names work in
+ * either theme: canvas/canvas-2/deep are surfaces, paper/muted are text.
+ *
+ * Accents come in two tiers. The bright value is a FILL (button, stripe,
+ * chart bar). The -ink value is for TEXT and icons: #23D9B0 on bone white is
+ * 1.7:1 and effectively invisible, so text never uses the bright tier.
  */
 :root {
-  --canvas:   #2B1552;
-  --canvas-2: #3A1E6E;
-  --deep:     #1F0F3E;
-  --paper:    #FBF8FF;
-  --muted:    #C4B5DE;
-  --line:     rgba(196, 181, 222, 0.26);
+  /* Surfaces */
+  --canvas:   #FBF8FF;   /* page */
+  --canvas-2: #FFFFFF;   /* cards */
+  --deep:     #F2ECFB;   /* recessed wells, table headers, inputs */
+
+  /* Text */
+  --paper:    #241041;   /* primary — the deck's canvas, now the ink */
+  --muted:    #6E5D8F;   /* secondary, 5.5:1 on canvas */
+  --line:     rgba(36, 16, 65, 0.14);
+
+  /* Accents — bright = fills */
   --flare:    #FF2E88;
   --sun:      #FFC94A;
   --mint:     #23D9B0;
+
+  /* Accents — ink = text and icons, all >= 4.5:1 on canvas */
+  --flare-ink: #B81660;  /* 6.1:1 */
+  --sun-ink:   #8A5A00;  /* 5.9:1 */
+  --mint-ink:  #0B7F65;  /* 5.2:1 */
 }
 
 body {
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  /* One soft warm wash from above so the page isn't a uniform slab. Static, no
-     animation — this is the thing the old drifting orbs were reaching for. */
+  /* A whisper of brand warmth from the top so the page isn't clinical white.
+     Static — this is what the old drifting orbs were reaching for. */
   background:
-    radial-gradient(1100px 520px at 50% -12%, rgba(255, 46, 136, 0.10), transparent 62%),
-    radial-gradient(900px 480px at 92% 8%, rgba(35, 217, 176, 0.06), transparent 60%),
+    radial-gradient(1100px 520px at 50% -12%, rgba(255, 46, 136, 0.06), transparent 62%),
     var(--canvas);
   background-attachment: fixed;
   color: var(--paper);
@@ -72,14 +87,13 @@ body {
     border: 0;
   }
 
-  /* The date picker's calendar glyph is black by default. */
   input[type='date']::-webkit-calendar-picker-indicator {
-    filter: invert(85%) sepia(10%) saturate(600%) hue-rotate(220deg);
     cursor: pointer;
+    opacity: 0.55;
   }
 
   :focus-visible {
-    outline: 2px solid var(--flare);
+    outline: 2px solid var(--flare-ink);
     outline-offset: 2px;
   }
 }
@@ -89,10 +103,10 @@ body {
   to   { transform: translateX(0); }
 }
 
-::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--deep); }
-::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+::-webkit-scrollbar-thumb { background: rgba(36, 16, 65, 0.22); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(36, 16, 65, 0.38); }
 
 @media (prefers-reduced-motion: reduce) {
   *,

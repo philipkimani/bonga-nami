@@ -46,7 +46,7 @@ export function ConfirmDialog({
         <div className="mt-6 flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="rounded-lg border border-line px-4 py-2 text-sm font-medium text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+            className="rounded-lg border border-line px-4 py-2 text-sm font-medium text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
           >
             Cancel
           </button>
@@ -56,8 +56,8 @@ export function ConfirmDialog({
             className={cn(
               'rounded-lg px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas-2',
               tone === 'destructive'
-                ? 'bg-flare text-paper hover:bg-flare/85 focus-visible:ring-flare'
-                : 'bg-mint text-canvas hover:bg-mint/85 focus-visible:ring-mint',
+                ? 'bg-flare text-paper hover:bg-flare/85 focus-visible:ring-flare-ink'
+                : 'bg-mint text-paper hover:bg-mint/85 focus-visible:ring-mint-ink',
             )}
           >
             {confirmLabel}

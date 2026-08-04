@@ -20,7 +20,7 @@ export function EmptyState({
   return (
     <div className={cn('flex flex-col items-center px-6 py-16 text-center', className)}>
       <Icon
-        className={cn('mb-4 h-10 w-10', tone === 'positive' ? 'text-mint' : 'text-muted')}
+        className={cn('mb-4 h-10 w-10', tone === 'positive' ? 'text-mint-ink' : 'text-muted')}
         aria-hidden="true"
       />
       <p className="text-lg font-semibold text-paper">{title}</p>

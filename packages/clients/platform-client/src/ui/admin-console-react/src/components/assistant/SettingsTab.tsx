@@ -38,7 +38,7 @@ export default function SettingsTab() {
             onClick={() => setActiveSubTab(tab.id)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
               activeSubTab === tab.id
-                ? 'bg-flare/15 text-flare'
+                ? 'bg-flare/12 text-flare-ink'
                 : 'bg-canvas-deep text-muted hover:bg-canvas-deep'
             }`}
           >
@@ -58,7 +58,7 @@ export default function SettingsTab() {
               <input
                 type="text"
                 placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
             </div>
             <div>
@@ -66,7 +66,7 @@ export default function SettingsTab() {
               <input
                 type="password"
                 placeholder="••••••••••••••••••••••••••••••••"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
             </div>
             <div>
@@ -74,7 +74,7 @@ export default function SettingsTab() {
               <input
                 type="tel"
                 placeholder="+254xxxxxxxxx"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
             </div>
             <div>
@@ -124,7 +124,7 @@ export default function SettingsTab() {
               <input
                 type="password"
                 placeholder="sk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
             </div>
             <div>
@@ -132,7 +132,7 @@ export default function SettingsTab() {
               <input
                 type="text"
                 placeholder="agent_xxxxxxxx"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
               <p className="text-xs text-muted mt-1">Find this in your ElevenLabs Conversational AI dashboard</p>
             </div>
@@ -141,7 +141,7 @@ export default function SettingsTab() {
               <input
                 type="text"
                 placeholder="21m00Tcm4TlvDq8ikWAM"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
             </div>
             <div className="p-4 bg-canvas-deep border border-line rounded-lg">
@@ -176,7 +176,7 @@ export default function SettingsTab() {
               <input
                 type="tel"
                 placeholder="+254xxxxxxxxx"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
               <p className="text-xs text-muted mt-1">Calls will be transferred to this number when escalation is triggered</p>
             </div>
@@ -185,7 +185,7 @@ export default function SettingsTab() {
               <input
                 type="email"
                 placeholder="support@company.com"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
             </div>
             <div>
@@ -193,21 +193,21 @@ export default function SettingsTab() {
               <input
                 type="text"
                 placeholder="help, urgent, human, agent, speak to someone"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
               />
               <p className="text-xs text-muted mt-1">Comma-separated keywords that trigger escalation</p>
             </div>
             <div className="space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded text-flare" defaultChecked />
+                <input type="checkbox" className="w-4 h-4 rounded text-flare-ink" defaultChecked />
                 <span className="text-sm text-muted">Enable automatic escalation detection</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded text-flare" defaultChecked />
+                <input type="checkbox" className="w-4 h-4 rounded text-flare-ink" defaultChecked />
                 <span className="text-sm text-muted">Send email notification on escalation</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded text-flare" />
+                <input type="checkbox" className="w-4 h-4 rounded text-flare-ink" />
                 <span className="text-sm text-muted">Auto-transfer calls to human after 3 failed attempts</span>
               </label>
             </div>

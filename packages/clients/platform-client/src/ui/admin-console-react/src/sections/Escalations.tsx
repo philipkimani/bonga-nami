@@ -121,7 +121,7 @@ export default function EscalationsSection() {
         </div>
         <button
           onClick={load}
-          className="inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm text-muted transition-colors hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+          className="inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm text-muted transition-colors hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
         >
           <RefreshCw className="h-4 w-4" aria-hidden="true" />
           Refresh
@@ -129,7 +129,7 @@ export default function EscalationsSection() {
       </div>
 
       {error && (
-        <Card className="border-flare/40">
+        <Card className="border-flare-ink/30">
           <CardContent className="flex items-center justify-between gap-4">
             <p className="text-sm text-paper">{error}</p>
             <button
@@ -197,7 +197,7 @@ function Counter({
   value: number | string
   tone: 'flare' | 'sun' | 'muted'
 }) {
-  const colour = tone === 'flare' ? 'text-flare' : tone === 'sun' ? 'text-sun' : 'text-paper'
+  const colour = tone === 'flare' ? 'text-flare-ink' : tone === 'sun' ? 'text-sun-ink' : 'text-paper'
   return (
     <Card>
       <CardContent className="p-5">

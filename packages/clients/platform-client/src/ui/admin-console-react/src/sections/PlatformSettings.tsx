@@ -211,7 +211,7 @@ export default function PlatformSettingsSection() {
       </div>
 
       {saveMessage && (
-        <div className={`p-4 rounded-lg ${saveMessage.includes('success') ? 'bg-mint/15 text-mint' : 'bg-flare/15 text-flare'}`}>
+        <div className={`p-4 rounded-lg ${saveMessage.includes('success') ? 'bg-mint/15 text-mint-ink' : 'bg-flare/12 text-flare-ink'}`}>
           {saveMessage}
         </div>
       )}
@@ -311,7 +311,7 @@ export default function PlatformSettingsSection() {
                   ...prev,
                   conversationFlow: { ...prev.conversationFlow, turnEagerness: e.target.value as TurnEagerness }
                 }))}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
               >
                 <option value="eager">Eager (fast response)</option>
                 <option value="normal">Normal (balanced)</option>
@@ -329,8 +329,8 @@ export default function PlatformSettingsSection() {
             </p>
             
             {/* First Message Behavior - Most Important */}
-            <div className="bg-sun/15 border border-sun rounded-lg p-4 mb-6">
-              <h4 className="font-medium text-sun mb-3"> Startup Behavior (High Impact)</h4>
+            <div className="bg-sun/20 border border-sun rounded-lg p-4 mb-6">
+              <h4 className="font-medium text-sun-ink mb-3"> Startup Behavior (High Impact)</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* First Message Mode */}
                 <div>
@@ -366,7 +366,7 @@ export default function PlatformSettingsSection() {
                       w-full p-3 rounded-lg border-2 transition-all text-left flex items-center justify-between
                       ${config.conversationFlow.waitForUserFirst 
                         ? 'border-mint bg-mint/15' 
-                        : 'border-flare bg-flare/15'
+                        : 'border-flare bg-flare/12'
                       }
                     `}
                   >
@@ -535,19 +535,19 @@ export default function PlatformSettingsSection() {
           </div>
 
           {/* WhatsApp - Native ElevenLabs */}
-          <div className="p-4 rounded-xl border-2 border-flare bg-flare/15">
+          <div className="p-4 rounded-xl border-2 border-flare bg-flare/12">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div>
                   <h3 className="font-medium text-paper">WhatsApp</h3>
-                  <p className="text-xs text-flare">ElevenLabs Native</p>
+                  <p className="text-xs text-flare-ink">ElevenLabs Native</p>
                 </div>
               </div>
               <a 
                 href="https://elevenlabs.io/app/conversational-ai" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-flare hover:underline"
+                className="text-xs text-flare-ink hover:underline"
               >
                 Configure →
               </a>
@@ -572,7 +572,7 @@ export default function PlatformSettingsSection() {
                     twilio: { ...prev.twilio, accountSid: e.target.value, configured: false }
                   }))}
                   placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                  className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent font-mono text-sm"
+                  className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent font-mono text-sm"
                 />
               </div>
               <div>
@@ -587,7 +587,7 @@ export default function PlatformSettingsSection() {
                     twilio: { ...prev.twilio, authToken: e.target.value, configured: false }
                   }))}
                   placeholder="••••••••••••••••••••••••••••••••"
-                  className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent font-mono text-sm"
+                  className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent font-mono text-sm"
                 />
               </div>
               <div>
@@ -602,7 +602,7 @@ export default function PlatformSettingsSection() {
                     twilio: { ...prev.twilio, phoneNumber: e.target.value, configured: false }
                   }))}
                   placeholder="+254xxxxxxxxx"
-                  className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+                  className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
                 />
                 <p className="text-xs text-muted mt-1">Kenya format: +254...</p>
               </div>
@@ -631,7 +631,7 @@ export default function PlatformSettingsSection() {
               value={config.backendApiUrl}
               onChange={(e) => setConfig(prev => ({ ...prev, backendApiUrl: e.target.value }))}
               placeholder="https://your-store.com/api"
-              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
             />
             <p className="text-xs text-muted mt-2">
               Example: https://api.mystore.com or http://localhost:3000/api
@@ -647,7 +647,7 @@ export default function PlatformSettingsSection() {
               value={config.backendApiKey || ''}
               onChange={(e) => setConfig(prev => ({ ...prev, backendApiKey: e.target.value }))}
               placeholder="Enter your backend API key"
-              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
             />
             <p className="text-xs text-muted mt-2">
               If your backend requires authentication, enter the API key here. It will be sent as <code className="bg-canvas-deep px-1 rounded">x-api-key</code> header.
@@ -676,7 +676,7 @@ export default function PlatformSettingsSection() {
                 elevenLabs: { ...prev.elevenLabs, apiKey: e.target.value }
               }))}
               placeholder="xi_xxxxxxxxxxxxxxxxxxxxxxxx"
-              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
             />
             <p className="text-xs text-muted mt-1">
               From ElevenLabs → Profile → API Keys
@@ -694,7 +694,7 @@ export default function PlatformSettingsSection() {
                 elevenLabs: { ...prev.elevenLabs, agentId: e.target.value }
               }))}
               placeholder="agent_xxxxxxxxxxxxxxxx"
-              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
             />
             <p className="text-xs text-muted mt-1">
               From ElevenLabs → Conversational AI → Your Agent
@@ -703,15 +703,15 @@ export default function PlatformSettingsSection() {
         </div>
 
         {/* Phone Number for Voice + WhatsApp */}
-        <div className="bg-flare/15 rounded-xl border border-flare p-4 mb-6">
-          <h3 className="font-medium text-flare mb-3"> Phone & WhatsApp Integration</h3>
-          <p className="text-sm text-flare mb-4">
+        <div className="bg-flare/12 rounded-xl border border-flare p-4 mb-6">
+          <h3 className="font-medium text-flare-ink mb-3"> Phone & WhatsApp Integration</h3>
+          <p className="text-sm text-flare-ink mb-4">
             Import your Twilio phone number or WhatsApp Business number into ElevenLabs to enable 
             voice calls and WhatsApp conversations managed by the AI agent.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-flare mb-2">
+              <label className="block text-sm font-medium text-flare-ink mb-2">
                 ElevenLabs Phone Number ID
               </label>
               <input
@@ -722,14 +722,14 @@ export default function PlatformSettingsSection() {
                   elevenLabsPhoneNumberId: e.target.value 
                 } as any))}
                 placeholder="phnum_xxxxxxxxxxxxxxxx"
-                className="w-full px-4 py-3 border border-flare rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent bg-canvas-2"
+                className="w-full px-4 py-3 border border-flare rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent bg-canvas-2"
               />
-              <p className="text-xs text-flare mt-1">
+              <p className="text-xs text-flare-ink mt-1">
                 Found after importing your Twilio/WhatsApp number into ElevenLabs
               </p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-flare mb-2">
+              <label className="block text-sm font-medium text-flare-ink mb-2">
                 Personalization Webhook URL
               </label>
               <div className="flex items-center gap-2">
@@ -737,17 +737,17 @@ export default function PlatformSettingsSection() {
                   type="text"
                   value={`${baseUrl}/webhooks/elevenlabs/personalization`}
                   readOnly
-                  className="w-full px-4 py-3 border border-flare rounded-lg bg-flare/15 text-flare font-mono text-sm"
+                  className="w-full px-4 py-3 border border-flare rounded-lg bg-flare/12 text-flare-ink font-mono text-sm"
                 />
                 <button
                   onClick={() => navigator.clipboard.writeText(`${baseUrl}/webhooks/elevenlabs/personalization`)}
-                  className="px-3 py-3 bg-canvas-2 border border-flare rounded-lg hover:bg-flare/15 transition text-sm"
+                  className="px-3 py-3 bg-canvas-2 border border-flare rounded-lg hover:bg-flare/12 transition text-sm"
                   title="Copy to clipboard"
                 >
                   <Copy className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
-              <p className="text-xs text-flare mt-1">
+              <p className="text-xs text-flare-ink mt-1">
                 Set this as your agent's "Data collection webhook" in ElevenLabs
               </p>
             </div>
@@ -758,18 +758,18 @@ export default function PlatformSettingsSection() {
         <div className={`p-4 rounded-lg mb-6 ${
           config.elevenLabs.apiKey && config.elevenLabs.agentId 
             ? 'bg-mint/15 border border-mint' 
-            : 'bg-sun/15 border border-sun'
+            : 'bg-sun/20 border border-sun'
         }`}>
           <div className="flex items-center gap-2">
             {config.elevenLabs.apiKey && config.elevenLabs.agentId ? (
               <>
-                <span className="text-mint font-medium">Connected</span>
-                <span className="text-mint text-sm">— ElevenLabs credentials configured</span>
+                <span className="text-mint-ink font-medium">Connected</span>
+                <span className="text-mint-ink text-sm">— ElevenLabs credentials configured</span>
               </>
             ) : (
               <>
-                <span className="text-sun">○</span>
-                <span className="text-sun font-medium">
+                <span className="text-sun-ink">○</span>
+                <span className="text-sun-ink font-medium">
                   {!config.elevenLabs.apiKey && !config.elevenLabs.agentId 
                     ? 'Enter API Key and Agent ID above'
                     : !config.elevenLabs.apiKey 
@@ -886,7 +886,7 @@ export default function PlatformSettingsSection() {
                 escalation: { ...(prev as any).escalation, messageThreshold: parseInt(e.target.value) || 0 }
               } as any))}
               onBlur={() => saveConfig()}
-              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
             />
             <p className="text-xs text-muted mt-1">
               Auto-escalate after this many AI messages in one session. Set to 0 to disable.
@@ -911,7 +911,7 @@ export default function PlatformSettingsSection() {
               }}
               onBlur={() => saveConfig()}
               placeholder="speak to human, talk to agent, manager, complaint"
-              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+              className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
             />
             <p className="text-xs text-muted mt-1">
               Comma-separated phrases that trigger immediate escalation in SMS.
@@ -920,8 +920,8 @@ export default function PlatformSettingsSection() {
         </div>
 
         {/* Notification Settings */}
-        <div className="bg-sun/15 rounded-xl border border-sun p-4 mb-6">
-          <h3 className="font-medium text-sun mb-3"> Notifications</h3>
+        <div className="bg-sun/20 rounded-xl border border-sun p-4 mb-6">
+          <h3 className="font-medium text-sun-ink mb-3"> Notifications</h3>
           <div className="flex items-center gap-3 mb-4">
             <label className="relative inline-flex items-center cursor-pointer">
               <input
@@ -938,11 +938,11 @@ export default function PlatformSettingsSection() {
               />
               <div className="w-11 h-6 bg-canvas-deep peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-sun rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-canvas-2 after:border-line after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sun"></div>
             </label>
-            <span className="text-sm text-sun">Send notifications on escalation</span>
+            <span className="text-sm text-sun-ink">Send notifications on escalation</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-sun mb-2">
+              <label className="block text-sm font-medium text-sun-ink mb-2">
                 SMS Alert Phone
               </label>
               <input
@@ -956,12 +956,12 @@ export default function PlatformSettingsSection() {
                 placeholder="+254712345678"
                 className="w-full px-4 py-3 border border-sun rounded-lg focus:ring-2 focus:ring-sun focus:border-transparent bg-canvas-2"
               />
-              <p className="text-xs text-sun mt-1">
+              <p className="text-xs text-sun-ink mt-1">
                 Receive SMS when escalation triggers
               </p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-sun mb-2">
+              <label className="block text-sm font-medium text-sun-ink mb-2">
                 Webhook URL (Slack/Teams)
               </label>
               <input
@@ -975,7 +975,7 @@ export default function PlatformSettingsSection() {
                 placeholder="https://hooks.slack.com/services/..."
                 className="w-full px-4 py-3 border border-sun rounded-lg focus:ring-2 focus:ring-sun focus:border-transparent bg-canvas-2"
               />
-              <p className="text-xs text-sun mt-1">
+              <p className="text-xs text-sun-ink mt-1">
                 POST notification to Slack, Teams, or PagerDuty
               </p>
             </div>
@@ -1002,7 +1002,7 @@ export default function PlatformSettingsSection() {
                 }}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-canvas-deep peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-flare rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-canvas-2 after:border-line after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-canvas-deep"></div>
+              <div className="w-11 h-6 bg-canvas-deep peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-flare-ink rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-canvas-2 after:border-line after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-canvas-deep"></div>
             </label>
             <span className="text-sm text-muted">Enable Twilio Conference transfer</span>
           </div>
@@ -1020,7 +1020,7 @@ export default function PlatformSettingsSection() {
                 } as any))}
                 onBlur={() => saveConfig()}
                 placeholder="+254712345678"
-                className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent bg-canvas-2"
+                className="w-full px-4 py-3 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent bg-canvas-2"
               />
               <p className="text-xs text-muted mt-1">
                 Agent/supervisor phone number. Caller is placed in a Twilio Conference room and this number is dialed in.
@@ -1173,7 +1173,7 @@ export default function PlatformSettingsSection() {
                 onClick={() => setConfig(prev => ({ ...prev, widget: { ...prev.widget, position: pos } }))}
                 className={`px-4 py-2 rounded-lg border text-sm capitalize transition ${
                   (config.widget?.position || 'bottom-right') === pos
-                    ? 'border-flare bg-flare/15 text-flare font-medium'
+                    ? 'border-flare bg-flare/12 text-flare-ink font-medium'
                     : 'border-line text-muted hover:bg-canvas-deep'
                 }`}
               >
@@ -1211,9 +1211,9 @@ export default function PlatformSettingsSection() {
           </p>
 
           {/* Security: Allowed Domains */}
-          <div className="mb-6 p-4 bg-sun/15 rounded-lg border border-sun">
-            <h3 className="font-medium text-sun mb-2"> Widget Security (Enterprise)</h3>
-            <p className="text-sm text-sun mb-3">
+          <div className="mb-6 p-4 bg-sun/20 rounded-lg border border-sun">
+            <h3 className="font-medium text-sun-ink mb-2"> Widget Security (Enterprise)</h3>
+            <p className="text-sm text-sun-ink mb-3">
               Restrict which domains can embed your widget. Leave empty to allow all domains (development mode).
             </p>
             <label className="block text-sm font-medium text-muted mb-1">
@@ -1237,7 +1237,7 @@ export default function PlatformSettingsSection() {
               }}
               onBlur={() => saveConfig()}
               placeholder="example.com, *.mybank.co.ke, app.company.com"
-              className="w-full px-3 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent text-sm"
+              className="w-full px-3 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent text-sm"
             />
             <p className="text-xs text-muted mt-1">
               Comma-separated. Use *.domain.com for wildcard subdomains. Banks/telcos: Always configure this!
@@ -1245,7 +1245,7 @@ export default function PlatformSettingsSection() {
           </div>
           
           <div className="bg-canvas-deep rounded-lg p-4 overflow-x-auto">
-            <pre className="text-sm text-mint font-mono whitespace-pre-wrap">
+            <pre className="text-sm text-mint-ink font-mono whitespace-pre-wrap">
 {`<!-- Bonga Nami Chat Widget -->
 <script>
   window.BONGA_NAMI_CONFIG = {
@@ -1375,7 +1375,7 @@ function WebhookRow({ name, path, baseUrl, description }: { name: string; path: 
 function ChecklistItem({ done, label }: { done: boolean; label: string }) {
   return (
     <div className="flex items-center gap-2 py-1">
-      <span className={`text-lg ${done ? 'text-mint' : 'text-muted'}`}>
+      <span className={`text-lg ${done ? 'text-mint-ink' : 'text-muted'}`}>
         {done ? <Check className="h-4 w-4" aria-hidden="true" /> : <Circle className="h-4 w-4" aria-hidden="true" />}
       </span>
       <span className={`text-sm ${done ? 'text-paper' : 'text-muted'}`}>{label}</span>

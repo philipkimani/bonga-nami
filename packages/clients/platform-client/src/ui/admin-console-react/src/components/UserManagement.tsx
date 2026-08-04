@@ -84,7 +84,7 @@ export default function UserManagement() {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 bg-flare/15 border border-flare rounded-lg text-flare text-sm">
+        <div className="mb-4 p-3 bg-flare/12 border border-flare rounded-lg text-flare-ink text-sm">
           {error}
         </div>
       )}
@@ -150,7 +150,7 @@ function UserRow({ user, onUpdate }: UserRowProps) {
     switch (role) {
       case 'super_admin':
         return (
-          <span className="px-2 py-1 bg-flare/15 text-flare rounded-full text-xs font-medium">
+          <span className="px-2 py-1 bg-flare/12 text-flare-ink rounded-full text-xs font-medium">
             Super Admin
           </span>
         )
@@ -261,8 +261,8 @@ function UserRow({ user, onUpdate }: UserRowProps) {
           <span
             className={`px-2 py-1 rounded-full text-xs font-medium ${
               user.isActive
-                ? 'bg-mint/15 text-mint'
-                : 'bg-flare/15 text-flare'
+                ? 'bg-mint/15 text-mint-ink'
+                : 'bg-flare/12 text-flare-ink'
             }`}
           >
             {user.isActive ? 'Active' : 'Disabled'}
@@ -314,7 +314,7 @@ function UserRow({ user, onUpdate }: UserRowProps) {
                     setShowActions(false)
                     handleDelete()
                   }}
-                  className="w-full text-left px-4 py-2 text-sm text-flare hover:bg-flare/15 flex items-center gap-2"
+                  className="w-full text-left px-4 py-2 text-sm text-flare-ink hover:bg-flare/12 flex items-center gap-2"
                 >
                   Delete User
                 </button>
@@ -412,7 +412,7 @@ function CreateUserModal({ onClose, onCreated }: CreateUserModalProps) {
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-flare/15 border border-flare rounded-lg text-flare text-sm">
+          <div className="mb-4 p-3 bg-flare/12 border border-flare rounded-lg text-flare-ink text-sm">
             {error}
           </div>
         )}
@@ -420,13 +420,13 @@ function CreateUserModal({ onClose, onCreated }: CreateUserModalProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-muted mb-1">
-              Username <span className="text-flare">*</span>
+              Username <span className="text-flare-ink">*</span>
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ''))}
-              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line"
+              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line"
               placeholder="e.g., johndoe"
               required
             />
@@ -440,7 +440,7 @@ function CreateUserModal({ onClose, onCreated }: CreateUserModalProps) {
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line"
+              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line"
               placeholder="e.g., John Doe"
             />
           </div>
@@ -453,20 +453,20 @@ function CreateUserModal({ onClose, onCreated }: CreateUserModalProps) {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line"
+              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line"
               placeholder="e.g., john@example.com"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-muted mb-1">
-              Temporary Password <span className="text-flare">*</span>
+              Temporary Password <span className="text-flare-ink">*</span>
             </label>
             <input
               type="text"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line"
+              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line"
               placeholder="Min 8 characters"
               required
             />
@@ -477,7 +477,7 @@ function CreateUserModal({ onClose, onCreated }: CreateUserModalProps) {
 
           <div>
             <label className="block text-sm font-medium text-muted mb-2">
-              Role <span className="text-flare">*</span>
+              Role <span className="text-flare-ink">*</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
@@ -499,7 +499,7 @@ function CreateUserModal({ onClose, onCreated }: CreateUserModalProps) {
                 onClick={() => setRole('SUPER_ADMIN')}
                 className={`p-3 rounded-lg border-2 text-left transition ${
                   role === 'SUPER_ADMIN'
-                    ? 'border-flare bg-flare/15'
+                    ? 'border-flare bg-flare/12'
                     : 'border-line hover:border-line'
                 }`}
               >
@@ -598,7 +598,7 @@ function ResetPasswordModal({ user, onClose, onReset }: ResetPasswordModalProps)
         </p>
 
         {error && (
-          <div className="mb-4 p-3 bg-flare/15 border border-flare rounded-lg text-flare text-sm">
+          <div className="mb-4 p-3 bg-flare/12 border border-flare rounded-lg text-flare-ink text-sm">
             {error}
           </div>
         )}
@@ -612,7 +612,7 @@ function ResetPasswordModal({ user, onClose, onReset }: ResetPasswordModalProps)
               type="text"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line"
+              className="w-full px-4 py-2 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line"
               placeholder="Min 8 characters"
               required
               autoFocus

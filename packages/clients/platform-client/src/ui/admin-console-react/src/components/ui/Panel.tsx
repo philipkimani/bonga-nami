@@ -91,7 +91,7 @@ export function Panel({
           <button
             onClick={onClose}
             aria-label="Close panel"
-            className="rounded-lg p-2 text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+            className="rounded-lg p-2 text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>

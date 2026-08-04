@@ -56,7 +56,7 @@ export function EscalationCard({
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <button
             onClick={() => onMarkHandled(entry)}
-            className="inline-flex items-center gap-2 rounded-lg bg-mint px-4 py-2 text-sm font-semibold text-canvas transition-colors hover:bg-mint/85 focus:outline-none focus-visible:ring-2 focus-visible:ring-mint focus-visible:ring-offset-2 focus-visible:ring-offset-canvas-2"
+            className="inline-flex items-center gap-2 rounded-lg bg-mint px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-mint/85 focus:outline-none focus-visible:ring-2 focus-visible:ring-mint-ink focus-visible:ring-offset-2 focus-visible:ring-offset-canvas-2"
           >
             <Check className="h-4 w-4" aria-hidden="true" />
             Mark as handled
@@ -64,7 +64,7 @@ export function EscalationCard({
 
           <button
             onClick={() => onViewConversation(entry)}
-            className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+            className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
           >
             <MessageSquareText className="h-4 w-4" aria-hidden="true" />
             View conversation
@@ -73,7 +73,7 @@ export function EscalationCard({
           {entry.contactPhone && (
             <a
               href={`tel:${entry.contactPhone}`}
-              className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+              className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-sm font-medium text-muted transition-colors hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
             >
               <Phone className="h-4 w-4" aria-hidden="true" />
               Call back

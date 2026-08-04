@@ -54,9 +54,9 @@ export default function AdminAssistantSection() {
                   aria-current={activeTab === id ? 'page' : undefined}
                   className={`
                     w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors
-                    focus:outline-none focus-visible:ring-2 focus-visible:ring-flare
+                    focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink
                     ${activeTab === id
-                      ? 'bg-flare/15 text-flare font-medium'
+                      ? 'bg-flare/12 text-flare-ink font-medium'
                       : 'text-muted hover:bg-canvas-deep'
                     }
                   `}
@@ -64,7 +64,7 @@ export default function AdminAssistantSection() {
                   <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                   <span>{label}</span>
                   {badge && (
-                    <span className="ml-auto px-2 py-0.5 bg-sun/15 text-sun rounded-full text-xs">
+                    <span className="ml-auto px-2 py-0.5 bg-sun/20 text-sun-ink rounded-full text-xs">
                       {badge}
                     </span>
                   )}

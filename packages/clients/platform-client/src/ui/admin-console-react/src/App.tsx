@@ -175,7 +175,7 @@ function App() {
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-mint/40 bg-mint/15 px-3 py-1.5 text-xs font-medium text-mint">
+            <span className="inline-flex items-center gap-2 rounded-full border border-mint-ink/30 bg-mint/15 px-3 py-1.5 text-xs font-medium text-mint-ink">
               <span className="h-1.5 w-1.5 rounded-full bg-mint motion-safe:animate-pulse" aria-hidden="true" />
               Live
             </span>
@@ -185,7 +185,7 @@ function App() {
                 <span className="hidden text-sm text-muted sm:inline">{user.username}</span>
                 <button
                   onClick={handleLogout}
-                  className="inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm font-medium text-muted transition-colors hover:border-flare/50 hover:text-flare focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+                  className="inline-flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm font-medium text-muted transition-colors hover:border-flare/50 hover:text-flare-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
                 >
                   <LogOut className="h-4 w-4" aria-hidden="true" />
                   Log out

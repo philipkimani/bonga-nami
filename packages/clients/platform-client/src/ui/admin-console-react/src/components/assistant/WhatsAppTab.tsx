@@ -256,8 +256,8 @@ export default function WhatsAppTab() {
           {/* Connection Status */}
           <div className={`text-xs px-2 py-1 rounded mb-2 ${
             connectionStatus?.status === 'connected' 
-              ? 'bg-mint/30 text-mint' 
-              : 'bg-flare/30 text-flare'
+              ? 'bg-mint/30 text-mint-ink' 
+              : 'bg-flare/30 text-flare-ink'
           }`}>
             {connectionStatus?.status === 'connected' 
               ? '● Connected via ElevenLabs' 
@@ -276,7 +276,7 @@ export default function WhatsAppTab() {
           <button
             onClick={() => setFilter('all')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition ${
-              filter === 'all' ? 'border-mint text-mint' : 'border-transparent text-muted'
+              filter === 'all' ? 'border-mint text-mint-ink' : 'border-transparent text-muted'
             }`}
           >
             All Chats ({chats.length})
@@ -284,12 +284,12 @@ export default function WhatsAppTab() {
           <button
             onClick={() => setFilter('waiting')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition flex items-center justify-center gap-2 ${
-              filter === 'waiting' ? 'border-mint text-mint' : 'border-transparent text-muted'
+              filter === 'waiting' ? 'border-mint text-mint-ink' : 'border-transparent text-muted'
             }`}
           >
             Escalated
             {waitingCount > 0 && (
-              <span className="px-1.5 py-0.5 bg-sun/15 text-sun rounded text-xs">
+              <span className="px-1.5 py-0.5 bg-sun/20 text-sun-ink rounded text-xs">
                 {waitingCount}
               </span>
             )}
@@ -440,7 +440,7 @@ export default function WhatsAppTab() {
                   }`}>
                     {msg.sender !== 'customer' && (
                       <span className={`text-xs font-medium ${
-                        msg.sender === 'ai' ? 'text-muted' : 'text-mint'
+                        msg.sender === 'ai' ? 'text-muted' : 'text-mint-ink'
                       }`}>
                         {msg.sender === 'ai' ? 'AI' : 'Agent'}
                       </span>
@@ -539,8 +539,8 @@ export default function WhatsAppTab() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-canvas-2 rounded-xl p-6 w-[500px]">
             <h3 className="text-lg font-semibold mb-4"> WhatsApp Broadcast</h3>
-            <div className="bg-sun/15 border border-sun rounded-lg p-3 mb-4">
-              <p className="text-sm text-sun">
+            <div className="bg-sun/20 border border-sun rounded-lg p-3 mb-4">
+              <p className="text-sm text-sun-ink">
                 WhatsApp requires pre-approved templates for broadcast messages outside the 24-hour window. 
                 Messages within active conversations can be free-form.
               </p>

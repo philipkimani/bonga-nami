@@ -71,7 +71,7 @@ interface PlatformConfig {
   escalation?: { enabled?: boolean; phoneNumber?: string }
 }
 
-type DateRange = 'today' | 'yesterday' | 'week' | 'month' | '30days' | 'custom'
+type DateRange = 'today' | 'yesterday' | 'week' | '2weeks' | 'month' | '30days' | 'custom'
 
 // =============================================================================
 // CONSTANTS
@@ -95,7 +95,7 @@ export default function AnalyticsSection() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [autoRefresh, setAutoRefresh] = useState(true)
-  const [dateRange, setDateRange] = useState<DateRange>('today')
+  const [dateRange, setDateRange] = useState<DateRange>('2weeks')
   const [customDate, setCustomDate] = useState('')
   const [channelFilter, setChannelFilter] = useState<'all' | string>('all')
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
@@ -208,7 +208,8 @@ export default function AnalyticsSection() {
       ? new Date(customDate + 'T00:00:00').toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })
       : dateRange === 'yesterday' ? 'Yesterday'
       : dateRange === 'today' ? 'Today'
-      : dateRange === 'week' ? 'This week'
+      : dateRange === 'week' ? 'Last 7 days'
+      : dateRange === '2weeks' ? 'Last 2 weeks'
       : dateRange === 'month' ? 'This month'
       : 'Last 30 days'
 
@@ -224,7 +225,7 @@ export default function AnalyticsSection() {
 
   if (error && !data) {
     return (
-      <Card className="border-flare/40">
+      <Card className="border-flare-ink/30">
         <CardContent className="text-center">
           <p className="font-medium text-paper">{error}</p>
           <button
@@ -248,7 +249,7 @@ export default function AnalyticsSection() {
           <h1 className="text-2xl font-bold text-paper">How Bonga Nami is doing</h1>
           <p className="mt-1 text-sm text-muted">
             {dateRangeLabel} · updated {lastRefresh.toLocaleTimeString()}
-            {loading && <span className="ml-2 text-flare">refreshing…</span>}
+            {loading && <span className="ml-2 text-flare-ink">refreshing…</span>}
           </p>
         </div>
 
@@ -258,6 +259,7 @@ export default function AnalyticsSection() {
               ['today', 'Today'],
               ['yesterday', 'Yesterday'],
               ['week', 'Week'],
+              ['2weeks', '2 Weeks'],
               ['month', 'Month'],
               ['30days', '30 days'],
             ] as [DateRange, string][]).map(([key, label]) => (
@@ -265,7 +267,7 @@ export default function AnalyticsSection() {
                 key={key}
                 onClick={() => setDateRange(key)}
                 className={cn(
-                  'rounded-lg px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-flare',
+                  'rounded-lg px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink',
                   dateRange === key ? 'bg-canvas-deep text-paper' : 'text-muted hover:text-paper',
                 )}
               >
@@ -279,7 +281,7 @@ export default function AnalyticsSection() {
             value={customDate}
             onChange={e => { setCustomDate(e.target.value); setDateRange('custom') }}
             aria-label="Pick a date"
-            className="rounded-lg border border-line bg-canvas-deep px-3 py-1.5 text-xs text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+            className="rounded-lg border border-line bg-canvas-deep px-3 py-1.5 text-xs text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
           />
 
           <label className="flex cursor-pointer select-none items-center gap-1.5 text-xs text-muted">
@@ -287,7 +289,7 @@ export default function AnalyticsSection() {
               type="checkbox"
               checked={autoRefresh}
               onChange={e => setAutoRefresh(e.target.checked)}
-              className="h-3.5 w-3.5 rounded border-line bg-canvas-deep text-flare"
+              className="h-3.5 w-3.5 rounded border-line bg-canvas-deep text-flare-ink"
             />
             Auto-update
           </label>
@@ -295,7 +297,7 @@ export default function AnalyticsSection() {
           <button
             onClick={loadDashboard}
             aria-label="Refresh now"
-            className="rounded-lg p-2 text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"
+            className="rounded-lg p-2 text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"
           >
             <RefreshCw className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -569,7 +571,7 @@ function MetricCard({
   Icon: LucideIcon
   tone: 'mint' | 'sun' | 'neutral'
 }) {
-  const valueColour = tone === 'mint' ? 'text-mint' : tone === 'sun' ? 'text-sun' : 'text-paper'
+  const valueColour = tone === 'mint' ? 'text-mint-ink' : tone === 'sun' ? 'text-sun-ink' : 'text-paper'
   return (
     <Card className="p-4">
       <div className="mb-2 flex items-center gap-2">
@@ -599,7 +601,7 @@ function StatusItem({
         <div className="truncate text-xs font-semibold text-paper">{label}</div>
         <div className="mt-0.5 flex items-center gap-1.5">
           <span className={cn('h-1.5 w-1.5 shrink-0 rounded-full', configured ? 'bg-mint' : 'bg-muted')} />
-          <span className={cn('truncate text-[11px]', configured ? 'text-mint' : 'text-muted')}>{detail}</span>
+          <span className={cn('truncate text-[11px]', configured ? 'text-mint-ink' : 'text-muted')}>{detail}</span>
         </div>
       </div>
     </div>
@@ -623,8 +625,8 @@ function FilterPill({
     <button
       onClick={onClick}
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-flare',
-        active ? 'bg-flare/15 text-flare' : 'bg-canvas-deep text-muted hover:text-paper',
+        'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink',
+        active ? 'bg-flare/12 text-flare-ink' : 'bg-canvas-deep text-muted hover:text-paper',
       )}
     >
       <span>{icon}</span>
@@ -632,7 +634,7 @@ function FilterPill({
       <span
         className={cn(
           'rounded-full px-1.5 py-0.5 text-[10px] tabular-nums',
-          active ? 'bg-flare/25 text-flare' : 'bg-canvas text-muted',
+          active ? 'bg-flare/25 text-flare-ink' : 'bg-canvas text-muted',
         )}
       >
         {count}

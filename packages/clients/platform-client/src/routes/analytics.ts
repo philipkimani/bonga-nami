@@ -73,7 +73,7 @@ async function fetchElevenLabs(path: string, params?: Record<string, string>): P
  * Returns conversations with computed metrics for dashboard/analytics.
  * 
  * Query params:
- *   range: 'today' | 'week' | 'month' | '30days' (default: today)
+ *   range: 'today' | 'week' | '2weeks' | 'month' | '30days' (default: today)
  *   date:  'YYYY-MM-DD' — specific day (overrides range)
  *   cursor: pagination cursor
  *   page_size: 1-100 (default: 100)
@@ -103,6 +103,11 @@ analyticsRouter.get('/conversations', async (req, res) => {
       switch (range) {
         case 'week': {
           const d = new Date(); d.setDate(d.getDate() - 7); d.setHours(0,0,0,0);
+          startAfter = Math.floor(d.getTime() / 1000);
+          break;
+        }
+        case '2weeks': {
+          const d = new Date(); d.setDate(d.getDate() - 14); d.setHours(0,0,0,0);
           startAfter = Math.floor(d.getTime() / 1000);
           break;
         }
@@ -679,7 +684,7 @@ function mapConversationStatus(status: string, callSuccessful: string | null): s
  * Falls back to empty state if agent is not configured.
  * 
  * Query params:
- *   range: 'today' | 'week' | 'month' | '30days' (default: today)
+ *   range: 'today' | 'week' | '2weeks' | 'month' | '30days' (default: today)
  *   date:  'YYYY-MM-DD' — specific day (overrides range)
  */
 analyticsRouter.get('/dashboard', async (req, res) => {
@@ -716,6 +721,11 @@ analyticsRouter.get('/dashboard', async (req, res) => {
       switch (range) {
         case 'week': {
           const d = new Date(); d.setDate(d.getDate() - 7); d.setHours(0,0,0,0);
+          startAfter = Math.floor(d.getTime() / 1000);
+          break;
+        }
+        case '2weeks': {
+          const d = new Date(); d.setDate(d.getDate() - 14); d.setHours(0,0,0,0);
           startAfter = Math.floor(d.getTime() / 1000);
           break;
         }

@@ -173,7 +173,7 @@ export default function WebChatTab() {
         </div>
         <div className="flex items-center gap-3">
           <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
-            isConfigured ? 'bg-mint/15 text-mint' : 'bg-sun/15 text-sun'
+            isConfigured ? 'bg-mint/15 text-mint-ink' : 'bg-sun/20 text-sun-ink'
           }`}>
             <span className={`w-2 h-2 rounded-full ${isConfigured ? 'bg-mint' : 'bg-sun'}`} />
             {isConfigured ? 'Configured' : 'Not Configured'}
@@ -190,26 +190,26 @@ export default function WebChatTab() {
       {/* Status Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-canvas-deep rounded-xl p-4 text-paper">
-          <p className="text-xs text-flare">Total Conversations</p>
+          <p className="text-xs text-flare-ink">Total Conversations</p>
           <p className="text-2xl font-bold mt-1">{totalConversations}</p>
-          <p className="text-xs text-flare mt-1">
+          <p className="text-xs text-flare-ink mt-1">
             {textCount} text · {voiceCount} voice
           </p>
         </div>
         <div className="bg-canvas-deep rounded-xl p-4 text-paper">
-          <p className="text-xs text-flare">Avg Duration</p>
+          <p className="text-xs text-flare-ink">Avg Duration</p>
           <p className="text-2xl font-bold mt-1">{formatDuration(avgDuration)}</p>
-          <p className="text-xs text-flare mt-1">Per conversation</p>
+          <p className="text-xs text-flare-ink mt-1">Per conversation</p>
         </div>
         <div className="bg-canvas-deep rounded-xl p-4 text-paper">
-          <p className="text-xs text-mint">Avg Messages</p>
+          <p className="text-xs text-mint-ink">Avg Messages</p>
           <p className="text-2xl font-bold mt-1">{avgMessages}</p>
-          <p className="text-xs text-mint mt-1">Per conversation</p>
+          <p className="text-xs text-mint-ink mt-1">Per conversation</p>
         </div>
         <div className="bg-canvas-deep rounded-xl p-4 text-paper">
-          <p className="text-xs text-flare">Widget Status</p>
-          <p className="text-2xl font-bold mt-1">{isConfigured ? <Check className="h-6 w-6 text-mint" aria-hidden="true" /> : '—'}</p>
-          <p className="text-xs text-flare mt-1">{isConfigured ? 'Active' : 'Setup needed'}</p>
+          <p className="text-xs text-flare-ink">Widget Status</p>
+          <p className="text-2xl font-bold mt-1">{isConfigured ? <Check className="h-6 w-6 text-mint-ink" aria-hidden="true" /> : '—'}</p>
+          <p className="text-xs text-flare-ink mt-1">{isConfigured ? 'Active' : 'Setup needed'}</p>
         </div>
       </div>
 
@@ -229,14 +229,14 @@ export default function WebChatTab() {
                   onClick={() => setModeFilter(mode)}
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition ${
                     modeFilter === mode
-                      ? 'bg-flare/15 text-flare ring-1 ring-flare'
+                      ? 'bg-flare/12 text-flare-ink ring-1 ring-flare-ink'
                       : 'bg-canvas-deep text-muted hover:bg-canvas-deep'
                   }`}
                 >
                   {(() => { const I = Icons[mode]; return <I className="h-3.5 w-3.5" aria-hidden="true" /> })()}
                   {labels[mode]}
                   <span className={`ml-0.5 px-1.5 py-0.5 rounded-full text-[10px] ${
-                    modeFilter === mode ? 'bg-flare/25 text-flare' : 'bg-canvas-deep text-muted'
+                    modeFilter === mode ? 'bg-flare/25 text-flare-ink' : 'bg-canvas-deep text-muted'
                   }`}>{count}</span>
                 </button>
               )
@@ -256,10 +256,10 @@ export default function WebChatTab() {
                 <tr className="bg-canvas-deep">
                   <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider w-[40%]">Conversation</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider">Mode</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider cursor-pointer select-none hover:text-flare transition" onClick={() => toggleSort('duration')}>Duration{sortArrow('duration')}</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider cursor-pointer select-none hover:text-flare transition" onClick={() => toggleSort('messages')}>Msgs{sortArrow('messages')}</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider cursor-pointer select-none hover:text-flare-ink transition" onClick={() => toggleSort('duration')}>Duration{sortArrow('duration')}</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider cursor-pointer select-none hover:text-flare-ink transition" onClick={() => toggleSort('messages')}>Msgs{sortArrow('messages')}</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider">Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider cursor-pointer select-none hover:text-flare transition" onClick={() => toggleSort('time')}>Time{sortArrow('time')}</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-muted uppercase tracking-wider cursor-pointer select-none hover:text-flare-ink transition" onClick={() => toggleSort('time')}>Time{sortArrow('time')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-line">
@@ -271,10 +271,10 @@ export default function WebChatTab() {
                     <tr
                       key={convo.conversation_id}
                       onClick={() => openConversation(convo.conversation_id)}
-                      className="hover:bg-flare/15/50 transition cursor-pointer group"
+                      className="hover:bg-flare/12/50 transition cursor-pointer group"
                     >
                       <td className="px-4 py-3 max-w-[320px]">
-                        <p className="text-sm font-medium text-paper group-hover:text-flare truncate transition">
+                        <p className="text-sm font-medium text-paper group-hover:text-flare-ink truncate transition">
                           {title}
                         </p>
                         {convo.summary && (
@@ -285,7 +285,7 @@ export default function WebChatTab() {
                       <td className="px-4 py-3">
                         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
                           convo.hasAudio
-                            ? 'bg-flare/15 text-flare'
+                            ? 'bg-flare/12 text-flare-ink'
                             : 'bg-canvas-deep text-muted'
                         }`}>
                           {convo.hasAudio ? 'Voice' : 'Text'}
@@ -300,7 +300,7 @@ export default function WebChatTab() {
                       <td className="px-4 py-3">
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                           convo.status === 'done'
-                            ? 'bg-mint/15 text-mint'
+                            ? 'bg-mint/15 text-mint-ink'
                             : convo.status === 'processing'
                             ? 'bg-canvas-deep text-muted'
                             : 'bg-canvas-deep text-muted'
@@ -372,7 +372,7 @@ export default function WebChatTab() {
 
                     <div className="flex items-center gap-3 mt-3">
                       <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                        convDetail.status === 'done' ? 'bg-mint/15 text-mint'
+                        convDetail.status === 'done' ? 'bg-mint/15 text-mint-ink'
                         : convDetail.status === 'processing' ? 'bg-canvas-deep text-muted'
                         : 'bg-canvas-deep text-muted'
                       }`}>{convDetail.status}</span>
@@ -382,9 +382,9 @@ export default function WebChatTab() {
                     </div>
 
                     {convDetail.analysis?.transcriptSummary && (
-                      <div className="mt-3 p-3 bg-flare/15 rounded-lg">
-                        <p className="text-xs font-semibold text-flare uppercase tracking-wider mb-1">AI Summary</p>
-                        <p className="text-sm text-flare">{convDetail.analysis.transcriptSummary}</p>
+                      <div className="mt-3 p-3 bg-flare/12 rounded-lg">
+                        <p className="text-xs font-semibold text-flare-ink uppercase tracking-wider mb-1">AI Summary</p>
+                        <p className="text-sm text-flare-ink">{convDetail.analysis.transcriptSummary}</p>
                       </div>
                     )}
                   </div>
@@ -403,7 +403,7 @@ export default function WebChatTab() {
                               : 'bg-canvas-deep text-paper rounded-bl-md'
                           }`}>
                             <p className="text-sm leading-relaxed">{entry.message}</p>
-                            <p className={`text-[10px] mt-1 ${entry.role === 'user' ? 'text-flare' : 'text-muted'}`}>
+                            <p className={`text-[10px] mt-1 ${entry.role === 'user' ? 'text-flare-ink' : 'text-muted'}`}>
                               {entry.role === 'user' ? 'User' : 'Agent'}
                               {entry.timeInCallSecs != null && ` • ${formatDuration(Math.round(entry.timeInCallSecs))}`}
                             </p>

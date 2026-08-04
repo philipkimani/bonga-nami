@@ -59,7 +59,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
           <h2 className="text-xl font-semibold text-paper mb-6">Sign In</h2>
           
           {error && (
-            <div className="mb-4 p-3 bg-flare/15 border border-flare rounded-lg text-flare text-sm">
+            <div className="mb-4 p-3 bg-flare/12 border border-flare rounded-lg text-flare-ink text-sm">
               {error}
             </div>
           )}
@@ -74,7 +74,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line transition-colors"
+                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line transition-colors"
                 placeholder="Enter username"
                 required
                 autoFocus
@@ -90,7 +90,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line transition-colors"
+                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line transition-colors"
                 placeholder="Enter password"
                 required
               />
@@ -99,7 +99,7 @@ export default function LoginPage({ onLogin, apiBase = '' }: LoginPageProps) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 bg-canvas-deep text-paper font-medium rounded-lg hover: hover: focus:ring-4 focus:ring-flare transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 bg-canvas-deep text-paper font-medium rounded-lg hover: hover: focus:ring-4 focus:ring-flare-ink transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">

@@ -7,23 +7,28 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Surfaces
         canvas: {
-          DEFAULT: '#2B1552',
-          2: '#3A1E6E',
-          deep: '#1F0F3E',
+          DEFAULT: '#FBF8FF',
+          2: '#FFFFFF',
+          deep: '#F2ECFB',
         },
-        paper: '#FBF8FF',
-        muted: '#C4B5DE',
-        line: 'rgba(196,181,222,0.26)',
+        // Text
+        paper: '#241041',
+        muted: '#6E5D8F',
+        line: 'rgba(36,16,65,0.14)',
+        // Accents: bright = fills, -ink = text/icons (>= 4.5:1 on canvas)
         flare: '#FF2E88',
         sun: '#FFC94A',
         mint: '#23D9B0',
-        whatsapp: '#25D366',
+        'flare-ink': '#B81660',
+        'sun-ink': '#8A5A00',
+        'mint-ink': '#0B7F65',
+        whatsapp: '#128C7E',
       },
-      // A bare `border` class defaults to gray-200, which glows on the dark
-      // canvas. One override catches every one of them.
+      // A bare `border` class defaults to gray-200. One override aligns them all.
       borderColor: {
-        DEFAULT: 'rgba(196,181,222,0.26)',
+        DEFAULT: 'rgba(36,16,65,0.14)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],

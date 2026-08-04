@@ -148,11 +148,11 @@ export default function CallsTab() {
     .filter(c => !directionFilter || c.direction === directionFilter)
 
   const statusColors: Record<string, string> = {
-    'ringing': 'bg-sun/15 text-sun',
-    'in-progress': 'bg-mint/15 text-mint',
+    'ringing': 'bg-sun/20 text-sun-ink',
+    'in-progress': 'bg-mint/15 text-mint-ink',
     'completed': 'bg-canvas-deep text-muted',
-    'failed': 'bg-flare/15 text-flare',
-    'on-hold': 'bg-sun/15 text-sun',
+    'failed': 'bg-flare/12 text-flare-ink',
+    'on-hold': 'bg-sun/20 text-sun-ink',
   }
 
   return (
@@ -172,7 +172,7 @@ export default function CallsTab() {
           </button>
           <button
             onClick={() => setShowBatchModal(true)}
-            className="px-4 py-2 border border-flare text-flare rounded-lg hover:bg-flare/15 transition"
+            className="px-4 py-2 border border-flare text-flare-ink rounded-lg hover:bg-flare/12 transition"
           >
             Batch Calls
           </button>
@@ -183,13 +183,13 @@ export default function CallsTab() {
       <div className="grid grid-cols-4 gap-4 mb-6">
         <div className="bg-canvas-deep rounded-xl p-4">
           <p className="text-sm text-muted">Active Calls</p>
-          <p className="text-2xl font-bold text-mint">
+          <p className="text-2xl font-bold text-mint-ink">
             {calls.filter(c => c.status === 'in-progress' || c.status === 'ringing').length}
           </p>
         </div>
         <div className="bg-canvas-deep rounded-xl p-4">
           <p className="text-sm text-muted">Escalated</p>
-          <p className="text-2xl font-bold text-sun">{escalationCount}</p>
+          <p className="text-2xl font-bold text-sun-ink">{escalationCount}</p>
         </div>
         <div className="bg-canvas-deep rounded-xl p-4">
           <p className="text-sm text-muted">Total Calls</p>
@@ -209,16 +209,16 @@ export default function CallsTab() {
       </div>
 
       {/* Escalation Queue */}
-      <div className="bg-sun/15 border border-sun rounded-xl p-6 mb-6">
+      <div className="bg-sun/20 border border-sun rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <h3 className="text-lg font-semibold text-sun"> Calls Waiting for Human</h3>
-            <span className="px-2 py-1 bg-sun/15 text-sun rounded-full text-xs font-medium">
+            <h3 className="text-lg font-semibold text-sun-ink"> Calls Waiting for Human</h3>
+            <span className="px-2 py-1 bg-sun/20 text-sun-ink rounded-full text-xs font-medium">
               0 waiting
             </span>
           </div>
         </div>
-        <p className="text-sun text-center py-4">No calls waiting for human agent</p>
+        <p className="text-sun-ink text-center py-4">No calls waiting for human agent</p>
       </div>
 
       {/* Call History */}
@@ -281,7 +281,7 @@ export default function CallsTab() {
                   <td className="px-4 py-3 font-medium">{call.from}</td>
                   <td className="px-4 py-3">
                     <span className={`px-2 py-1 rounded text-xs ${
-                      call.direction === 'inbound' ? 'bg-canvas-deep text-muted' : 'bg-flare/15 text-flare'
+                      call.direction === 'inbound' ? 'bg-canvas-deep text-muted' : 'bg-flare/12 text-flare-ink'
                     }`}>
                       {call.direction === 'inbound' ? '↙ Inbound' : '↗ Outbound'}
                     </span>
@@ -297,7 +297,7 @@ export default function CallsTab() {
                   <td className="px-4 py-3 text-muted">{formatDuration(call.durationSeconds)}</td>
                   <td className="px-4 py-3 text-muted text-sm">{call.time || ''}</td>
                   <td className="px-4 py-3">
-                    <button className="text-flare hover:underline text-sm">View</button>
+                    <button className="text-flare-ink hover:underline text-sm">View</button>
                   </td>
                 </tr>
               ))
@@ -346,7 +346,7 @@ export default function CallsTab() {
                   type="tel"
                   name="phone"
                   placeholder="+254712345678"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
                   required
                 />
                 <p className="text-xs text-muted mt-1">E.164 format. The AI agent will call this number.</p>
@@ -377,8 +377,8 @@ export default function CallsTab() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-canvas-2 rounded-xl p-6 w-[500px]">
             <h3 className="text-lg font-semibold mb-4"> Batch Outbound Calls</h3>
-            <div className="bg-sun/15 border border-sun rounded-lg p-3 mb-4">
-              <p className="text-sm text-sun">
+            <div className="bg-sun/20 border border-sun rounded-lg p-3 mb-4">
+              <p className="text-sm text-sun-ink">
                 Batch calls use ElevenLabs Batch Calling API for efficient parallel processing.
               </p>
             </div>
@@ -406,7 +406,7 @@ export default function CallsTab() {
                   name="phones"
                   rows={5}
                   placeholder={"+254712345678\n+254723456789"}
-                  className="w-full px-4 py-2 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-flare"
+                  className="w-full px-4 py-2 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-flare-ink"
                   required
                 />
               </div>

@@ -182,9 +182,9 @@ export default function KnowledgeBaseSection() {
                   aria-current={activeTab === id ? 'page' : undefined}
                   className={`
                     w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors
-                    focus:outline-none focus-visible:ring-2 focus-visible:ring-flare
+                    focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink
                     ${activeTab === id
-                      ? 'bg-flare/15 text-flare font-medium'
+                      ? 'bg-flare/12 text-flare-ink font-medium'
                       : 'text-muted hover:bg-canvas-deep'
                     }
                   `}
@@ -259,12 +259,12 @@ function DashboardTab({
   return (
     <div className="p-6">
       {/* RAG Status Banner */}
-      <div className={`mb-6 p-4 rounded-xl border-2 ${ragStatus.enabled ? 'bg-mint/15 border-mint' : 'bg-sun/15 border-sun'}`}>
+      <div className={`mb-6 p-4 rounded-xl border-2 ${ragStatus.enabled ? 'bg-mint/15 border-mint' : 'bg-sun/20 border-sun'}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {ragStatus.enabled
-              ? <Brain className="h-6 w-6 text-mint" aria-hidden="true" />
-              : <TriangleAlert className="h-6 w-6 text-sun" aria-hidden="true" />}
+              ? <Brain className="h-6 w-6 text-mint-ink" aria-hidden="true" />
+              : <TriangleAlert className="h-6 w-6 text-sun-ink" aria-hidden="true" />}
             <div>
               <h3 className="font-semibold text-paper">
                 RAG (Retrieval-Augmented Generation)
@@ -307,7 +307,7 @@ function DashboardTab({
           <p className="text-muted">Overview of your Knowledge Base</p>
         </div>
         <div className="flex items-center gap-3">
-          <span className={`px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 ${ragStatus.enabled ? 'bg-mint/15 text-mint' : 'bg-sun/15 text-sun'}`}>
+          <span className={`px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 ${ragStatus.enabled ? 'bg-mint/15 text-mint-ink' : 'bg-sun/20 text-sun-ink'}`}>
             <span className={`w-2 h-2 rounded-full ${ragStatus.enabled ? 'bg-mint animate-pulse' : 'bg-sun'}`}></span>
             {ragStatus.enabled ? 'RAG Active' : 'RAG Disabled'}
           </span>
@@ -345,7 +345,7 @@ function DashboardTab({
               <Blocks className="h-5 w-5 text-muted" aria-hidden="true" />
             </div>
           </div>
-          <p className="text-sm mt-3 text-flare">Indexed for retrieval</p>
+          <p className="text-sm mt-3 text-flare-ink">Indexed for retrieval</p>
         </div>
 
         <div className="bg-canvas-2 rounded-xl border p-6">
@@ -358,7 +358,7 @@ function DashboardTab({
               <Search className="h-5 w-5 text-muted" aria-hidden="true" />
             </div>
           </div>
-          <p className="text-sm mt-3 text-mint">Knowledge lookups</p>
+          <p className="text-sm mt-3 text-mint-ink">Knowledge lookups</p>
         </div>
 
         <div className="bg-canvas-2 rounded-xl border p-6">
@@ -371,7 +371,7 @@ function DashboardTab({
               <Zap className="h-5 w-5 text-muted" aria-hidden="true" />
             </div>
           </div>
-          <p className="text-sm mt-3 text-sun">Retrieval speed</p>
+          <p className="text-sm mt-3 text-sun-ink">Retrieval speed</p>
         </div>
       </div>
 
@@ -389,13 +389,13 @@ function DashboardTab({
             </button>
             <button 
               onClick={onAddUrl}
-              className="w-full flex items-center gap-3 p-3 bg-flare/15 text-flare rounded-lg hover:bg-flare/15 transition"
+              className="w-full flex items-center gap-3 p-3 bg-flare/12 text-flare-ink rounded-lg hover:bg-flare/12 transition"
             >
               <span className="font-medium">Add URL</span>
             </button>
             <button 
               onClick={onAddText}
-              className="w-full flex items-center gap-3 p-3 bg-mint/15 text-mint rounded-lg hover:bg-mint/15 transition"
+              className="w-full flex items-center gap-3 p-3 bg-mint/15 text-mint-ink rounded-lg hover:bg-mint/15 transition"
             >
               <span className="font-medium">Add Text Content</span>
             </button>
@@ -526,7 +526,7 @@ function DocumentsTab({
                 </button>
                 <button 
                   onClick={() => onDelete(doc.id)}
-                  className="px-3 py-1.5 text-flare hover:bg-flare/15 rounded-lg transition text-sm"
+                  className="px-3 py-1.5 text-flare-ink hover:bg-flare/12 rounded-lg transition text-sm"
                 >
                   Delete
                 </button>
@@ -556,7 +556,7 @@ function ContextTab() {
         <div className="p-6 bg-canvas-deep rounded-xl">
           <label className="block text-sm font-medium text-muted mb-2">System Prompt</label>
           <textarea
-            className="w-full p-4 border rounded-lg resize-none focus:ring-2 focus:ring-flare focus:border-transparent bg-canvas-2"
+            className="w-full p-4 border rounded-lg resize-none focus:ring-2 focus:ring-flare-ink focus:border-transparent bg-canvas-2"
             rows={5}
             placeholder="Define the AI's personality, role, and behavior guidelines..."
           />
@@ -566,7 +566,7 @@ function ContextTab() {
         <div className="p-6 bg-canvas-deep rounded-xl">
           <label className="block text-sm font-medium text-muted mb-2">Business Context</label>
           <textarea
-            className="w-full p-4 border rounded-lg resize-none focus:ring-2 focus:ring-flare focus:border-transparent bg-canvas-2"
+            className="w-full p-4 border rounded-lg resize-none focus:ring-2 focus:ring-flare-ink focus:border-transparent bg-canvas-2"
             rows={5}
             placeholder="Describe your business, products, services, and key information..."
           />
@@ -576,7 +576,7 @@ function ContextTab() {
         <div className="p-6 bg-canvas-deep rounded-xl">
           <label className="block text-sm font-medium text-muted mb-2">Response Guidelines</label>
           <textarea
-            className="w-full p-4 border rounded-lg resize-none focus:ring-2 focus:ring-flare focus:border-transparent bg-canvas-2"
+            className="w-full p-4 border rounded-lg resize-none focus:ring-2 focus:ring-flare-ink focus:border-transparent bg-canvas-2"
             rows={4}
             placeholder="Specify how the AI should format responses, handle questions, etc..."
           />
@@ -606,7 +606,7 @@ function SettingsTab() {
               <label className="block text-sm font-medium text-muted mb-1">Agent ID</label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
                 placeholder="agent_xxxxx"
               />
             </div>
@@ -614,7 +614,7 @@ function SettingsTab() {
               <label className="block text-sm font-medium text-muted mb-1">API Key</label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
                 placeholder="••••••••••••••••"
               />
             </div>
@@ -626,7 +626,7 @@ function SettingsTab() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-muted mb-1">Chunk Size</label>
-              <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare">
+              <select className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink">
                 <option>512 tokens (default)</option>
                 <option>256 tokens</option>
                 <option>1024 tokens</option>
@@ -636,7 +636,7 @@ function SettingsTab() {
               <label className="block text-sm font-medium text-muted mb-1">Top K Results</label>
               <input
                 type="number"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
                 defaultValue={5}
               />
             </div>
@@ -812,7 +812,7 @@ function DocumentModal({
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="https://example.com/document"
-                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
                 />
               </div>
               <p className="text-sm text-muted">
@@ -830,7 +830,7 @@ function DocumentModal({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g., Product FAQ"
-                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent"
+                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent"
                 />
               </div>
               <div>
@@ -840,7 +840,7 @@ function DocumentModal({
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Paste or type your content here..."
                   rows={8}
-                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-flare focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-transparent resize-none"
                 />
               </div>
             </div>
@@ -848,7 +848,7 @@ function DocumentModal({
 
           {/* Error Message */}
           {error && (
-            <div className="mt-4 p-3 bg-flare/15 border border-flare rounded-lg text-flare text-sm">
+            <div className="mt-4 p-3 bg-flare/12 border border-flare rounded-lg text-flare-ink text-sm">
               {error}
             </div>
           )}

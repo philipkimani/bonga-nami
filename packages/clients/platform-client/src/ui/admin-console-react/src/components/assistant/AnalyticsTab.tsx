@@ -196,7 +196,7 @@ export default function AnalyticsTab() {
               onClick={() => setSelectedRange(range)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 selectedRange === range
-                  ? 'bg-flare/15 text-flare'
+                  ? 'bg-flare/12 text-flare-ink'
                   : 'bg-canvas-deep text-muted hover:bg-canvas-deep'
               }`}
             >
@@ -214,7 +214,7 @@ export default function AnalyticsTab() {
       </div>
 
       {error && (
-        <div className="mb-6 p-4 bg-flare/15 border border-flare rounded-xl text-flare text-sm">
+        <div className="mb-6 p-4 bg-flare/12 border border-flare rounded-xl text-flare-ink text-sm">
           {error}. Make sure ElevenLabs API key and Agent ID are configured in Platform Settings.
         </div>
       )}
@@ -367,7 +367,7 @@ export default function AnalyticsTab() {
                     {selectedConvo.metadata?.startTime ? fmtTime(selectedConvo.metadata.startTime) : '—'} &bull; {fmtDuration(selectedConvo.metadata?.duration || 0)}
                   </p>
                 </div>
-                <button onClick={() => setSelectedConvo(null)} aria-label="Close" className="w-8 h-8 flex items-center justify-center rounded-full text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare"><X className="h-4 w-4" aria-hidden="true" /></button>
+                <button onClick={() => setSelectedConvo(null)} aria-label="Close" className="w-8 h-8 flex items-center justify-center rounded-full text-muted transition-colors hover:bg-canvas-deep hover:text-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink"><X className="h-4 w-4" aria-hidden="true" /></button>
               </div>
 
               {/* IDs */}
@@ -376,7 +376,7 @@ export default function AnalyticsTab() {
                   ID: {selectedConvo.conversationId?.slice(0, 12)}...
                 </span>
                 {selectedConvo.agentId && (
-                  <span className="px-2 py-1 bg-flare/15 text-flare rounded font-mono" title="Agent ID">
+                  <span className="px-2 py-1 bg-flare/12 text-flare-ink rounded font-mono" title="Agent ID">
                     Agent: {selectedConvo.agentId.slice(0, 12)}...
                   </span>
                 )}
@@ -421,15 +421,15 @@ export default function AnalyticsTab() {
                   href={`/api/analytics/conversations/${selectedConvo.conversationId}/audio`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-flare hover:underline"
+                  className="text-flare-ink hover:underline"
                 > Play Audio</a>
               )}
             </div>
 
             {/* Summary */}
             {selectedConvo.analysis?.transcriptSummary && (
-              <div className="px-4 py-3 bg-flare/15 border-b">
-                <p className="text-sm text-flare"><strong>Summary:</strong> {selectedConvo.analysis.transcriptSummary}</p>
+              <div className="px-4 py-3 bg-flare/12 border-b">
+                <p className="text-sm text-flare-ink"><strong>Summary:</strong> {selectedConvo.analysis.transcriptSummary}</p>
               </div>
             )}
 
@@ -437,18 +437,18 @@ export default function AnalyticsTab() {
             <div className="px-4 py-3 border-b flex items-center gap-3">
               <span className="text-sm text-muted font-medium">Rate this conversation:</span>
               {feedbackSent[selectedConvo.conversationId] ? (
-                <span className={`text-sm font-medium ${feedbackSent[selectedConvo.conversationId] === 'like' ? 'text-mint' : 'text-flare'}`}>
+                <span className={`text-sm font-medium ${feedbackSent[selectedConvo.conversationId] === 'like' ? 'text-mint-ink' : 'text-flare-ink'}`}>
                   {feedbackSent[selectedConvo.conversationId] === 'like' ? 'Liked' : 'Disliked'}
                 </span>
               ) : (
                 <>
                   <button
                     onClick={() => sendFeedback(selectedConvo.conversationId, 'like')}
-                    className="px-3 py-1 bg-mint/15 text-mint rounded-lg hover:bg-mint/15 text-sm transition"
+                    className="px-3 py-1 bg-mint/15 text-mint-ink rounded-lg hover:bg-mint/15 text-sm transition"
                   > Good</button>
                   <button
                     onClick={() => sendFeedback(selectedConvo.conversationId, 'dislike')}
-                    className="px-3 py-1 bg-flare/15 text-flare rounded-lg hover:bg-flare/15 text-sm transition"
+                    className="px-3 py-1 bg-flare/12 text-flare-ink rounded-lg hover:bg-flare/12 text-sm transition"
                   > Bad</button>
                 </>
               )}
@@ -462,7 +462,7 @@ export default function AnalyticsTab() {
                   <div className={`max-w-[85%] px-3 py-2 rounded-xl text-sm ${
                     msg.role === 'agent'
                       ? 'bg-canvas-deep text-paper'
-                      : 'bg-flare/15 text-flare'
+                      : 'bg-flare/12 text-flare-ink'
                   }`}>
                     <p className="text-xs font-medium mb-1 opacity-60">
                       {msg.role === 'agent' ? 'AI' : 'User'} &bull; {fmtDuration(Math.round(msg.timeInCallSecs || 0))}
@@ -530,8 +530,8 @@ export default function AnalyticsTab() {
                     </td>
                     <td className="py-3">
                       <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                        c.success === 'success' ? 'bg-mint/15 text-mint' :
-                        c.success === 'failure' ? 'bg-flare/15 text-flare' :
+                        c.success === 'success' ? 'bg-mint/15 text-mint-ink' :
+                        c.success === 'failure' ? 'bg-flare/12 text-flare-ink' :
                         'bg-canvas-deep text-muted'
                       }`}>
                         {c.success || 'unknown'}
@@ -542,7 +542,7 @@ export default function AnalyticsTab() {
                       <button
                         onClick={(e) => { e.stopPropagation(); loadConversationDetail(c.id) }}
                         disabled={detailLoading}
-                        className="text-flare hover:text-flare text-xs font-medium whitespace-nowrap"
+                        className="text-flare-ink hover:text-flare-ink text-xs font-medium whitespace-nowrap"
                       >
                         {detailLoading ? '...' : 'View →'}
                       </button>

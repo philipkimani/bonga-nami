@@ -160,8 +160,8 @@ export default function DashboardTab() {
   }
 
   const successColor = (s: string) => {
-    if (s === 'success') return 'text-mint bg-mint/15'
-    if (s === 'failure') return 'text-flare bg-flare/15'
+    if (s === 'success') return 'text-mint-ink bg-mint/15'
+    if (s === 'failure') return 'text-flare-ink bg-flare/12'
     return 'text-muted bg-canvas-deep'
   }
 
@@ -192,7 +192,7 @@ export default function DashboardTab() {
               value={selectedDate}
               max={new Date().toISOString().split('T')[0]}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="px-3 py-2 border rounded-lg text-sm text-muted bg-canvas-2 focus:ring-2 focus:ring-flare outline-none"
+              className="px-3 py-2 border rounded-lg text-sm text-muted bg-canvas-2 focus:ring-2 focus:ring-flare-ink outline-none"
             />
             <button
               onClick={() => {
@@ -209,11 +209,11 @@ export default function DashboardTab() {
             {!isToday && (
               <button
                 onClick={() => setSelectedDate(new Date().toISOString().split('T')[0])}
-                className="px-3 py-2 bg-flare/15 text-flare rounded-lg text-sm font-medium hover:bg-flare transition"
+                className="px-3 py-2 bg-flare/12 text-flare-ink rounded-lg text-sm font-medium hover:bg-flare transition"
               >Today</button>
             )}
           </div>
-          <span className="px-3 py-1.5 bg-mint/15 text-mint rounded-full text-sm font-medium flex items-center gap-2">
+          <span className="px-3 py-1.5 bg-mint/15 text-mint-ink rounded-full text-sm font-medium flex items-center gap-2">
             <span className="w-2 h-2 bg-mint rounded-full animate-pulse"></span>
             Active
           </span>
@@ -228,7 +228,7 @@ export default function DashboardTab() {
       </div>
 
       {error && (
-        <div className="mb-6 p-4 bg-flare/15 border border-flare rounded-xl text-flare text-sm">
+        <div className="mb-6 p-4 bg-flare/12 border border-flare rounded-xl text-flare-ink text-sm">
           {error}. Make sure ElevenLabs API key and Agent ID are configured in Platform Settings.
         </div>
       )}
@@ -242,7 +242,7 @@ export default function DashboardTab() {
               <p className="text-3xl font-bold text-paper mt-1">{metrics.totalConversations}</p>
             </div>
           </div>
-          <p className="text-sm mt-3 text-flare">{metrics.totalMessages} total messages</p>
+          <p className="text-sm mt-3 text-flare-ink">{metrics.totalMessages} total messages</p>
         </div>
 
         <div className="bg-canvas-2 rounded-xl border p-6">
@@ -252,7 +252,7 @@ export default function DashboardTab() {
               <p className="text-3xl font-bold text-paper mt-1">{metrics.successRate}%</p>
             </div>
           </div>
-          <p className="text-sm mt-3 text-mint">{metrics.successCount} successful</p>
+          <p className="text-sm mt-3 text-mint-ink">{metrics.successCount} successful</p>
         </div>
 
         <div className="bg-canvas-2 rounded-xl border p-6">
@@ -273,7 +273,7 @@ export default function DashboardTab() {
               <p className="text-3xl font-bold text-paper mt-1">{escalation.currentQueueSize}</p>
             </div>
           </div>
-          <p className={`text-sm mt-3 ${escalation.currentQueueSize > 0 ? 'text-sun' : 'text-mint'}`}>
+          <p className={`text-sm mt-3 ${escalation.currentQueueSize > 0 ? 'text-sun-ink' : 'text-mint-ink'}`}>
             {escalation.currentQueueSize > 0 
               ? `${escalation.byUrgency.high} high priority` 
               : 'All handled by AI'}
@@ -293,7 +293,7 @@ export default function DashboardTab() {
                 .sort(([,a], [,b]) => b - a)
                 .map(([source, count]) => (
                 <div key={source} className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-flare/15 rounded-lg flex items-center justify-center text-lg">
+                  <div className="w-10 h-10 bg-flare/12 rounded-lg flex items-center justify-center text-lg">
                     <ChannelIcon channel={sourceChannel(source)} size={14} />
                   </div>
                   <div className="flex-1">
@@ -336,19 +336,19 @@ export default function DashboardTab() {
           <div className="space-y-3">
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('admin-navigate', { detail: { tab: 'calls' } }))}
-              className="w-full flex items-center gap-3 p-3 bg-flare/15 text-flare rounded-lg hover:bg-flare/15 transition"
+              className="w-full flex items-center gap-3 p-3 bg-flare/12 text-flare-ink rounded-lg hover:bg-flare/12 transition"
             >
               <span className="font-medium">Voice Calls</span>
             </button>
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('admin-navigate', { detail: { tab: 'sms' } }))}
-              className="w-full flex items-center gap-3 p-3 bg-mint/15 text-mint rounded-lg hover:bg-mint/15 transition"
+              className="w-full flex items-center gap-3 p-3 bg-mint/15 text-mint-ink rounded-lg hover:bg-mint/15 transition"
             >
               <span className="font-medium">SMS</span>
             </button>
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('admin-navigate', { detail: { tab: 'whatsapp' } }))}
-              className="w-full flex items-center gap-3 p-3 bg-mint/15 text-mint rounded-lg hover:bg-mint/15 transition"
+              className="w-full flex items-center gap-3 p-3 bg-mint/15 text-mint-ink rounded-lg hover:bg-mint/15 transition"
             >
               <span className="font-medium">WhatsApp</span>
             </button>
@@ -368,7 +368,7 @@ export default function DashboardTab() {
           <div className="flex items-center gap-3">
             <h3 className="text-lg font-semibold text-paper"> Escalation Queue</h3>
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-              escalationQueue.length > 0 ? 'bg-sun/15 text-sun' : 'bg-mint/15 text-mint'
+              escalationQueue.length > 0 ? 'bg-sun/20 text-sun-ink' : 'bg-mint/15 text-mint-ink'
             }`}>
               {escalationQueue.length} waiting
             </span>
@@ -382,11 +382,11 @@ export default function DashboardTab() {
           <div className="space-y-3">
             {escalationQueue.map((esc) => (
               <div key={esc.id} className={`flex items-center justify-between p-4 rounded-xl border ${
-                esc.urgency === 'high' ? 'bg-flare/15 border-flare' : 'bg-sun/15 border-sun'
+                esc.urgency === 'high' ? 'bg-flare/12 border-flare' : 'bg-sun/20 border-sun'
               }`}>
                 <div className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    esc.urgency === 'high' ? 'bg-flare/15' : 'bg-sun/15'
+                    esc.urgency === 'high' ? 'bg-flare/12' : 'bg-sun/20'
                   }`}>
                     <ChannelIcon channel={esc.channel} size={14} />
                   </div>
@@ -394,8 +394,8 @@ export default function DashboardTab() {
                     <p className="font-medium text-paper">
                       {esc.contactName || esc.contactPhone}
                       <span className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${
-                        esc.urgency === 'high' ? 'bg-flare/15 text-flare' : 
-                        esc.urgency === 'medium' ? 'bg-sun/15 text-sun' : 'bg-canvas-deep text-muted'
+                        esc.urgency === 'high' ? 'bg-flare/12 text-flare-ink' : 
+                        esc.urgency === 'medium' ? 'bg-sun/20 text-sun-ink' : 'bg-canvas-deep text-muted'
                       }`}>
                         {esc.urgency}
                       </span>
@@ -424,7 +424,7 @@ export default function DashboardTab() {
           <h3 className="text-lg font-semibold text-paper"> Recent Conversations</h3>
           <button
             onClick={() => window.dispatchEvent(new CustomEvent('admin-navigate', { detail: { tab: 'analytics' } }))}
-            className="text-flare text-sm font-medium hover:underline cursor-pointer"
+            className="text-flare-ink text-sm font-medium hover:underline cursor-pointer"
           >
             View All →
           </button>

@@ -8,9 +8,9 @@ export type BadgeVariant = 'urgent' | 'waiting' | 'handled' | 'neutral'
 // Colour is never the only signal — each variant carries an icon, and the
 // caller supplies the word.
 const VARIANTS: Record<BadgeVariant, { classes: string; Icon: LucideIcon }> = {
-  urgent:  { classes: 'bg-flare/15 text-flare border-flare/40', Icon: AlertTriangle },
-  waiting: { classes: 'bg-sun/15 text-sun border-sun/40',       Icon: Clock },
-  handled: { classes: 'bg-mint/15 text-mint border-mint/40',    Icon: CheckCircle2 },
+  urgent:  { classes: 'bg-flare/12 text-flare-ink border-flare-ink/30', Icon: AlertTriangle },
+  waiting: { classes: 'bg-sun/20 text-sun-ink border-sun-ink/30',       Icon: Clock },
+  handled: { classes: 'bg-mint/15 text-mint-ink border-mint-ink/30',    Icon: CheckCircle2 },
   neutral: { classes: 'bg-muted/10 text-muted border-line',     Icon: MinusCircle },
 }
 

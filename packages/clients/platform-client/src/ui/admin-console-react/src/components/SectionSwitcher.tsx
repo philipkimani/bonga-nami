@@ -38,7 +38,7 @@ export default function SectionSwitcher({
               aria-current={isActive ? 'page' : undefined}
               className={cn(
                 'inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium',
-                'transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-flare',
+                'transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-flare-ink',
                 isActive
                   ? 'bg-canvas-deep text-paper'
                   : 'text-muted hover:bg-canvas-deep/60 hover:text-paper',
@@ -50,7 +50,7 @@ export default function SectionSwitcher({
                 <span
                   className={cn(
                     'ml-1 rounded-full px-2 py-0.5 text-xs font-bold tabular-nums',
-                    escalationUrgent ? 'bg-flare text-paper' : 'bg-sun text-canvas',
+                    escalationUrgent ? 'bg-flare text-paper' : 'bg-sun text-paper',
                   )}
                 >
                   {escalationCount}

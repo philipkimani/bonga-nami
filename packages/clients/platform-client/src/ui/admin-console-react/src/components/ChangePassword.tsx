@@ -105,15 +105,15 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
 
         {/* Card */}
         <div className="bg-canvas-2 rounded-2xl p-8">
-          <div className="mb-6 p-4 bg-sun/15 border border-sun rounded-lg">
-            <p className="text-sun text-sm">
+          <div className="mb-6 p-4 bg-sun/20 border border-sun rounded-lg">
+            <p className="text-sun-ink text-sm">
               <strong> Security Notice:</strong> You must set a new password before accessing the admin console.
               Choose a strong password with at least 8 characters.
             </p>
           </div>
 
           {error && (
-            <div className="mb-4 p-3 bg-flare/15 border border-flare rounded-lg text-flare text-sm">
+            <div className="mb-4 p-3 bg-flare/12 border border-flare rounded-lg text-flare-ink text-sm">
               {error}
             </div>
           )}
@@ -128,7 +128,7 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
                 type="password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line transition-colors"
+                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line transition-colors"
                 placeholder="Enter current password"
                 required
                 autoFocus
@@ -144,7 +144,7 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare focus:border-line transition-colors"
+                className="w-full px-4 py-2.5 border border-line rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line transition-colors"
                 placeholder="Enter new password"
                 required
               />
@@ -160,7 +160,7 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
                       />
                     ))}
                   </div>
-                  <p className={`text-xs ${passwordStrength >= 3 ? 'text-mint' : 'text-muted'}`}>
+                  <p className={`text-xs ${passwordStrength >= 3 ? 'text-mint-ink' : 'text-muted'}`}>
                     Strength: {strengthLabels[passwordStrength - 1] || 'Too short'}
                   </p>
                 </div>
@@ -176,9 +176,9 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className={`w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-flare focus:border-line transition-colors ${
+                className={`w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-flare-ink focus:border-line transition-colors ${
                   confirmPassword && confirmPassword !== newPassword
-                    ? 'border-flare bg-flare/15'
+                    ? 'border-flare bg-flare/12'
                     : confirmPassword && confirmPassword === newPassword
                     ? 'border-mint bg-mint/15'
                     : 'border-line'
@@ -187,14 +187,14 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
                 required
               />
               {confirmPassword && confirmPassword !== newPassword && (
-                <p className="text-xs text-flare mt-1">Passwords do not match</p>
+                <p className="text-xs text-flare-ink mt-1">Passwords do not match</p>
               )}
             </div>
 
             <button
               type="submit"
               disabled={loading || passwordStrength < 3 || newPassword !== confirmPassword}
-              className="w-full py-3 px-4 bg-canvas-deep text-paper font-medium rounded-lg hover: hover: focus:ring-4 focus:ring-flare transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 bg-canvas-deep text-paper font-medium rounded-lg hover: hover: focus:ring-4 focus:ring-flare-ink transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -215,17 +215,17 @@ export default function ChangePassword({ onPasswordChanged, username }: ChangePa
               <strong>Password requirements:</strong>
             </p>
             <ul className="text-xs text-muted mt-2 space-y-1">
-              <li className={newPassword.length >= 8 ? 'text-mint' : ''}>
-                {newPassword.length >= 8 ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least 8 characters
+              <li className={newPassword.length >= 8 ? 'text-mint-ink' : ''}>
+                {newPassword.length >= 8 ? <Check className="inline h-3.5 w-3.5 text-mint-ink" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least 8 characters
               </li>
-              <li className={/[a-z]/.test(newPassword) && /[A-Z]/.test(newPassword) ? 'text-mint' : ''}>
-                {/[a-z]/.test(newPassword) && /[A-Z]/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} Uppercase and lowercase letters
+              <li className={/[a-z]/.test(newPassword) && /[A-Z]/.test(newPassword) ? 'text-mint-ink' : ''}>
+                {/[a-z]/.test(newPassword) && /[A-Z]/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint-ink" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} Uppercase and lowercase letters
               </li>
-              <li className={/\d/.test(newPassword) ? 'text-mint' : ''}>
-                {/\d/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least one number
+              <li className={/\d/.test(newPassword) ? 'text-mint-ink' : ''}>
+                {/\d/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint-ink" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least one number
               </li>
-              <li className={/[^a-zA-Z0-9]/.test(newPassword) ? 'text-mint' : ''}>
-                {/[^a-zA-Z0-9]/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least one special character
+              <li className={/[^a-zA-Z0-9]/.test(newPassword) ? 'text-mint-ink' : ''}>
+                {/[^a-zA-Z0-9]/.test(newPassword) ? <Check className="inline h-3.5 w-3.5 text-mint-ink" aria-hidden="true" /> : <Circle className="inline h-3.5 w-3.5 text-muted" aria-hidden="true" />} At least one special character
               </li>
             </ul>
           </div>

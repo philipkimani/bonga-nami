@@ -216,13 +216,13 @@ export default function SmsTab() {
             <div className="flex gap-2">
               <button
                 onClick={() => setShowNewModal(true)}
-                className="text-sm text-flare hover:underline"
+                className="text-sm text-flare-ink hover:underline"
               >
                 + New
               </button>
               <button
                 onClick={() => setShowBulkModal(true)}
-                className="text-sm text-flare hover:underline"
+                className="text-sm text-flare-ink hover:underline"
               >
                 Bulk
               </button>
@@ -242,7 +242,7 @@ export default function SmsTab() {
           <button
             onClick={() => setFilter('all')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition ${
-              filter === 'all' ? 'border-flare text-flare' : 'border-transparent text-muted'
+              filter === 'all' ? 'border-flare text-flare-ink' : 'border-transparent text-muted'
             }`}
           >
             All ({conversations.length})
@@ -250,12 +250,12 @@ export default function SmsTab() {
           <button
             onClick={() => setFilter('escalated')}
             className={`flex-1 px-4 py-2 text-sm font-medium border-b-2 transition flex items-center justify-center gap-2 ${
-              filter === 'escalated' ? 'border-flare text-flare' : 'border-transparent text-muted'
+              filter === 'escalated' ? 'border-flare text-flare-ink' : 'border-transparent text-muted'
             }`}
           >
             Escalated
             {escalatedCount > 0 && (
-              <span className="px-1.5 py-0.5 bg-sun/15 text-sun rounded text-xs">
+              <span className="px-1.5 py-0.5 bg-sun/20 text-sun-ink rounded text-xs">
                 {escalatedCount}
               </span>
             )}
@@ -281,7 +281,7 @@ export default function SmsTab() {
                   key={conv.id}
                   onClick={() => setSelectedConversation(conv)}
                   className={`w-full p-4 border-b text-left hover:bg-canvas-deep transition ${
-                    selectedConversation?.id === conv.id ? 'bg-flare/15' : ''
+                    selectedConversation?.id === conv.id ? 'bg-flare/12' : ''
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -292,8 +292,8 @@ export default function SmsTab() {
                   </div>
                   <div className="flex items-center gap-2 mt-1.5">
                     <span className={`px-2 py-0.5 rounded text-xs ${
-                      conv.status === 'escalated' ? 'bg-sun/15 text-sun' :
-                      conv.status === 'active' ? 'bg-mint/15 text-mint' :
+                      conv.status === 'escalated' ? 'bg-sun/20 text-sun-ink' :
+                      conv.status === 'active' ? 'bg-mint/15 text-mint-ink' :
                       'bg-canvas-deep text-muted'
                     }`}>
                       {conv.status}
@@ -308,8 +308,8 @@ export default function SmsTab() {
 
         {/* Escalation Queue Summary */}
         {escalationQueue.length > 0 && (
-          <div className="p-3 border-t bg-sun/15">
-            <div className="flex items-center gap-2 text-sm text-sun">
+          <div className="p-3 border-t bg-sun/20">
+            <div className="flex items-center gap-2 text-sm text-sun-ink">
               <span className="font-medium">{escalationQueue.length} waiting for human</span>
             </div>
           </div>
@@ -325,7 +325,7 @@ export default function SmsTab() {
               <h2 className="font-semibold text-paper">{selectedConversation.contactId}</h2>
               <div className="flex items-center gap-2 mt-0.5">
                 <span className={`text-xs px-2 py-0.5 rounded ${
-                  selectedConversation.status === 'escalated' ? 'bg-sun/15 text-sun' : 'bg-mint/15 text-mint'
+                  selectedConversation.status === 'escalated' ? 'bg-sun/20 text-sun-ink' : 'bg-mint/15 text-mint-ink'
                 }`}>
                   {selectedConversation.status}
                 </span>
@@ -399,7 +399,7 @@ export default function SmsTab() {
                 placeholder={selectedConversation.status === 'escalated'
                   ? 'Reply to escalated conversation...'
                   : 'Type a reply...'}
-                className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare"
+                className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-flare-ink"
                 disabled={sending}
               />
               <button
