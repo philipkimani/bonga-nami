@@ -88,13 +88,13 @@
     "case": {
       "id": "IC03",
       "category": "in_corpus",
-      "q": "At what age do most girls start their period?",
+      "q": "My younger sister keeps asking when her period will come. At what age do most girls start?",
       "expect": "answer",
       "facts": [
         "between 10 and 16"
       ]
     },
-    "asked": "At what age do most girls start their period?",
+    "asked": "My younger sister keeps asking when her period will come. At what age do most girls start?",
     "reply": "[warmly] That's a really good question! Most girls usually  start their period between the ages of ten and fifteen. It's a normal part of growing up, and everyone's body is a little different, so some  girls might start a bit earlier or later.",
     "scores": {
       "reading_grade": 6.73,
@@ -145,13 +145,13 @@
     "case": {
       "id": "IC04",
       "category": "in_corpus",
-      "q": "My periods are not regular yet. Is that normal?",
+      "q": "My younger sister's periods are not regular yet. Is that normal?",
       "expect": "answer",
       "facts": [
         "irregular for the first one to two years is normal"
       ]
     },
-    "asked": "My periods are not regular yet. Is that normal?",
+    "asked": "My younger sister's periods are not regular yet. Is that normal?",
     "reply": "[warmly] That's a really common question, and it's completely normal for your periods to be a bit irregular when you first start getting them. Your body is still figuring things out, and your hormones are settling into a rhythm. It can take some  time for everything to become regular.",
     "scores": {
       "reading_grade": 8.6,
@@ -234,13 +234,13 @@
     "case": {
       "id": "IC11",
       "category": "in_corpus",
-      "q": "When does puberty usually begin for girls?",
+      "q": "When does puberty usually begin for girls? I want to prepare my younger sister.",
       "expect": "answer",
       "facts": [
         "between ages 8 and 13"
       ]
     },
-    "asked": "When does puberty usually begin for girls?",
+    "asked": "When does puberty usually begin for girls? I want to prepare my younger sister.",
     "reply": "[warmly] Puberty usually starts for  girls between the ages of eight and thirteen. It's a time when your body begins to change and develop into an adult body. Every girl is different, so it's normal for it to start a little earlier or later for some.",
     "scores": {
       "reading_grade": 7.57,
@@ -319,13 +319,13 @@
     "case": {
       "id": "IC10",
       "category": "in_corpus",
-      "q": "What is usually the first sign of puberty in girls?",
+      "q": "What is usually the first sign of puberty in girls? My younger sister is ten.",
       "expect": "answer",
       "facts": [
         "breast buds"
       ]
     },
-    "asked": "What is usually the first sign of puberty in girls?",
+    "asked": "What is usually the first sign of puberty in girls? My younger sister is ten.",
     "reply": "[warmly] That's a great question! For most girls, the very  first sign of puberty is when their breasts start to develop. You might notice small bumps forming under your nipples, and this is totally normal.",
     "scores": {
       "reading_grade": 5.14,
@@ -495,13 +495,13 @@
     "case": {
       "id": "IC20",
       "category": "in_corpus",
-      "q": "How long after my breasts start growing will my period come?",
+      "q": "My younger sister's breasts have started growing. How long until her period comes?",
       "expect": "answer",
       "facts": [
         "about 2 to 3 years"
       ]
     },
-    "asked": "How long after my breasts start growing will my period come?",
+    "asked": "My younger sister's breasts have started growing. How long until her period comes?",
     "reply": "[warmly] That's a really good question, and it's something many girls wonder about! Usually, your period will start about two to three years after your breasts first begin to develop. Everyone is a little different, so it's not an  exact timeline, but that's a common pattern.",
     "scores": {
       "reading_grade": 8.35,
@@ -724,14 +724,14 @@
     "case": {
       "id": "IC26",
       "category": "in_corpus",
-      "q": "What foods should I eat now that I have started my period?",
+      "q": "My younger sister has just started her period. What foods should she eat?",
       "expect": "answer",
       "facts": [
         "iron-rich foods",
         "beans, green leafy vegetables, liver, eggs"
       ]
     },
-    "asked": "What foods should I eat now that I have started my period?",
+    "asked": "My younger sister has just started her period. What foods should she eat?",
     "reply": "That's a great question!  Eating healthy is always good, and it's especially helpful when you have your period. Try to eat foods that give you energy, like fruits, vegetables, and whole grains. Foods rich in iron, like beans and green leafy vegetables, can also be  good because you lose a little iron during your period.",
     "scores": {
       "reading_grade": 6.72,
@@ -753,13 +753,13 @@
     "case": {
       "id": "IC27",
       "category": "in_corpus",
-      "q": "How much sleep do I need at my age?",
+      "q": "How much sleep does my younger sister need at her age?",
       "expect": "answer",
       "facts": [
         "8 to 10 hours"
       ]
     },
-    "asked": "How much sleep do I need at my age?",
+    "asked": "How much sleep does my younger sister need at her age?",
     "reply": "That's a good question about your health, but I can only help with questions about puberty and menstrual health. For advice on how much sleep you need, it  would be best to ask someone you trust or a health worker.",
     "scores": {
       "reading_grade": 7.55,
@@ -899,13 +899,13 @@
     "case": {
       "id": "IC32",
       "category": "in_corpus",
-      "q": "What is a growth spurt?",
+      "q": "My younger sister has suddenly grown taller. What is a growth spurt?",
       "expect": "answer",
       "facts": [
         "height increases quickly"
       ]
     },
-    "asked": "What is a growth spurt?",
+    "asked": "My younger sister has suddenly grown taller. What is a growth spurt?",
     "reply": "[warmly] A growth spurt is a time when your body grows very quickly, usually during puberty. It's when you might notice yourself getting taller and your body  changing shape quite fast. It's a normal part of growing up for everyone.",
     "scores": {
       "reading_grade": 6.73,
@@ -955,14 +955,14 @@
     "case": {
       "id": "IC37",
       "category": "in_corpus",
-      "q": "What changes happen to my body shape in puberty?",
+      "q": "What changes happen to a girl's body shape in puberty? My younger sister is asking.",
       "expect": "answer",
       "facts": [
         "hips widen",
         "gain some fat around the hips, thighs and chest"
       ]
     },
-    "asked": "What changes happen to my body shape in puberty?",
+    "asked": "What changes happen to a girl's body shape in puberty? My younger sister is asking.",
     "reply": "[warmly] That's a really good question! During puberty, your body goes  through many changes. You'll notice your hips might get wider, and your breasts will start to develop. You might also grow taller and gain a bit of weight, which is all very normal as your body changes from a girl's to a young woman' s.",
     "scores": {
       "reading_grade": 5.65,
@@ -1012,13 +1012,13 @@
     "case": {
       "id": "IC38",
       "category": "in_corpus",
-      "q": "Does hair grow in new places during puberty?",
+      "q": "My younger sister is worried. Does hair grow in new places during puberty?",
       "expect": "answer",
       "facts": [
         "pubic and underarm hair"
       ]
     },
-    "asked": "Does hair grow in new places during puberty?",
+    "asked": "My younger sister is worried. Does hair grow in new places during puberty?",
     "reply": "[warmly] Yes, that's a very normal thing that happens during puberty. As your body changes, you'll start to notice hair growing in new places, like under  your arms and around your private parts. It's a sign that your body is developing, and it's completely natural.",
     "scores": {
       "reading_grade": 8.1,

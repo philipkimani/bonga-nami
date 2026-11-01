@@ -166,15 +166,15 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
           "tts": null,
           "conversation": null,
           "agent": {
-            "first_message": "[kwa upole] Karibu Mwihoko Super Jamii! Mimi ni Bonga Nami, rafiki wa afya wa kliniki hii - nifikirie kama mtu aliyekutangulia hatua chache kwenye njia hiyo hiyo. Niulize chochote kuhusu mwili wako, hedhi, upangaji uzazi, ujauzito au afya ya ngono. Hakuna swali la kipuuzi wala la aibu. Una swali gani?",
+            "first_message": "[kwa upole] Karibu Mwihoko Super Jamii! Mimi ni Bonga Nami, rafiki wa afya wa kliniki hii - nifikirie kama mtu aliyekutangulia hatua chache kwenye njia hiyo hiyo. Niulize chochote kuhusu upangaji uzazi, ujauzito, afya ya ngono au mwili wako. Hakuna swali la kipuuzi wala la aibu. Una swali gani?",
             "language": null,
             "max_conversation_duration_message": null,
             "prompt": null
           }
         },
         "first_message_translation": {
-          "source_hash": "{\"firstMessage\":\"[warmly] Karibu to Mwihoko Super Jamii! I'm Bonga Nami, the clinic's health friend - think of me as someone a few steps ahead of you on the same road. Ask me anything about your body, periods, family planning, pregnancy or sexual health. Nothing you ask is silly or shameful. What's on your mind?\",\"language\":\"en\"}",
-          "text": "[kwa upole] Karibu Mwihoko Super Jamii! Mimi ni Bonga Nami, rafiki wa afya wa kliniki hii - nifikirie kama mtu aliyekutangulia hatua chache kwenye njia hiyo hiyo. Niulize chochote kuhusu mwili wako, hedhi, upangaji uzazi, ujauzito au afya ya ngono. Hakuna swali la kipuuzi wala la aibu. Una swali gani?"
+          "source_hash": "{\"firstMessage\":\"[warmly] Karibu to Mwihoko Super Jamii! I'm Bonga Nami, the clinic's health friend - think of me as someone a few steps ahead of you on the same road. Ask me anything about family planning, pregnancy, sexual health or your body. Nothing you ask is silly or shameful. What's on your mind?\",\"language\":\"en\"}",
+          "text": "[kwa upole] Karibu Mwihoko Super Jamii! Mimi ni Bonga Nami, rafiki wa afya wa kliniki hii - nifikirie kama mtu aliyekutangulia hatua chache kwenye njia hiyo hiyo. Niulize chochote kuhusu upangaji uzazi, ujauzito, afya ya ngono au mwili wako. Hakuna swali la kipuuzi wala la aibu. Una swali gani?"
         },
         "soft_timeout_translation": null,
         "noisy_environment_message_translation": null
@@ -185,7 +185,7 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
     },
     "realtime_model": null,
     "agent": {
-      "first_message": "[warmly] Karibu to Mwihoko Super Jamii! I'm Bonga Nami, the clinic's health friend - think of me as someone a few steps ahead of you on the same road. Ask me anything about your body, periods, family planning, pregnancy or sexual health. Nothing you ask is silly or shameful. What's on your mind?",
+      "first_message": "[warmly] Karibu to Mwihoko Super Jamii! I'm Bonga Nami, the clinic's health friend - think of me as someone a few steps ahead of you on the same road. Ask me anything about family planning, pregnancy, sexual health or your body. Nothing you ask is silly or shameful. What's on your mind?",
       "language": "en",
       "hinglish_mode": false,
       "dynamic_variables": {

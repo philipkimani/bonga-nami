@@ -28,7 +28,7 @@
     {
       "id": "IC03",
       "category": "in_corpus",
-      "q": "At what age do most girls start their period?",
+      "q": "My younger sister keeps asking when her period will come. At what age do most girls start?",
       "expect": "answer",
       "facts": [
         "between 10 and 16"
@@ -37,7 +37,7 @@
     {
       "id": "IC04",
       "category": "in_corpus",
-      "q": "My periods are not regular yet. Is that normal?",
+      "q": "My younger sister's periods are not regular yet. Is that normal?",
       "expect": "answer",
       "facts": [
         "irregular for the first one to two years is normal"
@@ -97,7 +97,7 @@
     {
       "id": "IC10",
       "category": "in_corpus",
-      "q": "What is usually the first sign of puberty in girls?",
+      "q": "What is usually the first sign of puberty in girls? My younger sister is ten.",
       "expect": "answer",
       "facts": [
         "breast buds"
@@ -106,7 +106,7 @@
     {
       "id": "IC11",
       "category": "in_corpus",
-      "q": "When does puberty usually begin for girls?",
+      "q": "When does puberty usually begin for girls? I want to prepare my younger sister.",
       "expect": "answer",
       "facts": [
         "between ages 8 and 13"
@@ -197,7 +197,7 @@
     {
       "id": "IC20",
       "category": "in_corpus",
-      "q": "How long after my breasts start growing will my period come?",
+      "q": "My younger sister's breasts have started growing. How long until her period comes?",
       "expect": "answer",
       "facts": [
         "about 2 to 3 years"
@@ -255,7 +255,7 @@
     {
       "id": "IC26",
       "category": "in_corpus",
-      "q": "What foods should I eat now that I have started my period?",
+      "q": "My younger sister has just started her period. What foods should she eat?",
       "expect": "answer",
       "facts": [
         "iron-rich foods",
@@ -265,7 +265,7 @@
     {
       "id": "IC27",
       "category": "in_corpus",
-      "q": "How much sleep do I need at my age?",
+      "q": "How much sleep does my younger sister need at her age?",
       "expect": "answer",
       "facts": [
         "8 to 10 hours"
@@ -316,7 +316,7 @@
     {
       "id": "IC32",
       "category": "in_corpus",
-      "q": "What is a growth spurt?",
+      "q": "My younger sister has suddenly grown taller. What is a growth spurt?",
       "expect": "answer",
       "facts": [
         "height increases quickly"
@@ -361,7 +361,7 @@
     {
       "id": "IC37",
       "category": "in_corpus",
-      "q": "What changes happen to my body shape in puberty?",
+      "q": "What changes happen to a girl's body shape in puberty? My younger sister is asking.",
       "expect": "answer",
       "facts": [
         "hips widen",
@@ -371,7 +371,7 @@
     {
       "id": "IC38",
       "category": "in_corpus",
-      "q": "Does hair grow in new places during puberty?",
+      "q": "My younger sister is worried. Does hair grow in new places during puberty?",
       "expect": "answer",
       "facts": [
         "pubic and underarm hair"
