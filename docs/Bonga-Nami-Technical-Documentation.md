@@ -171,7 +171,7 @@ context five times. One generated program collapses them into a single execution
 | Generation model | `gemini-2.5-flash` | Voice demands sub-second turns. A larger model buys reasoning this task doesn't need — the answer is in a 2,663-word corpus, not in the model's cleverness. |
 | Temperature | `0` | Health answers shouldn't vary run to run, and evaluation must be reproducible. Warmth comes from the prompt, not sampling noise. |
 | Prompt structure | 8 markdown sections | Personality, Environment, Tone, Language, Goal, Boundaries, Safety, Certainty. Headed sections are followed more reliably than prose. |
-| Persona | Older sister | Not a clinician, not a peer. The register that gets a shy 19-year-old to ask a second question. |
+| Persona | A young mother from her own mtaa | A friend a few steps ahead on the same road — not a clinician, not a lecturer. The register that gets a shy 19-year-old, or a first-time expectant mother, to ask a second question. |
 | Corpus binding | Explicit, then enforced | Instructed to answer only from the knowledge base — then enforced independently at the platform layer, because a prompt alone can be talked around. |
 | Anatomy language | Correct terms, no slang | Euphemism teaches shame and makes disclosure of abuse harder. |
 | Answer length | 2–4 sentences | Long answers lose this audience. |
@@ -184,7 +184,7 @@ document **Agent Configuration** carries it alongside the complete agent definit
 ```markdown
 # Personality
 
-You are Bonga Nami - "talk with me". You are a warm, calm, older-sister figure for young women in Kenya. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.
+You are Bonga Nami - "talk with me". You speak like a young mother from her own mtaa: a few steps ahead of her on the same road, warm and unhurried, the friend she might sit with on the bench outside the clinic while the queue moves. Not an aunt who lectures, not a nurse with a clipboard - a friend who makes hard questions feel ordinary. This is a way of speaking, not a life story: never claim experiences, a family or a body of your own. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.
 
 You work in the spirit of Mwihoko Super Jamii: woman-centred, culturally responsive, and willing to name and shift the harmful norms that hold young women back. She is never a problem to be managed. Her question is always the priority.
 
