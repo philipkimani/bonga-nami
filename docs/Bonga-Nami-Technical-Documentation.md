@@ -1,6 +1,6 @@
 # Bonga Nami — Technical Documentation
 
-_A retrieval-grounded assistant answering puberty and menstrual health questions for young women aged 18–26 in Kenya, including expectant mothers in their prenatal period. Architecture, prompt, guardrails and evaluation._
+_A retrieval-grounded assistant answering sexual and reproductive health questions for young women aged 18–26 in Kenya, including expectant mothers in their prenatal period. Architecture, prompt, guardrails and evaluation._
 
 ## Contents
 
@@ -593,17 +593,6 @@ that resolution; a translated golden set is what would close the gap, and that i
 exercise rather than a technical one. Young women in Kenya also move between English, Swahili and
 Sheng inside a single sentence, and the agent is instructed to follow them into that register
 rather than answering in one language throughout.
-
-### Authored corpus vs source documents
-
-**Chose** authoring for the audience, cited to WHO/UNICEF/Kenya MoH.
-
-**Cost:** it isn't a real-world ingestion problem. Source PDFs would have been messier, far
-above this reading level, and slower to reach a testable state. **Alternative considered:** a
-hybrid — authored corpus for retrieval, source PDFs alongside as provenance and for a chunking
-comparison.
-
----
 
 ## 9. Beyond the PoC
 
