@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bonga Nami — puberty &amp; menstrual health Q&amp;A</title>
-<meta name="description" content="Bonga Nami - a retrieval-grounded Q&A assistant answering puberty and menstrual health questions for young women aged 18-26 in Kenya.">
+<title>Bonga Nami — sexual &amp; reproductive health Q&amp;A</title>
+<meta name="description" content="Bonga Nami - a retrieval-grounded Q&A assistant answering sexual and reproductive health questions for young women aged 18-26 in Kenya, including expectant mothers.">
 <style>
 :root{
   --canvas:#241041; --canvas-2:#2E1552; --deep:#1A0B31;
@@ -213,14 +213,14 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <div class="hero-grid">
     <div class="rise">
       <h1>Bonga&nbsp;Nami<span class="kicker">"talk with me"</span></h1>
-      <p class="thesis">Puberty and menstrual health questions, answered for young women aged 18&ndash;26 in Kenya
+      <p class="thesis">Sexual and reproductive health questions &mdash; periods, family planning, pregnancy and antenatal care &mdash; answered for young women aged 18&ndash;26 in Kenya
         &mdash; <strong>only from a fixed corpus</strong>, and honest when the answer isn't in it.</p>
       <button class="cta" id="ask-bonga" type="button">Ask Bonga <span aria-hidden="true">&rarr;</span></button>
     </div>
     <div class="spec rise">
       <h3>Configuration</h3>
       <dl>
-        <dt>corpus</dt><dd><b>2,663</b> words &middot; 1 indexed file</dd>
+        <dt>corpus</dt><dd><b>5,137</b> words &middot; 1 indexed file</dd>
         <dt>retrieval</dt><dd>e5_mistral_7b_instruct</dd>
         <dt>generation</dt><dd>gemini-2.5-flash &middot; temp <b>0</b></dd>
         <dt>guardrails</dt><dd><b>4</b> custom &middot; focus &middot; injection</dd>
@@ -235,8 +235,8 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <section class="slide" id="s1"><div class="inner">
   <p class="eyebrow rise"><span class="num">01</span> Use case <span class="rule"></span> corpus, audience, success metrics</p>
   <h2 class="rise">A young woman asks a question she can't ask anyone else.</h2>
-  <p class="lede rise">Young women in Kenya routinely miss school and work during their periods &mdash; through cost,
-    lack of a private place to change, pain, or shame. The information gap is filled by myths.
+  <p class="lede rise">Young women in Kenya &mdash; many in rural areas and informal settlements &mdash; face pregnancy, contraception
+    and their periods with little reliable information and few people to ask. The gap is filled by myths, and by clinic visits that come too late.
     This assistant answers <strong>only from a curated corpus</strong>, in a register a shy 19-year-old trusts.</p>
   <div class="grid g3 rise">
     <div class="card"><span class="tag">Audience</span>
@@ -245,14 +245,16 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <li>Including expectant mothers in their prenatal period</li>
         <li>Often shy, or asking "for a friend"</li>
         <li>Carrying myths from home or online</li>
-        <li>Often with no adult they can ask</li>
+        <li>Often with no one they can ask</li>
       </ul></div>
     <div class="card"><span class="tag">Corpus</span>
       <ul class="ticks">
-        <li>Puberty: what changes, and when</li>
-        <li>Menstrual cycle, pain, management</li>
+        <li>Periods: the cycle, pain, management, red flags</li>
+        <li>Family planning and emergency contraception</li>
+        <li>Pregnancy, antenatal care and the weeks after birth</li>
+        <li>Sexual health, consent and care after violence</li>
         <li>Myths and the questions young women ask</li>
-        <li>2,663 words &middot; closed &middot; cited</li>
+        <li>5,137 words &middot; closed &middot; cited</li>
       </ul></div>
     <div class="card"><span class="tag">Success metrics</span>
       <ul class="ticks">
@@ -281,7 +283,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <path d="M0,0 L0,6 L8,3 z" fill="#FF2E88"/></marker>
     </defs>
     <text class="title" x="0" y="14">BROWSER</text>
-    <text class="title" x="330" y="14">PLATFORM (RAILWAY)</text>
+    <text class="title" x="330" y="14">PLATFORM (RENDER)</text>
     <text class="title" x="680" y="14">LLM API</text>
 
     <rect class="box" x="0" y="30" width="180" height="52" rx="10"/>
@@ -320,14 +322,14 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <p class="eyebrow rise"><span class="num">03</span> Architecture <span class="rule"></span> frameworks and where state lives</p>
   <h2 class="rise">What runs where, and what the platform never stores.</h2>
   <div class="grid g2 rise" style="align-items:start">
-    <svg class="diagram" viewBox="0 0 460 330" role="img" aria-label="Architecture: browser and admin console talk to an Express server on Railway backed by Postgres; the server integrates with the LLM API for retrieval, generation and speech.">
+    <svg class="diagram" viewBox="0 0 460 330" role="img" aria-label="Architecture: browser and admin console talk to an Express server on Render backed by Postgres; the server integrates with the LLM API for retrieval, generation and speech.">
       <rect class="box" x="10" y="10" width="180" height="46" rx="10"/>
       <text x="26" y="31">User's browser</text><text class="lbl" x="26" y="47">widget + this page</text>
       <rect class="box" x="255" y="10" width="180" height="46" rx="10"/>
       <text x="271" y="31">Admin console</text><text class="lbl" x="271" y="47">React + Vite</text>
       <path class="flow draw" d="M100,58 L100,96"/><path class="flow draw" d="M345,58 L345,96"/>
       <rect class="box box-hot" x="10" y="100" width="425" height="60" rx="10"/>
-      <text x="26" y="124">Express v5 &middot; TypeScript &middot; Docker on Railway</text>
+      <text x="26" y="124">Express v5 &middot; TypeScript &middot; Docker on Render</text>
       <text class="lbl" x="26" y="144">signed-url minting &middot; config &middot; analytics &middot; healthcheck /health</text>
       <path class="flow draw" d="M120,162 L120,204"/>
       <rect class="box" x="10" y="208" width="200" height="56" rx="10"/>
@@ -369,7 +371,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <h2 class="rise">Each setting, and the reasoning behind it.</h2>
   <div class="rows rise">
     <div class="row"><div class="k">Generation</div><div class="v">gemini-2.5-flash</div>
-      <div class="why">Voice demands sub-second turns. A larger model buys reasoning this task doesn't need &mdash; the answer is in a 2,663-word corpus, not in the model's cleverness.</div></div>
+      <div class="why">Voice demands sub-second turns. A larger model buys reasoning this task doesn't need &mdash; the answer is in a 5,137-word corpus, not in the model's cleverness.</div></div>
     <div class="row"><div class="k">Temperature</div><div class="v">0</div>
       <div class="why">Health answers shouldn't vary run to run, and the evaluation must be reproducible. Warmth comes from the prompt, not from sampling noise.</div></div>
     <div class="row"><div class="k">Prompt structure</div><div class="v">8 sections</div>
@@ -538,9 +540,8 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         tell me whether a young woman felt safe enough to ask the second question. That answer only comes from
         moderated sessions with the real audience, and it would change the prompt before it changed the code.</p></div>
     <div class="card"><span class="tag">Corpus scope</span>
-      <p>Narrowed from sexual and reproductive health to puberty and menstrual health alone.</p>
-      <p><b>The cost:</b> real questions about contraception and consent get refused. The gain is a corpus
-        that can actually be evaluated end-to-end, and a scope that is safe to operate live.</p></div>
+      <p>Sexual and reproductive health: periods, family planning, pregnancy and antenatal care, the weeks after birth, and sexual health and safety.</p>
+      <p><b>The cost:</b> a larger corpus to keep accurate and clinically reviewed, and the evaluation above covers the first three parts. The gain: the questions young women and expectant mothers actually bring &mdash; contraception, pregnancy, consent &mdash; are answered rather than refused.</p></div>
     <div class="card"><span class="tag">English corpus, Swahili replies</span>
       <p>A question asked in Swahili is answered in Swahili, from the same English corpus. The corpus and
         the golden set are English; the conversation is not.</p>

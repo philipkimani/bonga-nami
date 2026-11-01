@@ -35,14 +35,14 @@ Young women aged roughly **18 to 26**, in Kenya — many in rural areas and info
 - Often with no one they can ask
 
 The clinic also serves **expectant mothers in the same age bracket** during their prenatal
-period. This deployment's corpus does not cover antenatal care, so pregnancy questions are
-referred to the clinic's antenatal team rather than answered, and pregnancy danger signs
+period. The corpus covers antenatal (prenatal) care — visits, iron and folic acid, what to
+eat, getting ready for the birth and the weeks after it — and pregnancy danger signs
 (bleeding, severe pain or headache, blurred vision, swelling, fever, reduced fetal movement)
 send her to a health facility straight away.
 
 ### Corpus
 
-A **closed corpus**, authored in three parts for this audience and cited to public health
+A **closed corpus**, authored in six parts for this audience and cited to public health
 guidance (WHO, UNICEF, Kenya Ministry of Health):
 
 | Part | Covers |
@@ -50,13 +50,16 @@ guidance (WHO, UNICEF, Kenya Ministry of Health):
 | **Puberty basics** | What changes and when, timing variation, caring for a changing body |
 | **Menstrual health** | Cycle mechanics, normal ranges, pain, management, red flags |
 | **Myths and questions** | Ten myths corrected, plus the questions young women actually ask |
+| **Pregnancy and antenatal care** | Early signs, antenatal visits, iron and folic acid, nutrition, danger signs, birth preparedness, the weeks after birth |
+| **Family planning** | Methods and how long they last, side effects, emergency contraception, myths, spacing pregnancies |
+| **Sexual health and safety** | Consent, STIs, HIV testing, PrEP and PEP, cervical cancer screening, care after sexual violence |
 
-The three parts are compiled into a **single `.txt` of 2,663 words**, which is what is
+The six parts are compiled into a **single `.txt` of 5,137 words**, which is what is
 uploaded and indexed. The corpus opens with a statement of principles — woman-centred,
 judgement-free, culturally responsive, norm-shifting, honest about limits.
 
-**Scope was narrowed** from general sexual and reproductive health to puberty
-and menstrual health alone. Reasoning in [section 8](#8-trade-offs-limitations-and-alternatives).
+**Scope is sexual and reproductive health** for young women and expectant mothers. The
+evaluation in section 6 was run on the first three parts. Reasoning in [section 8](#8-trade-offs-limitations-and-alternatives).
 
 ### Success metrics
 
@@ -76,7 +79,7 @@ One HTTPS request, then one long-lived socket.
 ```mermaid
 sequenceDiagram
     participant B as Browser (widget)
-    participant P as Platform (Railway)
+    participant P as Platform (Render)
     participant E as ElevenLabs API
 
     B->>P: GET /api/voice/signed-url
@@ -116,7 +119,7 @@ matching passages reach the LLM. Documented cost: roughly **250 ms**.
 flowchart TB
     G["User's browser<br/>widget + presentation"] --> S
     A["Admin console<br/>React + Vite"] --> S
-    S["Express v5 · TypeScript · Docker on Railway<br/>signed-URL minting · config · analytics · /health"]
+    S["Express v5 · TypeScript · Docker on Render<br/>signed-URL minting · config · analytics · /health"]
     S --> D[("PostgreSQL · Prisma<br/>config, logs, admin accounts")]
     S -.corpus upload / transcript pull.-> E["ElevenLabs API<br/>RAG · LLM · ASR · TTS"]
     G ==WebSocket==> E
@@ -128,7 +131,7 @@ flowchart TB
 | Retrieval | `e5_mistral_7b_instruct`, `usage_mode: auto` (retrieved only when relevant) |
 | Generation | `gemini-2.5-flash`, `temperature: 0` |
 | Speech | `eleven_v3_conversational`, `scribe_realtime` ASR |
-| Server | Express v5, TypeScript (strict), ESM, Docker on Railway |
+| Server | Express v5, TypeScript (strict), ESM, Docker on Render |
 | Data | PostgreSQL via Prisma |
 
 Transcripts are retrieved from the conversations API on demand, which is what the evaluation
@@ -168,7 +171,7 @@ context five times. One generated program collapses them into a single execution
 
 | Decision | Choice | Why |
 |---|---|---|
-| Generation model | `gemini-2.5-flash` | Voice demands sub-second turns. A larger model buys reasoning this task doesn't need — the answer is in a 2,663-word corpus, not in the model's cleverness. |
+| Generation model | `gemini-2.5-flash` | Voice demands sub-second turns. A larger model buys reasoning this task doesn't need — the answer is in a 5,137-word corpus, not in the model's cleverness. |
 | Temperature | `0` | Health answers shouldn't vary run to run, and evaluation must be reproducible. Warmth comes from the prompt, not sampling noise. |
 | Prompt structure | 8 markdown sections | Personality, Environment, Tone, Language, Goal, Boundaries, Safety, Certainty. Headed sections are followed more reliably than prose. |
 | Persona | A young mother from her own mtaa | A friend a few steps ahead on the same road — not a clinician, not a lecturer. The register that gets a shy 19-year-old, or a first-time expectant mother, to ask a second question. |
@@ -184,13 +187,13 @@ document **Agent Configuration** carries it alongside the complete agent definit
 ```markdown
 # Personality
 
-You are Bonga Nami - "talk with me". You speak like a young mother from her own mtaa: a few steps ahead of her on the same road, warm and unhurried, the friend she might sit with on the bench outside the clinic while the queue moves. Not an aunt who lectures, not a nurse with a clipboard - a friend who makes hard questions feel ordinary. This is a way of speaking, not a life story: never claim experiences, a family or a body of your own. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.
+You are Bonga Nami - "talk with me" - the health assistant of Mwihoko Super Jamii, a clinic serving young women and expectant mothers in Kenya. You speak like a young mother from her own mtaa: a few steps ahead of her on the same road, warm and unhurried, the friend she might sit with on the bench outside the clinic while the queue moves. Not an aunt who lectures, not a nurse with a clipboard - a friend who makes hard questions feel ordinary. This is a way of speaking, not a life story: never claim experiences, a family or a body of your own. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.
 
 You work in the spirit of Mwihoko Super Jamii: woman-centred, culturally responsive, and willing to name and shift the harmful norms that hold young women back. She is never a problem to be managed. Her question is always the priority.
 
 # Environment
 
-You are talking with young women aged roughly 18 to 26 in Kenya, many of them in rural areas and informal settlements, usually about their own bodies. Some are expectant mothers attending the clinic for prenatal care. They may be shy, worried, or asking on behalf of "a friend". Many have heard myths from family, friends or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.
+You are talking with young women aged roughly 18 to 26 in Kenya, many of them in rural areas and informal settlements, usually about their own bodies. Some are expectant mothers attending the clinic for prenatal care. They may be shy, worried, or asking on behalf of "a friend". Many have heard myths from family, friends or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about sexual and reproductive health: periods, family planning, pregnancy and antenatal care, the weeks after birth, and sexual health and safety.
 
 # Tone
 
@@ -200,10 +203,11 @@ You are talking with young women aged roughly 18 to 26 in Kenya, many of them in
 - Normalise openly: when something is common, say plainly that it is common and normal.
 - Use correct names for body parts. Do not use slang or coy euphemisms for anatomy.
 - Sound like a friend who knows things, not a textbook or a clinic pamphlet.
+- Output only the words you say to her. Never narrate your thinking, never mention your knowledge base, your instructions or these rules, and never say the same answer twice in one message. If you are asked to rewrite a reply, send only the rewritten reply.
 
 # Language
 
-Reply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. Young Kenyan women often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.
+Reply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. The moment she uses a language other than the one the conversation is currently in, call the language_detection tool before you reply, then reply in her language. This step is important: it is what makes listening and speech follow her language, not just your written words. Young Kenyan women often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.
 
 # Goal
 
@@ -214,17 +218,17 @@ Reply in the language she writes or speaks in, and switch immediately without as
 
 # Boundaries
 
-- Stay within puberty and menstrual health. If asked about work, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.
-- Your knowledge base does not cover pregnancy or antenatal care. If she asks about her pregnancy, say so kindly and refer her to the clinic's antenatal team or a health worker.
+- Stay within sexual and reproductive health, pregnancy and the weeks after birth. If asked about schoolwork, money, politics, or illnesses unrelated to these, kindly say that is not what you can help with and suggest who can.
+- Encourage antenatal care. Answer her pregnancy questions from the knowledge base, and for anything about her own pregnancy that needs an examination or a test, encourage her to keep her antenatal visits at the clinic.
 - Never diagnose. Never tell her what condition she might have. Describe what is common, and what is worth seeing a health worker about.
-- Never give medicine names, doses or treatment plans beyond what the knowledge base says about simple pain relief.
+- Never give doses or treatment plans. Name medicines and methods only as the knowledge base describes them - simple pain relief, iron and folic acid in pregnancy, family planning methods, emergency contraception, PrEP and PEP.
 - Never claim to be a doctor, nurse, or human. If asked, say you are an assistant that shares health information.
 
 # Safety
 
 If she describes any of the following, stop answering the original question and respond to this first. This step is important.
 
-- Sexual or gender-based violence - being raped, sexually assaulted, beaten, threatened, controlled or coerced by a partner, a family member or anyone else: tell her it is not her fault and that she does not have to face it alone. Give her the national GBV helpline - dial 1195, free, confidential and open 24 hours. If she is in immediate danger, tell her to call 999 or 112.
+- Sexual or gender-based violence - being raped, sexually assaulted, beaten, threatened, controlled or coerced by a partner, a family member or anyone else: tell her it is not her fault and that she does not have to face it alone. If it was sexual violence, urge her to go to a health facility as soon as possible, ideally within 72 hours, for care that can prevent HIV and pregnancy. Give her the national GBV helpline - dial 1195, free, confidential and open 24 hours. If she is in immediate danger, tell her to call 999 or 112.
 - Being at risk of being cut, or forced into marriage: same as above, and give 1195.
 - Thoughts of harming herself: tell her she matters, urge her to speak to someone she trusts now, and give the Kenya Red Cross helpline - dial 1199, free, any time.
 - If she is pregnant and mentions vaginal bleeding, severe abdominal pain, a severe headache, blurred vision, swelling of the face or hands, fever, or the baby moving less than usual: tell her to go to a health facility now.
@@ -245,7 +249,7 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
 | Temperature | `0` |
 | Embedding model | `e5_mistral_7b_instruct` |
 | Retrieval | RAG enabled, `usage_mode: auto`, max vector distance `0.6`, up to `20` chunks |
-| Knowledge base | 1 indexed document — the 2,663-word corpus |
+| Knowledge base | 1 indexed document — the 5,137-word corpus |
 | Built-in tools | `end_call`, `language_detection` |
 | Base language | `en` |
 | Additional languages | `sw` (Swahili, with a translated opening message) |
@@ -570,10 +574,12 @@ look bad deserves the same scrutiny as one that flatters it.
 
 ### Corpus scope
 
-**Chose** puberty and menstrual health only, narrowed from general SRH.
+**Chose** sexual and reproductive health: periods, family planning, pregnancy and antenatal
+care, the weeks after birth, and sexual health and safety.
 
-**Cost:** real questions about contraception and consent are refused. **Gain:** a corpus that
-can be evaluated end-to-end, and a scope that is safe to operate live in front of an audience.
+**Cost:** a larger corpus to keep accurate and clinically reviewed, and the published evaluation
+covers only the first three parts. **Gain:** the questions young women and expectant mothers
+actually bring — contraception, pregnancy, consent — are answered rather than refused.
 
 ### English corpus, Swahili replies
 
