@@ -610,7 +610,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 </div><!-- /deck -->
 
 <div id="bonga-nami-chat-widget"></div>
-<script src="/widget/widget.bundle.iife.js" onerror="fallbackInit()"></script>
+<script src="/widget/widget.bundle.iife.js"></script>
 <script>
 (function(){
   var deck=document.getElementById('deck');
@@ -662,16 +662,6 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   });
 })();
 
-function fallbackInit(){
-  console.log('[ChatUI] Widget bundle not found. Run: pnpm --filter platform-client build:widget');
-  var c=document.getElementById('bonga-nami-chat-widget');
-  if(c){c.innerHTML='<div style="position:fixed;bottom:1.5rem;right:1.5rem;background:#2E1552;'+
-    'border:1px solid rgba(185,168,212,.3);border-radius:1rem;padding:1.25rem;max-width:280px;'+
-    'color:#FBF8FF;font-family:ui-sans-serif,system-ui,sans-serif;box-shadow:0 10px 40px rgba(0,0,0,.45)">'+
-    '<h3 style="margin:0 0 .5rem;font-size:1rem">Widget not built</h3>'+
-    '<code style="display:block;padding:.5rem;background:rgba(0,0,0,.35);border-radius:.25rem;font-size:.72rem">'+
-    'pnpm --filter platform-client build:widget</code></div>';}
-}
 </script>
 </body>
 </html>
