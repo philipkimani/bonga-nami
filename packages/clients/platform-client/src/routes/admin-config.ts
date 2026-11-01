@@ -524,6 +524,17 @@ router.put('/platform', async (req, res) => {
       return;
     }
 
+    // Reject malformed ElevenLabs keys — every valid key starts with sk_.
+    // A wrong paste here silently breaks the widget and analytics until the next save.
+    const incomingElKey = updates.elevenLabs?.apiKey;
+    if (incomingElKey && !incomingElKey.includes('*') && !incomingElKey.startsWith('sk_')) {
+      res.status(400).json({
+        success: false,
+        error: "That doesn't look like an ElevenLabs API key — it should start with sk_. Check ElevenLabs → Profile → API Keys.",
+      });
+      return;
+    }
+
     // Build updated config
     const newConfig: PlatformConfig = {
       industry: updates.industry !== undefined ? updates.industry : memoryConfig.industry,

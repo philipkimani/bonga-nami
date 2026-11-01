@@ -3,22 +3,22 @@
         {
             "config": "test_configs\\Swahili-in-Swahili-out.json",
             "type": "basic-llm",
-            "id": "test_0701kz0c86pce1ashqbtswz96s6t"
+            "id": "test_7401m07csywzefz914xbhdap1pzp"
         },
         {
             "config": "test_configs\\No-off-domain-drift-on-bare-greeting.json",
             "type": "basic-llm",
-            "id": "test_3601kz0c936ve66v17b586f8g0yg"
+            "id": "test_7701m07csz7veg6axxfymww6gfxv"
         },
         {
             "config": "test_configs\\Swahili-question-answered-from-knowledge-base.json",
             "type": "basic-llm",
-            "id": "test_5401kz0c97jve0kved0swez1be6g"
+            "id": "test_5001m07cszjtekksk0t2qdx71bxk"
         },
         {
             "config": "test_configs\\Switches-to-Swahili-without-asking.json",
             "type": "basic-llm",
-            "id": "test_7301kz0d442gf0pvhcr1w39bfv6v"
+            "id": "test_2601m07cszx8fhyapt57h2pvk3t9"
         }
     ]
 }

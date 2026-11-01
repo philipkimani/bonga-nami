@@ -26,7 +26,7 @@ WORKDIR /app
 RUN apk add --no-cache openssl libc6-compat
 
 # Install pnpm
-RUN npm install -g pnpm
+RUN npm install -g pnpm@11.25.0
 
 # Copy workspace files
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./

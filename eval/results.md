@@ -1,6 +1,6 @@
 # Evaluation results — Bonga Nami
 
-_85 cases · agent `agent_4101kywmq628ex5vtz9j1gw2bqw1` · temperature 0_
+_85 cases · agent `agent_6901kzxqetvafqbv61mtjxy5j1sc` · temperature 0_
 
 > **Judges.** Groundedness and myth correction are judged by
 > **`claude-sonnet-4-5`** (Anthropic) — a different model family from the

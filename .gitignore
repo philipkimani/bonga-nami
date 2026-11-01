@@ -27,3 +27,19 @@ Thumbs.db
 # local notes
 *.local.md
 *.private.md
+
+# AI tooling / planning scratch (local only)
+CLAUDE.md
+.claude/
+docs/superpowers/
+
+# raw ElevenLabs exports: secrets, phone numbers, real user transcripts — never publish
+migration/
+
+# personal notes and unrelated documents
+STUDY-NOTES.*
+docs/Foundations_of_Embeddings_*
+
+# office lock / temp files
+~$*
+~WRL*.tmp

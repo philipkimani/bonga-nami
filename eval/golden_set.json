@@ -1,7 +1,7 @@
 {
   "meta": {
     "agent": "Bonga Nami",
-    "agent_id": "agent_4101kywmq628ex5vtz9j1gw2bqw1",
+    "agent_id": "agent_3301m07can02enb8sd5891mwm5x0",
     "corpus": "knowledge-base/bonga-nami-knowledge-base.txt",
     "note": "Expected facts are drawn verbatim from the corpus. 'expect' defines the required behaviour class."
   },

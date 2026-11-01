@@ -6,7 +6,7 @@ does not establish, and the questions this invites.
 This document stands on its own: every figure below is traceable to a case, and every case
 it draws on is reproduced in full in the companion document **Evaluation Transcripts**.
 
-**The run:** all 85 cases against the deployed agent (id `agent_4101kywmq628ex5vtz9j1gw2bqw1`)
+**The run:** all 85 cases against the deployed agent (id `agent_6901kzxqetvafqbv61mtjxy5j1sc`)
 at `temperature: 0` — the same input yields the same output, so these numbers are
 reproducible rather than a sample.
 

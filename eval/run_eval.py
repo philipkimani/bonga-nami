@@ -46,7 +46,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-AGENT_ID = "agent_4101kywmq628ex5vtz9j1gw2bqw1"
+AGENT_ID = "agent_3301m07can02enb8sd5891mwm5x0"
 API = "https://api.elevenlabs.io/v1"
 KEY = os.environ.get("ELEVENLABS_API_KEY")
 

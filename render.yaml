@@ -1,0 +1,27 @@
+# Render Blueprint — Bonga Nami platform (Dockerfile build, Postgres on Neon)
+services:
+  - type: web
+    name: bonga-nami
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free # ponytail: free tier sleeps after ~15 min idle; switch to starter for always-on
+    region: frankfurt
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TENANT_ID
+        value: bonga-nami
+      - key: VOICE_BACKEND
+        value: elevenlabs
+      - key: ELEVENLABS_AGENT_ID
+        value: agent_3301m07can02enb8sd5891mwm5x0
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL # Neon connection string, entered in the dashboard
+        sync: false
+      - key: ELEVENLABS_API_KEY
+        sync: false
+      - key: WIDGET_ALLOWED_DOMAINS # bare hostnames, comma-separated; must match the service URL
+        value: bonga-nami.onrender.com
