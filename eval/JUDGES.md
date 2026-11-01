@@ -56,4 +56,4 @@ These are the genuinely uncertain verdicts — worth reading before quoting any 
 - `gpt`: **True** — All claims about monthly bleeding are supported by the corpus.
 - `gemini`: **True** — All claims are directly supported by the corpus.
 
-> [warmly] That's a really good question! Every month, your body gets ready in case you become pregnant. The lining of your uterus, which is also  called your womb, gets thick and soft. If you don't become pregnant, your body doesn't need that lining, so it gently sheds it. That shedding is what we ca
+> [warmly] That's a really good question! Every month, your body gets ready in case you become pregnant. The lining of your uterus, which is also called your womb, gets thick and soft. If you don't become pregnant, your body doesn't need that lining, so it gently sheds it. That shedding is what we cal

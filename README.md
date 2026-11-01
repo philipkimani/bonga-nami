@@ -11,9 +11,11 @@ the working assistant (widget, bottom right) and the presentation.
 **Admin console:** [open the console](https://bonga-nami.onrender.com/) — where the corpus is
 uploaded and conversations are reviewed.
 
-A commercial deployment for **Mwihoko Super Jamii**, a clinic serving young women aged 18–26,
-including expectant mothers, open-sourced for organisations working with young women in rural
-areas and informal settlements in Kenya on family planning and sexual and reproductive health.
+A commercial deployment for **Mwihoko Super Jamii** (name anonymised), a private health clinic
+with branches in three Kenyan counties — one in an urban informal settlement and the others in
+low-income rural areas. It serves young women aged 18–26, including expectant mothers. The
+project is open-sourced for organisations working with young women in informal settlements and
+rural Kenya on family planning and sexual and reproductive health.
 
 Philip K. Kimani · philipkimanidev@gmail.com
 
