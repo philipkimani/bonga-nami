@@ -23,10 +23,10 @@
       "merge_with_default_ignore_terms": false,
       "transcribe_on_disabled_interruptions": false,
       "soft_timeout_config": {
-        "timeout_seconds": -1.0,
-        "message": "Hhmmmm...yeah.",
+        "timeout_seconds": 3.0,
+        "message": "Give me a moment while I check that for you.",
         "additional_soft_timeout_messages": [],
-        "use_llm_generated_message": false,
+        "use_llm_generated_message": true,
         "randomize_fillers": false,
         "max_soft_timeouts_per_generation": 1,
         "llm_generated_message_prompt_override": null,
@@ -583,11 +583,11 @@
             },
             {
               "is_enabled": true,
-              "name": "Answers must stay grounded in the knowledge base",
-              "prompt": "Block any response that states health facts about sexual and reproductive health, pregnancy or menstrual health that are not supported by the agent's knowledge base. If the knowledge base does not cover the question, the agent must say so and refer the user to a health worker rather than answering from general knowledge.",
+              "name": "Out-of-scope health advice must be declined",
+              "prompt": "Block a response only if it gives health advice on a topic outside sexual and reproductive health, pregnancy and the weeks after birth, menstrual health, or the clinic's own services and branches, instead of saying it cannot help with that and pointing the user to a health worker. Do not block answers about family planning, contraception, emergency contraception, pregnancy, antenatal or postnatal care, breastfeeding, nutrition in pregnancy or after birth, sexually transmitted infections, HIV, PrEP or PEP, consent, sexual violence, periods, or the clinic's branches. Do not block a response that says it does not know and refers the user to a health worker.",
               "execution_mode": "blocking",
               "model": "gemini-2.5-flash-lite",
-              "history_message_count": 1,
+              "history_message_count": 2,
               "history_include_tool_calls": false,
               "trigger_action": {
                 "type": "retry",

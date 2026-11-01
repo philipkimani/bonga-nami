@@ -35,7 +35,8 @@ Philip K. Kimani · philipkimanidev@gmail.com
   sexual violence. Thoughts of self-harm → Kenya Red Cross **1199**. Pregnancy danger signs →
   a health facility now.
 - **Enforces safety at the platform layer**, not only in the prompt: no diagnoses, no
-  medicine doses, safeguarding disclosures must be routed, answers must stay grounded.
+  medicine doses, safeguarding disclosures must be routed, out-of-scope health advice must be
+  declined. If a check holds a reply back, she hears a short "give me a moment" instead of silence.
 - **Gives the clinic an admin console** to update the corpus and read conversations — no
   developer or redeploy needed.
 

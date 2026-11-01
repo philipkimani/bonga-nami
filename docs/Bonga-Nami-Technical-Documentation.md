@@ -324,7 +324,7 @@ opposite — it punishes the user for the model's problem.
 | No medical diagnoses | 1 msg | May describe what is common and refer on; may not name her condition |
 | No medication dosing | 1 msg | Simple pain relief as the corpus states it; no drug names, doses or regimens |
 | Safeguarding disclosures must be routed | **3 msgs** | Blocks any reply to a disclosure of sexual or gender-based violence, FGM or forced-marriage risk, or self-harm that fails to give reassurance and the right helpline (1195 GBV, 1199 Red Cross) |
-| Answers must stay grounded | 1 msg | Blocks health claims the corpus doesn't support, forcing an honest "I don't know, ask a nurse" |
+| Out-of-scope health advice must be declined | 2 msgs | Blocks health advice outside the service's scope, forcing an honest "I can't help with that, ask a health worker". Scoped this way because the guardrail model cannot see the retrieved corpus, so it cannot check grounding itself; grounding is enforced by the prompt and measured by the evaluation. |
 
 Also enabled: **focus** (keeps the conversation in scope) and **prompt-injection defence**.
 
