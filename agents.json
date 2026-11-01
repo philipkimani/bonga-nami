@@ -2,7 +2,9 @@
     "agents": [
         {
             "config": "agent_configs\\Bonga-Nami.json",
-            "id": "agent_3301m07can02enb8sd5891mwm5x0"
+            "id": "agent_3301m07can02enb8sd5891mwm5x0",
+            "version_id": "agtvrsn_6001m6bgkb60epts2v0bqq7jyeqd",
+            "branch_id": "agtbrch_5201m07capn6epjv9sqhmn6x57vr"
         }
     ]
 }

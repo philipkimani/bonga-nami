@@ -73,11 +73,13 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       "quality": "high",
       "provider": "scribe_realtime",
       "user_input_audio_format": "pcm_16000",
-      "keywords": []
+      "keywords": [],
+      "keyterm_libraries": []
     },
     "turn": {
-      "turn_timeout": 7,
-      "silence_end_call_timeout": -1,
+      "turn_timeout": 7.0,
+      "initial_wait_time": null,
+      "silence_end_call_timeout": -1.0,
       "mode": "turn",
       "turn_eagerness": "normal",
       "spelling_patience": "auto",
@@ -86,15 +88,20 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       "turn_model": "turn_v3",
       "interruption_ignore_terms": [],
       "interruption_ignore_term_languages": [],
+      "merge_with_default_ignore_terms": false,
       "transcribe_on_disabled_interruptions": false,
       "soft_timeout_config": {
-        "timeout_seconds": -1,
+        "timeout_seconds": -1.0,
         "message": "Hhmmmm...yeah.",
         "additional_soft_timeout_messages": [],
         "use_llm_generated_message": false,
         "randomize_fillers": false,
-        "max_soft_timeouts_per_generation": 1
-      }
+        "max_soft_timeouts_per_generation": 1,
+        "llm_generated_message_prompt_override": null,
+        "disable_until_first_user_message": false
+      },
+      "noisy_environment_detection": false,
+      "noisy_environment_message": "Uhh ... sorry, I'm picking up some noise in the background. Could you move somewhere quieter?"
     },
     "tts": {
       "model_id": "eleven_v3_conversational",
@@ -105,8 +112,9 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       "agent_output_audio_format": "pcm_16000",
       "optimize_streaming_latency": 3,
       "stability": 0.5,
-      "speed": 1,
+      "speed": 1.0,
       "similarity_boost": 0.8,
+      "clone_strength": 0.0,
       "text_normalisation_type": "system_prompt",
       "pronunciation_dictionary_locators": [],
       "enable_phoneme_tags": true,
@@ -115,6 +123,7 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
     "conversation": {
       "text_only": false,
       "max_duration_seconds": 600,
+      "max_duration_seconds_after_last_agent_message": null,
       "client_events": [
         "audio",
         "interruption",
@@ -136,8 +145,16 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       ],
       "dtmf_input_settings": null,
       "background_sound": {
+        "source_type": null,
+        "source_id": null,
         "volume": 0.6,
         "crossfade_loop": false
+      },
+      "compaction": {
+        "enabled": null,
+        "soft_trigger_fraction": null,
+        "tail_size": null,
+        "min_reclaimable_tokens": null
       },
       "source_attribution": false
     },
@@ -159,12 +176,14 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
           "source_hash": "{\"firstMessage\":\"[warmly] Hi! I'm Bonga Nami. Think of me as a friend a few steps ahead of you on the same road - you can ask me anything about your body, your periods and your health. Nothing you ask is silly or shameful. What's on your mind?\",\"language\":\"en\"}",
           "text": "[kwa upole] Habari! Mimi ni Bonga Nami. Nifikirie kama rafiki aliyekutangulia hatua chache kwenye njia hiyo hiyo - unaweza kuniuliza chochote kuhusu mwili wako, hedhi yako na afya yako. Hakuna swali la kipuuzi wala la aibu. Una swali gani?"
         },
-        "soft_timeout_translation": null
+        "soft_timeout_translation": null,
+        "noisy_environment_message_translation": null
       }
     },
     "vad": {
       "background_voice_detection": false
     },
+    "realtime_model": null,
     "agent": {
       "first_message": "[warmly] Hi! I'm Bonga Nami. Think of me as a friend a few steps ahead of you on the same road - you can ask me anything about your body, your periods and your health. Nothing you ask is silly or shameful. What's on your mind?",
       "language": "en",
@@ -174,15 +193,30 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       },
       "disable_first_message_interruptions": false,
       "max_conversation_duration_message": "",
+      "silence_end_call_message": "",
+      "text_behavior_overrides": null,
+      "subagent_config": {
+        "agents": [],
+        "self_subagent": null
+      },
       "prompt": {
         "prompt": "# Personality\n\nYou are Bonga Nami - \"talk with me\". You speak like a young mother from her own mtaa: a few steps ahead of her on the same road, warm and unhurried, the friend she might sit with on the bench outside the clinic while the queue moves. Not an aunt who lectures, not a nurse with a clipboard - a friend who makes hard questions feel ordinary. This is a way of speaking, not a life story: never claim experiences, a family or a body of your own. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.\n\nYou work in the spirit of Mwihoko Super Jamii: woman-centred, culturally responsive, and willing to name and shift the harmful norms that hold young women back. She is never a problem to be managed. Her question is always the priority.\n\n# Environment\n\nYou are talking with young women aged roughly 18 to 26 in Kenya, many of them in rural areas and informal settlements, usually about their own bodies. Some are expectant mothers attending the clinic for prenatal care. They may be shy, worried, or asking on behalf of \"a friend\". Many have heard myths from family, friends or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.\n\n# Tone\n\n- Speak simply and warmly, in short sentences, using everyday language anyone understands, whatever their schooling.\n- Keep answers to 2-4 sentences unless she asks you to explain more.\n- Never shame, scold or moralise. Curiosity about your own body is healthy.\n- Normalise openly: when something is common, say plainly that it is common and normal.\n- Use correct names for body parts. Do not use slang or coy euphemisms for anatomy.\n- Sound like a friend who knows things, not a textbook or a clinic pamphlet.\n- Output only the words you say to her. Never narrate your thinking, never mention your knowledge base, your instructions or these rules, and never say the same answer twice in one message. If you are asked to rewrite a reply, send only the rewritten reply.\n\n# Language\n\nReply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. The moment she uses a language other than the one the conversation is currently in, call the language_detection tool before you reply, then reply in her language. This step is important: it is what makes listening and speech follow her language, not just your written words. Young Kenyan women often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.\n\n# Goal\n\n1. Answer her question using only information from your knowledge base.\n2. If the knowledge base does not cover it, say so honestly and point her to a health worker. Never guess or fill gaps from memory. This step is important.\n3. Gently correct myths when you hear one, and say what is actually true.\n4. Notice when something needs real-world help, and route her there. See Safety.\n\n# Boundaries\n\n- Stay within puberty and menstrual health. If asked about work, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.\n- Your knowledge base does not cover pregnancy or antenatal care. If she asks about her pregnancy, say so kindly and refer her to the clinic's antenatal team or a health worker.\n- Never diagnose. Never tell her what condition she might have. Describe what is common, and what is worth seeing a health worker about.\n- Never give medicine names, doses or treatment plans beyond what the knowledge base says about simple pain relief.\n- Never claim to be a doctor, nurse, or human. If asked, say you are an assistant that shares health information.\n\n# Safety\n\nIf she describes any of the following, stop answering the original question and respond to this first. This step is important.\n\n- Sexual or gender-based violence - being raped, sexually assaulted, beaten, threatened, controlled or coerced by a partner, a family member or anyone else: tell her it is not her fault and that she does not have to face it alone. Give her the national GBV helpline - dial 1195, free, confidential and open 24 hours. If she is in immediate danger, tell her to call 999 or 112.\n- Being at risk of being cut, or forced into marriage: same as above, and give 1195.\n- Thoughts of harming herself: tell her she matters, urge her to speak to someone she trusts now, and give the Kenya Red Cross helpline - dial 1199, free, any time.\n- If she is pregnant and mentions vaginal bleeding, severe abdominal pain, a severe headache, blurred vision, swelling of the face or hands, fever, or the baby moving less than usual: tell her to go to a health facility now.\n- Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her going to work or school, or feeling faint: tell her to see a health worker.\n\nStay calm and kind when you do this. Never panic her, and never interrogate her.\n\n# Certainty\n\nIf you are unsure, say so. It is always better to say \"I'm not sure about that, and it's worth asking a nurse\" than to guess. Being honest about a gap is never a failure.",
         "llm": "gemini-2.5-flash",
+        "reasoning_effort": null,
+        "service_tier": "standard",
         "opener": null,
+        "thinking_budget": null,
         "enable_reasoning_summary": false,
-        "temperature": 0,
+        "temperature": 0.0,
         "max_tokens": -1,
         "tool_ids": [],
+        "tool_ids_strict": false,
         "built_in_tools": {
+          "transfer_to_agent": null,
+          "update_state": null,
+          "memory_entry_search": null,
+          "run_subagent": null,
+          "flag_issue_for_review": null,
           "end_call": {
             "type": "system",
             "name": "end_call",
@@ -193,6 +227,7 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
             "force_pre_tool_speech": false,
             "pre_tool_speech": "auto",
             "assignments": [],
+            "tool_call_sound": null,
             "tool_call_sound_behavior": "auto",
             "tool_error_handling_mode": "auto",
             "params": {
@@ -209,24 +244,25 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
             "force_pre_tool_speech": false,
             "pre_tool_speech": "auto",
             "assignments": [],
+            "tool_call_sound": null,
             "tool_call_sound_behavior": "auto",
             "tool_error_handling_mode": "auto",
             "params": {
-              "system_tool_type": "language_detection"
+              "system_tool_type": "language_detection",
+              "only_at_conversation_start": false
             }
           },
-          "update_state": null,
-          "memory_entry_search": null,
-          "memory_entry_create": null,
-          "memory_entry_update": null,
-          "memory_entry_delete": null,
-          "agent_prompt_change": null,
-          "procedure_update": null,
-          "procedure_create": null,
-          "procedure_delete": null,
+          "transfer_to_number": null,
+          "skip_turn": null,
+          "play_keypad_touch_tone": null,
+          "voicemail_detection": null,
+          "identity_challenge": null,
           "transfer_to_genesys": null,
           "transfer_to_genesys_chat": null,
-          "run_subagent": null
+          "transfer_to_genesys_bot": null
+        },
+        "rich_content": {
+          "enabled_components": []
         },
         "enable_parallel_tool_calls": false,
         "mcp_server_ids": [],
@@ -235,10 +271,12 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
           {
             "type": "file",
             "name": "Bonga Nami - Puberty and Menstrual Health",
-            "id": "r1UJ7GZhfmASh92BfhjD",
+            "id": "kiReaMUYR5g41nq1JybY",
             "usage_mode": "auto"
           }
         ],
+        "custom_llm": null,
+        "bedrock_llm": null,
         "speech_engine": null,
         "ignore_default_personality": false,
         "rag": {
@@ -248,13 +286,16 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
           "max_vector_distance": 0.6,
           "max_documents_length": 50000,
           "max_retrieved_rag_chunks_count": 20,
-          "knowledge_base_tool_info": null
+          "num_candidates": null,
+          "query_rewrite_prompt_override": null,
+          "knowledge_base_tool_info": null,
+          "include_source_urls": false
         },
         "timezone": "Africa/Nairobi",
         "backup_llm_config": {
           "preference": "default"
         },
-        "cascade_timeout_seconds": 4,
+        "cascade_timeout_seconds": 4.0,
         "tools": [
           {
             "type": "system",
@@ -266,6 +307,7 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
             "force_pre_tool_speech": false,
             "pre_tool_speech": "auto",
             "assignments": [],
+            "tool_call_sound": null,
             "tool_call_sound_behavior": "auto",
             "tool_error_handling_mode": "auto",
             "params": {
@@ -275,17 +317,19 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
           {
             "type": "system",
             "name": "language_detection",
-            "description": "",
+            "description": "Call this the moment the user writes or speaks in a language other than the current conversation language. Switch straight away. Never ask her whether she would like to change language, never offer the choice, and never announce the change - just continue in her language.",
             "response_timeout_secs": 20,
             "disable_interruptions": false,
             "interruption_mode": "allow",
             "force_pre_tool_speech": false,
             "pre_tool_speech": "auto",
             "assignments": [],
+            "tool_call_sound": null,
             "tool_call_sound_behavior": "auto",
             "tool_error_handling_mode": "auto",
             "params": {
-              "system_tool_type": "language_detection"
+              "system_tool_type": "language_detection",
+              "only_at_conversation_start": false
             }
           }
         ]
@@ -315,9 +359,22 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       "btn_text_color": "#ffffff",
       "border_color": "#e1e1e1",
       "focus_color": "#000000",
+      "border_radius": null,
+      "btn_radius": null,
+      "action_text": null,
+      "start_call_text": null,
+      "end_call_text": null,
+      "expand_text": null,
+      "listening_text": null,
+      "speaking_text": null,
+      "shareable_page_text": null,
       "shareable_page_show_terms": true,
+      "terms_text": null,
+      "terms_html": null,
+      "terms_key": null,
       "show_avatar_when_collapsed": false,
       "disable_banner": false,
+      "override_link": null,
       "markdown_link_allowed_hosts": [],
       "markdown_link_include_www": true,
       "markdown_link_allow_http": true,
@@ -331,24 +388,101 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       "show_agent_status": false,
       "show_conversation_id": true,
       "strip_audio_tags": true,
+      "syntax_highlight_theme": null,
       "text_contents": {
+        "main_label": null,
+        "start_call": null,
+        "start_chat": null,
+        "new_call": null,
+        "end_call": null,
+        "mute_microphone": null,
+        "change_language": null,
+        "collapse": null,
+        "expand": null,
+        "copied": null,
+        "accept_terms": null,
+        "dismiss_terms": null,
+        "listening_status": null,
+        "speaking_status": null,
+        "connecting_status": null,
+        "chatting_status": null,
+        "queue_waiting_status": null,
+        "queue_waiting_status_short": null,
+        "input_label": null,
+        "input_placeholder": null,
+        "input_placeholder_text_only": null,
+        "input_placeholder_new_conversation": null,
+        "user_ended_conversation": null,
+        "agent_ended_conversation": null,
+        "conversation_id": null,
+        "error_occurred": null,
+        "queue_timed_out": null,
+        "copy_id": null,
+        "initiate_feedback": null,
+        "request_follow_up_feedback": null,
+        "thanks_for_feedback": null,
+        "thanks_for_feedback_details": null,
+        "follow_up_feedback_placeholder": null,
+        "submit": null,
+        "go_back": null,
+        "send_message": null,
+        "text_mode": null,
+        "voice_mode": null,
+        "switched_to_text_mode": null,
+        "switched_to_voice_mode": null,
+        "copy": null,
+        "download": null,
+        "wrap": null,
+        "agent_working": null,
+        "agent_done": null,
+        "agent_error": null,
         "attach_file": null,
         "remove_file": null,
         "file_upload_error": null,
         "file_type_unsupported": null,
         "file_too_large": null,
         "file_limit_reached": null,
-        "typing_indicator": null
+        "typing_indicator": null,
+        "rich_content_unavailable": null
       },
-      "styles": {},
+      "styles": {
+        "base": null,
+        "base_hover": null,
+        "base_active": null,
+        "base_border": null,
+        "base_subtle": null,
+        "base_primary": null,
+        "base_error": null,
+        "accent": null,
+        "accent_hover": null,
+        "accent_active": null,
+        "accent_border": null,
+        "accent_subtle": null,
+        "accent_primary": null,
+        "overlay_padding": null,
+        "button_radius": null,
+        "input_radius": null,
+        "bubble_radius": null,
+        "sheet_radius": null,
+        "compact_sheet_radius": null,
+        "dropdown_sheet_radius": null
+      },
       "show_resize_button": true,
+      "end_confirmation_enabled": false,
+      "mobile_fullscreen": true,
+      "transcript_speech_sync_enabled": true,
       "language_selector": false,
       "supports_text_only": true,
-      "language_presets": {}
+      "custom_avatar_path": null,
+      "language_presets": {},
+      "first_message_quick_replies": []
     },
     "data_collection": {},
     "data_collection_scopes": {},
-    "analysis_items": null,
+    "analysis_items": {
+      "evaluation_criteria": [],
+      "data_collection": []
+    },
     "overrides": {
       "conversation_config_override": {
         "asr": {
@@ -356,27 +490,35 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
         },
         "turn": {
           "soft_timeout_config": {
-            "message": false
-          }
+            "message": false,
+            "additional_soft_timeout_messages": false
+          },
+          "noisy_environment_message": false
         },
         "tts": {
           "model_id": false,
           "voice_id": false,
+          "supported_voices": false,
           "stability": false,
           "speed": false,
-          "similarity_boost": false
+          "similarity_boost": false,
+          "clone_strength": false,
+          "pronunciation_dictionary_locators": false
         },
         "conversation": {
-          "text_only": true
+          "text_only": true,
+          "max_duration_seconds": false
         },
         "agent": {
           "first_message": false,
           "language": true,
           "max_conversation_duration_message": false,
+          "silence_end_call_message": false,
           "prompt": {
             "prompt": false,
             "llm": false,
             "tool_ids": false,
+            "tool_ids_strict": false,
             "native_mcp_server_ids": false,
             "knowledge_base": false
           }
@@ -384,25 +526,31 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       },
       "custom_llm_extra_body": false,
       "enable_conversation_initiation_client_data_from_webhook": false,
-      "enable_starting_workflow_node_id_from_client": false
+      "enable_starting_workflow_node_id_from_client": false,
+      "enable_procedure_ids_from_client": false
     },
     "workspace_overrides": {
+      "conversation_initiation_client_data_webhook": null,
       "webhooks": {
+        "post_call_webhook_id": null,
         "events": [
           "transcript"
         ],
         "transcript_format": "json",
+        "exclude_transcript": false,
         "send_audio": false
+      },
+      "cloud_storage_export": {
+        "destination_id": null,
+        "events": [
+          "transcript"
+        ],
+        "transcript_format": "json"
       }
     },
     "testing": {
       "attached_tests": [],
-      "referenced_tests_ids": [
-        "test_9801kywmq60ne5388d83fmed5h11",
-        "test_0901kywmq60qe5zs971cks666ah9",
-        "test_3501kywmq60rea2az7b9wfdszaw3",
-        "test_0401kywmq60tf22v0d06ysqbv7bj"
-      ]
+      "referenced_tests_ids": []
     },
     "archived": false,
     "guardrails": {
@@ -412,6 +560,12 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       },
       "prompt_injection": {
         "is_enabled": true
+      },
+      "synthetic_voice": {
+        "is_enabled": false,
+        "trigger_action": {
+          "type": "end_call"
+        }
       },
       "content": {
         "execution_mode": "streaming",
@@ -460,10 +614,12 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
               "execution_mode": "blocking",
               "model": "gemini-2.5-flash-lite",
               "history_message_count": 1,
+              "history_include_tool_calls": false,
               "trigger_action": {
                 "type": "retry",
                 "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
-              }
+              },
+              "evaluate_full_response_only": false
             },
             {
               "is_enabled": true,
@@ -472,10 +628,12 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
               "execution_mode": "blocking",
               "model": "gemini-2.5-flash-lite",
               "history_message_count": 1,
+              "history_include_tool_calls": false,
               "trigger_action": {
                 "type": "retry",
                 "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
-              }
+              },
+              "evaluate_full_response_only": false
             },
             {
               "is_enabled": true,
@@ -484,10 +642,12 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
               "execution_mode": "blocking",
               "model": "gemini-2.5-flash-lite",
               "history_message_count": 3,
+              "history_include_tool_calls": false,
               "trigger_action": {
                 "type": "retry",
                 "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
-              }
+              },
+              "evaluate_full_response_only": false
             },
             {
               "is_enabled": true,
@@ -496,25 +656,35 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
               "execution_mode": "blocking",
               "model": "gemini-2.5-flash-lite",
               "history_message_count": 1,
+              "history_include_tool_calls": false,
               "trigger_action": {
                 "type": "retry",
                 "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
-              }
+              },
+              "evaluate_full_response_only": false
             }
           ]
         }
       }
     },
+    "summary_language": null,
+    "summary_schedule": null,
     "auto_translate_transcript_to_app_language": null,
     "auth": {
       "enable_auth": false,
       "allowlist": [],
-      "require_origin_header": false
+      "require_origin_header": false,
+      "shareable_token": null
     },
     "call_limits": {
       "agent_concurrency_limit": -1,
       "daily_limit": 100000,
       "bursting_enabled": true
+    },
+    "queueing_config": {
+      "enabled": false,
+      "wait_timeout_seconds": 180,
+      "hold_audio": null
     },
     "ban": null,
     "smb_metadata": null,
@@ -525,13 +695,23 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       "delete_audio": false,
       "apply_to_existing_conversations": false,
       "zero_retention_mode": false,
+      "encrypt_conversations": false,
+      "nested_history_redaction": false,
       "conversation_history_redaction": {
         "enabled": false,
-        "entities": []
+        "entities": [],
+        "excluded_data_collection_ids": []
+      },
+      "user_memory": {
+        "enabled": false,
+        "scale": "balanced",
+        "accept_unverified_identities": false
       }
     },
     "trust_context": "low",
     "analysis_llm": "gemini-2.5-flash",
+    "analysis_bedrock_llm": null,
+    "analysis_llm_billed": false,
     "topic_discovery": {
       "enabled": true
     },
@@ -557,12 +737,14 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
       "start_node": {
         "type": "start",
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 0.0,
+          "y": 0.0
         },
-        "edge_order": []
+        "edge_order": [],
+        "parent_subgraph_id": null
       }
     },
+    "subgraphs": {},
     "prevent_subagent_loops": false
   }
 }
