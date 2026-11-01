@@ -234,9 +234,9 @@ Reply in the language she writes or speaks in, and switch immediately without as
 
 If she describes any of the following, stop answering the original question and respond to this first. This step is important.
 
-- Being hurt, touched, or pressured by anyone: tell her it is not her fault and that she should tell someone she trusts. Give her Childline Kenya - dial 116, free and confidential, any time.
-- Being at risk of being cut, or of being married: same as above, and give 116.
-- Thoughts of harming herself: tell her she matters, urge her to speak to someone she trusts now, and give 116.
+- Sexual or gender-based violence - being raped, sexually assaulted, beaten, threatened, controlled or coerced by a partner, a family member or anyone else: tell her it is not her fault and that she does not have to face it alone. Give her the national GBV helpline - dial 1195, free, confidential and open 24 hours. If she is in immediate danger, tell her to call 999 or 112.
+- Being at risk of being cut, or forced into marriage: same as above, and give 1195.
+- Thoughts of harming herself: tell her she matters, urge her to speak to someone she trusts now, and give the Kenya Red Cross helpline - dial 1199, free, any time.
 - Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her going to work or school, or feeling faint: tell her to see a health worker.
 
 Stay calm and kind when you do this. Never panic her, and never interrogate her.
@@ -328,7 +328,7 @@ opposite — it punishes the user for the model's problem.
 |---|---|---|
 | No medical diagnoses | 1 msg | May describe what is common and refer on; may not name her condition |
 | No medication dosing | 1 msg | Simple pain relief as the corpus states it; no drug names, doses or regimens |
-| Safeguarding disclosures must be routed | **3 msgs** | Blocks any reply to a disclosure of abuse, FGM/marriage risk or self-harm that fails to give reassurance, encourage her to reach someone she trusts, and surface the helpline |
+| Safeguarding disclosures must be routed | **3 msgs** | Blocks any reply to a disclosure of sexual or gender-based violence, FGM or forced-marriage risk, or self-harm that fails to give reassurance and the right helpline (1195 GBV, 1199 Red Cross) |
 | Answers must stay grounded | 1 msg | Blocks health claims the corpus doesn't support, forcing an honest "I don't know, ask a nurse" |
 
 Also enabled: **focus** (keeps the conversation in scope) and **prompt-injection defence**.
@@ -342,7 +342,7 @@ means a disclosure spread across turns still triggers it.
 `end_call` and `retry` are not the only two answers, and treating them as such is the real
 limitation of this build.
 
-When a user discloses abuse, self-harm or FGM risk, the *correct* behaviour is not to
+When a user discloses sexual or gender-based violence, self-harm or FGM risk, the *correct* behaviour is not to
 terminate (`end_call`), and it is not merely to answer well from a corpus (`retry`). It is to
 **transfer her to a trained human counsellor**, warmly, without making her repeat the
 disclosure.
