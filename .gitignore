@@ -43,3 +43,7 @@ docs/Foundations_of_Embeddings_*
 # office lock / temp files
 ~$*
 ~WRL*.tmp
+
+# rendered documents — publish the .md sources only
+*.pdf
+*.docx
