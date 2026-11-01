@@ -10,6 +10,9 @@ self-preference numbers below meaning anything.
 | `gpt` | `gpt-4.1` | OpenAI | yes |
 | `gemini` | `gemini-2.5-flash` | Google | **no — same model as the generator** |
 
+All three providers are brokered on one API key, so judging across model families
+cost a config value rather than an additional credential.
+
 ## Scores by judge
 
 | Judge | Groundedness (in-corpus) | Myth correction |

@@ -23,7 +23,7 @@ Usually false, especially in the first two years after periods begin. Cycles tak
 **"Missing a period always means pregnancy."**
 False. Stress, illness, weight change, heavy exercise, and simply being in the early years of menstruating can all delay a period.
 
-**"Girls should not talk about periods, especially around boys or men."**
+**"Women and girls should not talk about periods, especially around men."**
 False. Periods are a normal biological process. Being able to talk about them is how women and girls get pads, pain relief and support when they need them.
 
 **"Herbs, salt or soap inside the vagina keep it clean."**

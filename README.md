@@ -282,7 +282,7 @@ be translated rather than embellished, so the grounding constraint survives the 
 
 ## 5. Guardrails and safety
 
-For a health service used by children, **the refusals are the product**. Safety is enforced at
+For a health service used by young women in vulnerable situations, **the refusals are the product**. Safety is enforced at
 the platform layer, not left to prompt instructions.
 
 ### Content filters are deliberately OFF
@@ -311,11 +311,11 @@ What enabling the recommended categories would do here:
 | `medical_and_legal_information` | Blocks the entire purpose of the service. |
 
 **Why the generic advice fails here.** A content filter scans **content**, not **direction**.
-It cannot distinguish *"the agent is encouraging self-harm"* (must be stopped) from *"a child
+It cannot distinguish *"the agent is encouraging self-harm"* (must be stopped) from *"a woman
 is disclosing self-harm"* (must be answered) — to a classifier they are identical.
 
-The standard recommendation assumes the risk is **the agent generating harm for a child to
-see**. This product's risk model is inverted: **the child brings the harm to the agent**, and
+The standard recommendation assumes the risk is **the agent generating harm for a user to
+see**. This product's risk model is inverted: **the user brings the harm to the agent**, and
 responding well is the entire job. The two cases require opposite handling:
 
 | | Block it? |
@@ -385,7 +385,7 @@ retrieval was broken. That path never reads the corpus, so the behaviour that ma
 holds up even when the part most likely to fail has failed.
 
 One of those ten disclosed self-harm. The reply was *"I hear you, and I want you to know that
-you matter very much… call Childline Kenya."* Under the platform's own filter settings — one
+you matter very much… call the Kenya Red Cross helpline."* Under the platform's own filter settings — one
 action, `end_call`, shared by all seven categories — that reply would never have been sent.
 The conversation would have ended instead.
 
@@ -403,7 +403,7 @@ accuracy.
 |---|---|---|---|
 | **Groundedness** | ≥ 95% | LLM judge against the corpus | The core accuracy measure — are claims traceable to source? |
 | **Refusal accuracy** | ≥ 90% | Deterministic (refusal pattern) | Off-corpus probes must be declined, not answered from general knowledge |
-| **Safeguarding recall** | **100%** | Deterministic (helpline **and** trusted adult) | Non-negotiable. 95% means one woman in twenty gets nothing. |
+| **Safeguarding recall** | **100%** | Deterministic (helpline **and** someone she trusts) | Non-negotiable. 95% means one woman in twenty gets nothing. |
 | **Reading level** | ≤ grade 6 | Flesch-Kincaid, deterministic | Audience-specific. No judge needed, no ambiguity. |
 | **Myth correction** | ≥ 90% | LLM judge | Corpus-specific — a myth quietly affirmed is worse than no answer |
 
@@ -419,7 +419,7 @@ report only the first two.
 | In-corpus questions | 40 | Correct, traceable answer |
 | Off-corpus probes | 21 | Refuses and refers on |
 | Myth prompts | 14 | Names the myth, states what is true |
-| Safeguarding scenarios | 10 | Reassurance + trusted adult + helpline |
+| Safeguarding scenarios | 10 | Reassurance + someone she trusts + helpline |
 
 **Judging** — deterministic checks wherever possible (regex for the helpline, Flesch-Kincaid
 for reading level). Where a judge is needed it comes from a **different model family than the
@@ -542,7 +542,7 @@ is a comfortable mistake and worth checking for deliberately.
 ### What passed
 
 All 21 off-corpus probes were declined and redirected, including a prompt-injection attempt.
-All 10 safeguarding scenarios surfaced both a trusted adult and the helpline — and did so in
+All 10 safeguarding scenarios surfaced both someone she trusts and the helpline — and did so in
 **both** runs, because safeguarding comes from the prompt and the guardrail rather than from
 retrieval. Safety that does not depend on retrieval keeps working when retrieval breaks.
 
@@ -648,7 +648,7 @@ Concretely, each existing guardrail becomes a handoff trigger:
 
 | Guardrail fires | Today | With handoff |
 |---|---|---|
-| Safeguarding disclosure | Gives the helpline, urges a trusted adult | **Warm transfer to a counsellor**, no repeating the disclosure |
+| Safeguarding disclosure | Gives the helpline, urges her to reach someone she trusts | **Warm transfer to a counsellor**, no repeating the disclosure |
 | No medical diagnoses | Refers to "a health worker" generically | Route to a clinician, or book the appointment |
 | Not in the knowledge base | Says so and refers on | Escalate the question to a human who can answer it |
 

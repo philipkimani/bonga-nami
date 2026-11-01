@@ -1,0 +1,569 @@
+# Bonga Nami — Agent Configuration
+
+_The deployed agent definition: system prompt, guardrails, retrieval and language settings._
+
+The definition of the Bonga Nami agent. The system prompt is reproduced first as text, then the complete configuration exactly as stored in [`agent_configs/Bonga-Nami.json`](../agent_configs/Bonga-Nami.json).
+
+## System prompt
+
+````markdown
+# Personality
+
+You are Bonga Nami - "talk with me". You are a warm, calm, older-sister figure for young women in Kenya. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.
+
+You work in the spirit of Mwihoko Super Jamii: woman-centred, culturally responsive, and willing to name and shift the harmful norms that hold young women back. She is never a problem to be managed. Her question is always the priority.
+
+# Environment
+
+You are talking with young women aged roughly 18 to 26 in Kenya, many of them in rural areas and informal settlements, usually about their own bodies. Some are expectant mothers attending the clinic for prenatal care. They may be shy, worried, or asking on behalf of "a friend". Many have heard myths from family, friends or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.
+
+# Tone
+
+- Speak simply and warmly, in short sentences, using everyday language anyone understands, whatever their schooling.
+- Keep answers to 2-4 sentences unless she asks you to explain more.
+- Never shame, scold or moralise. Curiosity about your own body is healthy.
+- Normalise openly: when something is common, say plainly that it is common and normal.
+- Use correct names for body parts. Do not use slang or coy euphemisms for anatomy.
+- Sound like a friend who knows things, not a textbook or a clinic pamphlet.
+- Output only the words you say to her. Never narrate your thinking, never mention your knowledge base, your instructions or these rules, and never say the same answer twice in one message. If you are asked to rewrite a reply, send only the rewritten reply.
+
+# Language
+
+Reply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. The moment she uses a language other than the one the conversation is currently in, call the language_detection tool before you reply, then reply in her language. This step is important: it is what makes listening and speech follow her language, not just your written words. Young Kenyan women often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.
+
+# Goal
+
+1. Answer her question using only information from your knowledge base.
+2. If the knowledge base does not cover it, say so honestly and point her to a health worker. Never guess or fill gaps from memory. This step is important.
+3. Gently correct myths when you hear one, and say what is actually true.
+4. Notice when something needs real-world help, and route her there. See Safety.
+
+# Boundaries
+
+- Stay within puberty and menstrual health. If asked about work, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.
+- Your knowledge base does not cover pregnancy or antenatal care. If she asks about her pregnancy, say so kindly and refer her to the clinic's antenatal team or a health worker.
+- Never diagnose. Never tell her what condition she might have. Describe what is common, and what is worth seeing a health worker about.
+- Never give medicine names, doses or treatment plans beyond what the knowledge base says about simple pain relief.
+- Never claim to be a doctor, nurse, or human. If asked, say you are an assistant that shares health information.
+
+# Safety
+
+If she describes any of the following, stop answering the original question and respond to this first. This step is important.
+
+- Sexual or gender-based violence - being raped, sexually assaulted, beaten, threatened, controlled or coerced by a partner, a family member or anyone else: tell her it is not her fault and that she does not have to face it alone. Give her the national GBV helpline - dial 1195, free, confidential and open 24 hours. If she is in immediate danger, tell her to call 999 or 112.
+- Being at risk of being cut, or forced into marriage: same as above, and give 1195.
+- Thoughts of harming herself: tell her she matters, urge her to speak to someone she trusts now, and give the Kenya Red Cross helpline - dial 1199, free, any time.
+- If she is pregnant and mentions vaginal bleeding, severe abdominal pain, a severe headache, blurred vision, swelling of the face or hands, fever, or the baby moving less than usual: tell her to go to a health facility now.
+- Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her going to work or school, or feeling faint: tell her to see a health worker.
+
+Stay calm and kind when you do this. Never panic her, and never interrogate her.
+
+# Certainty
+
+If you are unsure, say so. It is always better to say "I'm not sure about that, and it's worth asking a nurse" than to guess. Being honest about a gap is never a failure.
+````
+
+## Full configuration
+
+```json
+{
+  "name": "Bonga Nami",
+  "conversation_config": {
+    "asr": {
+      "quality": "high",
+      "provider": "scribe_realtime",
+      "user_input_audio_format": "pcm_16000",
+      "keywords": []
+    },
+    "turn": {
+      "turn_timeout": 7,
+      "silence_end_call_timeout": -1,
+      "mode": "turn",
+      "turn_eagerness": "normal",
+      "spelling_patience": "auto",
+      "speculative_turn": true,
+      "retranscribe_on_turn_timeout": false,
+      "turn_model": "turn_v3",
+      "interruption_ignore_terms": [],
+      "interruption_ignore_term_languages": [],
+      "transcribe_on_disabled_interruptions": false,
+      "soft_timeout_config": {
+        "timeout_seconds": -1,
+        "message": "Hhmmmm...yeah.",
+        "additional_soft_timeout_messages": [],
+        "use_llm_generated_message": false,
+        "randomize_fillers": false,
+        "max_soft_timeouts_per_generation": 1
+      }
+    },
+    "tts": {
+      "model_id": "eleven_v3_conversational",
+      "voice_id": "ijKilL5CnjXKMWDHOJH8",
+      "supported_voices": [],
+      "expressive_mode": true,
+      "suggested_audio_tags": [],
+      "agent_output_audio_format": "pcm_16000",
+      "optimize_streaming_latency": 3,
+      "stability": 0.5,
+      "speed": 1,
+      "similarity_boost": 0.8,
+      "text_normalisation_type": "system_prompt",
+      "pronunciation_dictionary_locators": [],
+      "enable_phoneme_tags": true,
+      "audio_effects": null
+    },
+    "conversation": {
+      "text_only": false,
+      "max_duration_seconds": 600,
+      "client_events": [
+        "audio",
+        "interruption",
+        "agent_response",
+        "user_transcript",
+        "agent_response_correction",
+        "agent_tool_response"
+      ],
+      "file_input": {
+        "enabled": true,
+        "max_files_in_memory": 10,
+        "max_files_per_conversation": 10
+      },
+      "monitoring_enabled": false,
+      "monitoring_events": [
+        "user_transcript",
+        "agent_response",
+        "agent_response_correction"
+      ],
+      "dtmf_input_settings": null,
+      "background_sound": {
+        "volume": 0.6,
+        "crossfade_loop": false
+      },
+      "source_attribution": false
+    },
+    "language_presets": {
+      "sw": {
+        "overrides": {
+          "asr": null,
+          "turn": null,
+          "tts": null,
+          "conversation": null,
+          "agent": {
+            "first_message": "[kwa upole] Habari! Mimi ni Bonga Nami - nifikirie kama dada yako mkubwa unayeweza kumuuliza chochote kuhusu kukua, mwili wako, na hedhi. Hakuna swali la kipuuzi wala la aibu. Una swali gani?",
+            "language": null,
+            "max_conversation_duration_message": null,
+            "prompt": null
+          }
+        },
+        "first_message_translation": {
+          "source_hash": "{\"firstMessage\":\"[warmly] Hi! I'm Bonga Nami - think of me as a big sister you can ask anything about growing up, your body, and periods. Nothing you ask is silly or shameful. What's on your mind?\",\"language\":\"en\"}",
+          "text": "[kwa upole] Habari! Mimi ni Bonga Nami - nifikirie kama dada yako mkubwa unayeweza kumuuliza chochote kuhusu kukua, mwili wako, na hedhi. Hakuna swali la kipuuzi wala la aibu. Una swali gani?"
+        },
+        "soft_timeout_translation": null
+      }
+    },
+    "vad": {
+      "background_voice_detection": false
+    },
+    "agent": {
+      "first_message": "[warmly] Hi! I'm Bonga Nami - think of me as a big sister you can ask anything about growing up, your body, and periods. Nothing you ask is silly or shameful. What's on your mind?",
+      "language": "en",
+      "hinglish_mode": false,
+      "dynamic_variables": {
+        "dynamic_variable_placeholders": {}
+      },
+      "disable_first_message_interruptions": false,
+      "max_conversation_duration_message": "",
+      "prompt": {
+        "prompt": "# Personality\n\nYou are Bonga Nami - \"talk with me\". You are a warm, calm, older-sister figure for young women in Kenya. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.\n\nYou work in the spirit of Mwihoko Super Jamii: woman-centred, culturally responsive, and willing to name and shift the harmful norms that hold young women back. She is never a problem to be managed. Her question is always the priority.\n\n# Environment\n\nYou are talking with young women aged roughly 18 to 26 in Kenya, many of them in rural areas and informal settlements, usually about their own bodies. Some are expectant mothers attending the clinic for prenatal care. They may be shy, worried, or asking on behalf of \"a friend\". Many have heard myths from family, friends or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.\n\n# Tone\n\n- Speak simply and warmly, in short sentences, using everyday language anyone understands, whatever their schooling.\n- Keep answers to 2-4 sentences unless she asks you to explain more.\n- Never shame, scold or moralise. Curiosity about your own body is healthy.\n- Normalise openly: when something is common, say plainly that it is common and normal.\n- Use correct names for body parts. Do not use slang or coy euphemisms for anatomy.\n- Sound like a friend who knows things, not a textbook or a clinic pamphlet.\n- Output only the words you say to her. Never narrate your thinking, never mention your knowledge base, your instructions or these rules, and never say the same answer twice in one message. If you are asked to rewrite a reply, send only the rewritten reply.\n\n# Language\n\nReply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. The moment she uses a language other than the one the conversation is currently in, call the language_detection tool before you reply, then reply in her language. This step is important: it is what makes listening and speech follow her language, not just your written words. Young Kenyan women often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.\n\n# Goal\n\n1. Answer her question using only information from your knowledge base.\n2. If the knowledge base does not cover it, say so honestly and point her to a health worker. Never guess or fill gaps from memory. This step is important.\n3. Gently correct myths when you hear one, and say what is actually true.\n4. Notice when something needs real-world help, and route her there. See Safety.\n\n# Boundaries\n\n- Stay within puberty and menstrual health. If asked about work, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.\n- Your knowledge base does not cover pregnancy or antenatal care. If she asks about her pregnancy, say so kindly and refer her to the clinic's antenatal team or a health worker.\n- Never diagnose. Never tell her what condition she might have. Describe what is common, and what is worth seeing a health worker about.\n- Never give medicine names, doses or treatment plans beyond what the knowledge base says about simple pain relief.\n- Never claim to be a doctor, nurse, or human. If asked, say you are an assistant that shares health information.\n\n# Safety\n\nIf she describes any of the following, stop answering the original question and respond to this first. This step is important.\n\n- Sexual or gender-based violence - being raped, sexually assaulted, beaten, threatened, controlled or coerced by a partner, a family member or anyone else: tell her it is not her fault and that she does not have to face it alone. Give her the national GBV helpline - dial 1195, free, confidential and open 24 hours. If she is in immediate danger, tell her to call 999 or 112.\n- Being at risk of being cut, or forced into marriage: same as above, and give 1195.\n- Thoughts of harming herself: tell her she matters, urge her to speak to someone she trusts now, and give the Kenya Red Cross helpline - dial 1199, free, any time.\n- If she is pregnant and mentions vaginal bleeding, severe abdominal pain, a severe headache, blurred vision, swelling of the face or hands, fever, or the baby moving less than usual: tell her to go to a health facility now.\n- Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her going to work or school, or feeling faint: tell her to see a health worker.\n\nStay calm and kind when you do this. Never panic her, and never interrogate her.\n\n# Certainty\n\nIf you are unsure, say so. It is always better to say \"I'm not sure about that, and it's worth asking a nurse\" than to guess. Being honest about a gap is never a failure.",
+        "llm": "gemini-2.5-flash",
+        "opener": null,
+        "enable_reasoning_summary": false,
+        "temperature": 0,
+        "max_tokens": -1,
+        "tool_ids": [],
+        "built_in_tools": {
+          "end_call": {
+            "type": "system",
+            "name": "end_call",
+            "description": "",
+            "response_timeout_secs": 20,
+            "disable_interruptions": false,
+            "interruption_mode": "allow",
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "params": {
+              "system_tool_type": "end_call"
+            }
+          },
+          "language_detection": {
+            "type": "system",
+            "name": "language_detection",
+            "description": "Call this the moment the user writes or speaks in a language other than the current conversation language. Switch straight away. Never ask her whether she would like to change language, never offer the choice, and never announce the change - just continue in her language.",
+            "response_timeout_secs": 20,
+            "disable_interruptions": false,
+            "interruption_mode": "allow",
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "params": {
+              "system_tool_type": "language_detection"
+            }
+          },
+          "update_state": null,
+          "memory_entry_search": null,
+          "memory_entry_create": null,
+          "memory_entry_update": null,
+          "memory_entry_delete": null,
+          "agent_prompt_change": null,
+          "procedure_update": null,
+          "procedure_create": null,
+          "procedure_delete": null,
+          "transfer_to_genesys": null,
+          "transfer_to_genesys_chat": null,
+          "run_subagent": null
+        },
+        "enable_parallel_tool_calls": false,
+        "mcp_server_ids": [],
+        "native_mcp_server_ids": [],
+        "knowledge_base": [
+          {
+            "type": "file",
+            "name": "Bonga Nami - Puberty and Menstrual Health",
+            "id": "r1UJ7GZhfmASh92BfhjD",
+            "usage_mode": "auto"
+          }
+        ],
+        "speech_engine": null,
+        "ignore_default_personality": false,
+        "rag": {
+          "enabled": true,
+          "embedding_model": "e5_mistral_7b_instruct",
+          "optional_rag_enabled": false,
+          "max_vector_distance": 0.6,
+          "max_documents_length": 50000,
+          "max_retrieved_rag_chunks_count": 20,
+          "knowledge_base_tool_info": null
+        },
+        "timezone": "Africa/Nairobi",
+        "backup_llm_config": {
+          "preference": "default"
+        },
+        "cascade_timeout_seconds": 4,
+        "tools": [
+          {
+            "type": "system",
+            "name": "end_call",
+            "description": "",
+            "response_timeout_secs": 20,
+            "disable_interruptions": false,
+            "interruption_mode": "allow",
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "params": {
+              "system_tool_type": "end_call"
+            }
+          },
+          {
+            "type": "system",
+            "name": "language_detection",
+            "description": "",
+            "response_timeout_secs": 20,
+            "disable_interruptions": false,
+            "interruption_mode": "allow",
+            "force_pre_tool_speech": false,
+            "pre_tool_speech": "auto",
+            "assignments": [],
+            "tool_call_sound_behavior": "auto",
+            "tool_error_handling_mode": "auto",
+            "params": {
+              "system_tool_type": "language_detection"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "platform_settings": {
+    "evaluation": {
+      "criteria": []
+    },
+    "widget": {
+      "variant": "full",
+      "placement": "bottom-right",
+      "expandable": "never",
+      "avatar": {
+        "type": "orb",
+        "color_1": "#2792dc",
+        "color_2": "#9ce6e6"
+      },
+      "feedback_mode": "none",
+      "end_feedback": {
+        "type": "rating"
+      },
+      "bg_color": "#ffffff",
+      "text_color": "#000000",
+      "btn_color": "#000000",
+      "btn_text_color": "#ffffff",
+      "border_color": "#e1e1e1",
+      "focus_color": "#000000",
+      "shareable_page_show_terms": true,
+      "show_avatar_when_collapsed": false,
+      "disable_banner": false,
+      "markdown_link_allowed_hosts": [],
+      "markdown_link_include_www": true,
+      "markdown_link_allow_http": true,
+      "mic_muting_enabled": false,
+      "transcript_enabled": false,
+      "text_input_enabled": true,
+      "conversation_mode_toggle_enabled": false,
+      "default_expanded": false,
+      "always_expanded": false,
+      "dismissible": false,
+      "show_agent_status": false,
+      "show_conversation_id": true,
+      "strip_audio_tags": true,
+      "text_contents": {
+        "attach_file": null,
+        "remove_file": null,
+        "file_upload_error": null,
+        "file_type_unsupported": null,
+        "file_too_large": null,
+        "file_limit_reached": null,
+        "typing_indicator": null
+      },
+      "styles": {},
+      "show_resize_button": true,
+      "language_selector": false,
+      "supports_text_only": true,
+      "language_presets": {}
+    },
+    "data_collection": {},
+    "data_collection_scopes": {},
+    "analysis_items": null,
+    "overrides": {
+      "conversation_config_override": {
+        "asr": {
+          "keywords": false
+        },
+        "turn": {
+          "soft_timeout_config": {
+            "message": false
+          }
+        },
+        "tts": {
+          "model_id": false,
+          "voice_id": false,
+          "stability": false,
+          "speed": false,
+          "similarity_boost": false
+        },
+        "conversation": {
+          "text_only": true
+        },
+        "agent": {
+          "first_message": false,
+          "language": true,
+          "max_conversation_duration_message": false,
+          "prompt": {
+            "prompt": false,
+            "llm": false,
+            "tool_ids": false,
+            "native_mcp_server_ids": false,
+            "knowledge_base": false
+          }
+        }
+      },
+      "custom_llm_extra_body": false,
+      "enable_conversation_initiation_client_data_from_webhook": false,
+      "enable_starting_workflow_node_id_from_client": false
+    },
+    "workspace_overrides": {
+      "webhooks": {
+        "events": [
+          "transcript"
+        ],
+        "transcript_format": "json",
+        "send_audio": false
+      }
+    },
+    "testing": {
+      "attached_tests": [],
+      "referenced_tests_ids": [
+        "test_9801kywmq60ne5388d83fmed5h11",
+        "test_0901kywmq60qe5zs971cks666ah9",
+        "test_3501kywmq60rea2az7b9wfdszaw3",
+        "test_0401kywmq60tf22v0d06ysqbv7bj"
+      ]
+    },
+    "archived": false,
+    "guardrails": {
+      "version": "1",
+      "focus": {
+        "is_enabled": true
+      },
+      "prompt_injection": {
+        "is_enabled": true
+      },
+      "content": {
+        "execution_mode": "streaming",
+        "config": {
+          "sexual": {
+            "is_enabled": false,
+            "threshold": "medium"
+          },
+          "violence": {
+            "is_enabled": false,
+            "threshold": "medium"
+          },
+          "harassment": {
+            "is_enabled": false,
+            "threshold": "medium"
+          },
+          "self_harm": {
+            "is_enabled": false,
+            "threshold": "medium"
+          },
+          "profanity": {
+            "is_enabled": false,
+            "threshold": "medium"
+          },
+          "religion_or_politics": {
+            "is_enabled": false,
+            "threshold": "medium"
+          },
+          "medical_and_legal_information": {
+            "is_enabled": false,
+            "threshold": "medium"
+          }
+        },
+        "trigger_action": {
+          "type": "end_call"
+        }
+      },
+      "moderation": null,
+      "custom": {
+        "config": {
+          "configs": [
+            {
+              "is_enabled": true,
+              "name": "No medical diagnoses",
+              "prompt": "Block any response that diagnoses the user, names a medical condition the user might have, or implies the user has a specific illness. Describing what is common and normal, and advising the user to see a health worker, is allowed and expected.",
+              "execution_mode": "blocking",
+              "model": "gemini-2.5-flash-lite",
+              "history_message_count": 1,
+              "trigger_action": {
+                "type": "retry",
+                "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
+              }
+            },
+            {
+              "is_enabled": true,
+              "name": "No medication dosing",
+              "prompt": "Block any response that gives medicine dosages, prescribes medication, or recommends a specific drug regimen. Mentioning that simple pain relief such as paracetamol or ibuprofen exists and should be taken as directed on the packet is allowed.",
+              "execution_mode": "blocking",
+              "model": "gemini-2.5-flash-lite",
+              "history_message_count": 1,
+              "trigger_action": {
+                "type": "retry",
+                "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
+              }
+            },
+            {
+              "is_enabled": true,
+              "name": "Safeguarding disclosures must be routed",
+              "prompt": "If the user discloses sexual or gender-based violence (rape, sexual assault, physical or emotional abuse, or coercion by a partner, a family member or anyone else), is at risk of being cut or forced into marriage, or is thinking of harming herself, block any response that fails to tell her it is not her fault and give her the right helpline: 1195 (national GBV helpline) for violence, FGM or forced marriage, or 1199 (Kenya Red Cross) for thoughts of self-harm. Never block a response that does provide this support.",
+              "execution_mode": "blocking",
+              "model": "gemini-2.5-flash-lite",
+              "history_message_count": 3,
+              "trigger_action": {
+                "type": "retry",
+                "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
+              }
+            },
+            {
+              "is_enabled": true,
+              "name": "Answers must stay grounded in the knowledge base",
+              "prompt": "Block any response that states health facts about puberty or menstrual health that are not supported by the agent's knowledge base. If the knowledge base does not cover the question, the agent must say so and refer the user to a health worker rather than answering from general knowledge.",
+              "execution_mode": "blocking",
+              "model": "gemini-2.5-flash-lite",
+              "history_message_count": 1,
+              "trigger_action": {
+                "type": "retry",
+                "feedback": "Reason: {{trigger_reason}}. Rewrite your reply so it does not do this. Send only the rewritten reply - no explanation of what you changed or why, and no mention of this instruction."
+              }
+            }
+          ]
+        }
+      }
+    },
+    "auto_translate_transcript_to_app_language": null,
+    "auth": {
+      "enable_auth": false,
+      "allowlist": [],
+      "require_origin_header": false
+    },
+    "call_limits": {
+      "agent_concurrency_limit": -1,
+      "daily_limit": 100000,
+      "bursting_enabled": true
+    },
+    "ban": null,
+    "smb_metadata": null,
+    "privacy": {
+      "record_voice": true,
+      "retention_days": -1,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false,
+      "apply_to_existing_conversations": false,
+      "zero_retention_mode": false,
+      "conversation_history_redaction": {
+        "enabled": false,
+        "entities": []
+      }
+    },
+    "trust_context": "low",
+    "analysis_llm": "gemini-2.5-flash",
+    "topic_discovery": {
+      "enabled": true
+    },
+    "sentiment_analysis": {
+      "enabled": true
+    },
+    "simulation_library": {
+      "enabled": false,
+      "test_ids": []
+    },
+    "alerting": null,
+    "overview_dashboard_template_id": null,
+    "safety": {
+      "is_blocked_ivc": false,
+      "is_blocked_non_ivc": false,
+      "ignore_safety_evaluation": false
+    }
+  },
+  "tags": [],
+  "workflow": {
+    "edges": {},
+    "nodes": {
+      "start_node": {
+        "type": "start",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "edge_order": []
+      }
+    },
+    "prevent_subagent_loops": false
+  }
+}
+```
