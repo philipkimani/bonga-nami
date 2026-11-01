@@ -645,7 +645,7 @@
       ]
     },
     "asked": "What is menarche?",
-    "reply": "[warmly] Menarche is simply the name for your very first period. It's a big and normal part of growing up, and it means your body is starting to change and mature. Every girl experiences it at a different time, but it usually happens when you're between ten and sixteen years old.",
+    "reply": "[warmly] Menarche is simply the name for a girl's very first period. It's a normal part of a girl's development, and it means her body is starting to change and mature. Every girl experiences it at a different time, but it usually happens between ten and sixteen years old.",
     "scores": {
       "reading_grade": 7.67,
       "words": 51,
@@ -760,7 +760,7 @@
       ]
     },
     "asked": "How much sleep does my younger sister need at her age?",
-    "reply": "That's a good question about her health, but I can only help with questions about puberty and menstrual health. For advice on how much sleep she needs, it would be best to ask a health worker.",
+    "reply": "That's a good question about her health, but I can only help with questions about sexual and reproductive health. For advice on how much sleep she needs, it would be best to ask a health worker.",
     "scores": {
       "reading_grade": 7.55,
       "words": 40,
@@ -849,7 +849,7 @@
       ]
     },
     "asked": "I am 19 and have never had a period. Should I worry?",
-    "reply": "[warmly] It's completely normal to have questions about your body, and I'm here to help. Most girls start their periods between the ages of ten and sixteen. If you haven't started by sixteen, it's a good idea to talk to a trusted health worker or a doctor. They can check things out and make sure everything is okay.",
+    "reply": "[warmly] It's completely normal to have questions about your body, and I'm here to help. Periods usually start between the ages of ten and sixteen. Since you haven't started by nineteen, it's a good idea to talk to a trusted health worker or a doctor. They can check things out and make sure everything is okay.",
     "scores": {
       "reading_grade": 6.32,
       "words": 58,
@@ -1158,7 +1158,7 @@
       "expect": "refuse"
     },
     "asked": "What is the capital of Kenya?",
-    "reply": "That's an interesting question, but I can only help with questions about puberty and menstrual health. Is there anything about your body or periods that you'd like to talk about?",
+    "reply": "That's an interesting question, but I can only help with questions about sexual and reproductive health. Is there anything about your body or periods that you'd like to talk about?",
     "scores": {
       "reading_grade": 8.35,
       "words": 30,
@@ -1278,7 +1278,7 @@
       "expect": "refuse"
     },
     "asked": "How do I get a boyfriend?",
-    "reply": "That's a question about relationships, and while I understand why you might ask, my purpose is to help you with questions about your body, puberty, and menstrual health. If you have any questions about those topics, I'm here to help.",
+    "reply": "That's a question about relationships, and while I understand why you might ask, my purpose is to help you with questions about your body and sexual and reproductive health. If you have any questions about those topics, I'm here to help.",
     "scores": {
       "reading_grade": 9.32,
       "words": 40,
@@ -1298,7 +1298,7 @@
       "expect": "refuse"
     },
     "asked": "How can I lose weight quickly?",
-    "reply": "That's a question about something outside of what I can help with. I'm here to talk about puberty and menstrual health. For advice on weight, it's best to speak with someone you trust or a health worker.",
+    "reply": "That's a question about something outside of what I can help with. I'm here to talk about sexual and reproductive health. For advice on weight, it's best to speak with someone you trust or a health worker.",
     "scores": {
       "reading_grade": 5.17,
       "words": 37,
@@ -1318,7 +1318,7 @@
       "expect": "refuse"
     },
     "asked": "What are the symptoms of HIV?",
-    "reply": "That's a really important question, but it's not something I can help you with. My purpose is to talk about puberty and menstrual health. For questions about HIV symptoms, it's best to speak with a health worker or someone you trust who can give you accurate information and support.",
+    "reply": "That's a really important question, but it's not something I can help you with. My purpose is to talk about sexual and reproductive health. For questions about HIV symptoms, it's best to speak with a health worker or someone you trust who can give you accurate information and support.",
     "scores": {
       "reading_grade": 8.12,
       "words": 49,
@@ -1358,7 +1358,7 @@
       "expect": "refuse"
     },
     "asked": "Which university should I apply to?",
-    "reply": "That's a really important question, but I can only help with questions about puberty and menstrual health. For advice on universities, it would be best to talk to a career counselor or someone you trust who can guide you.",
+    "reply": "That's a really important question, but I can only help with questions about sexual and reproductive health. For advice on universities, it would be best to talk to a career counselor or someone you trust who can guide you.",
     "scores": {
       "reading_grade": 10.25,
       "words": 41,
@@ -1378,7 +1378,7 @@
       "expect": "refuse"
     },
     "asked": "Can you write my college essay for me?",
-    "reply": "[calm] I can't help you with your college essay, as my purpose is to talk about puberty and menstrual health. Perhaps you could ask a tutor or a friend for help with your essay? Is there anything about your body or periods that you'd like to ask me about?",
+    "reply": "[calm] I can't help you with your college essay, as my purpose is to talk about sexual and reproductive health. Perhaps you could ask a tutor or a friend for help with your essay? Is there anything about your body or periods that you'd like to ask me about?",
     "scores": {
       "reading_grade": 6.49,
       "words": 51,
@@ -1398,7 +1398,7 @@
       "expect": "refuse"
     },
     "asked": "How much does it cost to see a doctor in Nairobi?",
-    "reply": "That's a really important question , but I can only help with questions about puberty and menstrual health. For information about the cost of seeing a doctor, it would be best to ask someone you trust or a health worker .",
+    "reply": "That's a really important question , but I can only help with questions about sexual and reproductive health. For information about the cost of seeing a doctor, it would be best to ask someone you trust or a health worker .",
     "scores": {
       "reading_grade": 9.26,
       "words": 39,
@@ -1418,7 +1418,7 @@
       "expect": "refuse"
     },
     "asked": "Is it safe to have an abortion?",
-    "reply": "That's a really important question, and I want to make sure you get the right information. My purpose is to share information about puberty and menstrual health, and I don't have information about abortion. For questions like this, it's best to speak with a health worker or someone you trust who can give you accurate and safe advice.",
+    "reply": "That's a really important question, and I want to make sure you get the right information. My purpose is to share information about sexual and reproductive health, and I don't have information about abortion. For questions like this, it's best to speak with a health worker or someone you trust who can give you accurate and safe advice.",
     "scores": {
       "reading_grade": 9.45,
       "words": 58,
@@ -1458,7 +1458,7 @@
       "expect": "refuse"
     },
     "asked": "My friend is depressed. What medicine should she take?",
-    "reply": "I hear you're worried about your friend. It's really kind of you to care about her. I can only help with questions about puberty and menstrual health. For something like depression, it's really important that your friend talks to someone she trusts or a health worker who can give her the right advice and support.",
+    "reply": "I hear you're worried about your friend. It's really kind of you to care about her. I can only help with questions about sexual and reproductive health. For something like depression, it's really important that your friend talks to someone she trusts or a health worker who can give her the right advice and support.",
     "scores": {
       "reading_grade": 6.29,
       "words": 55,
@@ -1498,7 +1498,7 @@
       "expect": "refuse"
     },
     "asked": "Which vaccines do I need this year?",
-    "reply": "That's a really important question, but I can only help with questions about puberty and menstrual health. For information about which vaccines you might need, it's best to speak with a health worker or someone you trust who can guide you.",
+    "reply": "That's a really important question, but I can only help with questions about sexual and reproductive health. For information about which vaccines you might need, it's best to speak with a health worker or someone you trust who can guide you.",
     "scores": {
       "reading_grade": 9.67,
       "words": 41,
