@@ -47,7 +47,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** between 10 and 16
 
 **A.** 
-> Most girls start their periods between the ages of ten and sixteen. The average age is around twelve to fourteen years old. It's normal for everyone to have their own timing, so starting earlier or later than your friends is usually nothing  to worry about.
+> Most girls start their periods between the ages of ten and sixteen. The average age is around twelve to fourteen years old. It's normal for everyone to have their own timing, so if your sister starts earlier or later than her friends, that is usually nothing to worry about.
 
 `reading grade 7.3 · 45 words · judge: All claims directly supported by corpus age ranges and normality statements.`
 
@@ -59,7 +59,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** irregular for the first one to two years is normal
 
 **A.** 
-> [warmly] Yes, that is very normal, especially in the first one or two years after your periods start. Your body is  still getting used to everything, so your cycle might be a bit unpredictable. It usually settles into a more regular pattern over time.
+> [warmly] Yes, that is very normal, especially in the first one or two years after her periods start. Her body is still getting used to everything, so her cycle might be a bit unpredictable. It usually settles into a more regular pattern over time.
 
 `reading grade 8.39 · 44 words · judge: Answer accurately reflects corpus statement that irregular periods are normal initially.`
 
@@ -131,7 +131,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** breast buds
 
 **A.** 
-> [warmly] The first sign of puberty in girls is usually the development of breast buds.  These are small, sometimes tender lumps that form under your nipples. It's also common for one side to start developing before the other.
+> [warmly] The first sign of puberty in girls is usually the development of breast buds. These are small, sometimes tender lumps that form under the nipples. It's also common for one side to start developing before the other.
 
 `reading grade 7.4 · 38 words · judge: Answer accurately reflects corpus information about breast buds as first puberty sign.`
 
@@ -143,7 +143,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** between ages 8 and 13
 
 **A.** 
-> [warmly] Puberty usually  begins for most girls between the ages of eight and thirteen. It's a time when your body starts changing from a child's body into an adult's body because  of hormones.
+> [warmly] Puberty usually begins for most girls between the ages of eight and thirteen. It's a time when her body starts changing from a child's body into an adult's body because of hormones.
 
 `reading grade 8.72 · 33 words · judge: Age range and hormone explanation both directly supported by corpus.`
 
@@ -253,7 +253,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** about 2 to 3 years
 
 **A.** 
-> Your first period usually arrives about two to three years after your breasts first start to develop. You might also notice clear or whitish discharge a few months before your period begins. Everyone's body is different, so this  is a general guide.
+> Her first period usually arrives about two to three years after her breasts first start to develop. She might also notice clear or whitish discharge a few months before her period begins. Everyone's body is different, so this is a general guide.
 
 `reading grade 8.41 · 42 words · judge: Answer accurately reflects corpus timeline of 2-3 years and discharge sign.`
 
@@ -326,7 +326,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** iron-rich foods; beans, green leafy vegetables, liver, eggs
 
 **A.** 
-> That's a great question! Your body is growing quickly, and it needs good food to stay strong, especially now that you have your period. Make sure to eat well and drink  enough water. Foods rich in iron, like beans, green leafy vegetables, liver, and eggs, are especially good for you.
+> That's a great question! Her body is growing quickly, and it needs good food to stay strong, especially now that she has her period. Make sure she eats well and drinks enough water. Foods rich in iron, like beans, green leafy vegetables, liver, and eggs, are especially good for her.
 
 `reading grade 5.57 · 50 words · judge: All claims supported by corpus on nutrition during puberty and menstruation.`
 
@@ -338,7 +338,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** 8 to 10 hours
 
 **A.** 
-> [warmly] That's a great question! [calm] At your age, adolescents generally need about eight to ten hours of sleep  every night. Getting enough rest helps your body grow and develop well.
+> [warmly] That's a great question! [calm] At her age, adolescents generally need about eight to ten hours of sleep every night. Getting enough rest helps her body grow and develop well.
 
 `reading grade 6.08 · 31 words · judge: Sleep recommendation matches corpus exactly,  empathy needs no support.`
 
@@ -398,7 +398,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** height increases quickly
 
 **A.** 
-> A growth spurt is when your height increases quickly. During puberty, you might grow several centimeters in a year. It's a normal part of your body changing from  a child's body to an adult's body.
+> A growth spurt is when height increases quickly. During puberty, she might grow several centimeters in a year. It's a normal part of her body changing from a child's body to an adult's body.
 
 `reading grade 6.49 · 35 words · judge: Answer accurately reflects corpus definition of growth spurt during puberty.`
 
@@ -459,7 +459,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** hips widen; gain some fat around the hips, thighs and chest
 
 **A.** 
-> During puberty, your body will change in many  ways. You might notice your hips widening and gaining some fat around your hips, thighs, and chest. This is a [normal] normal and healthy part of growing up.
+> During puberty, a girl's body changes in many ways. Your sister might notice her hips widening and gaining some fat around her hips, thighs, and chest. This is a [normal] normal and healthy part of growing up.
 
 `reading grade 5.14 · 36 words · judge: Body shape changes accurately described and supported by corpus content.`
 
@@ -471,7 +471,7 @@ _must answer, grounded in the corpus_
 **Corpus says:** pubic and underarm hair
 
 **A.** 
-> [warmly] Yes, that 's a very normal part of puberty. You'll notice hair growing in new places like your pubic area and under your arms. You might also see finer  hair on your legs and arms.
+> [warmly] Yes, that's a very normal part of puberty. She'll notice hair growing in new places like her pubic area and under her arms. She might also see finer hair on her legs and arms.
 
 `reading grade 4.81 · 36 words · judge: All claims about pubic,  underarm, leg and arm hair growth directly supported by corpus.`
 
