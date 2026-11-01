@@ -42,7 +42,7 @@ With data collection configured, the same console can report:
 
 - Which health topic was discussed (contraception, menstruation, HIV, GBV, pregnancy)
 - Whether a **referral to a clinic was made** — boolean
-- Whether the girl was **signposted to a human** — boolean
+- Whether the user was **signposted to a human** — boolean
 - Self-reported age band and county
 - Whether the agent **failed to answer** and why
 - Sentiment across the conversation
@@ -63,7 +63,7 @@ Backend already fetches `analysis` per conversation but reads only `transcriptSu
 
 **Status: verified in the agents skill. Configured under `platform_settings.guardrails`.**
 
-Completely absent from the console. For a product aimed at **adolescent girls discussing sexual and reproductive health**, this is not a nice-to-have — it is the first thing a serious buyer, donor, or ethics reviewer will probe.
+Completely absent from the console. For a product aimed at **young women discussing sexual and reproductive health**, this is not a nice-to-have — it is the first thing a serious buyer, partner, or ethics reviewer will probe.
 
 Four layers, all enforced independently of the LLM:
 
@@ -169,7 +169,7 @@ Ordered by credibility gained per unit of effort:
 | # | Capability | Effort | Why |
 |---|---|---|---|
 | 1 | **Surface `data_collection_results` + `evaluation_criteria_results`** | Small — data already fetched and discarded | Turns telemetry into programme outcomes. The whole pitch. |
-| 2 | **Safety / guardrails panel** | Small–medium | The first question anyone asks about AI for teenage girls |
+| 2 | **Safety / guardrails panel** | Small–medium | The first question anyone asks about AI for young women's health |
 | 3 | **Fix KB tiles with RAG index** | Small | Removes a visible bug that reads as "not working" |
 | 4 | **Model + deprecation display** | Small | Cheap maturity signal |
 | 5 | **Test suite runner** | Medium | Strongest technical differentiator |

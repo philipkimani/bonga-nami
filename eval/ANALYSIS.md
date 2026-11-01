@@ -104,8 +104,8 @@ working: general knowledge can reproduce the general claims, but not these.
 
 ## 3. Why these five metrics
 
-The metrics needed to cover "accuracy, as well as considerations specific to your
-content corpus and target audience." The set splits along that line.
+The metrics had to cover accuracy, and also what is specific to this content corpus and
+target audience. The set splits along that line.
 
 The set splits into two groups, and the second is the one that makes it an evaluation of
 *this* product rather than of RAG in general.

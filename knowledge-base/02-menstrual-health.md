@@ -49,7 +49,7 @@ What helps:
 - Pain medicine such as paracetamol or ibuprofen, taken as directed on the packet
 - Drinking enough water
 
-Pain that stops you attending school, or that painkillers do not touch, is **not** something you simply have to endure. See a health worker. Severe period pain can have treatable causes.
+Pain that stops you attending school or work, or that painkillers do not touch, is **not** something you simply have to endure. See a health worker. Severe period pain can have treatable causes.
 
 ## Managing your period
 
@@ -76,13 +76,13 @@ Mark the first day of each period on a calendar or phone. After a few months you
 
 You can go to school, play sport, run, swim, cook and do everything you normally do while on your period. There is no activity you must avoid.
 
-If you are worried about leaks at school, carry a spare pad and a spare pair of underwear in your bag.
+If you are worried about leaks at school or work, carry a spare pad and a spare pair of underwear in your bag.
 
-## Missing school because of your period
+## Missing school or work because of your period
 
-Many girls in Kenya miss school days because they cannot access pads, lack a private place to change, or have severe pain. None of these are things you should have to accept in silence.
+Many young women in Kenya miss school or work days because they cannot access pads, lack a private place to change, or have severe pain. None of these are things you should have to accept in silence.
 
-Talk to a teacher you trust, a school nurse, or a parent or guardian. Many schools and health facilities provide free sanitary pads. Asking is not shameful.
+Talk to a health worker, a school nurse, or someone you trust. Many clinics and health facilities provide free sanitary pads. Asking is not shameful.
 
 ## When to see a health worker
 
@@ -90,7 +90,7 @@ Talk to a teacher you trust, a school nurse, or a parent or guardian. Many schoo
 - Periods stop for 3 months or more (and pregnancy is not possible)
 - Bleeding heavily enough to soak a pad every hour
 - Periods lasting more than 7 days
-- Severe pain that keeps you from school or that painkillers do not help
+- Severe pain that keeps you from school, work or that painkillers do not help
 - Bleeding between periods
 - Bad-smelling discharge, fever, or pain during urination
 

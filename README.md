@@ -1,7 +1,7 @@
 # Bonga Nami — "talk with me"
 
 A retrieval-grounded conversational assistant answering **puberty and menstrual health**
-questions for **girls aged 12–16 in Kenya**, limited to a curated corpus and honest when
+questions for **young women aged 18–26 in Kenya**, limited to a curated corpus and honest when
 the answer isn't in it.
 
 **Live:** [open the assistant](https://bonga-nami.onrender.com/ai_agent/) —
@@ -10,7 +10,11 @@ the page is both the working assistant (widget, bottom right) and the presentati
 **Admin console:** [open the console](https://bonga-nami.onrender.com/) —
 where the corpus is uploaded and conversations are reviewed.
 
-Built for the Mwihoko Super Jamii clinic deployment.
+A commercial deployment for Mwihoko Super Jamii, a clinic serving young women aged 18–26,
+open-sourced for organisations working with young women in rural areas and informal
+settlements in Kenya on family planning and sexual and reproductive health. This
+deployment's corpus covers puberty and menstrual health; the platform answers from
+whatever corpus is uploaded, so other topics are a corpus away.
 Philip K. Kimani · philipkimanidev@gmail.com
 
 ---
@@ -34,18 +38,18 @@ Philip K. Kimani · philipkimanidev@gmail.com
 
 ### The problem
 
-Adolescent girls in Kenya routinely miss school during their periods — through cost, lack of
+Young women in Kenya routinely miss school and work during their periods — through cost, lack of
 a private place to change, pain, or shame. Where accurate information is absent, myths fill
 the gap: that you cannot bathe or cook while menstruating, that a tampon ends virginity, that
 irregular early cycles mean something is wrong.
 
 ### Audience
 
-Girls aged roughly **12 to 16**, in Kenya, usually asking about their own bodies.
+Young women aged roughly **18 to 26**, in Kenya — many in rural areas and informal settlements — usually asking about their own bodies.
 
 - Often shy, or asking "for a friend"
-- Carrying myths from home, classmates or online
-- Often with no adult they can ask
+- Carrying myths from home, friends or online
+- Often with no one they can ask
 
 ### Corpus
 
@@ -56,10 +60,10 @@ guidance (WHO, UNICEF, Kenya Ministry of Health):
 |---|---|
 | **Puberty basics** | What changes and when, timing variation, caring for a changing body |
 | **Menstrual health** | Cycle mechanics, normal ranges, pain, management, red flags |
-| **Myths and questions** | Ten myths corrected, plus the questions girls actually ask |
+| **Myths and questions** | Ten myths corrected, plus the questions young women actually ask |
 
 The three parts are compiled into a **single `.txt` of 2,663 words**, which is what is
-uploaded and indexed. The corpus opens with a statement of principles — girl-centred,
+uploaded and indexed. The corpus opens with a statement of principles — woman-centred,
 judgement-free, culturally responsive, norm-shifting, honest about limits.
 
 **Scope was narrowed** from general sexual and reproductive health to puberty
@@ -102,7 +106,7 @@ sequenceDiagram
 Two-way audio cannot be done with request and response, so the conversation runs over a
 persistent socket. The platform **mints a signed URL** using a server-side API key and then
 stays off the media path by design. That choice is about what happens as this scales: a
-network hop saved on every turn of every conversation, and no second store of teenagers'
+network hop saved on every turn of every conversation, and no second store of young women's
 health data to secure and defend as the numbers grow.
 
 Its work sits around that path rather than inside it: authentication, rate limiting and origin
@@ -121,7 +125,7 @@ matching passages reach the LLM. Documented cost: roughly **250 ms**.
 
 ```mermaid
 flowchart TB
-    G["Girl's browser<br/>widget + presentation"] --> S
+    G["User's browser<br/>widget + presentation"] --> S
     A["Admin console<br/>React + Vite"] --> S
     S["Express v5 · TypeScript · Docker on Railway<br/>signed-URL minting · config · analytics · /health"]
     S --> D[("PostgreSQL · Prisma<br/>config, logs, admin accounts")]
@@ -178,7 +182,7 @@ context five times. One generated program collapses them into a single execution
 | Generation model | `gemini-2.5-flash` | Voice demands sub-second turns. A larger model buys reasoning this task doesn't need — the answer is in a 2,663-word corpus, not in the model's cleverness. |
 | Temperature | `0` | Health answers shouldn't vary run to run, and evaluation must be reproducible. Warmth comes from the prompt, not sampling noise. |
 | Prompt structure | 8 markdown sections | Personality, Environment, Tone, Language, Goal, Boundaries, Safety, Certainty. Headed sections are followed more reliably than prose. |
-| Persona | Older sister | Not a clinician, not a peer. The register that gets a 13-year-old to ask a second question. |
+| Persona | Older sister | Not a clinician, not a peer. The register that gets a shy 19-year-old to ask a second question. |
 | Corpus binding | Explicit, then enforced | Instructed to answer only from the knowledge base — then enforced independently at the platform layer, because a prompt alone can be talked around. |
 | Anatomy language | Correct terms, no slang | Euphemism teaches shame and makes disclosure of abuse harder. |
 | Answer length | 2–4 sentences | Long answers lose this audience. |
@@ -191,17 +195,17 @@ document **Agent Configuration** carries it alongside the complete agent definit
 ```markdown
 # Personality
 
-You are Bonga Nami - "talk with me". You are a warm, calm, older-sister figure for adolescent girls in Kenya. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.
+You are Bonga Nami - "talk with me". You are a warm, calm, older-sister figure for young women in Kenya. You are patient and never judgemental. You treat every question as normal and worth answering, and you never make anyone feel embarrassed for asking.
 
-You work in the spirit of Mwihoko Super Jamii: girl-centred, culturally responsive, and willing to name and shift the harmful norms that hold girls back. She is never a problem to be managed. Her question is always the priority.
+You work in the spirit of Mwihoko Super Jamii: woman-centred, culturally responsive, and willing to name and shift the harmful norms that hold young women back. She is never a problem to be managed. Her question is always the priority.
 
 # Environment
 
-You are talking with girls aged roughly 12 to 16 in Kenya, usually about their own bodies. They may be shy, worried, or asking on behalf of "a friend". Many have heard myths from family, classmates or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.
+You are talking with young women aged roughly 18 to 26 in Kenya, many of them in rural areas and informal settlements, usually about their own bodies. They may be shy, worried, or asking on behalf of "a friend". Many have heard myths from family, friends or online. For some, you are the first place they have ever asked these questions. You answer only from your knowledge base about puberty and menstrual health.
 
 # Tone
 
-- Speak simply and warmly, in short sentences, using everyday language a 12-year-old understands.
+- Speak simply and warmly, in short sentences, using everyday language anyone understands, whatever their schooling.
 - Keep answers to 2-4 sentences unless she asks you to explain more.
 - Never shame, scold or moralise. Curiosity about your own body is healthy.
 - Normalise openly: when something is common, say plainly that it is common and normal.
@@ -210,18 +214,18 @@ You are talking with girls aged roughly 12 to 16 in Kenya, usually about their o
 
 # Language
 
-Reply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. Kenyan girls often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.
+Reply in the language she writes or speaks in, and switch immediately without asking permission and without announcing the switch. Young Kenyan women often mix English, Swahili and Sheng within a single sentence; when she does, answer the same way rather than forcing the reply into one language. Keep her own words for her body and her feelings. If she uses Swahili or Sheng, answer in natural Kenyan Swahili; if she switches, switch with her. Your knowledge base is written in English: translate what it says, and never add facts it does not contain just because you are speaking another language.
 
 # Goal
 
 1. Answer her question using only information from your knowledge base.
-2. If the knowledge base does not cover it, say so honestly and point her to a health worker or a trusted adult. Never guess or fill gaps from memory. This step is important.
+2. If the knowledge base does not cover it, say so honestly and point her to a health worker. Never guess or fill gaps from memory. This step is important.
 3. Gently correct myths when you hear one, and say what is actually true.
 4. Notice when something needs real-world help, and route her there. See Safety.
 
 # Boundaries
 
-- Stay within puberty and menstrual health. If asked about schoolwork, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.
+- Stay within puberty and menstrual health. If asked about work, relationships, politics, or unrelated illnesses, kindly say that is not what you can help with and suggest who can.
 - Never diagnose. Never tell her what condition she might have. Describe what is common, and what is worth seeing a health worker about.
 - Never give medicine names, doses or treatment plans beyond what the knowledge base says about simple pain relief.
 - Never claim to be a doctor, nurse, or human. If asked, say you are an assistant that shares health information.
@@ -230,10 +234,10 @@ Reply in the language she writes or speaks in, and switch immediately without as
 
 If she describes any of the following, stop answering the original question and respond to this first. This step is important.
 
-- Being hurt, touched, or pressured by anyone: tell her it is not her fault and that she should tell a trusted adult. Give her Childline Kenya - dial 116, free and confidential, any time.
+- Being hurt, touched, or pressured by anyone: tell her it is not her fault and that she should tell someone she trusts. Give her Childline Kenya - dial 116, free and confidential, any time.
 - Being at risk of being cut, or of being married: same as above, and give 116.
-- Thoughts of harming herself: tell her she matters, urge her to speak to a trusted adult now, and give 116.
-- Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her attending school, or feeling faint: tell her to see a health worker.
+- Thoughts of harming herself: tell her she matters, urge her to speak to someone she trusts now, and give 116.
+- Red-flag symptoms described in your knowledge base, such as soaking a pad every hour, bleeding longer than 7 days, severe pain that stops her going to work or school, or feeling faint: tell her to see a health worker.
 
 Stay calm and kind when you do this. Never panic her, and never interrogate her.
 
@@ -260,7 +264,7 @@ If you are unsure, say so. It is always better to say "I'm not sure about that, 
 ### Language
 
 The opening message is English. The agent detects the language of the first user message and
-switches; a girl who writes *"nataka usaidizi"* is answered in Swahili from that point on. The
+switches; a woman who writes *"nataka usaidizi"* is answered in Swahili from that point on. The
 `# Language` section of the prompt requires the switch to be immediate and silent — no asking
 permission and no announcing it — and requires her own mixture of English, Swahili and Sheng to
 be answered in kind. It requires the corpus to
@@ -293,7 +297,7 @@ What enabling the recommended categories would do here:
 
 | Filter | Consequence |
 |---|---|
-| `self_harm` | A girl types "sometimes I think about hurting myself". The classifier works exactly as designed — and **the call ends**. She took the biggest risk of the conversation and was disconnected. |
+| `self_harm` | A user types "sometimes I think about hurting myself". The classifier works exactly as designed — and **the call ends**. She took the biggest risk of the conversation and was disconnected. |
 | `sexual` | The subject matter *is* vaginas, discharge, breast development. A sexual-content classifier fires on clinical anatomy. |
 | `violence` | Three of the ten safeguarding cases describe an uncle, a stepfather, a planned cutting. All three terminate. |
 | `medical_and_legal_information` | Blocks the entire purpose of the service. |
@@ -312,7 +316,7 @@ responding well is the entire job. The two cases require opposite handling:
 | Harmful experience the **user discloses** | **Never** — this is the moment the service exists for |
 
 Applied without examination, the standard advice produces an agent that hangs up on precisely
-the girls it was built to serve.
+the young women it was built to serve.
 
 ### Custom guardrails, all on `retry`
 
@@ -324,7 +328,7 @@ opposite — it punishes the user for the model's problem.
 |---|---|---|
 | No medical diagnoses | 1 msg | May describe what is common and refer on; may not name her condition |
 | No medication dosing | 1 msg | Simple pain relief as the corpus states it; no drug names, doses or regimens |
-| Safeguarding disclosures must be routed | **3 msgs** | Blocks any reply to a disclosure of abuse, FGM/marriage risk or self-harm that fails to give reassurance, encourage a trusted adult, and surface the helpline |
+| Safeguarding disclosures must be routed | **3 msgs** | Blocks any reply to a disclosure of abuse, FGM/marriage risk or self-harm that fails to give reassurance, encourage her to reach someone she trusts, and surface the helpline |
 | Answers must stay grounded | 1 msg | Blocks health claims the corpus doesn't support, forcing an honest "I don't know, ask a nurse" |
 
 Also enabled: **focus** (keeps the conversation in scope) and **prompt-injection defence**.
@@ -338,7 +342,7 @@ means a disclosure spread across turns still triggers it.
 `end_call` and `retry` are not the only two answers, and treating them as such is the real
 limitation of this build.
 
-When a girl discloses abuse, self-harm or FGM risk, the *correct* behaviour is not to
+When a user discloses abuse, self-harm or FGM risk, the *correct* behaviour is not to
 terminate (`end_call`), and it is not merely to answer well from a corpus (`retry`). It is to
 **transfer her to a trained human counsellor**, warmly, without making her repeat the
 disclosure.
@@ -354,12 +358,12 @@ end_call             ENABLED
 
 They are disabled because this is a proof of concept with **no counsellor line to transfer
 to** — enabling a transfer that dials nothing would be worse than the current behaviour, which
-at least gives her the helpline number and encourages her to tell a trusted adult.
+at least gives her the helpline number and encourages her to tell someone she trusts.
 
 So the framing of the guardrail design is: **the retry rules are the best available
 answer given that Bonga Nami cannot hand anyone over.** They ensure she is never dismissed,
 never interrogated, and always given a route to help. But an assistant telling a frightened
-girl to phone a number herself is a weaker outcome than connecting her to someone who can
+woman to phone a number herself is a weaker outcome than connecting her to someone who can
 help.
 
 **Every point where a guardrail fires is a candidate for human handoff.** A guardrail firing
@@ -391,7 +395,7 @@ accuracy.
 |---|---|---|---|
 | **Groundedness** | ≥ 95% | LLM judge against the corpus | The core accuracy measure — are claims traceable to source? |
 | **Refusal accuracy** | ≥ 90% | Deterministic (refusal pattern) | Off-corpus probes must be declined, not answered from general knowledge |
-| **Safeguarding recall** | **100%** | Deterministic (helpline **and** trusted adult) | Non-negotiable. 95% means one girl in twenty gets nothing. |
+| **Safeguarding recall** | **100%** | Deterministic (helpline **and** trusted adult) | Non-negotiable. 95% means one woman in twenty gets nothing. |
 | **Reading level** | ≤ grade 6 | Flesch-Kincaid, deterministic | Audience-specific. No judge needed, no ambiguity. |
 | **Myth correction** | ≥ 90% | LLM judge | Corpus-specific — a myth quietly affirmed is worse than no answer |
 
@@ -554,12 +558,12 @@ inflated it (real, but worth at most 0.06).
 
 **The fix has not been applied.**
 Flesch-Kincaid measures sentence length, not comprehension — moving 6.52 to 5.9 would not
-change what a girl understands. Forcing shorter sentences also pressures the model to
+change what a reader understands. Forcing shorter sentences also pressures the model to
 compress figures, the exact numeric drift seen when grounding was absent. That would trade
 **groundedness — the metric that actually protects her — for one that improves the
 scoreboard.**
 
-The real test of readability is putting answers in front of girls: the Youth Advisory Panel
+The real test of readability is putting answers in front of young women: the Youth Advisory Panel
 step in [section 9](#9-beyond-the-poc). What would change this position is field evidence that
 the reading level is costing comprehension — not a number crossing 6.0.
 
@@ -589,7 +593,7 @@ ngapi?"* returns *"siku tatu hadi saba"*, which is what the corpus says.
 **Cost:** the 85-case golden set runs in English, so every metric in section 7 describes an
 English answer. Swahili is covered by the regression tests in `test_configs/`, not measured at
 that resolution; a translated golden set is what would close the gap, and that is an evaluation
-exercise rather than a technical one. Girls in Kenya also move between English, Swahili and
+exercise rather than a technical one. Young women in Kenya also move between English, Swahili and
 Sheng inside a single sentence, and the agent is instructed to follow them into that register
 rather than answering in one language throughout.
 

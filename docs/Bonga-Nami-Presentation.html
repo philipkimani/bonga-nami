@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bonga Nami — presentation | Mwihoko Super Jamii Clinic deployment</title>
-<meta name="description" content="Bonga Nami - a retrieval-grounded Q&A assistant answering puberty and menstrual health questions for girls aged 12-16 in Kenya.">
+<title>Bonga Nami — presentation | Mwihoko Super Jamii</title>
+<meta name="description" content="Bonga Nami - a retrieval-grounded Q&A assistant answering puberty and menstrual health questions for young women aged 18-26 in Kenya.">
 <style>
 :root{
   --canvas:#241041; --canvas-2:#2E1552; --deep:#1A0B31;
@@ -224,7 +224,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <p class="eyebrow rise"><span class="num">00</span> Mwihoko Super Jamii &middot; Clinic deployment <span class="rule"></span></p>
   <h1 class="rise">Bonga&nbsp;Nami<span class="kicker">"talk with me"</span></h1>
   <p class="lede rise" style="max-width:62ch;margin-top:1.4rem">A retrieval-grounded assistant answering
-    puberty and menstrual health questions for girls aged 12&ndash;16 in Kenya &mdash; limited to a
+    puberty and menstrual health questions for young women aged 18&ndash;26 in Kenya &mdash; limited to a
     curated corpus, and honest when the answer isn't in it.</p>
   <dl class="cover-meta rise">
     <dt>Prepared by</dt><dd>Philip K. Kimani &middot; <a href="mailto:philipkimanidev@gmail.com">philipkimanidev@gmail.com</a></dd>
@@ -262,14 +262,14 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
 <!-- 01 ---------------------------------------------------------------- -->
 <section class="slide" id="s1"><div class="inner">
   <p class="eyebrow rise"><span class="num">01</span> Use case <span class="rule"></span> corpus, audience, success metrics</p>
-  <h2 class="rise">A girl asks a question she can't ask anyone else.</h2>
-  <p class="lede rise">Adolescent girls in Kenya routinely miss school during their periods &mdash; through cost,
+  <h2 class="rise">A young woman asks a question she can't ask anyone else.</h2>
+  <p class="lede rise">Young women in Kenya routinely miss school and work during their periods &mdash; through cost,
     lack of a private place to change, pain, or shame. The information gap is filled by myths.
-    This assistant answers <strong>only from a curated corpus</strong>, in a register a 12-year-old trusts.</p>
+    This assistant answers <strong>only from a curated corpus</strong>, in a register a shy 19-year-old trusts.</p>
   <div class="grid g3 rise">
     <div class="card"><span class="tag">Audience</span>
       <ul class="ticks">
-        <li>Girls aged 12&ndash;16, Kenya</li>
+        <li>Young women aged 18&ndash;26, Kenya &mdash; rural areas and informal settlements</li>
         <li>Often shy, or asking "for a friend"</li>
         <li>Carrying myths from home or online</li>
         <li>Often with no adult they can ask</li>
@@ -278,7 +278,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <ul class="ticks">
         <li>Puberty: what changes, and when</li>
         <li>Menstrual cycle, pain, management</li>
-        <li>Myths and the questions girls ask</li>
+        <li>Myths and the questions young women ask</li>
         <li>2,663 words &middot; closed &middot; cited</li>
       </ul></div>
     <div class="card"><span class="tag">Success metrics</span>
@@ -349,7 +349,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <div class="grid g2 rise" style="align-items:start">
     <svg class="diagram" viewBox="0 0 460 330" role="img" aria-label="Architecture: browser and admin console talk to an Express server on Railway backed by Postgres; the server integrates with the LLM API for retrieval, generation and speech.">
       <rect class="box" x="10" y="10" width="180" height="46" rx="10"/>
-      <text x="26" y="31">Girl's browser</text><text class="lbl" x="26" y="47">widget + this page</text>
+      <text x="26" y="31">User's browser</text><text class="lbl" x="26" y="47">widget + this page</text>
       <rect class="box" x="255" y="10" width="180" height="46" rx="10"/>
       <text x="271" y="31">Admin console</text><text class="lbl" x="271" y="47">React + Vite</text>
       <path class="flow draw" d="M100,58 L100,96"/><path class="flow draw" d="M345,58 L345,96"/>
@@ -385,7 +385,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <p><b>Why that matters for tokens:</b> every separate tool call is another round trip, and every round
         trip re-sends the entire conversation context to the model. Five tool calls means five times paying
         for the same context. One generated program collapses them into a single execution &mdash; fewer
-        tokens, lower latency, and fewer places for the conversation to stall while a girl waits.</p></div>
+        tokens, lower latency, and fewer places for the conversation to stall while she waits.</p></div>
     </div>
   </div>
 </div></section>
@@ -402,7 +402,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
     <div class="row"><div class="k">Prompt structure</div><div class="v">8 sections</div>
       <div class="why">Personality, Environment, Tone, Language, Goal, Boundaries, Safety, Certainty. Markdown headings are prioritised more reliably than prose paragraphs.</div></div>
     <div class="row"><div class="k">Persona</div><div class="v">older sister</div>
-      <div class="why">Not a clinician and not a peer. The register that gets a 13-year-old to ask a second question.</div></div>
+      <div class="why">Not a clinician and not a peer. The register that gets a shy 19-year-old to ask a second question.</div></div>
     <div class="row"><div class="k">Corpus binding</div><div class="v">explicit</div>
       <div class="why">Instructed to answer only from the knowledge base and to say so when it can't &mdash; then enforced independently at the platform layer, because a prompt alone can be talked around.</div></div>
     <div class="row"><div class="k">Anatomy language</div><div class="v">correct terms</div>
@@ -424,7 +424,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <span class="k">one action, shared by all seven &darr;</span><br>
         trigger_action : <span class="hot">end_call</span>
       </div>
-      <p class="lead" style="margin-top:.9rem">A girl types <i>"sometimes I think about hurting
+      <p class="lead" style="margin-top:.9rem">A user types <i>"sometimes I think about hurting
         myself."</i> The classifier works exactly as designed &mdash; and <b>the call ends.</b></p>
       <p class="detail">A filter scans <b>content</b>, not <b>direction</b>. It cannot tell an agent
         <i>encouraging</i> self-harm from a child <i>disclosing</i> it.</p>
@@ -439,7 +439,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <p class="lead" style="margin-top:.9rem">So the filters are off, and four rules
         <b>regenerate</b> a bad answer instead.</p>
       <p class="detail">The safeguarding rule is the inverse of a filter: it doesn't suppress the topic,
-        it <b>requires</b> reassurance, a trusted adult and the helpline.</p>
+        it <b>requires</b> reassurance, someone she trusts and the helpline.</p>
     </div>
   </div>
 
@@ -471,7 +471,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
         <li>Myth correction &ge; 90%</li>
       </ul>
       <p class="detail">A disclosure of abuse answered as though it were a question about cramps is a
-        failure <b>no accuracy metric registers</b>. 100%, not 95% &mdash; at 95%, one girl in twenty
+        failure <b>no accuracy metric registers</b>. 100%, not 95% &mdash; at 95%, one woman in twenty
         gets nothing.</p></div>
   </div>
 
@@ -558,11 +558,11 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
   <p class="eyebrow rise"><span class="num">08</span> Trade-offs <span class="rule"></span> limitations and alternatives considered</p>
   <h2 class="rise">What this costs.</h2>
   <div class="grid g2 rise">
-    <div class="card"><span class="tag">Evaluated offline, not with girls</span>
+    <div class="card"><span class="tag">Evaluated offline, not with users</span>
       <p>Quality is measured against a golden set scored by three independent judges &mdash; repeatable, cheap,
         and runnable on every change.</p>
-      <p><b>The cost:</b> no 13-year-old has used it. A judge can score groundedness and refusal; it cannot
-        tell me whether a girl felt safe enough to ask the second question. That answer only comes from
+      <p><b>The cost:</b> no client has used it yet. A judge can score groundedness and refusal; it cannot
+        tell me whether a young woman felt safe enough to ask the second question. That answer only comes from
         moderated sessions with the real audience, and it would change the prompt before it changed the code.</p></div>
     <div class="card"><span class="tag">Corpus scope</span>
       <p>Narrowed from sexual and reproductive health to puberty and menstrual health alone.</p>
@@ -574,7 +574,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       <p><b>The cost:</b> the 85 cases run in English, so the metrics above describe English answers.
         Swahili is covered by regression tests rather than measured at that resolution &mdash; translating
         the corpus and rebuilding the golden set is what would close the gap, and that is an evaluation
-        exercise rather than a technical one. Girls here also move between English, Swahili and Sheng inside a single sentence, and the agent is instructed to follow them into that register.</p></div>
+        exercise rather than a technical one. Young women here also move between English, Swahili and Sheng inside a single sentence, and the agent is instructed to follow them into that register.</p></div>
     <div class="card"><span class="tag">Authored corpus</span>
       <p>Written for the audience and cited to WHO, UNICEF and Kenya MoH guidance.</p>
       <p><b>The cost:</b> it isn't a real-world ingestion problem. Source PDFs would have been messier,
@@ -628,7 +628,7 @@ footer.end a:focus-visible{outline:2px solid var(--mint);outline-offset:3px;bord
       </ul></div>
   </div>
   <footer class="end">
-    <p><b>Bonga Nami</b> &mdash; built for the Mwihoko Super Jamii clinic deployment.</p>
+    <p><b>Bonga Nami</b> &mdash; a commercial deployment for Mwihoko Super Jamii, open-sourced for organisations working with young women in Kenya on family planning and sexual and reproductive health.</p>
     <p class="byline">Presented by <b>Philip K. Kimani</b> &middot;
       <a href="mailto:philipkimanidev@gmail.com">philipkimanidev@gmail.com</a></p>
   </footer>

@@ -47,3 +47,5 @@ docs/Foundations_of_Embeddings_*
 # rendered documents — publish the .md sources only
 *.pdf
 *.docx
+# PDF generators
+docs/build_pdfs.py

@@ -24,7 +24,7 @@ Usually false, especially in the first two years after periods begin. Cycles tak
 False. Stress, illness, weight change, heavy exercise, and simply being in the early years of menstruating can all delay a period.
 
 **"Girls should not talk about periods, especially around boys or men."**
-False. Periods are a normal biological process. Being able to talk about them is how girls get pads, pain relief and support when they need them.
+False. Periods are a normal biological process. Being able to talk about them is how women and girls get pads, pain relief and support when they need them.
 
 **"Herbs, salt or soap inside the vagina keep it clean."**
 False, and harmful. The vagina cleans itself. Putting substances inside disturbs its natural balance and causes infections and injury. Wash only the outside, with clean water.
@@ -40,8 +40,8 @@ Usually not much. Some girls feel mild cramping, others feel nothing at all. Pai
 **How will I know my first period is coming?**
 Often you will notice clear or whitish discharge in your underwear for several months beforehand. Breast development usually starts 2 to 3 years earlier. Many girls get no clear warning, which is why it helps to carry a spare pad once you have started developing.
 
-**What if my period starts at school?**
-Ask a female teacher, the school nurse, or a friend for a pad. Many schools keep them. If you have nothing, folded clean tissue or cloth in your underwear will hold until you get home, and tying a sweater around your waist covers any mark. It happens to almost everyone at some point.
+**What if my period starts at school or work?**
+Ask a female colleague or teacher, a nurse, or a friend for a pad. Many schools and workplaces keep them. If you have nothing, folded clean tissue or cloth in your underwear will hold until you get home, and tying a sweater around your waist covers any mark. It happens to almost everyone at some point.
 
 **How many pads will I need in a day?**
 Most girls use 3 to 6 across a day, changing every 4 to 6 hours. Heavier days need more.
